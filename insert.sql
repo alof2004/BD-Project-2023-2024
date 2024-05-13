@@ -1,8 +1,8 @@
 INSERT INTO AgroTrack_Pessoa(Nome,N_CartaoCidadao,Contacto) VALUES
-('Jo„o Silva', 12345678, 912345678),
+('JoÔøΩo Silva', 12345678, 912345678),
 ('Jorge Miguel', 87654321, 912345678),
 ('Maria Sousa', 98765432, 934567890),
-('AntÛnio Ferreira', 45678912, 923456789),
+('Ant√≥nio Ferreira', 45678912, 923456789),
 ('Afonso Lucas', 18041804, 918049638),
 ('Beatriz Oliveira', 75395128, 925874136),
 ('Pedro Santos', 36925814, 917253684),
@@ -10,15 +10,15 @@ INSERT INTO AgroTrack_Pessoa(Nome,N_CartaoCidadao,Contacto) VALUES
 ('Miguel Rodrigues', 58246913, 913824769),
 ('Carolina Pereira', 31472658, 919372645),
 ('Rui Martins', 95135786, 928465713),
-('InÍs Fernandes', 82461357, 927346185),
-('LuÌs Almeida', 75315986, 915278463),
+('In√™s Fernandes', 82461357, 927346185),
+('Lu√≠s Almeida', 75315986, 915278463),
 ('Ana Sousa', 36985214, 931475869),
 ('Tiago Oliveira', 74125896, 932587146),
 ('Mariana Silva', 58214736, 916243785),
 ('Francisco Pereira', 36914725, 938571624),
 ('Catarina Santos', 15948762, 935824716),
 ('Diana Costa', 78523691, 934185276),
-('GonÁalo Rodrigues', 25836947, 917524836),
+('Gon√ßalo Rodrigues', 25836947, 917524836),
 ('Rita Martins', 36985247, 936487251),
 ('Eduardo Oliveira', 78945612, 910203040),
 ('Isabel Santos', 65498732, 915171819),
@@ -32,39 +32,39 @@ INSERT INTO AgroTrack_Pessoa(Nome,N_CartaoCidadao,Contacto) VALUES
 ('Andreia Costa', 15948762, 935824716),
 ('Xavier Martins', 36985249, 936487253),
 ('Yvone Oliveira', 78945614, 910203042),
-('ZÈ Santos', 65498734, 915171821),
-('¡lvaro Costa', 32165400, 920304052),
-('B·rbara Ferreira', 98732167, 925262730),
+('Z√© Santos', 65498734, 915171821),
+('√Ålvaro Costa', 32165400, 920304052),
+('B√°rbara Ferreira', 98732167, 925262730),
 ('Carlos Pereira', 45612380, 930384952),
 ('Diana Carvalho', 36985217, 931475873),
 ('Eduardo Rodrigues', 74125903, 932587150),
-('F·tima Santos', 58214740, 916243788),
+('F√°tima Santos', 58214740, 916243788),
 ('Gilberto Oliveira', 36914728, 938571628),
 ('Helena Costa', 15948766, 935824720);
 
 INSERT INTO AgroTrack_Empresa(Id_Empresa, Nome, Morada) VALUES
 (1, 'Quinta da Vinha Verde', 'Rua Principal, 123'),
-(2, 'Quinta da EsperanÁa', 'Avenida Central, 456'),
-(3, 'Quinta da Boa Vista', 'Travessa Secund·ria, 789'),
+(2, 'Quinta da Esperan√ßa', 'Avenida Central, 456'),
+(3, 'Quinta da Boa Vista', 'Travessa Secund√°ria, 789'),
 (4, 'Quinta da Fonte Fresca', 'Rua das Flores, 10'),
 (5, 'Quinta das Oliveiras', 'Avenida dos Aliados, 20'),
-(6, 'Quinta do Sol Nascente', 'PraÁa da Liberdade, 30'),
-(7, 'Quinta da Primavera', 'Rua dos LÌrios, 15'),
+(6, 'Quinta do Sol Nascente', 'Pra√ßa da Liberdade, 30'),
+(7, 'Quinta da Primavera', 'Rua dos LÔøΩrios, 15'),
 (8, 'Quinta do Sol Poente', 'Avenida das Oliveiras, 25'),
-(9, 'LogÌstica ¡gil', 'Avenida das Entregas Eficientes, 60'),
+(9, 'Log√≠stica √Ågil', 'Avenida das Entregas Eficientes, 60'),
 (10, 'Fretes Seguros', 'Travessa dos Transportes Seguros, 70'),
-(11, 'Transportes Velozes LTDA', 'Rua das Rotas R·pidas, 80'),
-(12, 'LogÌstica Global', 'Avenida da EficiÍncia LogÌstica, 90'),
+(11, 'Transportes Velozes LTDA', 'Rua das Rotas RÔøΩpidas, 80'),
+(12, 'LogÔøΩstica Global', 'Avenida da EficiÔøΩncia LogÔøΩstica, 90'),
 (13, 'Entrega Segura', 'Travessa da Entrega Certa, 100'),
-(14, 'Transportadora ¡gil Express', 'Rua da Entrega Expressa, 110'),
-(15, 'Fretes R·pidos SA', 'Avenida dos Fretes, 120'),
-(16, 'LogÌstica Integrada', 'Travessa da LogÌstica, 130'),
+(14, 'Transportadora ÔøΩgil Express', 'Rua da Entrega Expressa, 110'),
+(15, 'Fretes RÔøΩpidos SA', 'Avenida dos Fretes, 120'),
+(16, 'LogÔøΩstica Integrada', 'Travessa da LogÔøΩstica, 130'),
 (17, 'Supermercado Central', 'Rua Principal, 250'),
 (18, 'Loja do Bairro', 'Avenida Central, 260'),
-(19, 'Casa dos UtensÌlios', 'Travessa das Utilidades, 270'),
+(19, 'Casa dos UtensÔøΩlios', 'Travessa das Utilidades, 270'),
 (20, 'Continente', 'Rua das Novidades, 280'),
-(21, 'ArmazÈm Geral', 'Avenida das Mercadorias, 290'),
-(22, 'Loja do ComÈrcio', 'Travessa do ComÈrcio, 300'),
+(21, 'ArmazÔøΩm Geral', 'Avenida das Mercadorias, 290'),
+(22, 'Loja do ComÔøΩrcio', 'Travessa do ComÔøΩrcio, 300'),
 (23, 'Hipermercado Mega', 'Rua da Economia, 310'),
 (24, 'Pingo Doce', 'Avenida da Variedade, 320');
 
@@ -92,7 +92,7 @@ INSERT INTO AgroTrack_Animal(Id_Animal, Tipo_de_Animal) VALUES
 (11, 'Burro'),
 (12, 'Galinha'),
 (13, 'Peru'),
-(14, 'C„o');
+(14, 'C√£o');
 
 INSERT INTO AgroTrack_Quinta_Animal(Empresa_Id_Empresa, Idade, Brinco, Id_Animal) VALUES
 (1, 5, '1VAC', 1),
@@ -101,8 +101,8 @@ INSERT INTO AgroTrack_Quinta_Animal(Empresa_Id_Empresa, Idade, Brinco, Id_Animal
 (1, 6, '2BUR', 11),
 (2, 1, '1GLN', 12),
 (2, 2, '2GLN', 12),
-(2, 1, '1C√O', 14),
-(2, 2, '2C√O', 14),
+(2, 1, '1CAO', 14),
+(2, 2, '2CAO', 14),
 (2, 3, '1GAN', 8),
 (3, 3, '1PRU', 13),
 (3, 4, '2PRU', 13),
@@ -123,22 +123,22 @@ INSERT INTO AgroTrack_Quinta_Animal(Empresa_Id_Empresa, Idade, Brinco, Id_Animal
 
 INSERT INTO AgroTrack_Planta(Id_planta, Tipo, Estacao) VALUES
 (1,'Macieira', 'Primavera'),
-(2,'Alface', 'Ver„o'),
-(3,'Macieira', 'Ver„o'),
+(2,'Alface', 'Ver√£o'),
+(3,'Macieira', 'Ver√£o'),
 (4,'Tomate', 'Outono'),
 (5,'Laranjeira', 'Todas'),
 (6, 'Pereira', 'Primavera'),
 (7,'Alface', 'Primavera'),
 (8,'Tomate', 'Primavera'),
-(9,'Milho', 'Ver„o'),
-(10,'Cerejeira', 'Ver„o'),
-(11,'Mel„o', 'Ver„o'),
+(9,'Milho', 'Ver√£o'),
+(10,'Cerejeira', 'Ver√£o'),
+(11,'Mel√£o', 'Ver√£o'),
 (12,'Bananeira', 'Todas'),
 (14, 'Cenoura', 'Inverno'),
-(15, 'AbÛbora', 'Outono'),
+(15, 'Ab√≥bora', 'Outono'),
 (16, 'Morangueiro', 'Primavera'),
-(17, 'Videira', 'Ver„o'),
-(18, 'Feij„o', 'Ver„o'),
+(17, 'Videira', 'Ver√£o'),
+(18, 'Feij√£o', 'Ver√£o'),
 (19, 'Cebola', 'Inverno'),
 (20, 'Batata', 'Inverno');
 
@@ -153,11 +153,11 @@ INSERT INTO AgroTrack_Quinta_Planta(Empresa_Id_Empresa, Lote, Id_Planta) VALUES
 (4, 'Lote_H', 9),   -- Milho na Empresa 4
 (5, 'Lote_I', 7),   -- Alface na Empresa 5
 (5, 'Lote_J', 10),  -- Cerejeira na Empresa 5
-(6, 'Lote_K', 11),   -- Mel„o na Empresa 6
+(6, 'Lote_K', 11),   -- MelÔøΩo na Empresa 6
 (6, 'Lote_L', 12),   -- Bananeira na Empresa 6
 (7, 'Lote_M', 13),   -- Cenoura na Empresa 7
 (7, 'Lote_N', 14),   -- Cenoura na Empresa 7
-(8, 'Lote_O', 15),   -- AbÛbora na Empresa 8
+(8, 'Lote_O', 15),   -- AbÔøΩbora na Empresa 8
 (8, 'Lote_P', 16);   -- Morangueiro na Empresa 8
 
 
@@ -191,12 +191,12 @@ INSERT INTO AgroTrack_Contrato(
     ID, 
     Agricultor_Pessoa_N_CartaoCidadao
 ) SELECT
-    '2024-01-01', -- Data de inÌcio fixa
+    '2024-01-01', -- Data de inÔøΩcio fixa
     '2024-12-31', -- Data de fim fixa
-    'Contrato Padr„o', -- DescriÁ„o do contrato
-    1000, -- Sal·rio fixo
+    'Contrato Padr√£o', -- DescriÔøΩÔøΩo do contrato
+    1000, -- SalÔøΩrio fixo
     Id_Trabalhador, -- ID do agricultor
-    Pessoa_N_CartaoCidadao -- N˙mero do cart„o do cidad„o do agricultor
+    Pessoa_N_CartaoCidadao -- NÔøΩmero do cartÔøΩo do cidadÔøΩo do agricultor
 FROM AgroTrack_Agricultor;
 
 INSERT INTO AgroTrack_Retalhistas VALUES
