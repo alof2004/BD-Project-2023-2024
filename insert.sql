@@ -1,5 +1,5 @@
 INSERT INTO AgroTrack_Pessoa(Nome,N_CartaoCidadao,Contacto) VALUES
-('Jo�o Silva', 12345678, 912345678),
+('Joao Silva', 12345678, 912345678),
 ('Jorge Miguel', 87654321, 912345678),
 ('Maria Sousa', 98765432, 934567890),
 ('António Ferreira', 45678912, 923456789),
