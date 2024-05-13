@@ -86,7 +86,7 @@ create table AgroTrack_Quinta_Animal(
 create table AgroTrack_Planta(
 	Id_planta			int					not null,
 	Tipo				varchar(32)			not null,
-    Estacao VARCHAR(32) NOT NULL CHECK (Estacao IN ('Primavera', 'Verão', 'Outono', 'Inverno', 'Todas')),
+    Estacao VARCHAR(32) NOT NULL CHECK (Estacao IN ('Primavera', 'Verao', 'Outono', 'Inverno', 'Todas')),
 
 	PRIMARY KEY (Id_planta)
 
@@ -104,7 +104,6 @@ create table AgroTrack_Quinta_Planta(
 
 create table AgroTrack_Cliente (
 	Pessoa_N_CartaoCidadao int,
-	Quinta_Empresa_Id_Empresa int,
 
 	PRIMARY KEY(Pessoa_N_CartaoCidadao)
 
