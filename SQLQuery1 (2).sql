@@ -220,7 +220,6 @@ alter table AgroTrack_Quinta add constraint Empresa_Id_EmpresaPk_Q foreign key(E
 
 
 alter table AgroTrack_Cliente add constraint Pessoa_N_Cartao_CidadaoPK_C foreign key(Pessoa_N_CartaoCidadao) references AgroTrack_Pessoa(N_CartaoCidadao);
-alter table AgroTrack_Cliente add constraint Quinta_Empresa_Id_EmpresaFK_C foreign key(Quinta_Empresa_Id_Empresa) references AgroTrack_Quinta(Empresa_Id_Empresa);
 					 
 alter table AgroTrack_Retalhistas add constraint Empresa_Id_EmpresaPK_R foreign key(Empresa_Id_Empresa) references AgroTrack_Empresa(Id_Empresa);
 
