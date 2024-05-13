@@ -119,12 +119,10 @@ create table AgroTrack_Agricultor (
 
 create table AgroTrack_Produto(
 	Nome				varchar(64)			not null,
-	Quantidade			int					not null,		
 	Id_origem			int					not null,		
 	Tipo_de_Produto		int					not null,
 	Codigo				int					not null, 
 	Preco				float               not null        check(Preco > 0),	
-	[Data_de_validade]	date				not null,
 	Taxa_de_iva			float				not null		check (Taxa_de_iva IN (0.06, 0.13, 0.23)),
 	Unidade_medida      int					not null        check (Unidade_medida IN ('unidade', 'kg', 'g', 'litro', 'ml')),
 	Agricultor_Pessoa_N_CartaoCidadao int,
@@ -164,6 +162,7 @@ create table AgroTrack_Empresa_De_Transportes (
 create table AgroTrack_Contem (
 	Produto_codigo			int,
 	Quinta_Empresa_Id_Empresa int,
+	[Data_de_validade]	date				not null,
 	Quantidade			int					not null,
 
 	PRIMARY KEY(Produto_codigo,Quinta_Empresa_Id_Empresa) 
@@ -209,6 +208,7 @@ create table AgroTrack_Compra(
 	Preco				float               not null        check(Preco > 0),
 	Quantidade			int					not null, 
 	Metodo_de_pagamento varchar(64)			not null,
+	ID_Quinta 			int 				not null
 
 	PRIMARY KEY (Produto_codigo,Cliente_Pessoa_N_CartaoCidadao)
 
