@@ -131,8 +131,9 @@ BEGIN
     VALUES (@ContractStartDate, @ContractEndDate, @DescricaoContrato, @ContratoID, @Salario, @PessoaId);
 
     -- Insere o agricultor na quinta
-    INSERT INTO AgroTrack_Agricultor (Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa)
-    VALUES (@PessoaId, @QuintaId);
+    @IDAgricultor = SELECT MAX(Id_Trabalhador) + 1 FROM AgroTrack_Agricultor WHERE Quinta_Empresa_Id_Empresa = @QuintaId;
+    INSERT INTO AgroTrack_Agricultor (Id_Trabalhador,Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa)
+    VALUES (@IDAgricultor, @PessoaId, @QuintaId);
 
     PRINT 'Novo agricultor adicionado à Quinta com sucesso.';
 END
