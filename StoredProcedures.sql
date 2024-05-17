@@ -138,3 +138,22 @@ BEGIN
     PRINT 'Novo agricultor adicionado à Quinta com sucesso.';
 END
 GO
+
+CREATE PROCEDURE AddProduto
+    @Nome VARCHAR(64),
+    @Id_origem INT,
+    @Tipo_de_Produto INT,
+    @Preco FLOAT,
+    @Taxa_de_iva FLOAT,
+    @Unidade_medida VARCHAR(16)
+AS
+BEGIN
+    -- Verifica se o produto já existe
+    @Codigo = MAX(Codigo) + 1 FROM AgroTrack_Produto;
+    -- Insere o novo produto
+    INSERT INTO AgroTrack_Produto (Nome, Id_origem, Tipo_de_Produto, Codigo, Preco, Taxa_de_iva, Unidade_medida)
+    VALUES (@Nome, @Id_origem, @Tipo_de_Produto, @Codigo, @Preco, @Taxa_de_iva, @Unidade_medida);
+
+    PRINT 'Novo produto adicionado com sucesso.';
+END
+    
