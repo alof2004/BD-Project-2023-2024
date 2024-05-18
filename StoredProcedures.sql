@@ -81,7 +81,7 @@ BEGIN
 END
 GO;
 
-CREATE PROCEDURE AddAgricultorToQuinta
+CREATE PROCEDURE AddAgricultor
     @Nome VARCHAR(64),
     @N_CartaoCidadao INT,
     @Salario FLOAT,
@@ -316,7 +316,7 @@ BEGIN
             @Produto_codigo,
             @DataColheita
         );
-        
+
         @Quinta_Empresa_Id_Empresa = SELECT Quinta_Empresa_Id_Empresa FROM AgroTrack_Agricultor WHERE Pessoa_N_CartaoCidadao = @Agricultor_Pessoa_N_CartaoCidadao;
         -- Check if the product already exists in the AgroTrack_Contem table for the specified farm
         IF EXISTS (SELECT 1 FROM AgroTrack_Contem WHERE Produto_codigo = @Produto_codigo AND Quinta_Empresa_Id_Empresa = @Quinta_Empresa_Id_Empresa)
