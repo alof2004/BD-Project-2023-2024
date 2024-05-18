@@ -367,3 +367,41 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
+
+CREATE PROCEDURE RemoveProdutosForaDeValidadeFromQuinta @QuintaId INT
+AS
+BEGIN
+    -- Start a transaction
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Delete the products that are past their expiration date
+        DELETE FROM AgroTrack_Contem
+        WHERE Quinta_Empresa_Id_Empresa = @QuintaId AND [Data_de_validade] < GETDATE();
+
+        -- Commit the transaction
+        COMMIT TRANSACTION;
+
+        PRINT 'Produtos fora de validade removidos com sucesso.';
+    END TRY
+    BEGIN CATCH
+        -- Rollback the transaction in case of error
+        ROLLBACK TRANSACTION;
+
+        -- Get the error details
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Raise the error again to propagate it
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
+
+
+    
