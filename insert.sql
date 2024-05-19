@@ -289,9 +289,10 @@ INSERT INTO AgroTrack_Encomenda(Codigo, prazo_entrega, Morada_entrega, Entrega, 
 	(2, 3, 'Avenida Central, 260', '2024-06-02', 12, 7, 2),
 	(3, 4, 'Travessa das Utilidades, 270', '2024-06-03', 13, 8, 3),
 	(4, 5, 'Rua das Novidades, 280', '2024-06-04', 14, 9, 4),
-	(5, 6, 'Avenida das Mercadorias, 290', '2024-06-05', 15, 10, 5);
+	(5, 6, 'Avenida das Mercadorias, 290', '2024-06-05', 15, 10, 5),
+	
 
-INSERT INTO AgroTrack_Item(Codigo, Quantidade, Encomenda_Codigo) VALUES
+INSERT INTO AgroTrack_Item(ProdutoCodigo, Quantidade, Encomenda_Codigo) VALUES
 	(1, 100, 1),
 	(2, 100, 2),
 	(3, 100, 3),

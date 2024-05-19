@@ -287,6 +287,7 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END;
+GO
 
 CREATE PROCEDURE AddColheita
     @Agricultor_Pessoa_N_CartaoCidadao INT,
