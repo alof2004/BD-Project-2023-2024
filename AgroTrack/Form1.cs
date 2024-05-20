@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace AgroTrack
 {
-    public partial class Form1 : Form
+    public partial class AgroTrack : Form
     {
         private SqlConnection cn;
 
-        public Form1()
+        public AgroTrack()
         {
             InitializeComponent();
             verifySGBDConnection();
@@ -50,10 +50,10 @@ namespace AgroTrack
                 {
                     Quinta farm = new Quinta
                     {
-                        Id_Quinta = (int) reader["Empresa_Id_Empresa"],
+                        Id_Quinta = (int)reader["Empresa_Id_Empresa"],
                         Nome = reader["Nome"].ToString(),
                         Morada = reader["Morada"].ToString(),
-                        Empresa_Id_Empresa = (int) reader["Codigo_quinta"] // Assuming Rua should be Codigo_quinta
+                        Empresa_Id_Empresa = (int)reader["Codigo_quinta"] // Assuming Rua should be Codigo_quinta
                     };
 
                     ListaQuintas.Items.Add(farm);
@@ -171,6 +171,51 @@ namespace AgroTrack
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
         {
 
         }

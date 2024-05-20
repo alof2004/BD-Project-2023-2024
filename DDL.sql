@@ -156,6 +156,7 @@ create table AgroTrack_Retalhistas (
 
 create table AgroTrack_Empresa_De_Transportes (
 	Empresa_Id_Empresa			int,
+	Nome 						varchar(64)			not null,
 
 	PRIMARY KEY(Empresa_Id_Empresa)
 );
