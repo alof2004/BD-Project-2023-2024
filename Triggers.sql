@@ -11,6 +11,7 @@ BEGIN
     END
 END;
 
+IF trg_CalculateTotalPrice IS NOT NULL DROP TRIGGER trg_CalculateTotalPrice;
 CREATE TRIGGER trg_CalculateTotalPrice
 ON AgroTrack_Compra
 AFTER INSERT
@@ -23,6 +24,7 @@ BEGIN
       AND AgroTrack_Compra.Cliente_Pessoa_N_CartaoCidadao = inserted.Cliente_Pessoa_N_CartaoCidadao;
 END;
 
+IF trgCheckStockBeforeInsert IS NOT NULL DROP TRIGGER trgCheckStockBeforeInsert;
 CREATE TRIGGER trgCheckStockBeforeInsert
 ON AgroTrack_Item
 INSTEAD OF INSERT

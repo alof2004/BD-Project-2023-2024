@@ -1,6 +1,8 @@
 USE AgroTrack;
 GO;
 
+IF OBJECT_ID('AddQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AddQuinta;
 CREATE PROCEDURE AddQuinta
     @Nome VARCHAR(64),
     @Morada VARCHAR(64)
@@ -23,6 +25,8 @@ END
 GO;
 
 
+IF OBJECT_ID('AddAnimalToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AddAnimalToQuinta;
 CREATE PROCEDURE AddAnimalToQuinta
     @Tipo_de_Animal VARCHAR(64),
     @Idade INT,
@@ -52,6 +56,8 @@ BEGIN
 END
 GO;
 
+IF OBJECT_ID('AddPlantaToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AddPlantaToQuinta;
 CREATE PROCEDURE AddPlantaToQuinta
     @Tipo VARCHAR(32),
     @Estacao VARCHAR(32),
@@ -81,6 +87,8 @@ BEGIN
 END
 GO;
 
+IF OBJECT_ID('AddAgricultor', 'P') IS NOT NULL
+    DROP PROCEDURE AddAgricultor;
 CREATE PROCEDURE AddAgricultor
     @Nome VARCHAR(64),
     @N_CartaoCidadao INT,
@@ -139,6 +147,8 @@ BEGIN
 END
 GO;
 
+IF OBJECT_ID('AddProduto', 'P') IS NOT NULL
+    DROP PROCEDURE AddProduto;
 CREATE PROCEDURE AddProduto
     @Nome VARCHAR(64),
     @Id_origem INT,
@@ -157,7 +167,10 @@ BEGIN
     PRINT 'Novo produto adicionado com sucesso.';
 END
 GO;
-    
+
+
+IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AddProdutoToQuinta; 
 CREATE PROCEDURE AddProdutoToQuinta
     @NomeProduto VARCHAR(64),
     @NomeQuinta VARCHAR(64),
@@ -199,6 +212,9 @@ BEGIN
 END
 GO;
 
+
+IF OBJECT_ID('AddEncomenda', 'P') IS NOT NULL
+    DROP PROCEDURE AddEncomenda;
 CREATE PROCEDURE AddEncomenda
     @Codigo INT,
     @Prazo_entrega INT,
@@ -250,6 +266,8 @@ BEGIN
 END;
 GO;
 
+IF OBJECT_ID('AddItemToEncomenda', 'P') IS NOT NULL
+    DROP PROCEDURE AddItemToEncomenda;
 CREATE PROCEDURE AddItemToEncomenda
     @ProdutoCodigo INT,
     @Quantidade INT,
@@ -289,6 +307,9 @@ BEGIN
 END;
 GO
 
+
+IF OBJECT_ID('AddColheita', 'P') IS NOT NULL
+    DROP PROCEDURE AddColheita;
 CREATE PROCEDURE AddColheita
     @Agricultor_Pessoa_N_CartaoCidadao INT,
     @Duracao_colheita FLOAT,
@@ -369,6 +390,8 @@ BEGIN
     END CATCH;
 END;
 
+IF OBJECT_ID('RemoveProdutosForaDeValidadeFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE RemoveProdutosForaDeValidadeFromQuinta;
 CREATE PROCEDURE RemoveProdutosForaDeValidadeFromQuinta @QuintaId INT
 AS
 BEGIN
