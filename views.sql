@@ -115,6 +115,13 @@ create view AgroTrack.Agriculcolhe as
 	from  (AgroTrack_Agricultor as A join AgroTrack_Colhe as colhe on A.Pessoa_N_CartaoCidadao=colhe.Agricultor_Pessoa_N_CartaoCidadao)
 go
 
+--Empresa e Encomenda
+drop view IF EXISTS AgroTrack.EmpresaEncomenda
+go
+create view AgroTrack.EmpresaEncomenda as
+	select E.Nome, E.Morada, E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id
+	from  (AgroTrack_Empresa as E join AgroTrack_Encomenda as Enc on E.Id_Empresa=Enc.Retalhista_Empresa_Id_Empresa)
+go	
 
 
 
