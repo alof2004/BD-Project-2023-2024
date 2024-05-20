@@ -40,7 +40,7 @@ namespace AgroTrack
 
         private void LoadQuinta()
         {
-            string query = "SELECT Codigo_quinta, Empresa_Id_Empresa, Nome, Morada FROM AgroTrack.Quinta;";
+            string query = "SELECT Codigo_quinta, Empresa_Id_Empresa, Nome, Morada, Contacto FROM AgroTrack.Quinta;";
             SqlCommand cmd = new SqlCommand(query, cn);
 
             try
@@ -50,10 +50,11 @@ namespace AgroTrack
                 {
                     Quinta farm = new Quinta
                     {
-                        Id_Quinta = (int) reader["Empresa_Id_Empresa"],
+                        Id_Quinta = (int)reader["Empresa_Id_Empresa"],
                         Nome = reader["Nome"].ToString(),
                         Morada = reader["Morada"].ToString(),
-                        Empresa_Id_Empresa = (int) reader["Codigo_quinta"] // Assuming Rua should be Codigo_quinta
+                        Empresa_Id_Empresa = (int)reader["Codigo_quinta"], // Assuming Rua should be Codigo_quinta
+                        Contacto = (int)reader["Contacto"]
                     };
 
                     ListaQuintas.Items.Add(farm);
@@ -72,9 +73,11 @@ namespace AgroTrack
             {
                 QuintaNome.ReadOnly = true;
                 QuintaMorada.ReadOnly = true;
+                QuintaContacto.ReadOnly = true;
 
                 QuintaNome.Text = selectedFarm.Nome;
                 QuintaMorada.Text = selectedFarm.Morada;
+                QuintaContacto.Text = selectedFarm.Contacto.ToString();
 
                 LoadAnimals(selectedFarm.Empresa_Id_Empresa);
 
@@ -171,6 +174,11 @@ namespace AgroTrack
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

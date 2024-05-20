@@ -30,6 +30,8 @@
         {
             tabControl1 = new TabControl();
             Quintas = new TabPage();
+            label2 = new Label();
+            QuintaContacto = new TextBox();
             buttonPesquisarQuinta = new Button();
             buttonLimparPesquisaQuinta = new Button();
             label4 = new Label();
@@ -49,6 +51,7 @@
             ListaEmpresas = new ListBox();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
+            Agricultores = new ListBox();
             tabControl1.SuspendLayout();
             Quintas.SuspendLayout();
             Empresas.SuspendLayout();
@@ -63,12 +66,15 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1040, 609);
+            tabControl1.Size = new Size(1076, 658);
             tabControl1.TabIndex = 0;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // Quintas
             // 
+            Quintas.Controls.Add(Agricultores);
+            Quintas.Controls.Add(label2);
+            Quintas.Controls.Add(QuintaContacto);
             Quintas.Controls.Add(buttonPesquisarQuinta);
             Quintas.Controls.Add(buttonLimparPesquisaQuinta);
             Quintas.Controls.Add(label4);
@@ -83,11 +89,28 @@
             Quintas.Location = new Point(4, 34);
             Quintas.Name = "Quintas";
             Quintas.Padding = new Padding(3);
-            Quintas.Size = new Size(1032, 571);
+            Quintas.Size = new Size(1068, 620);
             Quintas.TabIndex = 0;
             Quintas.Text = "Quintas";
             Quintas.UseVisualStyleBackColor = true;
             Quintas.Click += Quintas_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(448, 158);
+            label2.Name = "label2";
+            label2.Size = new Size(84, 25);
+            label2.TabIndex = 14;
+            label2.Text = "Contacto";
+            label2.Click += label2_Click;
+            // 
+            // QuintaContacto
+            // 
+            QuintaContacto.Location = new Point(559, 155);
+            QuintaContacto.Name = "QuintaContacto";
+            QuintaContacto.Size = new Size(383, 31);
+            QuintaContacto.TabIndex = 13;
             // 
             // buttonPesquisarQuinta
             // 
@@ -122,7 +145,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(452, 195);
+            label3.Location = new Point(458, 84);
             label3.Name = "label3";
             label3.Size = new Size(74, 25);
             label3.TabIndex = 8;
@@ -131,7 +154,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(463, 122);
+            label1.Location = new Point(471, 11);
             label1.Name = "label1";
             label1.Size = new Size(61, 25);
             label1.TabIndex = 6;
@@ -140,14 +163,14 @@
             // 
             // QuintaMorada
             // 
-            QuintaMorada.Location = new Point(551, 192);
+            QuintaMorada.Location = new Point(559, 81);
             QuintaMorada.Name = "QuintaMorada";
             QuintaMorada.Size = new Size(383, 31);
             QuintaMorada.TabIndex = 5;
             // 
             // QuintaNome
             // 
-            QuintaNome.Location = new Point(551, 122);
+            QuintaNome.Location = new Point(559, 11);
             QuintaNome.Name = "QuintaNome";
             QuintaNome.Size = new Size(383, 31);
             QuintaNome.TabIndex = 4;
@@ -165,7 +188,7 @@
             // 
             Plantas.FormattingEnabled = true;
             Plantas.ItemHeight = 25;
-            Plantas.Location = new Point(738, 247);
+            Plantas.Location = new Point(743, 343);
             Plantas.Name = "Plantas";
             Plantas.Size = new Size(242, 204);
             Plantas.TabIndex = 2;
@@ -175,7 +198,7 @@
             // 
             Animais.FormattingEnabled = true;
             Animais.ItemHeight = 25;
-            Animais.Location = new Point(438, 247);
+            Animais.Location = new Point(433, 347);
             Animais.Name = "Animais";
             Animais.Size = new Size(242, 204);
             Animais.TabIndex = 1;
@@ -270,11 +293,20 @@
             tabPage2.Text = "Clientes";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // Agricultores
+            // 
+            Agricultores.FormattingEnabled = true;
+            Agricultores.ItemHeight = 25;
+            Agricultores.Location = new Point(433, 201);
+            Agricultores.Name = "Agricultores";
+            Agricultores.Size = new Size(552, 129);
+            Agricultores.TabIndex = 15;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1040, 593);
+            ClientSize = new Size(1075, 659);
             Controls.Add(tabControl1);
             Name = "Form1";
             Text = "Form1";
@@ -310,5 +342,8 @@
         private Button button1;
         private Button button2;
         private Label label5;
+        private Label label2;
+        private TextBox QuintaContacto;
+        private ListBox Agricultores;
     }
 }
