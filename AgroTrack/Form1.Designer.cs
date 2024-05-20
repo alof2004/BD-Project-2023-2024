@@ -494,7 +494,7 @@
             ClientSize = new Size(1040, 593);
             Controls.Add(tabControl1);
             Name = "AgroTrack";
-            Text = "Form1";
+            Text = "AgroTrack";
             Load += Form1_Load;
             tabControl1.ResumeLayout(false);
             Quintas.ResumeLayout(false);
