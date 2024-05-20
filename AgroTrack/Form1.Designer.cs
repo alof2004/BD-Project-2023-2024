@@ -67,7 +67,6 @@
             label12 = new Label();
             textBox6 = new TextBox();
             button3 = new Button();
-            button4 = new Button();
             tabControl1.SuspendLayout();
             Quintas.SuspendLayout();
             Empresas.SuspendLayout();
@@ -213,7 +212,6 @@
             // Empresas
             // 
             Empresas.Controls.Add(button3);
-            Empresas.Controls.Add(button4);
             Empresas.Controls.Add(textBox6);
             Empresas.Controls.Add(label12);
             Empresas.Controls.Add(comboBox2);
@@ -465,26 +463,17 @@
             // 
             textBox6.Location = new Point(717, 478);
             textBox6.Name = "textBox6";
-            textBox6.Size = new Size(309, 31);
+            textBox6.Size = new Size(263, 31);
             textBox6.TabIndex = 31;
             // 
             // button3
             // 
-            button3.Location = new Point(717, 515);
+            button3.Location = new Point(979, 478);
             button3.Name = "button3";
-            button3.Size = new Size(151, 34);
+            button3.Size = new Size(43, 31);
             button3.TabIndex = 33;
-            button3.Text = "Pesquisar";
+            button3.Text = "Ir";
             button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            button4.Location = new Point(874, 515);
-            button4.Name = "button4";
-            button4.Size = new Size(150, 34);
-            button4.TabIndex = 32;
-            button4.Text = "Limpar";
-            button4.UseVisualStyleBackColor = true;
             // 
             // AgroTrack
             // 
@@ -545,6 +534,5 @@
         private TextBox textBox6;
         private Label label12;
         private Button button3;
-        private Button button4;
     }
 }
