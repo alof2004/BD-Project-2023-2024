@@ -40,7 +40,7 @@ namespace AgroTrack
 
         private void LoadData()
         {
-            string query = "SELECT e.Id_Empresa, e.Nome FROM  AgroTrack_Empresa e JOIN  AgroTrack_Quinta q ON   e.Id_Empresa = q.Empresa_Id_Empresa;";
+            string query = "SELECT Codigo_quinta, Empresa_Id_Empresa, Nome, Morada FROM AgroTrack.Quinta;";
             SqlCommand cmd = new SqlCommand(query, cn);
 
             try
@@ -48,7 +48,15 @@ namespace AgroTrack
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ListaQuintas.Items.Add(reader["Nome"].ToString());
+                    Quinta farm = new Quinta
+                    {
+                        Id_Quinta = (int) reader["Empresa_Id_Empresa"],
+                        Nome = reader["Nome"].ToString(),
+                        Morada = reader["Morada"].ToString(),
+                        Empresa_Id_Empresa = (int) reader["Codigo_quinta"] // Assuming Rua should be Codigo_quinta
+                    };
+
+                    ListaQuintas.Items.Add(farm);
                 }
                 reader.Close();
             }
@@ -60,9 +68,48 @@ namespace AgroTrack
 
         private void ListaQuintas_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ListaQuintas.SelectedItem is Quinta selectedFarm)
+            {
+                QuintaNome.ReadOnly = true;
+                QuintaMorada.ReadOnly = true;
 
+                QuintaNome.Text = selectedFarm.Nome;
+                QuintaMorada.Text = selectedFarm.Morada;
+
+                LoadAnimals(selectedFarm.Empresa_Id_Empresa);
+
+            }
         }
 
+        private void LoadAnimals(int empresaId)
+        {
+            string query = "SELECT Id_Animal, Tipo_de_Animal, Idade, Brinco FROM AgroTrack.AnimaisQuinta WHERE Empresa_Id_Empresa = @EmpresaId;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@EmpresaId", empresaId);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                Animais.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    Animal animal = new Animal
+                    {
+                        Id = reader["Id_Animal"].ToString(),
+                        Tipo = reader["Tipo_de_Animal"].ToString(),
+                        Idade = reader["Idade"].ToString(),
+                        Brinco = reader["Brinco"].ToString()
+                    };
+
+                    Animais.Items.Add(animal);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -109,6 +156,21 @@ namespace AgroTrack
         }
 
         private void Quintas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonPesquisarQuinta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonLimparPesquisaQuinta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
