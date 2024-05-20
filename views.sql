@@ -6,7 +6,7 @@ use p8g3;
 drop view IF EXISTS AgroTrack.Quinta
 go
 create view AgroTrack.Quinta as
-	select Q.Codigo_quinta, Q.Empresa_Id_Empresa, E.Nome,E.Morada
+	select Q.Codigo_quinta, Q.Empresa_Id_Empresa, E.Nome,E.Morada, E.Contacto
 	from  (AgroTrack_Quinta as Q join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
 go
 
