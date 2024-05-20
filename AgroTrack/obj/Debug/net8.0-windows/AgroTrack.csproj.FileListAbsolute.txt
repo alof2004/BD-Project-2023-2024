@@ -35,7 +35,6 @@ C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.csproj.AssemblyReference.cache
-C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.Form1.resources
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.csproj.GenerateResource.cache
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.AssemblyInfoInputs.cache
@@ -48,4 +47,4 @@ C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.pdb
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.genruntimeconfig.cache
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\ref\AgroTrack.dll
-C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.AgroTrack.resources
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.AgroTrack.resources
