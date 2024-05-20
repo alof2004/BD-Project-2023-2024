@@ -48,3 +48,4 @@ C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.pdb
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.genruntimeconfig.cache
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\ref\AgroTrack.dll
+C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.AgroTrack.resources
