@@ -54,22 +54,23 @@ INSERT INTO AgroTrack_Pessoa(Nome,N_CartaoCidadao,Contacto) VALUES
 ('Gilberto Oliveira', 36914728, 938571628),
 ('Helena Costa', 15948766, 935824720);
 
-INSERT INTO AgroTrack_Empresa(Id_Empresa, Nome, Morada) VALUES
-(1, 'Quinta da Vinha Verde', 'Rua Principal, 123'),
-(2, 'Quinta da Esperança', 'Avenida Central, 456'),
-(3, 'Quinta da Boa Vista', 'Travessa Secundária, 789'),
-(4, 'Quinta da Fonte Fresca', 'Rua das Flores, 10'),
-(5, 'Quinta das Oliveiras', 'Avenida dos Aliados, 20'),
-(6, 'Logística Ágil', 'Avenida das Entregas Eficientes, 60'),
-(7, 'Fretes Seguros', 'Travessa dos Transportes Seguros, 70'),
-(8, 'Transportes Velozes LTDA', 'Rua das Rotas R�pidas, 80'),
-(9, 'Logistica Global', 'Avenida da Efici�ncia Log�stica, 90'),
-(10, 'Entrega Segura', 'Travessa da Entrega Certa, 100'),
-(11, 'Supermercado Central', 'Rua Principal, 250'),
-(12, 'Loja do Bairro', 'Avenida Central, 260'),
-(13, 'Casa dos Utensilios', 'Travessa das Utilidades, 270'),
-(14, 'Continente', 'Rua das Novidades, 280'),
-(15, 'Pingo Doce', 'Avenida das Mercadorias, 290');
+INSERT INTO AgroTrack_Empresa(Id_Empresa, Nome, Morada, Contacto) VALUES
+(1, 'Quinta da Vinha Verde', 'Rua Principal, 123', 919000923),
+(2, 'Quinta da Esperança', 'Avenida Central, 456', 919000924),
+(3, 'Quinta da Boa Vista', 'Travessa Secundária, 789', 919000925),
+(4, 'Quinta da Fonte Fresca', 'Rua das Flores, 10', 919000926),
+(5, 'Quinta das Oliveiras', 'Avenida dos Aliados, 20', 919000927),
+(6, 'Logística Ágil', 'Avenida das Entregas Eficientes, 60', 919000928),
+(7, 'Fretes Seguros', 'Travessa dos Transportes Seguros, 70', 919000929),
+(8, 'Transportes Velozes LTDA', 'Rua das Rotas Rápidas, 80', 919000930),
+(9, 'Logística Global', 'Avenida da Eficiência Logística, 90', 919000931),
+(10, 'Entrega Segura', 'Travessa da Entrega Certa, 100', 919000932),
+(11, 'Supermercado Central', 'Rua Principal, 250', 919000933),
+(12, 'Loja do Bairro', 'Avenida Central, 260', 919000934),
+(13, 'Casa dos Utensílios', 'Travessa das Utilidades, 270', 919000935),
+(14, 'Continente', 'Rua das Novidades, 280', 919000936),
+(15, 'Pingo Doce', 'Avenida das Mercadorias, 290', 919000937);
+
 
 INSERT INTO AgroTrack_Quinta(Codigo_quinta, Empresa_Id_Empresa) VALUES
 (1, 1),

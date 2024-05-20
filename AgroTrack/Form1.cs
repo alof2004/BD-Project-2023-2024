@@ -13,7 +13,7 @@ namespace AgroTrack
         {
             InitializeComponent();
             verifySGBDConnection();
-            LoadData();
+            LoadQuinta();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace AgroTrack
             return cn.State == ConnectionState.Open;
         }
 
-        private void LoadData()
+        private void LoadQuinta()
         {
             string query = "SELECT Codigo_quinta, Empresa_Id_Empresa, Nome, Morada FROM AgroTrack.Quinta;";
             SqlCommand cmd = new SqlCommand(query, cn);
