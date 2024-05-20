@@ -40,7 +40,7 @@ namespace AgroTrack
 
         private void LoadData()
         {
-            string query = "SELECT Nome FROM AgroTrack_Empresa";
+            string query = "SELECT e.Id_Empresa, e.Nome FROM  AgroTrack_Empresa e JOIN  AgroTrack_Quinta q ON   e.Id_Empresa = q.Empresa_Id_Empresa;";
             SqlCommand cmd = new SqlCommand(query, cn);
 
             try
