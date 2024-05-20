@@ -30,6 +30,12 @@
         {
             tabControl1 = new TabControl();
             Quintas = new TabPage();
+            buttonPesquisarQuinta = new Button();
+            buttonLimparPesquisaQuinta = new Button();
+            label4 = new Label();
+            Morada = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
             label1 = new Label();
             Contacto = new TextBox();
             Nome = new TextBox();
@@ -38,16 +44,16 @@
             Animais = new ListBox();
             ListaQuintas = new ListBox();
             Empresas = new TabPage();
+            ListaEmpresas = new ListBox();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
-            label2 = new Label();
-            label3 = new Label();
-            Morada = new TextBox();
-            label4 = new Label();
-            buttonLimparPesquisaQuinta = new Button();
-            buttonPesquisarQuinta = new Button();
+            textBox2 = new TextBox();
+            label5 = new Label();
+            button1 = new Button();
+            button2 = new Button();
             tabControl1.SuspendLayout();
             Quintas.SuspendLayout();
+            Empresas.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -61,6 +67,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1040, 609);
             tabControl1.TabIndex = 0;
+            tabControl1.SelectedIndexChanged += this.tabControl1_SelectedIndexChanged;
             // 
             // Quintas
             // 
@@ -84,6 +91,62 @@
             Quintas.TabIndex = 0;
             Quintas.Text = "Quintas";
             Quintas.UseVisualStyleBackColor = true;
+            Quintas.Click += Quintas_Click;
+            // 
+            // buttonPesquisarQuinta
+            // 
+            buttonPesquisarQuinta.Location = new Point(724, 59);
+            buttonPesquisarQuinta.Name = "buttonPesquisarQuinta";
+            buttonPesquisarQuinta.Size = new Size(142, 34);
+            buttonPesquisarQuinta.TabIndex = 12;
+            buttonPesquisarQuinta.Text = "Pesquisar";
+            buttonPesquisarQuinta.UseVisualStyleBackColor = true;
+            buttonPesquisarQuinta.Click += this.buttonPesquisarQuinta_Click;
+            // 
+            // buttonLimparPesquisaQuinta
+            // 
+            buttonLimparPesquisaQuinta.Location = new Point(882, 59);
+            buttonLimparPesquisaQuinta.Name = "buttonLimparPesquisaQuinta";
+            buttonLimparPesquisaQuinta.Size = new Size(142, 34);
+            buttonLimparPesquisaQuinta.TabIndex = 11;
+            buttonLimparPesquisaQuinta.Text = "Limpar";
+            buttonLimparPesquisaQuinta.UseVisualStyleBackColor = true;
+            buttonLimparPesquisaQuinta.Click += this.buttonLimparPesquisaQuinta_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(541, 25);
+            label4.Name = "label4";
+            label4.Size = new Size(177, 25);
+            label4.TabIndex = 10;
+            label4.Text = "Pesquisar por Nome:";
+            label4.Click += label4_Click;
+            // 
+            // Morada
+            // 
+            Morada.Location = new Point(509, 254);
+            Morada.Name = "Morada";
+            Morada.Size = new Size(383, 31);
+            Morada.TabIndex = 9;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(408, 260);
+            label3.Name = "label3";
+            label3.Size = new Size(74, 25);
+            label3.TabIndex = 8;
+            label3.Text = "Morada";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(408, 189);
+            label2.Name = "label2";
+            label2.Size = new Size(84, 25);
+            label2.TabIndex = 7;
+            label2.Text = "Contacto";
             // 
             // label1
             // 
@@ -150,6 +213,11 @@
             // 
             // Empresas
             // 
+            Empresas.Controls.Add(button1);
+            Empresas.Controls.Add(button2);
+            Empresas.Controls.Add(label5);
+            Empresas.Controls.Add(textBox2);
+            Empresas.Controls.Add(ListaEmpresas);
             Empresas.Location = new Point(4, 34);
             Empresas.Name = "Empresas";
             Empresas.Padding = new Padding(3);
@@ -157,6 +225,16 @@
             Empresas.TabIndex = 1;
             Empresas.Text = "Empresas";
             Empresas.UseVisualStyleBackColor = true;
+            // 
+            // ListaEmpresas
+            // 
+            ListaEmpresas.FormattingEnabled = true;
+            ListaEmpresas.ItemHeight = 25;
+            ListaEmpresas.Location = new Point(38, 18);
+            ListaEmpresas.Name = "ListaEmpresas";
+            ListaEmpresas.Size = new Size(359, 529);
+            ListaEmpresas.TabIndex = 1;
+            ListaEmpresas.SelectedIndexChanged += listBox1_SelectedIndexChanged_3;
             // 
             // tabPage1
             // 
@@ -178,64 +256,45 @@
             tabPage2.Text = "Clientes";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // textBox2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(408, 189);
-            label2.Name = "label2";
-            label2.Size = new Size(84, 25);
-            label2.TabIndex = 7;
-            label2.Text = "Contacto";
+            textBox2.Location = new Point(632, 42);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(300, 31);
+            textBox2.TabIndex = 4;
             // 
-            // label3
+            // label5
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(408, 260);
-            label3.Name = "label3";
-            label3.Size = new Size(74, 25);
-            label3.TabIndex = 8;
-            label3.Text = "Morada";
+            label5.AutoSize = true;
+            label5.Location = new Point(449, 45);
+            label5.Name = "label5";
+            label5.Size = new Size(177, 25);
+            label5.TabIndex = 11;
+            label5.Text = "Pesquisar por Nome:";
             // 
-            // Morada
+            // button1
             // 
-            Morada.Location = new Point(509, 254);
-            Morada.Name = "Morada";
-            Morada.Size = new Size(383, 31);
-            Morada.TabIndex = 9;
+            button1.Location = new Point(632, 79);
+            button1.Name = "button1";
+            button1.Size = new Size(142, 34);
+            button1.TabIndex = 14;
+            button1.Text = "Pesquisar";
+            button1.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // button2
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(541, 25);
-            label4.Name = "label4";
-            label4.Size = new Size(177, 25);
-            label4.TabIndex = 10;
-            label4.Text = "Pesquisar por Nome:";
-            label4.Click += label4_Click;
-            // 
-            // buttonLimparPesquisaQuinta
-            // 
-            buttonLimparPesquisaQuinta.Location = new Point(882, 59);
-            buttonLimparPesquisaQuinta.Name = "buttonLimparPesquisaQuinta";
-            buttonLimparPesquisaQuinta.Size = new Size(142, 34);
-            buttonLimparPesquisaQuinta.TabIndex = 11;
-            buttonLimparPesquisaQuinta.Text = "Limpar";
-            buttonLimparPesquisaQuinta.UseVisualStyleBackColor = true;
-            // 
-            // buttonPesquisarQuinta
-            // 
-            buttonPesquisarQuinta.Location = new Point(724, 59);
-            buttonPesquisarQuinta.Name = "buttonPesquisarQuinta";
-            buttonPesquisarQuinta.Size = new Size(142, 34);
-            buttonPesquisarQuinta.TabIndex = 12;
-            buttonPesquisarQuinta.Text = "Pesquisar";
-            buttonPesquisarQuinta.UseVisualStyleBackColor = true;
+            button2.Location = new Point(790, 79);
+            button2.Name = "button2";
+            button2.Size = new Size(142, 34);
+            button2.TabIndex = 13;
+            button2.Text = "Limpar";
+            button2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1040, 746);
+            ClientSize = new Size(1040, 593);
             Controls.Add(tabControl1);
             Name = "Form1";
             Text = "Form1";
@@ -243,6 +302,8 @@
             tabControl1.ResumeLayout(false);
             Quintas.ResumeLayout(false);
             Quintas.PerformLayout();
+            Empresas.ResumeLayout(false);
+            Empresas.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -266,7 +327,10 @@
         private Label label2;
         private Button buttonLimparPesquisaQuinta;
         private Button buttonPesquisarQuinta;
-
-
+        private ListBox ListaEmpresas;
+        private TextBox textBox2;
+        private Button button1;
+        private Button button2;
+        private Label label5;
     }
 }

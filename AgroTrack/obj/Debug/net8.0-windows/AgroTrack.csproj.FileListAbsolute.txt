@@ -23,3 +23,28 @@ C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\o
 C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.pdb
 C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.genruntimeconfig.cache
 C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\ref\AgroTrack.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\AgroTrack.exe
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\AgroTrack.deps.json
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\AgroTrack.runtimeconfig.json
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\AgroTrack.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\AgroTrack.pdb
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.csproj.AssemblyReference.cache
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.Form1.resources
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.csproj.GenerateResource.cache
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.AssemblyInfoInputs.cache
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.AssemblyInfo.cs
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.csproj.CoreCompileInputs.cache
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.sourcelink.json
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.csproj.Up2Date
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\refint\AgroTrack.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.pdb
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\AgroTrack.genruntimeconfig.cache
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\obj\Debug\net8.0-windows\ref\AgroTrack.dll
