@@ -134,7 +134,7 @@ create table AgroTrack_Contrato(
 	[Date_end]			date				not null,
 	Descricao			varchar(64) 		not null,
 	Salario				float               not null        check(Salario > 0),
-	ID					int					not null, 
+	ID					int					not null        check(ID >= 0), 
 	Agricultor_Pessoa_N_CartaoCidadao	int,
 	
 	CHECK (Date_end > [Date_str]),
