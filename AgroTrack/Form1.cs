@@ -1,15 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient; // Ensure this is included
-using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace AgroTrack
@@ -22,12 +13,13 @@ namespace AgroTrack
         {
             InitializeComponent();
             verifySGBDConnection();
+            LoadData();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // You can initialize your connection here if needed
             cn = getSGBDConnection();
+            verifySGBDConnection();
         }
 
         private SqlConnection getSGBDConnection()
@@ -45,5 +37,66 @@ namespace AgroTrack
 
             return cn.State == ConnectionState.Open;
         }
+
+        private void LoadData()
+        {
+            string query = "SELECT Nome FROM AgroTrack_Empresa";
+            SqlCommand cmd = new SqlCommand(query, cn);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ListaQuintas.Items.Add(reader["Nome"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+        private void ListaQuintas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
