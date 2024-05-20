@@ -51,7 +51,7 @@ go
 drop view IF EXISTS AgroTrack.AgriculConquinta
 go
 create view AgroTrack.AgriculConquinta as
-	select C.ID, A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao, C.[Date_str], C.[Date_end], Salario, Q.Codigo_quinta, Q.Empresa_Id_Empresa
+	select C.ID, A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao, C.[Date_str], C.[Date_end], Salario, Q.Codigo_quinta
 	from  ((AgroTrack_Agricultor as A join AgroTrack_Contrato as C on A.Pessoa_N_CartaoCidadao=C.Agricultor_Pessoa_N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
 go
 

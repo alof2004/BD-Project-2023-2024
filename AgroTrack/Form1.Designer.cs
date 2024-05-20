@@ -1,6 +1,6 @@
 ﻿namespace AgroTrack
 {
-    partial class Form1
+    partial class AgroTrack
     {
         /// <summary>
         ///  Required designer variable.
@@ -51,6 +51,25 @@
             ListaEmpresas = new ListBox();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
+            textBox1 = new TextBox();
+            textBox3 = new TextBox();
+            textBox4 = new TextBox();
+            label2 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            label8 = new Label();
+            textBox5 = new TextBox();
+            Encomenda = new ListBox();
+            label9 = new Label();
+            dateTimePicker1 = new DateTimePicker();
+            label10 = new Label();
+            label11 = new Label();
+            comboBox1 = new ComboBox();
+            comboBox2 = new ComboBox();
+            label12 = new Label();
+            textBox6 = new TextBox();
+            button3 = new Button();
+            button4 = new Button();
             Agricultores = new ListBox();
             tabControl1.SuspendLayout();
             Quintas.SuspendLayout();
@@ -216,6 +235,25 @@
             // 
             // Empresas
             // 
+            Empresas.Controls.Add(button3);
+            Empresas.Controls.Add(button4);
+            Empresas.Controls.Add(textBox6);
+            Empresas.Controls.Add(label12);
+            Empresas.Controls.Add(comboBox2);
+            Empresas.Controls.Add(comboBox1);
+            Empresas.Controls.Add(label11);
+            Empresas.Controls.Add(label10);
+            Empresas.Controls.Add(dateTimePicker1);
+            Empresas.Controls.Add(label9);
+            Empresas.Controls.Add(Encomenda);
+            Empresas.Controls.Add(textBox5);
+            Empresas.Controls.Add(label8);
+            Empresas.Controls.Add(label7);
+            Empresas.Controls.Add(label6);
+            Empresas.Controls.Add(label2);
+            Empresas.Controls.Add(textBox4);
+            Empresas.Controls.Add(textBox3);
+            Empresas.Controls.Add(textBox1);
             Empresas.Controls.Add(button1);
             Empresas.Controls.Add(button2);
             Empresas.Controls.Add(label5);
@@ -231,18 +269,18 @@
             // 
             // button1
             // 
-            button1.Location = new Point(632, 79);
+            button1.Location = new Point(17, 90);
             button1.Name = "button1";
-            button1.Size = new Size(142, 34);
+            button1.Size = new Size(183, 34);
             button1.TabIndex = 14;
             button1.Text = "Pesquisar";
             button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            button2.Location = new Point(790, 79);
+            button2.Location = new Point(206, 89);
             button2.Name = "button2";
-            button2.Size = new Size(142, 34);
+            button2.Size = new Size(185, 34);
             button2.TabIndex = 13;
             button2.Text = "Limpar";
             button2.UseVisualStyleBackColor = true;
@@ -250,26 +288,27 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(449, 45);
+            label5.Location = new Point(108, 24);
             label5.Name = "label5";
-            label5.Size = new Size(177, 25);
+            label5.Size = new Size(173, 25);
             label5.TabIndex = 11;
-            label5.Text = "Pesquisar por Nome:";
+            label5.Text = "Pesquisar por Nome";
+            label5.Click += label5_Click_1;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(632, 42);
+            textBox2.Location = new Point(17, 52);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(300, 31);
+            textBox2.Size = new Size(374, 31);
             textBox2.TabIndex = 4;
             // 
             // ListaEmpresas
             // 
             ListaEmpresas.FormattingEnabled = true;
             ListaEmpresas.ItemHeight = 25;
-            ListaEmpresas.Location = new Point(38, 18);
+            ListaEmpresas.Location = new Point(17, 130);
             ListaEmpresas.Name = "ListaEmpresas";
-            ListaEmpresas.Size = new Size(359, 529);
+            ListaEmpresas.Size = new Size(374, 379);
             ListaEmpresas.TabIndex = 1;
             ListaEmpresas.SelectedIndexChanged += listBox1_SelectedIndexChanged_3;
             // 
@@ -293,6 +332,175 @@
             tabPage2.Text = "Clientes";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(529, 24);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(467, 31);
+            textBox1.TabIndex = 15;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(529, 76);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(467, 31);
+            textBox3.TabIndex = 16;
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(529, 130);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(467, 31);
+            textBox4.TabIndex = 17;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 8.25F);
+            label2.Location = new Point(430, 29);
+            label2.Name = "label2";
+            label2.Size = new Size(61, 23);
+            label2.TabIndex = 18;
+            label2.Text = "Nome:";
+            label2.Click += label2_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 9F);
+            label6.Location = new Point(430, 82);
+            label6.Name = "label6";
+            label6.Size = new Size(78, 25);
+            label6.TabIndex = 19;
+            label6.Text = "Morada:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9F);
+            label7.Location = new Point(430, 136);
+            label7.Name = "label7";
+            label7.Size = new Size(88, 25);
+            label7.TabIndex = 20;
+            label7.Text = "Contacto:";
+            label7.Click += label7_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9F);
+            label8.Location = new Point(430, 195);
+            label8.Name = "label8";
+            label8.Size = new Size(149, 25);
+            label8.TabIndex = 21;
+            label8.Text = "Tipo de Empresa:";
+            label8.Click += label8_Click;
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(581, 195);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(415, 31);
+            textBox5.TabIndex = 22;
+            // 
+            // Encomenda
+            // 
+            Encomenda.FormattingEnabled = true;
+            Encomenda.ItemHeight = 25;
+            Encomenda.Location = new Point(430, 255);
+            Encomenda.Name = "Encomenda";
+            Encomenda.Size = new Size(283, 254);
+            Encomenda.TabIndex = 23;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 9F);
+            label9.Location = new Point(717, 255);
+            label9.Name = "label9";
+            label9.Size = new Size(129, 25);
+            label9.TabIndex = 24;
+            label9.Text = "Filtrar por data";
+            label9.Click += label9_Click;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(717, 283);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(305, 31);
+            dateTimePicker1.TabIndex = 25;
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 9F);
+            label10.Location = new Point(717, 322);
+            label10.Name = "label10";
+            label10.Size = new Size(193, 25);
+            label10.TabIndex = 26;
+            label10.Text = "Empresa de Transporte";
+            label10.Click += label10_Click;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 9F);
+            label11.Location = new Point(717, 386);
+            label11.Name = "label11";
+            label11.Size = new Size(77, 25);
+            label11.TabIndex = 27;
+            label11.Text = "Origem ";
+            label11.Click += label11_Click;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
+            comboBox1.Location = new Point(717, 350);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(307, 33);
+            comboBox1.TabIndex = 28;
+            comboBox1.Text = "Seleciona uma empresa";
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
+            comboBox2.Location = new Point(717, 414);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(307, 33);
+            comboBox2.TabIndex = 29;
+            comboBox2.Text = "Seleciona uma quinta";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 9F);
+            label12.Location = new Point(717, 450);
+            label12.Name = "label12";
+            label12.Size = new Size(70, 25);
+            label12.TabIndex = 30;
+            label12.Text = "Cliente ";
+            // 
+            // textBox6
+            // 
+            textBox6.Location = new Point(717, 478);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(309, 31);
+            textBox6.TabIndex = 31;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(717, 515);
+            button3.Name = "button3";
+            button3.Size = new Size(151, 34);
+            button3.TabIndex = 33;
+            button3.Text = "Pesquisar";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
             // Agricultores
             // 
             Agricultores.FormattingEnabled = true;
@@ -304,11 +512,20 @@
             // 
             // Form1
             // 
+            button4.Location = new Point(874, 515);
+            button4.Name = "button4";
+            button4.Size = new Size(150, 34);
+            button4.TabIndex = 32;
+            button4.Text = "Limpar";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // AgroTrack
+            // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1075, 659);
             Controls.Add(tabControl1);
-            Name = "Form1";
+            Name = "AgroTrack";
             Text = "Form1";
             Load += Form1_Load;
             tabControl1.ResumeLayout(false);
@@ -342,6 +559,25 @@
         private Button button1;
         private Button button2;
         private Label label5;
+        private Label label2;
+        private TextBox textBox4;
+        private TextBox textBox3;
+        private TextBox textBox1;
+        private Label label6;
+        private Label label7;
+        private Label label8;
+        private ListBox Encomenda;
+        private TextBox textBox5;
+        private Label label9;
+        private DateTimePicker dateTimePicker1;
+        private ComboBox comboBox1;
+        private Label label11;
+        private Label label10;
+        private ComboBox comboBox2;
+        private TextBox textBox6;
+        private Label label12;
+        private Button button3;
+        private Button button4;
         private Label label2;
         private TextBox QuintaContacto;
         private ListBox Agricultores;
