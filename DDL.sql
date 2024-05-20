@@ -53,6 +53,8 @@ create table AgroTrack_Empresa (
 	Id_Empresa			int					not null,
 	Nome				varchar(64)			not null,
     Morada				varchar(64)			not null,
+	Contacto			int					not null		check(len(Contacto)=9),
+
 
 	PRIMARY KEY(Id_Empresa),
 	unique (Nome)
