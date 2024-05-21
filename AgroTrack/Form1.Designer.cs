@@ -166,18 +166,18 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(452, 164);
+            label13.Location = new Point(439, 161);
             label13.Name = "label13";
-            label13.Size = new Size(84, 25);
+            label13.Size = new Size(88, 25);
             label13.TabIndex = 14;
-            label13.Text = "Contacto";
+            label13.Text = "Contacto:";
             label13.Click += label13_Click;
             // 
             // QuintaContacto
             // 
-            QuintaContacto.Location = new Point(563, 158);
+            QuintaContacto.Location = new Point(523, 158);
             QuintaContacto.Name = "QuintaContacto";
-            QuintaContacto.Size = new Size(383, 31);
+            QuintaContacto.Size = new Size(463, 31);
             QuintaContacto.TabIndex = 13;
             // 
             // buttonPesquisarQuinta
@@ -213,34 +213,34 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(464, 97);
+            label3.Location = new Point(439, 97);
             label3.Name = "label3";
-            label3.Size = new Size(74, 25);
+            label3.Size = new Size(78, 25);
             label3.TabIndex = 8;
-            label3.Text = "Morada";
+            label3.Text = "Morada:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(475, 24);
+            label1.Location = new Point(439, 30);
             label1.Name = "label1";
-            label1.Size = new Size(61, 25);
+            label1.Size = new Size(65, 25);
             label1.TabIndex = 6;
-            label1.Text = "Nome";
+            label1.Text = "Nome:";
             label1.Click += label1_Click;
             // 
             // QuintaMorada
             // 
-            QuintaMorada.Location = new Point(563, 94);
+            QuintaMorada.Location = new Point(523, 94);
             QuintaMorada.Name = "QuintaMorada";
-            QuintaMorada.Size = new Size(383, 31);
+            QuintaMorada.Size = new Size(463, 31);
             QuintaMorada.TabIndex = 5;
             // 
             // QuintaNome
             // 
-            QuintaNome.Location = new Point(563, 24);
+            QuintaNome.Location = new Point(523, 30);
             QuintaNome.Name = "QuintaNome";
-            QuintaNome.Size = new Size(383, 31);
+            QuintaNome.Size = new Size(463, 31);
             QuintaNome.TabIndex = 4;
             QuintaNome.TextChanged += textBox1_TextChanged_1;
             // 
