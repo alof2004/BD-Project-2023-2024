@@ -1,8 +1,8 @@
 ﻿public class Agricultores
 {
-    public string Id_Trabalhador { get; set; }
-    public string Pessoa_N_CartaoCidadao { get; set; }
-    public string Quinta_Empresa_Id_Empresa { get; set; }
+    public int Id_Trabalhador { get; set; }
+    public int Pessoa_N_CartaoCidadao { get; set; }
+    public int Quinta_Empresa_Id_Empresa { get; set; }
     public string Nome { get; set; }
     public int Contacto { get; set; }
     public Agricultores()

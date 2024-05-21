@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Contracts;
 using System.Windows.Forms;
 
 namespace AgroTrack
@@ -105,6 +106,36 @@ namespace AgroTrack
                     };
 
                     Animais.Items.Add(animal);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+        }
+
+        private void loadAgricultores(int empresaId)
+        {
+            string query = "SELECT Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa, Codigo_quinta, Empresa_Id_Empresa FROM AgroTrack.AgriculQuinta WHERE Codigo_quinta = @CodigoQuinta";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@EmpresaId", empresaId);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                Agricultores.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    Agricultores agricultores = new Agricultores
+                    {
+                        Id_Trabalhador = (int)reader["Id_Trabalhador"],
+                        Pessoa_N_CartaoCidadao = (int)reader["Pessoa_N_CartaoCidadao"],
+                        Quinta_Empresa_Id_Empresa = (int)reader["Quinta_Empresa_Id_Empresa"],
+                        Nome = reader["Nome"].ToString(),
+                        Contacto = (int)reader["Contacto"]
+                    };
+                    Agricultores.Items.Add(agricultores);
                 }
                 reader.Close();
             }
@@ -224,6 +255,11 @@ namespace AgroTrack
         }
 
         private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Agricultores_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
