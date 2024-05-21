@@ -30,6 +30,9 @@
         {
             tabControl1 = new TabControl();
             Quintas = new TabPage();
+            Agricultores = new ListBox();
+            label13 = new Label();
+            QuintaContacto = new TextBox();
             buttonPesquisarQuinta = new Button();
             buttonLimparPesquisaQuinta = new Button();
             label4 = new Label();
@@ -67,9 +70,10 @@
             ListaEmpresas = new ListBox();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
-            QuintaContacto = new TextBox();
-            label13 = new Label();
-            Agricultores = new ListBox();
+            button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
+            button7 = new Button();
             tabControl1.SuspendLayout();
             Quintas.SuspendLayout();
             Empresas.SuspendLayout();
@@ -112,6 +116,32 @@
             Quintas.Text = "Quintas";
             Quintas.UseVisualStyleBackColor = true;
             Quintas.Click += Quintas_Click;
+            // 
+            // Agricultores
+            // 
+            Agricultores.FormattingEnabled = true;
+            Agricultores.ItemHeight = 25;
+            Agricultores.Location = new Point(439, 235);
+            Agricultores.Name = "Agricultores";
+            Agricultores.Size = new Size(547, 129);
+            Agricultores.TabIndex = 15;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(452, 176);
+            label13.Name = "label13";
+            label13.Size = new Size(84, 25);
+            label13.TabIndex = 14;
+            label13.Text = "Contacto";
+            label13.Click += label13_Click;
+            // 
+            // QuintaContacto
+            // 
+            QuintaContacto.Location = new Point(563, 170);
+            QuintaContacto.Name = "QuintaContacto";
+            QuintaContacto.Size = new Size(383, 31);
+            QuintaContacto.TabIndex = 13;
             // 
             // buttonPesquisarQuinta
             // 
@@ -217,6 +247,10 @@
             // 
             // Empresas
             // 
+            Empresas.Controls.Add(button7);
+            Empresas.Controls.Add(button6);
+            Empresas.Controls.Add(button5);
+            Empresas.Controls.Add(button4);
             Empresas.Controls.Add(button3);
             Empresas.Controls.Add(textBox6);
             Empresas.Controls.Add(label12);
@@ -243,7 +277,7 @@
             Empresas.Location = new Point(4, 34);
             Empresas.Name = "Empresas";
             Empresas.Padding = new Padding(3);
-            Empresas.Size = new Size(1032, 571);
+            Empresas.Size = new Size(1140, 619);
             Empresas.TabIndex = 1;
             Empresas.Text = "Empresas";
             Empresas.UseVisualStyleBackColor = true;
@@ -349,7 +383,7 @@
             // 
             textBox5.Location = new Point(581, 195);
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(415, 31);
+            textBox5.Size = new Size(443, 31);
             textBox5.TabIndex = 22;
             // 
             // label8
@@ -399,21 +433,21 @@
             // 
             textBox4.Location = new Point(529, 130);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(467, 31);
+            textBox4.Size = new Size(495, 31);
             textBox4.TabIndex = 17;
             // 
             // textBox3
             // 
             textBox3.Location = new Point(529, 76);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(467, 31);
+            textBox3.Size = new Size(495, 31);
             textBox3.TabIndex = 16;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(529, 24);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(467, 31);
+            textBox1.Size = new Size(493, 31);
             textBox1.TabIndex = 15;
             // 
             // button1
@@ -466,7 +500,7 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1032, 571);
+            tabPage1.Size = new Size(1140, 619);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Produtos";
             tabPage1.UseVisualStyleBackColor = true;
@@ -476,43 +510,54 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1032, 571);
+            tabPage2.Size = new Size(1140, 619);
             tabPage2.TabIndex = 3;
             tabPage2.Text = "Clientes";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // QuintaContacto
+            // button4
             // 
-            QuintaContacto.Location = new Point(563, 170);
-            QuintaContacto.Name = "QuintaContacto";
-            QuintaContacto.Size = new Size(383, 31);
-            QuintaContacto.TabIndex = 13;
+            button4.Location = new Point(17, 537);
+            button4.Name = "button4";
+            button4.Size = new Size(264, 34);
+            button4.TabIndex = 34;
+            button4.Text = "Adicionar Empresa";
+            button4.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // button5
             // 
-            label13.AutoSize = true;
-            label13.Location = new Point(452, 176);
-            label13.Name = "label13";
-            label13.Size = new Size(84, 25);
-            label13.TabIndex = 14;
-            label13.Text = "Contacto";
-            label13.Click += label13_Click;
+            button5.Location = new Point(287, 537);
+            button5.Name = "button5";
+            button5.Size = new Size(264, 34);
+            button5.TabIndex = 35;
+            button5.Text = "Adicionar Encomenda";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click_1;
             // 
-            // Agricultores
+            // button6
             // 
-            Agricultores.FormattingEnabled = true;
-            Agricultores.ItemHeight = 25;
-            Agricultores.Location = new Point(439, 235);
-            Agricultores.Name = "Agricultores";
-            Agricultores.Size = new Size(547, 129);
-            Agricultores.TabIndex = 15;
+            button6.Location = new Point(827, 537);
+            button6.Name = "button6";
+            button6.Size = new Size(264, 34);
+            button6.TabIndex = 36;
+            button6.Text = "Cancelar Encomenda";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            button7.Location = new Point(557, 537);
+            button7.Name = "button7";
+            button7.Size = new Size(264, 34);
+            button7.TabIndex = 37;
+            button7.Text = "Eliminar Empresa";
+            button7.UseVisualStyleBackColor = true;
             // 
             // AgroTrack
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(1077, 660);
+            ClientSize = new Size(1153, 617);
             Controls.Add(tabControl1);
             Name = "AgroTrack";
             Text = "AgroTrack";
@@ -569,5 +614,9 @@
         private Label label13;
         private TextBox QuintaContacto;
         private ListBox Agricultores;
+        private Button button5;
+        private Button button4;
+        private Button button6;
+        private Button button7;
     }
 }
