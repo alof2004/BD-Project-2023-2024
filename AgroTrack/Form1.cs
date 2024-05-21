@@ -15,6 +15,7 @@ namespace AgroTrack
             InitializeComponent();
             verifySGBDConnection();
             LoadQuinta();
+            LoadEmpresa();
             AgricultoresTab.Dock = DockStyle.Fill;
         }
 
@@ -215,6 +216,87 @@ namespace AgroTrack
 
         }
 
+
+        private void LoadEmpresa()
+        {
+            string query = "SELECT Id_Empresa,Nome,Morada, Contacto, Tipo_De_Empresa FROM AgroTrack.Empresa;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Empresa Company = new Empresa
+                    {
+                        Id_Empresa= (int)reader["Id_Empresa"],
+                        Nome = reader["Nome"].ToString(),
+                        Morada = reader["Morada"].ToString(),
+                        Contacto = (int)reader["Contacto"],
+                        TipoEmpresa= reader["Tipo_De_Empresa"].ToString(),
+                    };
+
+                    ListaEmpresas.Items.Add(Company);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+        private void ListaEmpresas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListaEmpresas.SelectedItem is Empresa selectedCompany)
+            {
+                Nome.ReadOnly = true;
+                Morada.ReadOnly = true;
+                Contacto.ReadOnly = true;
+                TipoEmpresa.ReadOnly = true;
+
+                Nome.Text = selectedCompany.Nome;
+                Morada.Text = selectedCompany.Morada;
+                Contacto.Text = selectedCompany.Contacto.ToString();
+                TipoEmpresa.Text = selectedCompany.TipoEmpresa;
+
+                LoadEncomendas(selectedCompany.Id_Empresa);
+            }
+        }
+
+        private void LoadEncomendas(int empresaId)
+        {
+            string query = "SELECT Codigo, prazo_entrega, Morada_entrega, Entrega,Retalhista_Empresa_Id_Empresa,Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id FROM AgroTrack.AnimaisQuinta WHERE Empresa_Id_Empresa = @EmpresaId;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@EmpresaId", empresaId);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                Encomenda.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    Encomenda Enc = new Encomenda
+                    {
+                        Codigo = (int)reader["Codigo"],
+                        PrazoEntrega = (int)reader["PrazoEntrega"],
+                        MoradaEntrega = reader["MoradaEntrega"].ToString(),
+                        Entrega = DateTime.Parse(reader["DataEntrega"].ToString()),
+                        RetalhistaEmpresaId = (int)reader["RetalhistaEmpresaId"],
+                        EmpresaDeTransportesId = (int)reader["EmpresaDeTransportesId"],
+                        QuintaEmpresaId = (int)reader["QuintaEmpresaId"]
+                    };
+
+                    Encomenda.Items.Add(Enc);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+        }
+
         private void listBox1_SelectedIndexChanged_3(object sender, EventArgs e)
         {
 
@@ -351,6 +433,16 @@ namespace AgroTrack
         }
 
         private void label39_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AgricultorQuinta_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Empresas_Click(object sender, EventArgs e)
         {
 
         }

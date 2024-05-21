@@ -60,14 +60,14 @@
             dateTimePicker1 = new DateTimePicker();
             label9 = new Label();
             Encomenda = new ListBox();
-            textBox5 = new TextBox();
+            TipoEmpresa = new TextBox();
             label8 = new Label();
             label7 = new Label();
             label6 = new Label();
             label2 = new Label();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
-            textBox1 = new TextBox();
+            Contacto = new TextBox();
+            Morada = new TextBox();
+            Nome = new TextBox();
             button1 = new Button();
             button2 = new Button();
             label5 = new Label();
@@ -369,14 +369,14 @@
             Empresas.Controls.Add(dateTimePicker1);
             Empresas.Controls.Add(label9);
             Empresas.Controls.Add(Encomenda);
-            Empresas.Controls.Add(textBox5);
+            Empresas.Controls.Add(TipoEmpresa);
             Empresas.Controls.Add(label8);
             Empresas.Controls.Add(label7);
             Empresas.Controls.Add(label6);
             Empresas.Controls.Add(label2);
-            Empresas.Controls.Add(textBox4);
-            Empresas.Controls.Add(textBox3);
-            Empresas.Controls.Add(textBox1);
+            Empresas.Controls.Add(Contacto);
+            Empresas.Controls.Add(Morada);
+            Empresas.Controls.Add(Nome);
             Empresas.Controls.Add(button1);
             Empresas.Controls.Add(button2);
             Empresas.Controls.Add(label5);
@@ -389,6 +389,7 @@
             Empresas.TabIndex = 1;
             Empresas.Text = "Empresas";
             Empresas.UseVisualStyleBackColor = true;
+            Empresas.Click += Empresas_Click;
             // 
             // button7
             // 
@@ -524,12 +525,12 @@
             Encomenda.Size = new Size(283, 254);
             Encomenda.TabIndex = 23;
             // 
-            // textBox5
+            // TipoEmpresa
             // 
-            textBox5.Location = new Point(581, 195);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(443, 31);
-            textBox5.TabIndex = 22;
+            TipoEmpresa.Location = new Point(581, 195);
+            TipoEmpresa.Name = "TipoEmpresa";
+            TipoEmpresa.Size = new Size(443, 31);
+            TipoEmpresa.TabIndex = 22;
             // 
             // label8
             // 
@@ -574,26 +575,26 @@
             label2.Text = "Nome:";
             label2.Click += label2_Click;
             // 
-            // textBox4
+            // Contacto
             // 
-            textBox4.Location = new Point(529, 130);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(495, 31);
-            textBox4.TabIndex = 17;
+            Contacto.Location = new Point(529, 130);
+            Contacto.Name = "Contacto";
+            Contacto.Size = new Size(495, 31);
+            Contacto.TabIndex = 17;
             // 
-            // textBox3
+            // Morada
             // 
-            textBox3.Location = new Point(529, 76);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(495, 31);
-            textBox3.TabIndex = 16;
+            Morada.Location = new Point(529, 76);
+            Morada.Name = "Morada";
+            Morada.Size = new Size(495, 31);
+            Morada.TabIndex = 16;
             // 
-            // textBox1
+            // Nome
             // 
-            textBox1.Location = new Point(529, 24);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(493, 31);
-            textBox1.TabIndex = 15;
+            Nome.Location = new Point(529, 24);
+            Nome.Name = "Nome";
+            Nome.Size = new Size(493, 31);
+            Nome.TabIndex = 15;
             // 
             // button1
             // 
@@ -1559,14 +1560,14 @@
         private Button button2;
         private Label label5;
         private Label label2;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox1;
+        private TextBox Contacto;
+        private TextBox Morada;
+        private TextBox Nome;
         private Label label6;
         private Label label7;
         private Label label8;
         private ListBox Encomenda;
-        private TextBox textBox5;
+        private TextBox TipoEmpresa;
         private Label label9;
         private DateTimePicker dateTimePicker1;
         private ComboBox comboBox1;
