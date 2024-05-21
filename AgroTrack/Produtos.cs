@@ -25,13 +25,12 @@ namespace AgroTrack
             Taxa_de_iva = iva;
             Unidade_medida = tipo;
             Tipo_de_Produto = tipo;
-
         }
         
 
         public override string ToString()
         {
-            return Id_Quinta + "     -     " + Nome;
+            return Id_Origem + "     -     " + Nome;
         }
     }
 }
