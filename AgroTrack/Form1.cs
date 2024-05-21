@@ -81,6 +81,7 @@ namespace AgroTrack
                 QuintaContacto.Text = selectedFarm.Contacto.ToString();
 
                 LoadAnimals(selectedFarm.Empresa_Id_Empresa);
+                loadAgricultores(selectedFarm.Empresa_Id_Empresa);
 
             }
         }
@@ -117,9 +118,9 @@ namespace AgroTrack
 
         private void loadAgricultores(int empresaId)
         {
-            string query = "SELECT Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa, Codigo_quinta, Empresa_Id_Empresa FROM AgroTrack.AgriculQuinta WHERE Codigo_quinta = @CodigoQuinta";
+            string query = "SELECT Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa, Codigo_quinta, Empresa_Id_Empresa, Nome, Contacto FROM AgroTrack.AgriculQuinta WHERE Codigo_quinta = @CodigoQuinta";
             SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@EmpresaId", empresaId);
+            cmd.Parameters.AddWithValue("@CodigoQuinta", empresaId);
 
             try
             {
@@ -275,6 +276,36 @@ namespace AgroTrack
         }
 
         private void Agricultores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Contacto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListaAgricultores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ColheitasAgricultor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
         {
 
         }
