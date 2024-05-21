@@ -57,18 +57,18 @@ INSERT INTO AgroTrack_Pessoa(Nome,N_CartaoCidadao,Contacto) VALUES
 INSERT INTO AgroTrack_Empresa(Id_Empresa, Nome, Morada, Contacto) VALUES
 (1, 'Quinta da Vinha Verde', 'Rua Principal, 123', 919000923),
 (2, 'Quinta da Esperança', 'Avenida Central, 456', 919000924),
-(3, 'Quinta da Boa Vista', 'Travessa Secundária, 789', 919000925),
-(4, 'Quinta da Fonte Fresca', 'Rua das Flores, 10', 919000926),
-(5, 'Quinta das Oliveiras', 'Avenida dos Aliados, 20', 919000927),
-(6, 'Logística Ágil', 'Avenida das Entregas Eficientes, 60', 919000928),
+(3, 'Quinta da Boa Vista', 'Travessa Secundária, 789', 919057925),
+(4, 'Quinta da Fonte Fresca', 'Rua das Flores, 10', 919340926),
+(5, 'Quinta das Oliveiras', 'Avenida dos Aliados, 20', 919033257),
+(6, 'Logística Ágil', 'Avenida das Entregas Eficientes, 60', 919350928),
 (7, 'Fretes Seguros', 'Travessa dos Transportes Seguros, 70', 919000929),
 (8, 'Transportes Velozes LTDA', 'Rua das Rotas Rápidas, 80', 919000930),
 (9, 'Logística Global', 'Avenida da Eficiência Logística, 90', 919000931),
 (10, 'Entrega Segura', 'Travessa da Entrega Certa, 100', 919000932),
-(11, 'Supermercado Central', 'Rua Principal, 250', 919000933),
-(12, 'Loja do Bairro', 'Avenida Central, 260', 919000934),
-(13, 'Casa dos Utensílios', 'Travessa das Utilidades, 270', 919000935),
-(14, 'Continente', 'Rua das Novidades, 280', 919000936),
+(11, 'Supermercado Central', 'Rua Principal, 250', 919946933),
+(12, 'Loja do Bairro', 'Avenida Central, 260', 919358934),
+(13, 'Casa dos Utensílios', 'Travessa das Utilidades, 270', 919432935),
+(14, 'Continente', 'Rua das Novidades, 280', 919673936),
 (15, 'Pingo Doce', 'Avenida das Mercadorias, 290', 919000937);
 
 
@@ -290,7 +290,7 @@ INSERT INTO AgroTrack_Encomenda(Codigo, prazo_entrega, Morada_entrega, Entrega, 
 	(2, 3, 'Avenida Central, 260', '2024-06-02', 12, 7, 2),
 	(3, 4, 'Travessa das Utilidades, 270', '2024-06-03', 13, 8, 3),
 	(4, 5, 'Rua das Novidades, 280', '2024-06-04', 14, 9, 4),
-	(5, 6, 'Avenida das Mercadorias, 290', '2024-06-05', 15, 10, 5),
+	(5, 6, 'Avenida das Mercadorias, 290', '2024-06-05', 15, 10, 5);
 	
 
 INSERT INTO AgroTrack_Item(ProdutoCodigo, Quantidade, Encomenda_Codigo) VALUES
