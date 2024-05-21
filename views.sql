@@ -97,6 +97,15 @@ create view AgroTrack.Produto as
 	from  AgroTrack_Produto as Pro 
 go
 
+--Produto e item
+drop view IF EXISTS AgroTrack.ProdutoItem
+go
+create view AgroTrack.ProdutoItem as
+	select Pro.Nome, I.Quantidade, I.Encomenda_Codigo
+	from  (AgroTrack_Produto as Pro join AgroTrack_Item as I on Pro.Codigo=I.ProdutoCodigo)
+go
+
+
 
 --Produto e  Quinta e contem
 drop view IF EXISTS AgroTrack.QuintaProduto
