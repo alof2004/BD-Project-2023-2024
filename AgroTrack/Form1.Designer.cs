@@ -162,6 +162,7 @@
             textBox17 = new TextBox();
             textBox18 = new TextBox();
             ListaAgricultores = new ListBox();
+            colheitasQuintas = new ListBox();
             AgricultoresTab.SuspendLayout();
             Quintas.SuspendLayout();
             Empresas.SuspendLayout();
@@ -189,6 +190,7 @@
             // 
             // Quintas
             // 
+            Quintas.Controls.Add(colheitasQuintas);
             Quintas.Controls.Add(Agricultores);
             Quintas.Controls.Add(label13);
             Quintas.Controls.Add(QuintaContacto);
@@ -218,7 +220,7 @@
             Agricultores.ItemHeight = 25;
             Agricultores.Location = new Point(439, 210);
             Agricultores.Name = "Agricultores";
-            Agricultores.Size = new Size(547, 154);
+            Agricultores.Size = new Size(242, 179);
             Agricultores.TabIndex = 15;
             Agricultores.SelectedIndexChanged += Agricultores_SelectedIndexChanged;
             // 
@@ -315,9 +317,9 @@
             // 
             Plantas.FormattingEnabled = true;
             Plantas.ItemHeight = 25;
-            Plantas.Location = new Point(744, 372);
+            Plantas.Location = new Point(744, 397);
             Plantas.Name = "Plantas";
-            Plantas.Size = new Size(242, 204);
+            Plantas.Size = new Size(242, 179);
             Plantas.TabIndex = 2;
             Plantas.SelectedIndexChanged += listBox1_SelectedIndexChanged_2;
             // 
@@ -325,9 +327,9 @@
             // 
             Animais.FormattingEnabled = true;
             Animais.ItemHeight = 25;
-            Animais.Location = new Point(439, 372);
+            Animais.Location = new Point(439, 397);
             Animais.Name = "Animais";
-            Animais.Size = new Size(242, 204);
+            Animais.Size = new Size(242, 179);
             Animais.TabIndex = 1;
             Animais.SelectedIndexChanged += listBox1_SelectedIndexChanged_1;
             // 
@@ -1497,6 +1499,15 @@
             ListaAgricultores.TabIndex = 16;
             ListaAgricultores.SelectedIndexChanged += ListaAgricultores_SelectedIndexChanged;
             // 
+            // colheitasQuintas
+            // 
+            colheitasQuintas.FormattingEnabled = true;
+            colheitasQuintas.ItemHeight = 25;
+            colheitasQuintas.Location = new Point(744, 210);
+            colheitasQuintas.Name = "colheitasQuintas";
+            colheitasQuintas.Size = new Size(242, 179);
+            colheitasQuintas.TabIndex = 16;
+            // 
             // AgroTrack
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -1660,5 +1671,6 @@
         private TextBox NomeClientes;
         private TextBox PesquisaPorNomeCliente;
         private ListBox ListaClientes;
+        private ListBox colheitasQuintas;
     }
 }
