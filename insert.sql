@@ -1,3 +1,5 @@
+DELETE FROM AgroTrack_Item;
+DELETE FROM AgroTrack_Encomenda;
 DELETE FROM AgroTrack_Colhe;
 DELETE FROM AgroTrack_Contem;
 DELETE FROM AgroTrack_Empresa_De_Transportes;
@@ -251,9 +253,9 @@ INSERT INTO AgroTrack_Empresa_De_Transportes (Empresa_Id_Empresa, Nome) VALUES
 
 INSERT INTO AgroTrack_Contem (Produto_codigo, Quinta_Empresa_Id_Empresa, Data_de_validade, Quantidade) VALUES
     (1, 2, '2024-07-01', 29),
-    (2, 2, '2024-07-01', 26),
+    (2, 4, '2024-07-01', 26),
     (3, 3, '2024-07-01', 32),
-    (4, 3, '2024-06-01', 44),
+    (4, 5, '2024-06-01', 44),
     (5, 3, '2024-07-01', 95),
     (6, 3, '2024-06-01', 143),
     (7, 4, '2024-05-01', 123),
@@ -270,12 +272,12 @@ INSERT INTO AgroTrack_Contem (Produto_codigo, Quinta_Empresa_Id_Empresa, Data_de
     (10, 3, '2024-09-01', 240),
     (5, 4, '2024-10-01', 210),
     (6, 5, '2024-11-01', 30),
-    (7, 6, '2024-12-01', 50),
-    (12, 7, '2024-01-01', 40),
-    (10, 8, '2024-02-01', 350),
-    (8, 9, '2024-03-01', 200),
-    (5, 10, '2024-04-01', 450),
-    (3, 11, '2024-05-01', 20);
+    (7, 3, '2024-12-01', 50),
+    (12, 4, '2024-01-01', 40),
+    (10, 1, '2024-02-01', 350),
+    (8, 2, '2024-03-01', 200),
+    (5, 1, '2024-04-01', 450),
+    (3, 1, '2024-05-01', 20);
 
 
 
