@@ -136,21 +136,21 @@
             button18 = new Button();
             comboBox6 = new ComboBox();
             label36 = new Label();
-            comboBox7 = new ComboBox();
+            ComprouProduto = new ComboBox();
             label37 = new Label();
             button17 = new Button();
             AdicionarCompra = new Button();
             AdicionarCliente = new Button();
             ApagarCliente = new Button();
-            numericUpDown3 = new NumericUpDown();
+            NúmeroComprasCliente = new NumericUpDown();
             label38 = new Label();
-            comboBox8 = new ComboBox();
+            ComprouQuinta = new ComboBox();
             label39 = new Label();
             checkedListBox3 = new CheckedListBox();
             label40 = new Label();
             label42 = new Label();
             CCclientes = new TextBox();
-            listBox1 = new ListBox();
+            ListaCompras = new ListBox();
             label43 = new Label();
             ContactoCliente = new TextBox();
             button22 = new Button();
@@ -170,7 +170,7 @@
             tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NúmeroComprasCliente).BeginInit();
             SuspendLayout();
             // 
             // AgricultoresTab
@@ -945,21 +945,21 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(comboBox7);
+            tabPage2.Controls.Add(ComprouProduto);
             tabPage2.Controls.Add(label37);
             tabPage2.Controls.Add(button17);
             tabPage2.Controls.Add(AdicionarCompra);
             tabPage2.Controls.Add(AdicionarCliente);
             tabPage2.Controls.Add(ApagarCliente);
-            tabPage2.Controls.Add(numericUpDown3);
+            tabPage2.Controls.Add(NúmeroComprasCliente);
             tabPage2.Controls.Add(label38);
-            tabPage2.Controls.Add(comboBox8);
+            tabPage2.Controls.Add(ComprouQuinta);
             tabPage2.Controls.Add(label39);
             tabPage2.Controls.Add(checkedListBox3);
             tabPage2.Controls.Add(label40);
             tabPage2.Controls.Add(label42);
             tabPage2.Controls.Add(CCclientes);
-            tabPage2.Controls.Add(listBox1);
+            tabPage2.Controls.Add(ListaCompras);
             tabPage2.Controls.Add(label43);
             tabPage2.Controls.Add(ContactoCliente);
             tabPage2.Controls.Add(button22);
@@ -1270,24 +1270,24 @@
             label36.TabIndex = 46;
             label36.Text = "Colheu Produto:";
             // 
-            // comboBox7
+            // ComprouProduto
             // 
-            comboBox7.FormattingEnabled = true;
-            comboBox7.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            comboBox7.Location = new Point(398, 290);
-            comboBox7.Name = "comboBox7";
-            comboBox7.Size = new Size(207, 33);
-            comboBox7.TabIndex = 76;
-            comboBox7.Text = "Seleciona um produto";
+            ComprouProduto.FormattingEnabled = true;
+            ComprouProduto.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
+            ComprouProduto.Location = new Point(398, 290);
+            ComprouProduto.Name = "ComprouProduto";
+            ComprouProduto.Size = new Size(207, 33);
+            ComprouProduto.TabIndex = 76;
+            ComprouProduto.Text = "Seleciona um produto";
             // 
             // label37
             // 
             label37.AutoSize = true;
             label37.Location = new Point(398, 262);
             label37.Name = "label37";
-            label37.Size = new Size(141, 25);
+            label37.Size = new Size(162, 25);
             label37.TabIndex = 75;
-            label37.Text = "Colheu Produto:";
+            label37.Text = "Comprou Produto:";
             // 
             // button17
             // 
@@ -1325,12 +1325,12 @@
             ApagarCliente.Text = "Apagar Cliente";
             ApagarCliente.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown3
+            // NúmeroComprasCliente
             // 
-            numericUpDown3.Location = new Point(398, 470);
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(207, 31);
-            numericUpDown3.TabIndex = 70;
+            NúmeroComprasCliente.Location = new Point(398, 470);
+            NúmeroComprasCliente.Name = "NúmeroComprasCliente";
+            NúmeroComprasCliente.Size = new Size(207, 31);
+            NúmeroComprasCliente.TabIndex = 70;
             // 
             // label38
             // 
@@ -1342,15 +1342,15 @@
             label38.Text = "Quantidade de Compras:";
             label38.Click += label38_Click;
             // 
-            // comboBox8
+            // ComprouQuinta
             // 
-            comboBox8.FormattingEnabled = true;
-            comboBox8.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            comboBox8.Location = new Point(397, 384);
-            comboBox8.Name = "comboBox8";
-            comboBox8.Size = new Size(207, 33);
-            comboBox8.TabIndex = 68;
-            comboBox8.Text = "Seleciona uma quinta";
+            ComprouQuinta.FormattingEnabled = true;
+            ComprouQuinta.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
+            ComprouQuinta.Location = new Point(397, 384);
+            ComprouQuinta.Name = "ComprouQuinta";
+            ComprouQuinta.Size = new Size(207, 33);
+            ComprouQuinta.TabIndex = 68;
+            ComprouQuinta.Text = "Seleciona uma quinta";
             // 
             // label39
             // 
@@ -1366,15 +1366,15 @@
             // 
             checkedListBox3.FormattingEnabled = true;
             checkedListBox3.Items.AddRange(new object[] { "Nome (crescente)", "Nome (decrescente)", "ID (decrescente)" });
-            checkedListBox3.Location = new Point(19, 396);
+            checkedListBox3.Location = new Point(19, 480);
             checkedListBox3.Name = "checkedListBox3";
-            checkedListBox3.Size = new Size(359, 172);
+            checkedListBox3.Size = new Size(359, 88);
             checkedListBox3.TabIndex = 66;
             // 
             // label40
             // 
             label40.AutoSize = true;
-            label40.Location = new Point(19, 368);
+            label40.Location = new Point(19, 452);
             label40.Name = "label40";
             label40.Size = new Size(95, 25);
             label40.TabIndex = 65;
@@ -1396,14 +1396,14 @@
             CCclientes.Size = new Size(626, 31);
             CCclientes.TabIndex = 60;
             // 
-            // listBox1
+            // ListaCompras
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 25;
-            listBox1.Location = new Point(636, 262);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(497, 254);
-            listBox1.TabIndex = 59;
+            ListaCompras.FormattingEnabled = true;
+            ListaCompras.ItemHeight = 25;
+            ListaCompras.Location = new Point(636, 262);
+            ListaCompras.Name = "ListaCompras";
+            ListaCompras.Size = new Size(497, 254);
+            ListaCompras.TabIndex = 59;
             // 
             // label43
             // 
@@ -1493,7 +1493,7 @@
             ListaClientes.ItemHeight = 25;
             ListaClientes.Location = new Point(19, 111);
             ListaClientes.Name = "ListaClientes";
-            ListaClientes.Size = new Size(359, 254);
+            ListaClientes.Size = new Size(359, 329);
             ListaClientes.TabIndex = 48;
             // 
             // AgroTrack
@@ -1519,7 +1519,7 @@
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NúmeroComprasCliente).EndInit();
             ResumeLayout(false);
         }
 
@@ -1633,21 +1633,21 @@
         private Button button16;
         private ComboBox comboBox6;
         private Label label36;
-        private ComboBox comboBox7;
+        private ComboBox ComprouProduto;
         private Label label37;
         private Button button17;
         private Button AdicionarCompra;
         private Button AdicionarCliente;
         private Button ApagarCliente;
-        private NumericUpDown numericUpDown3;
+        private NumericUpDown NúmeroComprasCliente;
         private Label label38;
-        private ComboBox comboBox8;
+        private ComboBox ComprouQuinta;
         private Label label39;
         private CheckedListBox checkedListBox3;
         private Label label40;
         private Label label42;
         private TextBox CCclientes;
-        private ListBox listBox1;
+        private ListBox ListaCompras;
         private Label label43;
         private TextBox ContactoCliente;
         private Button button22;
