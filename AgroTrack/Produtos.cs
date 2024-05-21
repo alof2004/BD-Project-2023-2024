@@ -13,7 +13,7 @@ namespace AgroTrack
 
         public string Tipo_de_Produto { get; set; }
 
-        public Quinta()
+        public Produto()
         {
 
         }
