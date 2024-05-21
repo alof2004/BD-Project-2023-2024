@@ -149,3 +149,10 @@ create view AgroTrack.Encomenda as
 	select Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id
 	from  AgroTrack_Encomenda as Enc
 go
+
+drop view IF EXISTS AgroTrack.planta
+go
+create view AgroTrack.planta as
+	select AgroTrack_Planta.Id_planta, AgroTrack_Planta.Tipo,AgroTrack_Planta.Estacao
+	from  AgroTrack_Planta
+go

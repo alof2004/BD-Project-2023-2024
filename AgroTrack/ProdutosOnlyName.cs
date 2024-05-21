@@ -1,7 +1,7 @@
 ﻿using System;
 namespace AgroTrack
 {
-    public class ProdutosQuinta
+    public class ProdutosOnlyName
     {
         public int Id_Quinta { get; set; }
         public int Id_Produto { get; set; }
@@ -9,11 +9,11 @@ namespace AgroTrack
 
         public string Produto { get; set; }
 
-        public ProdutosQuinta()
+        public ProdutosOnlyName()
         {
 
         }
-        public ProdutosQuinta(int id_quinta, int id_produto, int quantidade, string nome)
+        public ProdutosOnlyName(int id_quinta, int id_produto, int quantidade, string nome)
         {
             Id_Quinta = id_quinta;
             Id_Produto = id_produto;
@@ -23,7 +23,7 @@ namespace AgroTrack
 
         public override string ToString()
         {
-            return Produto + "     -     " + Quantidade;
+            return Produto;
         }
     }
 }

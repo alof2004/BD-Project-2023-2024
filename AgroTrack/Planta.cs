@@ -3,30 +3,29 @@ namespace AgroTrack
 {
     public class Planta
     {
-        public int Id_Quinta { get; set; }
-        public string Nome { get; set; }
-        public string Morada { get; set; }
+        public int Id { get; set; }
+        public string Tipo { get; set; }
 
-        public int Empresa_Id_Empresa { get; set; }
+        public string Estacao { get; set; }
 
-        public int Contacto { get; set; }
+
+        public string Lote { get; set; }
 
         public Planta()
         {
 
         }
-        public Planta(int id, string nome, string localizacao, int id_empresa, int contacto)
+        public Planta(int id, string estacao, string tipo, string lote)
         {
-            Id_Quinta = id;
-            Nome = nome;
-            Morada = localizacao;
-            Empresa_Id_Empresa = id_empresa;
-            Contacto = contacto;
+            Id = id;
+            Estacao = estacao;
+            Tipo = tipo;
+            Lote = lote;
         }
 
         public override string ToString()
         {
-            return Id_Quinta + "     -     " + Nome;
+            return Tipo + "  -  " + Lote;
         }
     }
 }
