@@ -54,22 +54,22 @@ INSERT INTO AgroTrack_Pessoa(Nome,N_CartaoCidadao,Contacto) VALUES
 ('Gilberto Oliveira', 36914728, 938571628),
 ('Helena Costa', 15948766, 935824720);
 
-INSERT INTO AgroTrack_Empresa(Id_Empresa, Nome, Morada, Contacto) VALUES
-(1, 'Quinta da Vinha Verde', 'Rua Principal, 123', 919000923),
-(2, 'Quinta da Esperança', 'Avenida Central, 456', 919000924),
-(3, 'Quinta da Boa Vista', 'Travessa Secundária, 789', 919057925),
-(4, 'Quinta da Fonte Fresca', 'Rua das Flores, 10', 919340926),
-(5, 'Quinta das Oliveiras', 'Avenida dos Aliados, 20', 919033257),
-(6, 'Logística Ágil', 'Avenida das Entregas Eficientes, 60', 919350928),
-(7, 'Fretes Seguros', 'Travessa dos Transportes Seguros, 70', 919000929),
-(8, 'Transportes Velozes LTDA', 'Rua das Rotas Rápidas, 80', 919000930),
-(9, 'Logística Global', 'Avenida da Eficiência Logística, 90', 919000931),
-(10, 'Entrega Segura', 'Travessa da Entrega Certa, 100', 919000932),
-(11, 'Supermercado Central', 'Rua Principal, 250', 919946933),
-(12, 'Loja do Bairro', 'Avenida Central, 260', 919358934),
-(13, 'Casa dos Utensílios', 'Travessa das Utilidades, 270', 919432935),
-(14, 'Continente', 'Rua das Novidades, 280', 919673936),
-(15, 'Pingo Doce', 'Avenida das Mercadorias, 290', 919000937);
+INSERT INTO AgroTrack_Empresa(Id_Empresa, Nome, Morada, Contacto,Tipo_De_Empresa) VALUES
+(1, 'Quinta da Vinha Verde', 'Rua Principal, 123', 919000923,'Quinta'),
+(2, 'Quinta da Esperança', 'Avenida Central, 456', 919000924,'Quinta'),
+(3, 'Quinta da Boa Vista', 'Travessa Secundária, 789', 919057925,'Quinta'),
+(4, 'Quinta da Fonte Fresca', 'Rua das Flores, 10', 919340926,'Quinta'),
+(5, 'Quinta das Oliveiras', 'Avenida dos Aliados, 20', 919033257,'Quinta'),
+(6, 'Logística Ágil', 'Avenida das Entregas Eficientes, 60', 919350928,'Transportadora'),
+(7, 'Fretes Seguros', 'Travessa dos Transportes Seguros, 70', 919000929,'Transportadora'),
+(8, 'Transportes Velozes LTDA', 'Rua das Rotas Rápidas, 80', 919000930,'Transportadora'),
+(9, 'Logística Global', 'Avenida da Eficiência Logística, 90', 919000931,'Transportadora'),
+(10, 'Entrega Segura', 'Travessa da Entrega Certa, 100', 919000932,'Transportadora'),
+(11, 'Supermercado Central', 'Rua Principal, 250', 919946933,'Retalhista'),
+(12, 'Loja do Bairro', 'Avenida Central, 260', 919358934,'Retalhista'),
+(13, 'Casa dos Utensílios', 'Travessa das Utilidades, 270', 919432935,'Retalhista'),
+(14, 'Continente', 'Rua das Novidades, 280', 919673936,'Retalhista'),
+(15, 'Pingo Doce', 'Avenida das Mercadorias, 290', 919000937,'Retalhista');
 
 
 INSERT INTO AgroTrack_Quinta(Codigo_quinta, Empresa_Id_Empresa) VALUES
@@ -242,60 +242,59 @@ INSERT INTO AgroTrack_Retalhistas VALUES
 	(14),
 	(15);
 
-INSERT INTO AgroTrack_Empresa_De_Transportes (Empresa_Id_Empresa) VALUES
-	(6),
-	(7),
-	(8),
-	(9),
-	(10);
+INSERT INTO AgroTrack_Empresa_De_Transportes (Empresa_Id_Empresa, Nome) VALUES
+    (6, 'Transportadora A'),
+    (7, 'Transportadora B'),
+    (8, 'Transportadora C'),
+    (9, 'Transportadora D'),
+    (10, 'Transportadora E');
 
 INSERT INTO AgroTrack_Contem (Produto_codigo, Quinta_Empresa_Id_Empresa, Data_de_validade, Quantidade) VALUES
-	(1, 1, '2024-07-01', 100),
-	(2, 1, '2024-07-01', 100),
-	(3, 1, '2024-07-01', 100),
-	(4, 1, '2024-06-01', 100),
-	(5, 1, '2024-07-01', 100),
-	(6, 1, '2024-06-01', 100),
-	(7, 1, '2024-05-01', 100),
-	(8, 1, '2024-07-01', 100),
-	(9, 1, '2024-06-01', 100),
-	(10, 1, '2024-06-12', 100),
-	(11, 1, '2024-06-13', 100),
-	(12, 1, '2024-07-12', 100),
-	(13, 1, '2024-06-14', 100),
-	(14, 1, '2024-06-12', 100),
-	(15, 1, '2024-06-21', 100),
-	(16, 1, '2024-05-30', 100);
+    (1, 1, '2024-07-01', 100),
+    (2, 1, '2024-07-01', 100),
+    (3, 1, '2024-07-01', 100),
+    (4, 1, '2024-06-01', 100),
+    (5, 1, '2024-07-01', 100),
+    (6, 1, '2024-06-01', 100),
+    (7, 1, '2024-05-01', 100),
+    (8, 1, '2024-07-01', 100),
+    (9, 1, '2024-06-01', 100),
+    (10, 1, '2024-06-12', 100),
+    (11, 1, '2024-06-13', 100),
+    (12, 1, '2024-07-12', 100),
+    (13, 1, '2024-06-14', 100),
+    (14, 1, '2024-06-12', 100),
+    (15, 1, '2024-06-21', 100),
+    (16, 1, '2024-05-30', 100);
 
-INSERT INTO AgroTrack_Colhe(Agricultor_Pessoa_N_CartaoCidadao, Duracao_colheita,Quantidade,Produto_codigo,DataColheita) VALUES
-	(12345678, 2.5, 100, 1, '2024-05-01'),
-	(87654321, 2.5, 100, 2, '2024-05-21'),
-	(18041804, 2.5, 100, 3, '2024-05-25'),
-	(15948762, 2.5, 100, 4, '2024-05-26'),
-	(36985247, 2.5, 100, 5, '2024-05-27'),
-	(95135786, 2.5, 100, 6, '2024-05-30'),
-	(74125896, 2.5, 100, 7, '2024-05-13'),
-	(36914725, 2.5, 100, 8, '2024-05-15'),
-	(58214736, 2.5, 100, 9, '2024-05-01'),
-	(36985214, 2.5, 100, 10, '2024-05-07'),
-	(12345678, 2.5, 100, 11, '2024-05-06'),
-	(87654321, 2.5, 100, 12, '2024-06-05'),
-	(18041804, 2.5, 100, 13, '2024-06-04'),
-	(15948762, 2.5, 100, 14, '2024-06-01'),
-	(36985247, 2.5, 100, 15, '2024-06-01'),
-	(95135786, 2.5, 100, 16, '2024-06-01');
+INSERT INTO AgroTrack_Colhe (Agricultor_Pessoa_N_CartaoCidadao, Duracao_colheita, Quantidade, Produto_codigo, DataColheita) VALUES
+    (12345678, 2.5, 100, 1, '2024-05-01'),
+    (87654321, 2.5, 100, 2, '2024-05-21'),
+    (18041804, 2.5, 100, 3, '2024-05-25'),
+    (15948762, 2.5, 100, 4, '2024-05-26'),
+    (36985247, 2.5, 100, 5, '2024-05-27'),
+    (95135786, 2.5, 100, 6, '2024-05-30'),
+    (74125896, 2.5, 100, 7, '2024-05-13'),
+    (36914725, 2.5, 100, 8, '2024-05-15'),
+    (58214736, 2.5, 100, 9, '2024-05-01'),
+    (36985214, 2.5, 100, 10, '2024-05-07'),
+    (12345678, 2.5, 100, 11, '2024-05-06'),
+    (87654321, 2.5, 100, 12, '2024-06-05'),
+    (18041804, 2.5, 100, 13, '2024-06-04'),
+    (15948762, 2.5, 100, 14, '2024-06-01'),
+    (36985247, 2.5, 100, 15, '2024-06-01'),
+    (95135786, 2.5, 100, 16, '2024-06-01');
 
-INSERT INTO AgroTrack_Encomenda(Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id) VALUES
-	(1, 2, 'Rua Principal, 250', '2024-06-01', 11, 6, 1),
-	(2, 3, 'Avenida Central, 260', '2024-06-02', 12, 7, 2),
-	(3, 4, 'Travessa das Utilidades, 270', '2024-06-03', 13, 8, 3),
-	(4, 5, 'Rua das Novidades, 280', '2024-06-04', 14, 9, 4),
-	(5, 6, 'Avenida das Mercadorias, 290', '2024-06-05', 15, 10, 5);
-	
+INSERT INTO AgroTrack_Encomenda (Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id) VALUES
+    (1, 2, 'Rua Principal, 250', '2024-06-01', 11, 6, 1),
+    (2, 3, 'Avenida Central, 260', '2024-06-02', 12, 7, 2),
+    (3, 4, 'Travessa das Utilidades, 270', '2024-06-03', 13, 8, 3),
+    (4, 5, 'Rua das Novidades, 280', '2024-06-04', 14, 9, 4),
+    (5, 6, 'Avenida das Mercadorias, 290', '2024-06-05', 15, 10, 5);
 
-INSERT INTO AgroTrack_Item(ProdutoCodigo, Quantidade, Encomenda_Codigo) VALUES
-	(1, 100, 1),
-	(2, 100, 2),
-	(3, 100, 3),
-	(4, 100, 4),
-	(5, 100, 5);
+INSERT INTO AgroTrack_Item (ProdutoCodigo, Quantidade, Encomenda_Codigo) VALUES
+    (1, 100, 1),
+    (2, 100, 2),
+    (3, 100, 3),
+    (4, 100, 4),
+    (5, 100, 5);

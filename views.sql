@@ -10,6 +10,15 @@ create view AgroTrack.Quinta as
 	from  (AgroTrack_Quinta as Q join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
 go
 
+
+--Empresa
+drop view IF EXISTS AgroTrack.Empresa
+go
+create view AgroTrack.Empresa as
+	select E.Id_Empresa,E.Nome,E.Morada, E.Contacto, E.Tipo_De_Empresa
+	from  AgroTrack_Empresa as E
+go
+
 --Agricultores e quintas
 -- info dos agricultores e a que quintas pertecem 
 
@@ -57,7 +66,7 @@ go
 --retalhistas e Empresa
 drop view IF EXISTS AgroTrack.RetalhistasE
 go
-create view AgroTrack.Retalhistas as
+create view AgroTrack.RetalhistasE as
 	select R.Empresa_Id_Empresa, E.Nome, E.Morada
 	from  (AgroTrack_Retalhistas as R join AgroTrack_Empresa as E on R.Empresa_Id_Empresa=E.Id_Empresa)
 go
@@ -133,3 +142,10 @@ go
 
 
 
+--Encomenda
+drop view IF EXISTS AgroTrack.Encomenda
+go
+create view AgroTrack.Encomenda as
+	select Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id
+	from  AgroTrack_Encomenda as Enc
+go
