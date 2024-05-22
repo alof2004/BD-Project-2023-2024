@@ -83,6 +83,8 @@ namespace AgroTrack
                 QuintaContacto.Text = selectedFarm.Contacto.ToString();
 
                 LoadAnimals(selectedFarm.Empresa_Id_Empresa);
+                loadAgricultores(selectedFarm.Empresa_Id_Empresa);
+                loadProdutosQuinta(selectedFarm.Empresa_Id_Empresa);
 
             }
         }
@@ -117,11 +119,44 @@ namespace AgroTrack
             }
         }
 
-        private void loadAgricultores(int empresaId)
+        private void loadProdutosQuinta(int empresaId)
         {
-            string query = "SELECT Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa, Codigo_quinta, Empresa_Id_Empresa FROM AgroTrack.AgriculQuinta WHERE Codigo_quinta = @CodigoQuinta";
+
+            string query = "SELECT Codigo, Nome, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade FROM AgroTrack.QuintaProduto WHERE Codigo_quinta = @EmpresaId;";
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@EmpresaId", empresaId);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                ProdutosQuinta.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    ProdutosQuinta produto = new ProdutosQuinta
+                    {
+                        Id_Quinta = empresaId,
+                        Produto = reader["Nome"].ToString(),
+                        Id_Produto = (int)reader["Codigo"],
+                        Quantidade = (int)reader["Quantidade"]
+
+                    };
+                    ProdutosQuinta.Items.Add(produto);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+
+        }
+
+
+
+        private void loadAgricultores(int empresaId)
+        {
+            string query = "SELECT Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa, Codigo_quinta, Empresa_Id_Empresa, Nome, Contacto FROM AgroTrack.AgriculQuinta WHERE Codigo_quinta = @CodigoQuinta";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@CodigoQuinta", empresaId);
 
             try
             {
@@ -408,6 +443,11 @@ namespace AgroTrack
         }
 
         private void Empresas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void colheitasQuintas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

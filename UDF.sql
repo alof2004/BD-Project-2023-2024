@@ -1,5 +1,6 @@
 -- Create the UDF to get the total number of products in a farm considering their quantities
 DROP FUNCTION IF EXISTS AgroTrack.GetTotalNumberOfProductsInFarm;
+GO
 CREATE FUNCTION AgroTrack.GetTotalNumberOfProductsInFarm(@FarmId INT)
 RETURNS INT
 AS
@@ -14,6 +15,7 @@ END;
 GO
 
 DROP FUNCTION IF EXISTS AgroTrack.FilterFarmByProduct;
+GO
 CREATE FUNCTION AgroTrack.FilterFarmByProduct(@ProductId INT)
 RETURNS TABLE
 AS
@@ -21,12 +23,13 @@ RETURN
 (
     SELECT Quinta_Empresa_Id_Empresa
     FROM AgroTrack_Contem
-    WHERE Produto_Id_Produto = @ProductId
+    WHERE Produto_Codigo = @ProductId
 );
 GO
 
 
-IF OBJECT_ID('AgroTrack.FilterFarmByAnimal', 'IF') IS NOT NULL DROP FUNCTION AgroTrack.FilterFarmByAnimal; GO
+DROP FUNCTION IF EXISTS AgroTrack.FilterFarmByAnimal;
+GO
 CREATE FUNCTION AgroTrack.FilterFarmByAnimal(@AnimalType NVARCHAR(64))
 RETURNS TABLE
 AS
@@ -40,7 +43,8 @@ RETURN
 );
 GO
 
-IF OBJECT_ID('AgroTrack.FilterFarmByPlant', 'IF') IS NOT NULL DROP FUNCTION AgroTrack.FilterFarmByPlant; GO
+DROP FUNCTION IF EXISTS AgroTrack.FilterFarmByPlant;
+GO
 CREATE FUNCTION AgroTrack.FilterFarmByPlant(@PlantType NVARCHAR(64))
 RETURNS TABLE
 AS
@@ -50,30 +54,32 @@ RETURN
     FROM AgroTrack_Quinta q
     JOIN AgroTrack_Quinta_Planta qp ON q.Empresa_Id_Empresa = qp.Empresa_Id_Empresa
     JOIN AgroTrack_Planta p ON qp.Id_Planta = p.Id_Planta
-    WHERE p.Tipo_de_Planta = @PlantType
+    WHERE p.Tipo = @PlantType
 );
-GO;
 
-IF OBJECT_ID('AgroTrack.FilterFarmerByFarm', 'IF') IS NOT NULL DROP FUNCTION AgroTrack.FilterFarmerByFarm; GO
+GO
+DROP FUNCTION IF EXISTS AgroTrack.FilterFarmerByFarm;
+GO
 CREATE FUNCTION AgroTrack.FilterFarmerByFarm(@FarmId INT)
 RETURNS TABLE
 AS
 RETURN
 (
-    SELECT a.N_CartaoCidadao, a.Nome, a.Contacto
+    SELECT a.Pessoa_N_CartaoCidadao, q.Empresa_Id_Empresa
     FROM AgroTrack_Agricultor a
-    JOIN AgroTrack_Quinta q ON a.N_CartaoCidadao = q.Codigo_quinta
+    JOIN AgroTrack_Quinta q ON a.Quinta_Empresa_Id_Empresa = q.Empresa_Id_Empresa
     WHERE q.Empresa_Id_Empresa = @FarmId
 );
-
-IF OBJECT_ID('AgroTrack.FilterEncomendaByFarm', 'IF') IS NOT NULL DROP FUNCTION AgroTrack.FilterEncomendaByFarm; GO
+GO
+DROP FUNCTION IF EXISTS AgroTrack.FilterEncomendaByFarm;
+GO
 CREATE FUNCTION AgroTrack.FilterEncomendaByFarm(@FarmId INT)
 RETURNS TABLE
 AS
 RETURN
 (
-    SELECT e.Id_Encomenda, e.Data, e.Quinta_Empresa_Id_Empresa, e.Cliente_N_CartaoCidadao
+    SELECT e.Codigo, e.Entrega, e.Quinta_Empresa_Id, e.Retalhista_Empresa_Id_Empresa
     FROM AgroTrack_Encomenda e
-    JOIN AgroTrack_Quinta q ON e.Quinta_Empresa_Id_Empresa = q.Empresa_Id_Empresa
+    JOIN AgroTrack_Quinta q ON e.Quinta_Empresa_Id = q.Empresa_Id_Empresa
     WHERE q.Empresa_Id_Empresa = @FarmId
 );

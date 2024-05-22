@@ -20,6 +20,6 @@
 
     public override string ToString()
     {
-        return $"{Nome} - {Contacto}";
+        return $"{Nome}  {Contacto,20}";
     }
 }

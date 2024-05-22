@@ -30,6 +30,7 @@
         {
             AgricultoresTab = new TabControl();
             Quintas = new TabPage();
+            ProdutosQuinta = new ListBox();
             Agricultores = new ListBox();
             label13 = new Label();
             QuintaContacto = new TextBox();
@@ -162,7 +163,6 @@
             textBox17 = new TextBox();
             textBox18 = new TextBox();
             ListaAgricultores = new ListBox();
-            colheitasQuintas = new ListBox();
             AgricultoresTab.SuspendLayout();
             Quintas.SuspendLayout();
             Empresas.SuspendLayout();
@@ -190,7 +190,7 @@
             // 
             // Quintas
             // 
-            Quintas.Controls.Add(colheitasQuintas);
+            Quintas.Controls.Add(ProdutosQuinta);
             Quintas.Controls.Add(Agricultores);
             Quintas.Controls.Add(label13);
             Quintas.Controls.Add(QuintaContacto);
@@ -214,20 +214,30 @@
             Quintas.UseVisualStyleBackColor = true;
             Quintas.Click += Quintas_Click;
             // 
+            // ProdutosQuinta
+            // 
+            ProdutosQuinta.FormattingEnabled = true;
+            ProdutosQuinta.ItemHeight = 25;
+            ProdutosQuinta.Location = new Point(744, 147);
+            ProdutosQuinta.Name = "ProdutosQuinta";
+            ProdutosQuinta.Size = new Size(242, 204);
+            ProdutosQuinta.TabIndex = 16;
+            ProdutosQuinta.SelectedIndexChanged += colheitasQuintas_SelectedIndexChanged;
+            // 
             // Agricultores
             // 
             Agricultores.FormattingEnabled = true;
             Agricultores.ItemHeight = 25;
-            Agricultores.Location = new Point(439, 210);
+            Agricultores.Location = new Point(439, 147);
             Agricultores.Name = "Agricultores";
-            Agricultores.Size = new Size(242, 179);
+            Agricultores.Size = new Size(242, 204);
             Agricultores.TabIndex = 15;
             Agricultores.SelectedIndexChanged += Agricultores_SelectedIndexChanged;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(439, 161);
+            label13.Location = new Point(439, 94);
             label13.Name = "label13";
             label13.Size = new Size(88, 25);
             label13.TabIndex = 14;
@@ -236,7 +246,7 @@
             // 
             // QuintaContacto
             // 
-            QuintaContacto.Location = new Point(523, 158);
+            QuintaContacto.Location = new Point(523, 91);
             QuintaContacto.Name = "QuintaContacto";
             QuintaContacto.Size = new Size(463, 31);
             QuintaContacto.TabIndex = 13;
@@ -274,7 +284,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(439, 97);
+            label3.Location = new Point(439, 57);
             label3.Name = "label3";
             label3.Size = new Size(78, 25);
             label3.TabIndex = 8;
@@ -283,7 +293,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(439, 30);
+            label1.Location = new Point(439, 17);
             label1.Name = "label1";
             label1.Size = new Size(65, 25);
             label1.TabIndex = 6;
@@ -292,14 +302,14 @@
             // 
             // QuintaMorada
             // 
-            QuintaMorada.Location = new Point(523, 94);
+            QuintaMorada.Location = new Point(523, 54);
             QuintaMorada.Name = "QuintaMorada";
             QuintaMorada.Size = new Size(463, 31);
             QuintaMorada.TabIndex = 5;
             // 
             // QuintaNome
             // 
-            QuintaNome.Location = new Point(523, 30);
+            QuintaNome.Location = new Point(523, 17);
             QuintaNome.Name = "QuintaNome";
             QuintaNome.Size = new Size(463, 31);
             QuintaNome.TabIndex = 4;
@@ -317,9 +327,9 @@
             // 
             Plantas.FormattingEnabled = true;
             Plantas.ItemHeight = 25;
-            Plantas.Location = new Point(744, 397);
+            Plantas.Location = new Point(744, 357);
             Plantas.Name = "Plantas";
-            Plantas.Size = new Size(242, 179);
+            Plantas.Size = new Size(242, 204);
             Plantas.TabIndex = 2;
             Plantas.SelectedIndexChanged += listBox1_SelectedIndexChanged_2;
             // 
@@ -327,9 +337,9 @@
             // 
             Animais.FormattingEnabled = true;
             Animais.ItemHeight = 25;
-            Animais.Location = new Point(439, 397);
+            Animais.Location = new Point(439, 357);
             Animais.Name = "Animais";
-            Animais.Size = new Size(242, 179);
+            Animais.Size = new Size(242, 204);
             Animais.TabIndex = 1;
             Animais.SelectedIndexChanged += listBox1_SelectedIndexChanged_1;
             // 
@@ -339,7 +349,7 @@
             ListaQuintas.ItemHeight = 25;
             ListaQuintas.Location = new Point(20, 122);
             ListaQuintas.Name = "ListaQuintas";
-            ListaQuintas.Size = new Size(359, 454);
+            ListaQuintas.Size = new Size(359, 429);
             ListaQuintas.TabIndex = 0;
             ListaQuintas.SelectedIndexChanged += ListaQuintas_SelectedIndexChanged;
             // 
@@ -1499,15 +1509,6 @@
             ListaAgricultores.TabIndex = 16;
             ListaAgricultores.SelectedIndexChanged += ListaAgricultores_SelectedIndexChanged;
             // 
-            // colheitasQuintas
-            // 
-            colheitasQuintas.FormattingEnabled = true;
-            colheitasQuintas.ItemHeight = 25;
-            colheitasQuintas.Location = new Point(744, 210);
-            colheitasQuintas.Name = "colheitasQuintas";
-            colheitasQuintas.Size = new Size(242, 179);
-            colheitasQuintas.TabIndex = 16;
-            // 
             // AgroTrack
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -1671,6 +1672,6 @@
         private TextBox NomeClientes;
         private TextBox PesquisaPorNomeCliente;
         private ListBox ListaClientes;
-        private ListBox colheitasQuintas;
+        private ListBox ProdutosQuinta;
     }
 }
