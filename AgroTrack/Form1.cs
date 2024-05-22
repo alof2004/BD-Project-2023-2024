@@ -809,5 +809,55 @@ namespace AgroTrack
             }
 
         }
+
+        //Pesquisar por nome-Empresa-elemento barra de texto
+
+        // Pesquisar por nome-Empresa-elemento barra de texto
+        private void textBox10_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        // Pesquisar por nome-Empresa-elemento botao pesquisar
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string searchText = textBox10.Text.ToLower();
+            ListaEmpresas.Items.Clear();
+
+            string query = "SELECT Id_Empresa, Nome, Morada, Contacto, Tipo_De_Empresa FROM AgroTrack.Empresa WHERE LOWER(Nome) LIKE @searchText;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@searchText", "%" + searchText + "%");
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Empresa company = new Empresa
+                    {
+                        Id_Empresa = (int)reader["Id_Empresa"],
+                        Nome = reader["Nome"].ToString(),
+                        Morada = reader["Morada"].ToString(),
+                        Contacto = (int)reader["Contacto"],
+                        TipoEmpresa = reader["Tipo_De_Empresa"].ToString(),
+                    };
+
+                    ListaEmpresas.Items.Add(company);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+        // Pesquisar por nome-Empresa-elemento botao limpar
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox10.Text = string.Empty;
+            ListaEmpresas.Items.Clear();
+            LoadEmpresa();
+        }
+
     }
 }

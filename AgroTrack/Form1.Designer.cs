@@ -83,7 +83,7 @@
             button1 = new Button();
             button2 = new Button();
             label5 = new Label();
-            textBox2 = new TextBox();
+            PesquisarNome = new TextBox();
             ListaEmpresas = new ListBox();
             tabPage1 = new TabPage();
             button12 = new Button();
@@ -519,7 +519,7 @@
             Empresas.Controls.Add(button1);
             Empresas.Controls.Add(button2);
             Empresas.Controls.Add(label5);
-            Empresas.Controls.Add(textBox2);
+            Empresas.Controls.Add(PesquisarNome);
             Empresas.Controls.Add(ListaEmpresas);
             Empresas.Location = new Point(4, 34);
             Empresas.Name = "Empresas";
@@ -743,6 +743,7 @@
             button1.TabIndex = 14;
             button1.Text = "Pesquisar";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -752,6 +753,7 @@
             button2.TabIndex = 13;
             button2.Text = "Limpar";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // label5
             // 
@@ -763,12 +765,13 @@
             label5.Text = "Pesquisar por Nome";
             label5.Click += label5_Click_1;
             // 
-            // textBox2
+            // PesquisarNome
             // 
-            textBox2.Location = new Point(17, 52);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(374, 31);
-            textBox2.TabIndex = 4;
+            PesquisarNome.Location = new Point(17, 52);
+            PesquisarNome.Name = "PesquisarNome";
+            PesquisarNome.Size = new Size(374, 31);
+            PesquisarNome.TabIndex = 4;
+            PesquisarNome.TextChanged += textBox10_TextChanged;
             // 
             // ListaEmpresas
             // 
@@ -1695,7 +1698,7 @@
         private Button buttonLimparPesquisaQuinta;
         private Button buttonPesquisarQuinta;
         private ListBox ListaEmpresas;
-        private TextBox textBox2;
+        private TextBox PesquisarNome;
         private Button button1;
         private Button button2;
         private Label label5;
