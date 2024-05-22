@@ -1037,8 +1037,7 @@ namespace AgroTrack
         {
 
         }
-    }
-}
+
         //produtos 
         private void ListaProdutos_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1057,7 +1056,6 @@ namespace AgroTrack
 
             }
         }
-
         private void LoadProdutos()
         {
             string query = "SELECT Pno.Codigo,Pro.Nome, Pro.Id_origem, Pro.Preco,Pro.Taxa_de_iva,Pro.Unidade_medida,Pro.Tipo_de_Produto FROM AgroTrack_Produto ;";
@@ -1071,12 +1069,12 @@ namespace AgroTrack
                     Produto product = new Produto
                     {
                         Nome = reader["Nome"].ToString(),
-                        Id_origem= (int)reader["Id_origem"],
-                        Tipo_de_Produto= reader["Tipo_de_Produto"].ToString(),
+                        Id_origem = (int)reader["Id_origem"],
+                        Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                         Codigo = (int)reader["Codigo"],
-                        Preco= (int)reader["Preco"],
-                        Taxa_de_iva= (int)reader["Taxa_de_iva"],
-                        Unidade_medida= reader["Unidade_medida"].ToString()
+                        Preco = (int)reader["Preco"],
+                        Taxa_de_iva = (int)reader["Taxa_de_iva"],
+                        Unidade_medida = reader["Unidade_medida"].ToString()
                     };
 
                     ListaProdutos.Items.Add(product);
