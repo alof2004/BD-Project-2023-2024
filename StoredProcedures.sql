@@ -4,7 +4,8 @@ IF OBJECT_ID('AddQuinta', 'P') IS NOT NULL
 GO
 CREATE PROCEDURE AddQuinta
     @Nome VARCHAR(64),
-    @Morada VARCHAR(64)
+    @Morada VARCHAR(64),
+    @Contacto INT
 AS
 BEGIN
 	DECLARE @NEXTCodigoEmpresa  INT;
@@ -12,8 +13,8 @@ BEGIN
     -- Find the maximum ID currently in the AgroTrack_Empresa table
     SELECT @NextCodigoEmpresa = COALESCE(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
 
-    INSERT INTO AgroTrack_Empresa (Id_Empresa, Nome, Morada)
-    VALUES (@NextCodigoEmpresa, @Nome, @Morada);
+    INSERT INTO AgroTrack_Empresa (Id_Empresa, Nome, Morada, Contacto, Tipo_De_Empresa)
+    VALUES (@NextCodigoEmpresa, @Nome, @Morada, @Contacto, 'Quinta');
     -- Insert the new Quinta using the next available ID
     INSERT INTO AgroTrack_Quinta (Empresa_Id_Empresa)
     VALUES (@NextCodigoEmpresa); -- Assuming Empresa_Id_Empresa is the same as 
@@ -442,34 +443,86 @@ BEGIN
     END CATCH;
 END;
 GO
-IF OBJECT_ID('PesquisarPorNomeEmpresa', 'P') IS NOT NULL
-    DROP PROCEDURE PesquisarPorNomeEmpresa;
+IF OBJECT_ID('AgroTrack.PesquisarPorNomeEmpresa', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.PesquisarPorNomeEmpresa;
 GO
 CREATE PROCEDURE AgroTrack.PesquisarPorNomeEmpresa
     @Nome VARCHAR(64),
     @esquema VARCHAR(50),
     @tabela VARCHAR(50)
-AS
-BEGIN
-    DECLARE @query NVARCHAR(MAX);
+as
+	begin
+		declare @query nvarchar(MAX);
 
-    SET @query = 'SELECT * FROM ' + QUOTENAME(@esquema) + '.' + QUOTENAME(@tabela) + ' WHERE Nome = @Nome';
+		set @query = 'select * from ' + QUOTENAME(@esquema) + '.' + QUOTENAME(@tabela) + ' where [Nome] like ''%' + REPLACE(@Nome, '''', '''''') + '%''';
 
-    EXEC sp_executesql @query, N'@Nome VARCHAR(64)', @Nome;
-END;
+		execute sp_executesql @query;
+	end;
 GO
-IF OBJECT_ID('PesquisarPorNome', 'P') IS NOT NULL
-    DROP PROCEDURE PesquisarPorNome;
+IF OBJECT_ID('AgroTrack.PesquisarPorNome', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.PesquisarPorNome;
 GO
 CREATE PROCEDURE AgroTrack.PesquisarPorNome
     @Nome VARCHAR(64),
     @esquema VARCHAR(50),
     @tabela VARCHAR(50)
 AS
+	begin
+		declare @query nvarchar(MAX);
+
+		set @query = 'select * from ' + QUOTENAME(@esquema) + '.' + QUOTENAME(@tabela) + ' where [Nome] like ''%' + REPLACE(@Nome, '''', '''''') + '%''';
+
+		execute sp_executesql @query;
+	end;
+GO
+CREATE PROCEDURE ApagarQuinta
+    @Empresa_Id_Empresa INT
+AS
 BEGIN
-    DECLARE @query NVARCHAR(MAX);
+    -- Start a transaction
+    BEGIN TRANSACTION;
 
-    SET @query = 'SELECT * FROM ' + QUOTENAME(@esquema) + '.' + QUOTENAME(@tabela) + ' WHERE Nome = @Nome';
+    BEGIN TRY
+        -- Delete the Quinta from the AgroTrack_Quinta table
+        DELETE FROM AgroTrack_Quinta
+        WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
 
-    EXEC sp_executesql @query, N'@Nome VARCHAR(64)', @Nome;
-END;    
+        -- Delete the Empresa from the AgroTrack_Empresa table
+        DELETE FROM AgroTrack_Empresa
+        WHERE Id_Empresa = @Empresa_Id_Empresa;
+
+        DELETE FROM AgroTrack_Agricultor
+        WHERE Quinta_Empresa_Id_Empresa = @Empresa_Id_Empresa;
+
+        DELETE FROM AgroTrack_Quinta_Animal
+        WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
+
+        DELETE FROM AgroTrack_Quinta_Planta
+        WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
+
+        DELETE FROM AgroTrack_Contem
+        WHERE Quinta_Empresa_Id_Empresa = @Empresa_Id_Empresa;
+
+        -- Commit the transaction
+        COMMIT TRANSACTION;
+
+        PRINT 'Quinta deleted successfully.';
+    END TRY
+    BEGIN CATCH
+        -- Rollback the transaction in case of error
+        ROLLBACK TRANSACTION;
+
+        -- Get the error details
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Raise the error again to propagate it
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
