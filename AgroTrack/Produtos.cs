@@ -3,7 +3,7 @@ namespace AgroTrack
 {
     public class Produto
     {
-        public int Id_Origem { get; set; }
+        public int Id_origem { get; set; }
         public string Nome { get; set; }
         public double Preco{ get; set; }
 
@@ -12,14 +12,16 @@ namespace AgroTrack
         public string Unidade_medida { get; set; }
 
         public string Tipo_de_Produto { get; set; }
+        public int Codigo { get; set; }
 
         public Produto()
         {
 
         }
-        public Produto(int idOrigem, string nome, double preco, double iva, string medida , string tipo)
+        public Produto(int idOrigem, string nome,int codigo, double preco, double iva, string medida , string tipo)
         {
-            Id_Origem = idOrigem;
+            Id_origem = idOrigem;
+            Codigo=codigo;
             Nome = nome;
             Preco = preco;
             Taxa_de_iva = iva;
@@ -30,7 +32,7 @@ namespace AgroTrack
 
         public override string ToString()
         {
-            return Id_Origem + "     -     " + Nome;
+            return Id_origem + "     -     " + Nome;
         }
     }
 }
