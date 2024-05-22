@@ -3,7 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Cliente
 {
-    public int Pessoa_N_CartaoCidadao { get; set; };
+    public int Pessoa_N_CartaoCidadao { get; set; }
 
     public Cliente()
 	{

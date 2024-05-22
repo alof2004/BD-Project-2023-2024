@@ -464,7 +464,7 @@ namespace AgroTrack
         // Pesquisar por nome-Empresa-elemento botao pesquisar
         private void button1_Click(object sender, EventArgs e)
         {
-            string searchText = textBox10.Text.ToLower();
+            string searchText = ProdutoTipoOrigem.Text.ToLower();
             ListaEmpresas.Items.Clear();
 
             string query = "SELECT Id_Empresa, Nome, Morada, Contacto, Tipo_De_Empresa FROM AgroTrack.Empresa WHERE LOWER(Nome) LIKE @searchText;";
@@ -498,29 +498,11 @@ namespace AgroTrack
         // Pesquisar por nome-Empresa-elemento botao limpar
         private void button2_Click(object sender, EventArgs e)
         {
-            textBox10.Text = string.Empty;
+            ProdutoTipoOrigem.Text = string.Empty;
             ListaEmpresas.Items.Clear();
             LoadEmpresa();
         }
 
-        //produtos 
-        private void ListaProdutos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ListaQuintas.SelectedItem is Quinta selectedFarm)
-            {
-                ProdutoCodigo.ReadOnly = true;
-                ProdutoNome.ReadOnly = true;
-                ProdutoTipoProduto.ReadOnly = true;
-
-                QuintaNome.Text = selectedFarm.Nome;
-                QuintaMorada.Text = selectedFarm.Morada;
-                QuintaContacto.Text = selectedFarm.Contacto.ToString();
-
-
-                loadProdutos(selectedFarm.Empresa_Id_Empresa);
-
-            }
-        }
 
         private void LoadProdutos()
         {
@@ -532,7 +514,7 @@ namespace AgroTrack
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Produto product = new Produto
+                    Produto Product = new Produto
                     {
                         Nome = reader["Nome"].ToString(),
                         Id_origem= (int)reader["Id_origem"],
@@ -543,13 +525,37 @@ namespace AgroTrack
                         Unidade_medida= reader["Unidade_medida"].ToString()
                     };
 
-                    ListaProdutos.Items.Add(product);
+                    ListaProdutos.Items.Add(Product);
                 }
                 reader.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+
+        //produtos 
+        private void ListaProdutos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListaProdutos.SelectedItem is Produto selectedproduct)
+            {
+                ProdutoTipoOrigem.ReadOnly = true;
+                ProdutoNome.ReadOnly = true;
+                ProdutoTipo.ReadOnly = true;
+                ProdutoDisponivel.ReadOnly = true;
+                ProdutoVendida.ReadOnly = true;
+                ProdutoOrigem.ReadOnly = true;
+                ProdutoProducao.ReadOnly = true;
+
+                ProdutoNome.Text = selectedproduct.Nome;
+                ProdutoTipo.Text = selectedproduct.Tipo_de_Produto;
+                ProdutoTipoOrigem.Text = selectedproduct.Id_origem.ToString();
+
+                LoadQuinta();
+
+
             }
         }
     }
