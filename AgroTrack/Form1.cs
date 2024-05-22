@@ -17,6 +17,7 @@ namespace AgroTrack
             verifySGBDConnection();
             LoadQuinta();
             LoadEmpresa();
+            LoadProdutos();
             AgricultoresTab.Dock = DockStyle.Fill;
         }
 
@@ -502,5 +503,54 @@ namespace AgroTrack
             LoadEmpresa();
         }
 
+        //produtos 
+        private void ListaProdutos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListaQuintas.SelectedItem is Quinta selectedFarm)
+            {
+                ProdutoCodigo.ReadOnly = true;
+                ProdutoNome.ReadOnly = true;
+                ProdutoTipoProduto.ReadOnly = true;
+
+                QuintaNome.Text = selectedFarm.Nome;
+                QuintaMorada.Text = selectedFarm.Morada;
+                QuintaContacto.Text = selectedFarm.Contacto.ToString();
+
+
+                loadProdutos(selectedFarm.Empresa_Id_Empresa);
+
+            }
+        }
+
+        private void LoadProdutos()
+        {
+            string query = "SELECT Pno.Codigo,Pro.Nome, Pro.Id_origem, Pro.Preco,Pro.Taxa_de_iva,Pro.Unidade_medida,Pro.Tipo_de_Produto FROM AgroTrack_Produto ;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Produto product = new Produto
+                    {
+                        Nome = reader["Nome"].ToString(),
+                        Id_origem= (int)reader["Id_origem"],
+                        Tipo_de_Produto= reader["Tipo_de_Produto"].ToString(),
+                        Codigo = (int)reader["Codigo"],
+                        Preco= (int)reader["Preco"],
+                        Taxa_de_iva= (int)reader["Taxa_de_iva"],
+                        Unidade_medida= reader["Unidade_medida"].ToString()
+                    };
+
+                    ListaProdutos.Items.Add(product);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
     }
 }

@@ -958,6 +958,7 @@
             ListaProdutos.Name = "ListaProdutos";
             ListaProdutos.Size = new Size(505, 329);
             ListaProdutos.TabIndex = 4;
+            ListaProdutos.SelectedIndexChanged += ListaProdutos_SelectedIndexChanged;
             // 
             // tabPage2
             // 
