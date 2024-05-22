@@ -74,12 +74,12 @@ INSERT INTO AgroTrack_Empresa(Id_Empresa, Nome, Morada, Contacto,Tipo_De_Empresa
 (15, 'Pingo Doce', 'Avenida das Mercadorias, 290', 919000937,'Retalhista');
 
 
-INSERT INTO AgroTrack_Quinta(Codigo_quinta, Empresa_Id_Empresa) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5)
+INSERT INTO AgroTrack_Quinta(Empresa_Id_Empresa) VALUES
+(1),
+(2),
+(3),
+(4),
+(5)
 
 INSERT INTO AgroTrack_Animal(Id_Animal, Tipo_de_Animal) VALUES
 (1, 'Vaca'),
