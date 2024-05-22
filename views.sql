@@ -156,3 +156,9 @@ create view AgroTrack.planta as
 	select AgroTrack_Planta.Id_planta, AgroTrack_Planta.Tipo,AgroTrack_Planta.Estacao
 	from  AgroTrack_Planta
 go
+
+Drop view IF EXISTS AgroTrack.Animal
+go
+create view AgroTrack.Animal as
+	Select AgroTrack_Animal.Id_Animal, AgroTrack_Animal.Tipo_de_Animal
+	From AgroTrack_Animal

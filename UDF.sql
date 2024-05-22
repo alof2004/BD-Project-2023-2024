@@ -27,7 +27,6 @@ RETURN
 );
 GO
 
-
 DROP FUNCTION IF EXISTS AgroTrack.FilterFarmByAnimal;
 GO
 CREATE FUNCTION AgroTrack.FilterFarmByAnimal(@AnimalType NVARCHAR(64))
@@ -35,7 +34,7 @@ RETURNS TABLE
 AS
 RETURN
 (
-    SELECT q.Codigo_quinta, q.Empresa_Id_Empresa
+    SELECT DISTINCT q.Codigo_quinta, q.Empresa_Id_Empresa
     FROM AgroTrack_Quinta q
     JOIN AgroTrack_Quinta_Animal qa ON q.Empresa_Id_Empresa = qa.Empresa_Id_Empresa
     JOIN AgroTrack_Animal a ON qa.Id_Animal = a.Id_Animal
@@ -83,3 +82,18 @@ RETURN
     JOIN AgroTrack_Quinta q ON e.Quinta_Empresa_Id = q.Empresa_Id_Empresa
     WHERE q.Empresa_Id_Empresa = @FarmId
 );
+GO
+DROP FUNCTION IF EXISTS AgroTrack.FilterFarmByMinimumNumberOfFarmers;
+GO
+CREATE FUNCTION AgroTrack.FilterFarmByMinimumNumberOfFarmers(@NumberOfFarmers INT)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT q.Codigo_quinta, q.Empresa_Id_Empresa
+    FROM AgroTrack_Quinta q
+    JOIN AgroTrack_Agricultor a ON q.Empresa_Id_Empresa = a.Quinta_Empresa_Id_Empresa
+    GROUP BY q.Codigo_quinta, q.Empresa_Id_Empresa
+    HAVING COUNT(a.Pessoa_N_CartaoCidadao) >= @NumberOfFarmers
+);
+GO
