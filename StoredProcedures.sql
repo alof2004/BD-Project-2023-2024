@@ -7,18 +7,16 @@ CREATE PROCEDURE AddQuinta
     @Morada VARCHAR(64)
 AS
 BEGIN
-    DECLARE @NextCodigoQuinta INT;
 	DECLARE @NEXTCodigoEmpresa  INT;
 
     -- Find the maximum ID currently in the AgroTrack_Empresa table
     SELECT @NextCodigoEmpresa = COALESCE(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
-    SELECT @NextCodigoQuinta = COALESCE(MAX(Codigo_quinta), 0) + 1 FROM AgroTrack_Quinta;
 
     INSERT INTO AgroTrack_Empresa (Id_Empresa, Nome, Morada)
     VALUES (@NextCodigoEmpresa, @Nome, @Morada);
     -- Insert the new Quinta using the next available ID
-    INSERT INTO AgroTrack_Quinta (Codigo_quinta, Empresa_Id_Empresa)
-    VALUES (@NextCodigoEmpresa, @NextCodigoQuinta); -- Assuming Empresa_Id_Empresa is the same as Codigo_quinta
+    INSERT INTO AgroTrack_Quinta (Empresa_Id_Empresa)
+    VALUES (@NextCodigoEmpresa); -- Assuming Empresa_Id_Empresa is the same as 
 
     PRINT 'New Quinta added successfully.';
 END
@@ -67,7 +65,7 @@ BEGIN
     DECLARE @QuintaId INT;
 
     -- Obtém o ID da Quinta baseado no Nome
-    SELECT @QuintaId = Codigo_quinta
+    SELECT @QuintaId = Empresa_Id_Empresa
     FROM AgroTrack_Quinta, AgroTrack_Empresa
     WHERE Nome = @NomeQuinta;
 
@@ -112,7 +110,7 @@ BEGIN
     END
 
     -- Obtém o ID da Quinta baseado no Nome
-    SELECT @QuintaId = Codigo_quinta
+    SELECT @QuintaId = Empresa_Id_Empresa
     FROM AgroTrack_Quinta, AgroTrack_Empresa
     WHERE Nome = @NomeQuinta;
 
@@ -444,6 +442,9 @@ BEGIN
     END CATCH;
 END;
 GO
+IF OBJECT_ID('PesquisarPorNomeEmpresa', 'P') IS NOT NULL
+    DROP PROCEDURE PesquisarPorNomeEmpresa;
+GO
 CREATE PROCEDURE AgroTrack.PesquisarPorNomeEmpresa
     @Nome VARCHAR(64),
     @esquema VARCHAR(50),
@@ -456,6 +457,19 @@ BEGIN
 
     EXEC sp_executesql @query, N'@Nome VARCHAR(64)', @Nome;
 END;
+GO
+IF OBJECT_ID('PesquisarPorNome', 'P') IS NOT NULL
+    DROP PROCEDURE PesquisarPorNome;
+GO
+CREATE PROCEDURE AgroTrack.PesquisarPorNome
+    @Nome VARCHAR(64),
+    @esquema VARCHAR(50),
+    @tabela VARCHAR(50)
+AS
+BEGIN
+    DECLARE @query NVARCHAR(MAX);
 
+    SET @query = 'SELECT * FROM ' + QUOTENAME(@esquema) + '.' + QUOTENAME(@tabela) + ' WHERE Nome = @Nome';
 
-    
+    EXEC sp_executesql @query, N'@Nome VARCHAR(64)', @Nome;
+END;    

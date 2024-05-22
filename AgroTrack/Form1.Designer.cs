@@ -30,6 +30,18 @@
         {
             AgricultoresTab = new TabControl();
             Quintas = new TabPage();
+            SubmeterNovaQuinta = new Button();
+            button20 = new Button();
+            FilterByPlantQuinta = new ComboBox();
+            label49 = new Label();
+            QuantidadeAgricultores = new NumericUpDown();
+            label41 = new Label();
+            FilterByAnimalQuinta = new ComboBox();
+            label47 = new Label();
+            FiltrarPorProdutoQuinta = new ComboBox();
+            label48 = new Label();
+            button19 = new Button();
+            AdicionarQuinta = new Button();
             ProdutosQuinta = new ListBox();
             Agricultores = new ListBox();
             label13 = new Label();
@@ -165,6 +177,7 @@
             ListaAgricultores = new ListBox();
             AgricultoresTab.SuspendLayout();
             Quintas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).BeginInit();
             Empresas.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -190,6 +203,18 @@
             // 
             // Quintas
             // 
+            Quintas.Controls.Add(SubmeterNovaQuinta);
+            Quintas.Controls.Add(button20);
+            Quintas.Controls.Add(FilterByPlantQuinta);
+            Quintas.Controls.Add(label49);
+            Quintas.Controls.Add(QuantidadeAgricultores);
+            Quintas.Controls.Add(label41);
+            Quintas.Controls.Add(FilterByAnimalQuinta);
+            Quintas.Controls.Add(label47);
+            Quintas.Controls.Add(FiltrarPorProdutoQuinta);
+            Quintas.Controls.Add(label48);
+            Quintas.Controls.Add(button19);
+            Quintas.Controls.Add(AdicionarQuinta);
             Quintas.Controls.Add(ProdutosQuinta);
             Quintas.Controls.Add(Agricultores);
             Quintas.Controls.Add(label13);
@@ -214,11 +239,125 @@
             Quintas.UseVisualStyleBackColor = true;
             Quintas.Click += Quintas_Click;
             // 
+            // SubmeterNovaQuinta
+            // 
+            SubmeterNovaQuinta.Location = new Point(20, 532);
+            SubmeterNovaQuinta.Name = "SubmeterNovaQuinta";
+            SubmeterNovaQuinta.Size = new Size(177, 34);
+            SubmeterNovaQuinta.TabIndex = 44;
+            SubmeterNovaQuinta.Text = "Submeter";
+            SubmeterNovaQuinta.UseVisualStyleBackColor = true;
+            SubmeterNovaQuinta.Click += SubmeterNovaQuinta_Click;
+            // 
+            // button20
+            // 
+            button20.Location = new Point(385, 470);
+            button20.Name = "button20";
+            button20.Size = new Size(198, 79);
+            button20.TabIndex = 43;
+            button20.Text = "Eliminar Produtos Fora da Validade";
+            button20.UseVisualStyleBackColor = true;
+            // 
+            // FilterByPlantQuinta
+            // 
+            FilterByPlantQuinta.FormattingEnabled = true;
+            FilterByPlantQuinta.Items.AddRange(new object[] { "" });
+            FilterByPlantQuinta.Location = new Point(385, 264);
+            FilterByPlantQuinta.Name = "FilterByPlantQuinta";
+            FilterByPlantQuinta.Size = new Size(209, 33);
+            FilterByPlantQuinta.TabIndex = 42;
+            FilterByPlantQuinta.Text = "Selecione uma planta";
+            FilterByPlantQuinta.SelectedIndexChanged += FilterByPlantQuinta_SelectedIndexChanged;
+            // 
+            // label49
+            // 
+            label49.AutoSize = true;
+            label49.Location = new Point(385, 236);
+            label49.Name = "label49";
+            label49.Size = new Size(147, 25);
+            label49.TabIndex = 41;
+            label49.Text = "Filtrar por planta:";
+            // 
+            // QuantidadeAgricultores
+            // 
+            QuantidadeAgricultores.Location = new Point(385, 413);
+            QuantidadeAgricultores.Name = "QuantidadeAgricultores";
+            QuantidadeAgricultores.Size = new Size(209, 31);
+            QuantidadeAgricultores.TabIndex = 40;
+            QuantidadeAgricultores.ValueChanged += QuantidadeAgricultores_ValueChanged;
+            // 
+            // label41
+            // 
+            label41.AutoSize = true;
+            label41.Location = new Point(373, 384);
+            label41.Name = "label41";
+            label41.Size = new Size(234, 25);
+            label41.TabIndex = 39;
+            label41.Text = "Quantidade de Agricultores:";
+            // 
+            // FilterByAnimalQuinta
+            // 
+            FilterByAnimalQuinta.FormattingEnabled = true;
+            FilterByAnimalQuinta.Location = new Point(385, 338);
+            FilterByAnimalQuinta.Name = "FilterByAnimalQuinta";
+            FilterByAnimalQuinta.Size = new Size(209, 33);
+            FilterByAnimalQuinta.TabIndex = 38;
+            FilterByAnimalQuinta.Text = "Seleciona uma quinta";
+            FilterByAnimalQuinta.SelectedIndexChanged += FilterByAnimalQuinta_SelectedIndexChanged;
+            // 
+            // label47
+            // 
+            label47.AutoSize = true;
+            label47.Location = new Point(385, 310);
+            label47.Name = "label47";
+            label47.Size = new Size(150, 25);
+            label47.TabIndex = 37;
+            label47.Text = "Filtrar por animal:";
+            // 
+            // FiltrarPorProdutoQuinta
+            // 
+            FiltrarPorProdutoQuinta.FormattingEnabled = true;
+            FiltrarPorProdutoQuinta.Location = new Point(385, 189);
+            FiltrarPorProdutoQuinta.Name = "FiltrarPorProdutoQuinta";
+            FiltrarPorProdutoQuinta.Size = new Size(209, 33);
+            FiltrarPorProdutoQuinta.TabIndex = 36;
+            FiltrarPorProdutoQuinta.Text = "Selecione um produto";
+            FiltrarPorProdutoQuinta.SelectedIndexChanged += FiltrarPorProdutoQuinta_SelectedIndexChanged;
+            // 
+            // label48
+            // 
+            label48.AutoSize = true;
+            label48.Location = new Point(385, 161);
+            label48.Name = "label48";
+            label48.Size = new Size(164, 25);
+            label48.TabIndex = 35;
+            label48.Text = "Filtrar por produto:";
+            label48.Click += label48_Click;
+            // 
+            // button19
+            // 
+            button19.Location = new Point(202, 532);
+            button19.Name = "button19";
+            button19.Size = new Size(163, 34);
+            button19.TabIndex = 18;
+            button19.Text = "Remover Quinta";
+            button19.UseVisualStyleBackColor = true;
+            // 
+            // AdicionarQuinta
+            // 
+            AdicionarQuinta.Location = new Point(20, 532);
+            AdicionarQuinta.Name = "AdicionarQuinta";
+            AdicionarQuinta.Size = new Size(177, 34);
+            AdicionarQuinta.TabIndex = 17;
+            AdicionarQuinta.Text = "Adicionar Quinta";
+            AdicionarQuinta.UseVisualStyleBackColor = true;
+            AdicionarQuinta.Click += AdicionarQuinta_Click;
+            // 
             // ProdutosQuinta
             // 
             ProdutosQuinta.FormattingEnabled = true;
             ProdutosQuinta.ItemHeight = 25;
-            ProdutosQuinta.Location = new Point(744, 147);
+            ProdutosQuinta.Location = new Point(870, 147);
             ProdutosQuinta.Name = "ProdutosQuinta";
             ProdutosQuinta.Size = new Size(242, 204);
             ProdutosQuinta.TabIndex = 16;
@@ -228,7 +367,7 @@
             // 
             Agricultores.FormattingEnabled = true;
             Agricultores.ItemHeight = 25;
-            Agricultores.Location = new Point(439, 147);
+            Agricultores.Location = new Point(622, 147);
             Agricultores.Name = "Agricultores";
             Agricultores.Size = new Size(242, 204);
             Agricultores.TabIndex = 15;
@@ -237,7 +376,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(439, 94);
+            label13.Location = new Point(405, 94);
             label13.Name = "label13";
             label13.Size = new Size(88, 25);
             label13.TabIndex = 14;
@@ -246,14 +385,14 @@
             // 
             // QuintaContacto
             // 
-            QuintaContacto.Location = new Point(523, 91);
+            QuintaContacto.Location = new Point(495, 91);
             QuintaContacto.Name = "QuintaContacto";
-            QuintaContacto.Size = new Size(463, 31);
+            QuintaContacto.Size = new Size(617, 31);
             QuintaContacto.TabIndex = 13;
             // 
             // buttonPesquisarQuinta
             // 
-            buttonPesquisarQuinta.Location = new Point(20, 82);
+            buttonPesquisarQuinta.Location = new Point(6, 82);
             buttonPesquisarQuinta.Name = "buttonPesquisarQuinta";
             buttonPesquisarQuinta.Size = new Size(177, 34);
             buttonPesquisarQuinta.TabIndex = 12;
@@ -263,7 +402,7 @@
             // 
             // buttonLimparPesquisaQuinta
             // 
-            buttonLimparPesquisaQuinta.Location = new Point(203, 82);
+            buttonLimparPesquisaQuinta.Location = new Point(189, 82);
             buttonLimparPesquisaQuinta.Name = "buttonLimparPesquisaQuinta";
             buttonLimparPesquisaQuinta.Size = new Size(176, 34);
             buttonLimparPesquisaQuinta.TabIndex = 11;
@@ -284,7 +423,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(439, 57);
+            label3.Location = new Point(405, 57);
             label3.Name = "label3";
             label3.Size = new Size(78, 25);
             label3.TabIndex = 8;
@@ -293,7 +432,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(439, 17);
+            label1.Location = new Point(405, 17);
             label1.Name = "label1";
             label1.Size = new Size(65, 25);
             label1.TabIndex = 6;
@@ -302,24 +441,24 @@
             // 
             // QuintaMorada
             // 
-            QuintaMorada.Location = new Point(523, 54);
+            QuintaMorada.Location = new Point(495, 54);
             QuintaMorada.Name = "QuintaMorada";
-            QuintaMorada.Size = new Size(463, 31);
+            QuintaMorada.Size = new Size(617, 31);
             QuintaMorada.TabIndex = 5;
             // 
             // QuintaNome
             // 
-            QuintaNome.Location = new Point(523, 17);
+            QuintaNome.Location = new Point(495, 17);
             QuintaNome.Name = "QuintaNome";
-            QuintaNome.Size = new Size(463, 31);
+            QuintaNome.Size = new Size(617, 31);
             QuintaNome.TabIndex = 4;
             QuintaNome.TextChanged += textBox1_TextChanged_1;
             // 
             // PesquisarQuinta
             // 
-            PesquisarQuinta.Location = new Point(20, 45);
+            PesquisarQuinta.Location = new Point(15, 45);
             PesquisarQuinta.Name = "PesquisarQuinta";
-            PesquisarQuinta.Size = new Size(359, 31);
+            PesquisarQuinta.Size = new Size(352, 31);
             PesquisarQuinta.TabIndex = 3;
             PesquisarQuinta.TextChanged += textBox1_TextChanged;
             // 
@@ -327,7 +466,7 @@
             // 
             Plantas.FormattingEnabled = true;
             Plantas.ItemHeight = 25;
-            Plantas.Location = new Point(744, 357);
+            Plantas.Location = new Point(870, 357);
             Plantas.Name = "Plantas";
             Plantas.Size = new Size(242, 204);
             Plantas.TabIndex = 2;
@@ -337,7 +476,7 @@
             // 
             Animais.FormattingEnabled = true;
             Animais.ItemHeight = 25;
-            Animais.Location = new Point(439, 357);
+            Animais.Location = new Point(622, 357);
             Animais.Name = "Animais";
             Animais.Size = new Size(242, 204);
             Animais.TabIndex = 1;
@@ -349,7 +488,7 @@
             ListaQuintas.ItemHeight = 25;
             ListaQuintas.Location = new Point(20, 122);
             ListaQuintas.Name = "ListaQuintas";
-            ListaQuintas.Size = new Size(359, 429);
+            ListaQuintas.Size = new Size(347, 404);
             ListaQuintas.TabIndex = 0;
             ListaQuintas.SelectedIndexChanged += ListaQuintas_SelectedIndexChanged;
             // 
@@ -1522,6 +1661,7 @@
             AgricultoresTab.ResumeLayout(false);
             Quintas.ResumeLayout(false);
             Quintas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).EndInit();
             Empresas.ResumeLayout(false);
             Empresas.PerformLayout();
             tabPage1.ResumeLayout(false);
@@ -1673,5 +1813,17 @@
         private TextBox PesquisaPorNomeCliente;
         private ListBox ListaClientes;
         private ListBox ProdutosQuinta;
+        private Button AdicionarQuinta;
+        private Button button19;
+        private NumericUpDown QuantidadeAgricultores;
+        private Label label41;
+        private ComboBox FilterByAnimalQuinta;
+        private Label label47;
+        private ComboBox FiltrarPorProdutoQuinta;
+        private Label label48;
+        private Button button20;
+        private ComboBox FilterByPlantQuinta;
+        private Label label49;
+        private Button SubmeterNovaQuinta;
     }
 }

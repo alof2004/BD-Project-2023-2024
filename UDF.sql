@@ -34,7 +34,7 @@ RETURNS TABLE
 AS
 RETURN
 (
-    SELECT DISTINCT q.Codigo_quinta, q.Empresa_Id_Empresa
+    SELECT DISTINCT q.Empresa_Id_Empresa
     FROM AgroTrack_Quinta q
     JOIN AgroTrack_Quinta_Animal qa ON q.Empresa_Id_Empresa = qa.Empresa_Id_Empresa
     JOIN AgroTrack_Animal a ON qa.Id_Animal = a.Id_Animal
@@ -49,7 +49,7 @@ RETURNS TABLE
 AS
 RETURN
 (
-    SELECT q.Codigo_quinta, q.Empresa_Id_Empresa
+    SELECT q.Empresa_Id_Empresa
     FROM AgroTrack_Quinta q
     JOIN AgroTrack_Quinta_Planta qp ON q.Empresa_Id_Empresa = qp.Empresa_Id_Empresa
     JOIN AgroTrack_Planta p ON qp.Id_Planta = p.Id_Planta
@@ -90,10 +90,10 @@ RETURNS TABLE
 AS
 RETURN
 (
-    SELECT q.Codigo_quinta, q.Empresa_Id_Empresa
+    SELECT q.Empresa_Id_Empresa
     FROM AgroTrack_Quinta q
     JOIN AgroTrack_Agricultor a ON q.Empresa_Id_Empresa = a.Quinta_Empresa_Id_Empresa
-    GROUP BY q.Codigo_quinta, q.Empresa_Id_Empresa
+    GROUP BY q.Empresa_Id_Empresa
     HAVING COUNT(a.Pessoa_N_CartaoCidadao) >= @NumberOfFarmers
 );
 GO

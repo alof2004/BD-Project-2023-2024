@@ -61,9 +61,7 @@ create table AgroTrack_Empresa (
 );
 
 create table AgroTrack_Quinta(
-	Codigo_quinta		int					not null,
 	Empresa_Id_Empresa	int,
-
 	PRIMARY KEY(Empresa_Id_Empresa)
 );
 
