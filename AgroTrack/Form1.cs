@@ -17,12 +17,11 @@ namespace AgroTrack
             InitializeComponent();
             verifySGBDConnection();
             LoadQuinta();
-            LoadEmpresa();
             LoadAgricultor();
             LoadFiltersQuinta();
             SubmeterNovaQuinta.Hide();
             LoadProdutos();
-            AgricultoresTab.Dock = DockStyle.Fill;
+            Páginas.Dock = DockStyle.Fill;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -356,24 +355,26 @@ namespace AgroTrack
                     MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
                 }
             }
-            else if (table == "Empresa")
+            else if (table == "Produto")
             {
                 try
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
-                    ListaEmpresas.Items.Clear(); // Clear previous items
+                    ListaProdutos.Items.Clear(); // Clear previous items
                     while (reader.Read())
                     {
-                        Empresa Company = new Empresa
+                        Produto product = new Produto
                         {
-                            Id_Empresa = (int)reader["Id_Empresa"],
                             Nome = reader["Nome"].ToString(),
-                            Morada = reader["Morada"].ToString(),
-                            Contacto = (int)reader["Contacto"],
-                            TipoEmpresa = reader["Tipo_De_Empresa"].ToString(),
+                            Id_origem = (int)reader["Id_origem"],
+                            Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
+                            Codigo = (int)reader["Codigo"],
+                            Preco = (double)reader["Preco"],
+                            Taxa_de_iva = (double)reader["Taxa_de_iva"],
+                            Unidade_medida = reader["Unidade_medida"].ToString(),
                         };
 
-                        ListaEmpresas.Items.Add(Company);
+                        ListaProdutos.Items.Add(product);
                     }
                     reader.Close();
                 }
@@ -384,6 +385,8 @@ namespace AgroTrack
             }
 
         }
+
+        //searchbar-quintas
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -391,6 +394,8 @@ namespace AgroTrack
             searchBar(inputQuintaNome, "Quinta");
 
         }
+
+
 
 
 
@@ -424,55 +429,6 @@ namespace AgroTrack
         {
 
         }
-
-
-        private void LoadEmpresa()
-        {
-            string query = "SELECT Id_Empresa,Nome,Morada, Contacto, Tipo_De_Empresa FROM AgroTrack.Empresa;";
-            SqlCommand cmd = new SqlCommand(query, cn);
-
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Empresa Company = new Empresa
-                    {
-                        Id_Empresa = (int)reader["Id_Empresa"],
-                        Nome = reader["Nome"].ToString(),
-                        Morada = reader["Morada"].ToString(),
-                        Contacto = (int)reader["Contacto"],
-                        TipoEmpresa = reader["Tipo_De_Empresa"].ToString(),
-                    };
-
-                    ListaEmpresas.Items.Add(Company);
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
-            }
-        }
-
-        private void ListaEmpresas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ListaEmpresas.SelectedItem is Empresa selectedCompany)
-            {
-                Nome.ReadOnly = true;
-                Morada.ReadOnly = true;
-                Contacto.ReadOnly = true;
-                TipoEmpresa.ReadOnly = true;
-
-                Nome.Text = selectedCompany.Nome;
-                Morada.Text = selectedCompany.Morada;
-                Contacto.Text = selectedCompany.Contacto.ToString();
-                TipoEmpresa.Text = selectedCompany.TipoEmpresa;
-
-                LoadEncomendas(selectedCompany.Id_Empresa);
-            }
-        }
-
         private void LoadEncomendas(int empresaId)
         {
             string query = "SELECT Codigo, prazo_entrega, Morada_entrega, Entrega,Retalhista_Empresa_Id_Empresa,Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id FROM AgroTrack.AnimaisQuinta WHERE Empresa_Id_Empresa = @EmpresaId;";
@@ -915,46 +871,6 @@ namespace AgroTrack
         }
 
         // Pesquisar por nome-Empresa-elemento botao pesquisar
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string searchText = textBox10.Text.ToLower();
-            ListaEmpresas.Items.Clear();
-
-            string query = "SELECT Id_Empresa, Nome, Morada, Contacto, Tipo_De_Empresa FROM AgroTrack.Empresa WHERE LOWER(Nome) LIKE @searchText;";
-            SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@searchText", "%" + searchText + "%");
-
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Empresa company = new Empresa
-                    {
-                        Id_Empresa = (int)reader["Id_Empresa"],
-                        Nome = reader["Nome"].ToString(),
-                        Morada = reader["Morada"].ToString(),
-                        Contacto = (int)reader["Contacto"],
-                        TipoEmpresa = reader["Tipo_De_Empresa"].ToString(),
-                    };
-
-                    ListaEmpresas.Items.Add(company);
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
-            }
-        }
-
-        // Pesquisar por nome-Empresa-elemento botao limpar
-        private void button2_Click(object sender, EventArgs e)
-        {
-            textBox10.Text = string.Empty;
-            ListaEmpresas.Items.Clear();
-            LoadEmpresa();
-        }
 
         private void RemoverQuinta_Click(object sender, EventArgs e)
         {
@@ -1038,27 +954,9 @@ namespace AgroTrack
 
         }
 
-        //produtos 
-        private void ListaProdutos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ListaQuintas.SelectedItem is Quinta selectedFarm)
-            {
-                ProdutoCodigo.ReadOnly = true;
-                ProdutoNome.ReadOnly = true;
-                ProdutoTipoProduto.ReadOnly = true;
-
-                QuintaNome.Text = selectedFarm.Nome;
-                QuintaMorada.Text = selectedFarm.Morada;
-                QuintaContacto.Text = selectedFarm.Contacto.ToString();
-
-
-                loadProdutos(selectedFarm.Empresa_Id_Empresa);
-
-            }
-        }
         private void LoadProdutos()
         {
-            string query = "SELECT Pno.Codigo,Pro.Nome, Pro.Id_origem, Pro.Preco,Pro.Taxa_de_iva,Pro.Unidade_medida,Pro.Tipo_de_Produto FROM AgroTrack_Produto ;";
+            string query = "SELECT Codigo, Nome, Id_origem, Preco,Taxa_de_iva,Unidade_medida,Tipo_de_Produto FROM AgroTrack.Produto ;";
             SqlCommand cmd = new SqlCommand(query, cn);
 
             try
@@ -1072,8 +970,8 @@ namespace AgroTrack
                         Id_origem = (int)reader["Id_origem"],
                         Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                         Codigo = (int)reader["Codigo"],
-                        Preco = (int)reader["Preco"],
-                        Taxa_de_iva = (int)reader["Taxa_de_iva"],
+                        Preco = (double)reader["Preco"],
+                        Taxa_de_iva = (double)reader["Taxa_de_iva"],
                         Unidade_medida = reader["Unidade_medida"].ToString()
                     };
 
@@ -1085,6 +983,55 @@ namespace AgroTrack
             {
                 MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
             }
+        }
+
+        //produtos 
+        private void ListaProdutos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListaProdutos.SelectedItem is Produto selectedproduct)
+            {
+                ProdutoNome.ReadOnly = true;
+                ProdutoTipo.ReadOnly = true;
+                ProdutoIva.ReadOnly = true;
+                ProdutoDisponivel.ReadOnly = true;
+                ProdutoPreco.ReadOnly = true;
+                ProdutoVendido.ReadOnly = true;
+                ProdutoMedida.ReadOnly = true;
+
+                ProdutoNome.Text = selectedproduct.Nome;
+                ProdutoTipo.Text = selectedproduct.Tipo_de_Produto;
+                ProdutoIva.Text = selectedproduct.Taxa_de_iva.ToString();
+                //ProdutoDisponivel.Text= selectedproduct.Id_origem.ToString();
+                ProdutoPreco.Text = selectedproduct.Preco.ToString();
+                ProdutoMedida.Text = selectedproduct.Unidade_medida;
+
+                //ProdutoVendido.Text= selectedproduct..ToString();
+                LoadProdutos();
+
+            }
+        }
+
+        private void Retalhistas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+
+        //searchbar-Produtos
+        private void textBox14_TextChanged(object sender, EventArgs e)
+        {
+            string inputProdutoNome = (string)PesquisarProduto.Text;
+            searchBar(inputProdutoNome, "Produto");
         }
     }
 }
