@@ -121,7 +121,9 @@ drop view IF EXISTS AgroTrack.QuintaProduto
 go
 create view AgroTrack.QuintaProduto as
 	select Q.Empresa_Id_Empresa, E.Nome
-	from  (((AgroTrack_Quinta as Q join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Contem as C on Q.Empresa_Id_Empresa=C.Quinta_Empresa_Id_Empresa) inner join AgroTrack_Produto as P on C.Produto_codigo=P.Codigo)
+	from  (((AgroTrack_Quinta as Q join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa) 
+	inner join AgroTrack_Contem as C on Q.Empresa_Id_Empresa=C.Quinta_Empresa_Id_Empresa) 
+	inner join AgroTrack_Produto as P on C.Produto_codigo=P.Codigo)
 go
 
 --Agricultor e Colhe

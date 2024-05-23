@@ -1038,12 +1038,9 @@ namespace AgroTrack
 
         private void LoadQuintas(int CodigoProduto)
         {
-            string query = @"
-            SELECT Empresa_Id_Empresa, Nome
-            FROM AgroTrack.QuintaProduto
-            WHERE Codigo = @CodigoProduto";
+            string query = "SELECT Empresa_Id_Empresa, Nome FROM AgroTrack.QuintaProduto WHERE Produto_codigo = @productid ;";
             SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@CodigoProduto", CodigoProduto);
+            cmd.Parameters.AddWithValue("@productid", CodigoProduto);
 
             try
             {
