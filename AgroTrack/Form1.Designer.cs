@@ -1658,9 +1658,9 @@
             // 
             QuintasProdutos.FormattingEnabled = true;
             QuintasProdutos.ItemHeight = 25;
-            QuintasProdutos.Location = new Point(936, 107);
+            QuintasProdutos.Location = new Point(868, 107);
             QuintasProdutos.Name = "QuintasProdutos";
-            QuintasProdutos.Size = new Size(205, 204);
+            QuintasProdutos.Size = new Size(273, 204);
             QuintasProdutos.TabIndex = 68;
             QuintasProdutos.SelectedIndexChanged += QuintasProdutos_SelectedIndexChanged;
             // 
@@ -1678,7 +1678,7 @@
             // 
             ProdutoVendido.Location = new Point(733, 283);
             ProdutoVendido.Name = "ProdutoVendido";
-            ProdutoVendido.Size = new Size(178, 31);
+            ProdutoVendido.Size = new Size(129, 31);
             ProdutoVendido.TabIndex = 66;
             // 
             // label8
@@ -1694,7 +1694,7 @@
             // 
             ProdutoDisponivel.Location = new Point(748, 249);
             ProdutoDisponivel.Name = "ProdutoDisponivel";
-            ProdutoDisponivel.Size = new Size(163, 31);
+            ProdutoDisponivel.Size = new Size(114, 31);
             ProdutoDisponivel.TabIndex = 64;
             // 
             // label7
@@ -1710,21 +1710,21 @@
             // 
             ProdutoMedida.Location = new Point(726, 213);
             ProdutoMedida.Name = "ProdutoMedida";
-            ProdutoMedida.Size = new Size(185, 31);
+            ProdutoMedida.Size = new Size(136, 31);
             ProdutoMedida.TabIndex = 62;
             // 
             // ProdutoIva
             // 
             ProdutoIva.Location = new Point(661, 176);
             ProdutoIva.Name = "ProdutoIva";
-            ProdutoIva.Size = new Size(250, 31);
+            ProdutoIva.Size = new Size(201, 31);
             ProdutoIva.TabIndex = 61;
             // 
             // ProdutoPreco
             // 
             ProdutoPreco.Location = new Point(620, 139);
             ProdutoPreco.Name = "ProdutoPreco";
-            ProdutoPreco.Size = new Size(291, 31);
+            ProdutoPreco.Size = new Size(242, 31);
             ProdutoPreco.TabIndex = 60;
             // 
             // label6
@@ -1795,20 +1795,20 @@
             // 
             ProdutoTipo.Location = new Point(703, 102);
             ProdutoTipo.Name = "ProdutoTipo";
-            ProdutoTipo.Size = new Size(208, 31);
+            ProdutoTipo.Size = new Size(159, 31);
             ProdutoTipo.TabIndex = 46;
             // 
             // ProdutoNome
             // 
             ProdutoNome.Location = new Point(636, 65);
             ProdutoNome.Name = "ProdutoNome";
-            ProdutoNome.Size = new Size(275, 31);
+            ProdutoNome.Size = new Size(226, 31);
             ProdutoNome.TabIndex = 45;
             // 
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new Point(955, 65);
+            label24.Location = new Point(923, 71);
             label24.Name = "label24";
             label24.Size = new Size(163, 25);
             label24.TabIndex = 42;

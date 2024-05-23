@@ -157,8 +157,18 @@ create view AgroTrack.planta as
 	from  AgroTrack_Planta
 go
 
-Drop view IF EXISTS AgroTrack.Animal
+drop view IF EXISTS AgroTrack.Animal
 go
 create view AgroTrack.Animal as
 	Select AgroTrack_Animal.Id_Animal, AgroTrack_Animal.Tipo_de_Animal
 	From AgroTrack_Animal
+go
+
+--Contem
+drop view IF EXISTS AgroTrack.Contem
+go
+create view AgroTrack.Contem as
+	select Contem.Quinta_Empresa_Id_Empresa, Contem.Produto_codigo, Contem.Quantidade
+	from  AgroTrack_Contem as Contem
+go
+
