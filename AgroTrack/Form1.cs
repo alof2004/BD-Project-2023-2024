@@ -484,7 +484,7 @@ namespace AgroTrack
 
         private void buttonLimparPesquisaQuinta_Click(object sender, EventArgs e)
         {
-            PesquisaPorNomeCliente.Text = string.Empty;
+            PesquisarQuinta.Text = string.Empty;
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1007,6 +1007,7 @@ namespace AgroTrack
 
                 //ProdutoVendido.Text= selectedproduct..ToString();
                 LoadProdutos();
+                LoadQuintas(selectedproduct.Codigo);
 
             }
         }
@@ -1032,6 +1033,49 @@ namespace AgroTrack
         {
             string inputProdutoNome = (string)PesquisarProduto.Text;
             searchBar(inputProdutoNome, "Produto");
+        }
+
+
+        private void LoadQuintas(int CodigoProduto)
+        {
+            string query = @"
+            SELECT Empresa_Id_Empresa, Nome
+            FROM AgroTrack.QuintaProduto
+            WHERE Codigo = @CodigoProduto";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@CodigoProduto", CodigoProduto);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                QuintasProdutos.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    Quinta farm = new Quinta
+                    {
+                        Id_Quinta = (int)reader["Empresa_Id_Empresa"],
+                        Nome = reader["Nome"].ToString()
+                    };
+
+                    QuintasProdutos.Items.Add(farm);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+        private void QuintasProdutos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //cleanProdutosbar
+        private void button12_Click(object sender, EventArgs e)
+        {
+            PesquisarProduto.Text = string.Empty;
         }
     }
 }

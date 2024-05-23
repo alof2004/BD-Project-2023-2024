@@ -1662,6 +1662,7 @@
             QuintasProdutos.Name = "QuintasProdutos";
             QuintasProdutos.Size = new Size(205, 204);
             QuintasProdutos.TabIndex = 68;
+            QuintasProdutos.SelectedIndexChanged += QuintasProdutos_SelectedIndexChanged;
             // 
             // InformaçoesProduto
             // 
@@ -1762,6 +1763,7 @@
             button12.TabIndex = 56;
             button12.Text = "Limpar";
             button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // PesquisarProduto
             // 
