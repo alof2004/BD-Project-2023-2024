@@ -22,7 +22,6 @@ namespace AgroTrack
             LoadFiltersAgricultores();
             SubmeterNovaQuinta.Hide();
             LoadProdutos();
-            P�ginas.Dock = DockStyle.Fill;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -67,6 +66,7 @@ namespace AgroTrack
                     };
 
                     ListaQuintas.Items.Add(farm);
+                    comboBox4.Items.Add(farm);
                 }
                 reader.Close();
             }
@@ -1030,6 +1030,7 @@ namespace AgroTrack
                     };
 
                     ListaProdutos.Items.Add(product);
+                    
                 }
                 reader.Close();
             }
@@ -1229,7 +1230,50 @@ namespace AgroTrack
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox3.SelectedItem != null)
+            {
+                string selectedTipoProduto = comboBox3.SelectedItem.ToString();
+                MessageBox.Show("Você selecionou: " + selectedTipoProduto);
+            }
+        }
 
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Evento para quando um item do ComboBox for selecionado.
+            Quinta selectedQuinta = comboBox4.SelectedItem as Quinta;
+            if (selectedQuinta != null)
+            {
+                // Aqui você pode adicionar o comportamento desejado quando uma quinta for selecionada.
+                MessageBox.Show("Quinta selecionada: " + selectedQuinta.Nome);
+            }
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void LoadTipoDeProdutos()
+        {
+            string query = "SELECT DISTINCT Tipo_de_Produto FROM AgroTrack.Produto";
+            SqlCommand cmd = new SqlCommand(query, cn);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                comboBox3.Items.Clear();
+                while (reader.Read())
+                {
+                    string tipoProduto = reader["Tipo_de_Produto"].ToString();
+                    comboBox3.Items.Add(tipoProduto);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
         }
     }
 }

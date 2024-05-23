@@ -549,7 +549,6 @@
             ColheuProduto.Size = new Size(207, 33);
             ColheuProduto.TabIndex = 47;
             ColheuProduto.Text = "Seleciona um produto";
-            ColheuProduto.SelectedIndexChanged += ColheuProduto_SelectedIndexChanged;
             // 
             // label36
             // 
@@ -620,7 +619,6 @@
             TrabalhaQuinta.Size = new Size(207, 33);
             TrabalhaQuinta.TabIndex = 38;
             TrabalhaQuinta.Text = "Seleciona uma quinta";
-            TrabalhaQuinta.SelectedIndexChanged += TrabalhaQuinta_SelectedIndexChanged;
             // 
             // label34
             // 
@@ -1856,6 +1854,7 @@
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(290, 31);
             numericUpDown1.TabIndex = 34;
+            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
             // 
             // label19
             // 
@@ -1877,12 +1876,12 @@
             // comboBox4
             // 
             comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
             comboBox4.Location = new Point(251, 479);
             comboBox4.Name = "comboBox4";
             comboBox4.Size = new Size(290, 33);
             comboBox4.TabIndex = 31;
             comboBox4.Text = "Seleciona uma quinta";
+            comboBox4.SelectedIndexChanged += comboBox4_SelectedIndexChanged;
             // 
             // label17
             // 
@@ -1896,7 +1895,6 @@
             // comboBox3
             // 
             comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
             comboBox3.Location = new Point(251, 406);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(290, 33);
