@@ -26,7 +26,7 @@ namespace AgroTrack
 
         public override string ToString()
         {
-            return Id_Quinta + "     -     " + Nome;
+            return Id_Quinta + " - " + Nome;
         }
     }
 }

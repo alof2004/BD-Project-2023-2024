@@ -973,7 +973,7 @@ namespace AgroTrack
                         Codigo = (int)reader["Codigo"],
                         Preco = (double)reader["Preco"],
                         Taxa_de_iva = (double)reader["Taxa_de_iva"],
-                        Unidade_medida = reader["Unidade_medida"].ToString()
+                        Unidade_medida = reader["Unidade_medida"].ToString(),
                     };
 
                     ListaProdutos.Items.Add(product);
@@ -1002,11 +1002,10 @@ namespace AgroTrack
                 ProdutoNome.Text = selectedproduct.Nome;
                 ProdutoTipo.Text = selectedproduct.Tipo_de_Produto;
                 ProdutoIva.Text = selectedproduct.Taxa_de_iva.ToString();
-                //ProdutoDisponivel.Text= selectedproduct.Id_origem.ToString();
                 ProdutoPreco.Text = selectedproduct.Preco.ToString();
                 ProdutoMedida.Text = selectedproduct.Unidade_medida;
+                ProdutoDisponivel.Text = GetQuantidadeDisponivel(selectedproduct.Codigo).ToString();
 
-                //ProdutoVendido.Text= selectedproduct..ToString();
                 LoadProdutos();
                 LoadQuintas(selectedproduct.Codigo);
 
@@ -1039,7 +1038,7 @@ namespace AgroTrack
 
         private void LoadQuintas(int CodigoProduto)
         {
-            string query = "SELECT Empresa_Id_Empresa, Nome FROM AgroTrack.QuintaProduto WHERE Produto_codigo = @productid ;";
+            string query = "SELECT Empresa_Id_Empresa, Nome, Morada, Contacto, Quantidade,Nome as NomeProduto, Tipo_de_Produto, Codigo, Unidade_medida, Preco, Taxa_de_iva FROM AgroTrack.QuintaProduto WHERE Codigo = @productid ;";
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@productid", CodigoProduto);
 
@@ -1075,5 +1074,28 @@ namespace AgroTrack
         {
             PesquisarProduto.Text = string.Empty;
         }
+
+
+        private int GetQuantidadeDisponivel(int produtoCodigo)
+        {
+            string query = @"
+            SELECT COALESCE(SUM(C.Quantidade), 0) as QuantidadeDisponivel
+            FROM AgroTrack.Contem C
+            WHERE Produto_codigo = @ProdutoCodigo ;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@ProdutoCodigo", produtoCodigo);
+
+            try
+            {
+                object result = cmd.ExecuteScalar();
+                return Convert.ToInt32(result);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve quantity available: " + ex.Message);
+                return 0;
+            }
+        }
+
     }
 }
