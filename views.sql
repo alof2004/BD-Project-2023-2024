@@ -24,8 +24,8 @@ go
 
 drop view IF EXISTS AgroTrack.AgriculQuinta
 go
-create view AgroTrack.AgriculQuinta as
-	select A.Id_Trabalhador,Pes.Nome, Pes.Contacto,A.Pessoa_N_CartaoCidadao,A.Quinta_Empresa_Id_Empresa, Q.Empresa_Id_Empresa, E.Nome
+create view  AgroTrack.AgriculQuinta as
+	select A.Id_Trabalhador,Pes.Nome, Pes.Contacto,A.Pessoa_N_CartaoCidadao,A.Quinta_Empresa_Id_Empresa, Q.Empresa_Id_Empresa,E.Nome as NomeQuinta
 	from ((AgroTrack_Agricultor as A join AgroTrack_Pessoa as Pes on A.Pessoa_N_CartaoCidadao=Pes.N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
 go
 
@@ -102,7 +102,7 @@ go
 drop view IF EXISTS AgroTrack.Produto
 go
 create view AgroTrack.Produto as
-	select Pno.Codigo,Pro.Nome, Pro.Id_origem, Pro.Preco,Pro.Taxa_de_iva,Pro.Unidade_medida,Pro.Tipo_de_Produto
+	select Pro.Codigo,Pro.Nome, Pro.Id_origem, Pro.Preco,Pro.Taxa_de_iva,Pro.Unidade_medida,Pro.Tipo_de_Produto
 	from  AgroTrack_Produto as Pro 
 go
 
@@ -110,18 +110,18 @@ go
 drop view IF EXISTS AgroTrack.ProdutoItem
 go
 create view AgroTrack.ProdutoItem as
-	select Pno.Codigo, Pro.Nome, I.Quantidade, I.Encomenda_Codigo
+	select Pro.Codigo, Pro.Nome, I.Quantidade, I.Encomenda_Codigo
 	from  (AgroTrack_Produto as Pro join AgroTrack_Item as I on Pro.Codigo=I.ProdutoCodigo)
 go
 
 
 
---Produto e  Quinta e contem
+--Produto e  Quinta e contem e Empresa
 drop view IF EXISTS AgroTrack.QuintaProduto
 go
 create view AgroTrack.QuintaProduto as
-	select Pno.Codigo, Pro.Nome, Pro.Id_origem, Pro.Preco,Pro.Taxa_de_iva,Pro.Unidade_medida,Pro.Tipo_de_Produto, Cont.Quantidade
-	from  ((AgroTrack_Quinta as Q join AgroTrack_Contem as Cont on Q.Empresa_Id_Empresa=Cont.Quinta_Empresa_Id_Empresa ) inner join AgroTrack_Produto as Pro on Pro.Codigo=Cont.Produto_codigo)
+	select Q.Empresa_Id_Empresa, E.Nome
+	from  (((AgroTrack_Quinta as Q join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Contem as C on Q.Empresa_Id_Empresa=C.Quinta_Empresa_Id_Empresa) inner join AgroTrack_Produto as P on C.Produto_codigo=P.Codigo)
 go
 
 --Agricultor e Colhe
