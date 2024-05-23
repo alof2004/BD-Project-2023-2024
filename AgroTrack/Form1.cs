@@ -19,9 +19,10 @@ namespace AgroTrack
             LoadQuinta();
             LoadAgricultor();
             LoadFiltersQuinta();
+            LoadFiltersAgricultores();
             SubmeterNovaQuinta.Hide();
             LoadProdutos();
-            Páginas.Dock = DockStyle.Fill;
+            Pï¿½ginas.Dock = DockStyle.Fill;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -318,6 +319,58 @@ namespace AgroTrack
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+
+        }
+
+        //Filtros da aba dos Agricultores
+        private void LoadFiltersAgricultores()
+        {
+            string query = "SELECT Codigo, Nome FROM AgroTrack.Produto;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                ColheuProduto.Items.Clear(); // Clear previous items
+                ColheuProduto.Items.Add("Todos os produtos");
+                while (reader.Read())
+                {
+                    ProdutosOnlyName produto = new ProdutosOnlyName
+                    {
+                        Id_Produto = (int)reader["Codigo"],
+                        Produto = reader["Nome"].ToString()
+                    };
+                    ColheuProduto.Items.Add(produto);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve produtos from database: " + ex.Message);
+            }
+
+            query = "SELECT Empresa_Id_Empresa, Nome FROM AgroTrack.Quinta;";
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                TrabalhaQuinta.Items.Clear(); // Clear previous items
+                TrabalhaQuinta.Items.Add("Todas as quintas");
+                while (reader.Read())
+                {
+                    QuintaOnlyName planta = new QuintaOnlyName
+                    {
+                        Id_Quinta = (int)reader["Empresa_Id_Empresa"],
+                        Nome = reader["Nome"].ToString(),
+                    };
+                    TrabalhaQuinta.Items.Add(planta);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve quintas from database: " + ex.Message);
             }
 
         }
@@ -628,10 +681,10 @@ namespace AgroTrack
                     string contractInfo = $"ID: {contrato.ID}\n" +
                       $"Id Trabalhador: {contrato.Id_Trabalhador}\n" +
                       $"Pessoa N Cartao Cidadao: {contrato.Pessoa_N_CartaoCidadao}\n" +
-                      $"Data de Início: {contrato.Date_str.ToShortDateString()}\n" +
-                      $"Data de Término: {contrato.Date_end.ToShortDateString()}\n" +
-                      $"Salário: {contrato.Salario}\n" +
-                      $"Descrição: {contrato.Descricao}\n" +
+                      $"Data de Inï¿½cio: {contrato.Date_str.ToShortDateString()}\n" +
+                      $"Data de Tï¿½rmino: {contrato.Date_end.ToShortDateString()}\n" +
+                      $"Salï¿½rio: {contrato.Salario}\n" +
+                      $"Descriï¿½ï¿½o: {contrato.Descricao}\n" +
                       $"-----------------------------\n";
 
                     AgricultorContrato.AppendText(contractInfo);
