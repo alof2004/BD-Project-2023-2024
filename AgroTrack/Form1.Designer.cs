@@ -64,7 +64,7 @@
             AddColheita = new Button();
             button15 = new Button();
             button16 = new Button();
-            numericUpDown2 = new NumericUpDown();
+            QuantidadeMinimaColheitas = new NumericUpDown();
             label35 = new Label();
             TrabalhaQuinta = new ComboBox();
             label34 = new Label();
@@ -207,7 +207,7 @@
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NúmeroComprasCliente).BeginInit();
             Agricultor.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeMinimaColheitas).BeginInit();
             Quintas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).BeginInit();
             Transportes.SuspendLayout();
@@ -502,7 +502,7 @@
             Agricultor.Controls.Add(AddColheita);
             Agricultor.Controls.Add(button15);
             Agricultor.Controls.Add(button16);
-            Agricultor.Controls.Add(numericUpDown2);
+            Agricultor.Controls.Add(QuantidadeMinimaColheitas);
             Agricultor.Controls.Add(label35);
             Agricultor.Controls.Add(TrabalhaQuinta);
             Agricultor.Controls.Add(label34);
@@ -544,12 +544,12 @@
             // ColheuProduto
             // 
             ColheuProduto.FormattingEnabled = true;
-            ColheuProduto.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
             ColheuProduto.Location = new Point(406, 305);
             ColheuProduto.Name = "ColheuProduto";
             ColheuProduto.Size = new Size(207, 33);
             ColheuProduto.TabIndex = 47;
             ColheuProduto.Text = "Seleciona um produto";
+            ColheuProduto.SelectedIndexChanged += ColheuProduto_SelectedIndexChanged;
             // 
             // label36
             // 
@@ -596,17 +596,17 @@
             button16.Text = "Apagar Agricultor";
             button16.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown2
+            // QuantidadeMinimaColheitas
             // 
-            numericUpDown2.Location = new Point(406, 486);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(207, 31);
-            numericUpDown2.TabIndex = 40;
+            QuantidadeMinimaColheitas.Location = new Point(406, 486);
+            QuantidadeMinimaColheitas.Name = "QuantidadeMinimaColheitas";
+            QuantidadeMinimaColheitas.Size = new Size(207, 31);
+            QuantidadeMinimaColheitas.TabIndex = 40;
             // 
             // label35
             // 
             label35.AutoSize = true;
-            label35.Location = new Point(406, 456);
+            label35.Location = new Point(393, 458);
             label35.Name = "label35";
             label35.Size = new Size(268, 25);
             label35.TabIndex = 39;
@@ -615,12 +615,12 @@
             // TrabalhaQuinta
             // 
             TrabalhaQuinta.FormattingEnabled = true;
-            TrabalhaQuinta.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
             TrabalhaQuinta.Location = new Point(406, 397);
             TrabalhaQuinta.Name = "TrabalhaQuinta";
             TrabalhaQuinta.Size = new Size(207, 33);
             TrabalhaQuinta.TabIndex = 38;
             TrabalhaQuinta.Text = "Seleciona uma quinta";
+            TrabalhaQuinta.SelectedIndexChanged += TrabalhaQuinta_SelectedIndexChanged;
             // 
             // label34
             // 
@@ -696,9 +696,9 @@
             // 
             ListaColheitas.FormattingEnabled = true;
             ListaColheitas.ItemHeight = 25;
-            ListaColheitas.Location = new Point(644, 263);
+            ListaColheitas.Location = new Point(666, 263);
             ListaColheitas.Name = "ListaColheitas";
-            ListaColheitas.Size = new Size(497, 254);
+            ListaColheitas.Size = new Size(475, 254);
             ListaColheitas.TabIndex = 29;
             // 
             // label28
@@ -1967,7 +1967,7 @@
             ((System.ComponentModel.ISupportInitialize)NúmeroComprasCliente).EndInit();
             Agricultor.ResumeLayout(false);
             Agricultor.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeMinimaColheitas).EndInit();
             Quintas.ResumeLayout(false);
             Quintas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).EndInit();
@@ -2070,7 +2070,7 @@
         private Label label33;
         private ComboBox TrabalhaQuinta;
         private Label label34;
-        private NumericUpDown numericUpDown2;
+        private NumericUpDown QuantidadeMinimaColheitas;
         private Label label35;
         private Button button18;
         private Button AddColheita;
