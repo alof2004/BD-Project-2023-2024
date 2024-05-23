@@ -58,7 +58,7 @@
             ListaClientes = new ListBox();
             Agricultor = new TabPage();
             ContratoLabel = new Label();
-            comboBox6 = new ComboBox();
+            ColheuProduto = new ComboBox();
             label36 = new Label();
             button18 = new Button();
             AddColheita = new Button();
@@ -66,7 +66,7 @@
             button16 = new Button();
             numericUpDown2 = new NumericUpDown();
             label35 = new Label();
-            comboBox5 = new ComboBox();
+            TrabalhaQuinta = new ComboBox();
             label34 = new Label();
             checkedListBox2 = new CheckedListBox();
             label33 = new Label();
@@ -496,7 +496,7 @@
             // Agricultor
             // 
             Agricultor.Controls.Add(ContratoLabel);
-            Agricultor.Controls.Add(comboBox6);
+            Agricultor.Controls.Add(ColheuProduto);
             Agricultor.Controls.Add(label36);
             Agricultor.Controls.Add(button18);
             Agricultor.Controls.Add(AddColheita);
@@ -504,7 +504,7 @@
             Agricultor.Controls.Add(button16);
             Agricultor.Controls.Add(numericUpDown2);
             Agricultor.Controls.Add(label35);
-            Agricultor.Controls.Add(comboBox5);
+            Agricultor.Controls.Add(TrabalhaQuinta);
             Agricultor.Controls.Add(label34);
             Agricultor.Controls.Add(checkedListBox2);
             Agricultor.Controls.Add(label33);
@@ -541,15 +541,15 @@
             ContratoLabel.TabIndex = 48;
             ContratoLabel.Text = "Contrato:";
             // 
-            // comboBox6
+            // ColheuProduto
             // 
-            comboBox6.FormattingEnabled = true;
-            comboBox6.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            comboBox6.Location = new Point(406, 305);
-            comboBox6.Name = "comboBox6";
-            comboBox6.Size = new Size(207, 33);
-            comboBox6.TabIndex = 47;
-            comboBox6.Text = "Seleciona um produto";
+            ColheuProduto.FormattingEnabled = true;
+            ColheuProduto.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
+            ColheuProduto.Location = new Point(406, 305);
+            ColheuProduto.Name = "ColheuProduto";
+            ColheuProduto.Size = new Size(207, 33);
+            ColheuProduto.TabIndex = 47;
+            ColheuProduto.Text = "Seleciona um produto";
             // 
             // label36
             // 
@@ -608,19 +608,19 @@
             label35.AutoSize = true;
             label35.Location = new Point(406, 456);
             label35.Name = "label35";
-            label35.Size = new Size(105, 25);
+            label35.Size = new Size(268, 25);
             label35.TabIndex = 39;
-            label35.Text = "Quantidade";
+            label35.Text = "Quantidade mínima de colheitas";
             // 
-            // comboBox5
+            // TrabalhaQuinta
             // 
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            comboBox5.Location = new Point(406, 397);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(207, 33);
-            comboBox5.TabIndex = 38;
-            comboBox5.Text = "Seleciona uma quinta";
+            TrabalhaQuinta.FormattingEnabled = true;
+            TrabalhaQuinta.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
+            TrabalhaQuinta.Location = new Point(406, 397);
+            TrabalhaQuinta.Name = "TrabalhaQuinta";
+            TrabalhaQuinta.Size = new Size(207, 33);
+            TrabalhaQuinta.TabIndex = 38;
+            TrabalhaQuinta.Text = "Seleciona uma quinta";
             // 
             // label34
             // 
@@ -2068,7 +2068,7 @@
         private RichTextBox AgricultorContrato;
         private CheckedListBox checkedListBox2;
         private Label label33;
-        private ComboBox comboBox5;
+        private ComboBox TrabalhaQuinta;
         private Label label34;
         private NumericUpDown numericUpDown2;
         private Label label35;
@@ -2076,7 +2076,7 @@
         private Button AddColheita;
         private Button button15;
         private Button button16;
-        private ComboBox comboBox6;
+        private ComboBox ColheuProduto;
         private Label label36;
         private ComboBox ComprouProduto;
         private Label label37;

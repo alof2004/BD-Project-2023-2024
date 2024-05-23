@@ -185,34 +185,35 @@ namespace AgroTrack
 
         private void loadProdutosQuinta(int empresaId)
         {
-
-            string query = "SELECT Codigo, Nome, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade FROM AgroTrack.QuintaProduto WHERE Empresa_Id_Empresa = @EmpresaId;";
+            string query = "SELECT Codigo, Nome, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade, NomeProduto FROM AgroTrack.QuintaProduto WHERE Empresa_Id_Empresa = @EmpresaId;";
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@EmpresaId", empresaId);
+
             try
             {
-                SqlDataReader reader = cmd.ExecuteReader();
-                ProdutosQuinta.Items.Clear(); // Clear previous items
-                while (reader.Read())
+                // Ensure the reader is properly disposed of by using a using statement
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    ProdutosQuinta produto = new ProdutosQuinta
+                    ProdutosQuinta.Items.Clear(); // Clear previous items
+                    while (reader.Read())
                     {
-                        Id_Quinta = empresaId,
-                        Produto = reader["Nome"].ToString(),
-                        Id_Produto = (int)reader["Codigo"],
-                        Quantidade = (int)reader["Quantidade"]
-
-                    };
-                    ProdutosQuinta.Items.Add(produto);
+                        ProdutosQuinta produto = new ProdutosQuinta
+                        {
+                            Id_Quinta = empresaId,
+                            Produto = reader["NomeProduto"].ToString(),
+                            Id_Produto = (int)reader["Codigo"],
+                            Quantidade = (int)reader["Quantidade"]
+                        };
+                        ProdutosQuinta.Items.Add(produto);
+                    }
                 }
-                reader.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
             }
-
         }
+
 
 
 

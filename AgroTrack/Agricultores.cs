@@ -6,11 +6,13 @@
     public string Nome { get; set; }
     public string NomeQuinta { get; set; }
     public int Contacto { get; set; }
+
+    public string Descricao { get; set; }
     public Agricultores()
     {
     }
 
-    public Agricultores(int id_Trabalhador, int pessoa_N_CartaoCidadao, int quinta_Empresa_Id_Empresa, string nome, int contacto, string nomequinta)
+    public Agricultores(int id_Trabalhador, int pessoa_N_CartaoCidadao, int quinta_Empresa_Id_Empresa, string nome, int contacto, string nomequinta, string descricao)
     {
         Id_Trabalhador = id_Trabalhador;
         Pessoa_N_CartaoCidadao = pessoa_N_CartaoCidadao;
@@ -18,6 +20,7 @@
         NomeQuinta = nomequinta;
         Nome = nome;
         Contacto = contacto;
+        Descricao = descricao;
     }
 
     public override string ToString()
