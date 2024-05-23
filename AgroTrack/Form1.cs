@@ -671,10 +671,10 @@ namespace AgroTrack
                     string contractInfo = $"ID: {contrato.ID}\n" +
                       $"Id Trabalhador: {contrato.Id_Trabalhador}\n" +
                       $"Pessoa N Cartao Cidadao: {contrato.Pessoa_N_CartaoCidadao}\n" +
-                      $"Data de Inï¿½cio: {contrato.Date_str.ToShortDateString()}\n" +
-                      $"Data de Tï¿½rmino: {contrato.Date_end.ToShortDateString()}\n" +
-                      $"Salï¿½rio: {contrato.Salario}\n" +
-                      $"Descriï¿½ï¿½o: {contrato.Descricao}\n" +
+                      $"Data de Início: {contrato.Date_str.ToShortDateString()}\n" +
+                      $"Data de Término: {contrato.Date_end.ToShortDateString()}\n" +
+                      $"Salário: {contrato.Salario}\n" +
+                      $"Descrição: {contrato.Descricao}\n" +
                       $"-----------------------------\n";
 
                     AgricultorContrato.AppendText(contractInfo);
@@ -917,7 +917,7 @@ namespace AgroTrack
         // Pesquisar por nome-Empresa-elemento botao pesquisar
         private void button1_Click(object sender, EventArgs e)
         {
-            string searchText = ProdutoTipoOrigem.Text.ToLower();
+            string searchText = textBox10.Text.ToLower();
             ListaEmpresas.Items.Clear();
 
             string query = "SELECT Id_Empresa, Nome, Morada, Contacto, Tipo_De_Empresa FROM AgroTrack.Empresa WHERE LOWER(Nome) LIKE @searchText;";
@@ -951,7 +951,7 @@ namespace AgroTrack
         // Pesquisar por nome-Empresa-elemento botao limpar
         private void button2_Click(object sender, EventArgs e)
         {
-            ProdutoTipoOrigem.Text = string.Empty;
+            textBox10.Text = string.Empty;
             ListaEmpresas.Items.Clear();
             LoadEmpresa();
         }
@@ -1066,7 +1066,7 @@ namespace AgroTrack
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Produto Product = new Produto
+                    Produto product = new Produto
                     {
                         Nome = reader["Nome"].ToString(),
                         Id_origem = (int)reader["Id_origem"],
@@ -1077,37 +1077,13 @@ namespace AgroTrack
                         Unidade_medida = reader["Unidade_medida"].ToString()
                     };
 
-                    ListaProdutos.Items.Add(Product);
+                    ListaProdutos.Items.Add(product);
                 }
                 reader.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
-            }
-        }
-
-
-        //produtos 
-        private void ListaProdutos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ListaProdutos.SelectedItem is Produto selectedproduct)
-            {
-                ProdutoTipoOrigem.ReadOnly = true;
-                ProdutoNome.ReadOnly = true;
-                ProdutoTipo.ReadOnly = true;
-                ProdutoDisponivel.ReadOnly = true;
-                ProdutoVendida.ReadOnly = true;
-                ProdutoOrigem.ReadOnly = true;
-                ProdutoProducao.ReadOnly = true;
-
-                ProdutoNome.Text = selectedproduct.Nome;
-                ProdutoTipo.Text = selectedproduct.Tipo_de_Produto;
-                ProdutoTipoOrigem.Text = selectedproduct.Id_origem.ToString();
-
-                LoadQuinta();
-
-
             }
         }
     }
