@@ -1095,7 +1095,88 @@ namespace AgroTrack
                 MessageBox.Show("Failed to retrieve quantity available: " + ex.Message);
                 return 0;
             }
+
         }
 
+
+        private void LoadFiltersProduto()
+        {
+            string query = "SELECT Codigo, Nome FROM AgroTrack.Produto;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                FiltrarPorProdutoQuinta.Items.Clear(); // Clear previous items
+                FiltrarPorProdutoQuinta.Items.Add("Todos os produtos");
+                while (reader.Read())
+                {
+                    ProdutosOnlyName produto = new ProdutosOnlyName
+                    {
+                        Id_Produto = (int)reader["Codigo"],
+                        Produto = reader["Nome"].ToString()
+                    };
+                    FiltrarPorProdutoQuinta.Items.Add(produto);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+
+            query = "SELECT Id_Planta, Tipo, Estacao FROM AgroTrack.planta;";
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                FilterByPlantQuinta.Items.Clear(); // Clear previous items
+                FilterByPlantQuinta.Items.Add("Todas as plantas");
+                while (reader.Read())
+                {
+                    Planta planta = new Planta
+                    {
+                        Id = (int)reader["Id_Planta"],
+                        Tipo = reader["Tipo"].ToString(),
+                        Estacao = reader["Estacao"].ToString(),
+                    };
+                    FilterByPlantQuinta.Items.Add(planta);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve plants from database: " + ex.Message);
+            }
+
+            query = "SELECT Id_Animal, Tipo_de_Animal FROM AgroTrack.Animal;";
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                FilterByAnimalQuinta.Items.Clear(); // Clear previous items
+                FilterByAnimalQuinta.Items.Add("Todos os animais");
+                while (reader.Read())
+                {
+                    AnimalOnlyName planta = new AnimalOnlyName
+                    {
+                        Id = (int)reader["Id_Animal"],
+                        Tipo = reader["Tipo_de_Animal"].ToString(),
+                    };
+                    FilterByAnimalQuinta.Items.Add(planta);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

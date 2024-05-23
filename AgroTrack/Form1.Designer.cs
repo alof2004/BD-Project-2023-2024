@@ -1902,6 +1902,7 @@
             comboBox3.Size = new Size(290, 33);
             comboBox3.TabIndex = 29;
             comboBox3.Text = "Seleciona um tipo";
+            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
             // label16
             // 
