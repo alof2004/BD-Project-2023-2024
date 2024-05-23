@@ -25,8 +25,8 @@ go
 drop view IF EXISTS AgroTrack.AgriculQuinta
 go
 create view AgroTrack.AgriculQuinta as
-	select A.Id_Trabalhador,Pes.Nome, Pes.Contacto,A.Pessoa_N_CartaoCidadao,A.Quinta_Empresa_Id_Empresa, Q.Empresa_Id_Empresa
-	from ((AgroTrack_Agricultor as A join AgroTrack_Pessoa as Pes on A.Pessoa_N_CartaoCidadao=Pes.N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
+	select A.Id_Trabalhador,Pes.Nome, Pes.Contacto,A.Pessoa_N_CartaoCidadao,A.Quinta_Empresa_Id_Empresa, Q.Empresa_Id_Empresa, E.Nome
+	from ((AgroTrack_Agricultor as A join AgroTrack_Pessoa as Pes on A.Pessoa_N_CartaoCidadao=Pes.N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
 go
 
 
@@ -156,3 +156,9 @@ create view AgroTrack.planta as
 	select AgroTrack_Planta.Id_planta, AgroTrack_Planta.Tipo,AgroTrack_Planta.Estacao
 	from  AgroTrack_Planta
 go
+
+Drop view IF EXISTS AgroTrack.Animal
+go
+create view AgroTrack.Animal as
+	Select AgroTrack_Animal.Id_Animal, AgroTrack_Animal.Tipo_de_Animal
+	From AgroTrack_Animal
