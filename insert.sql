@@ -199,31 +199,40 @@ INSERT INTO AgroTrack_Produto(Nome, Id_origem, Tipo_de_Produto, Codigo, Preco, T
 ('Maçã', 1, 1, 1, 1.5, 0.23, 'kg'),
 ('Laranja', 5, 1, 2, 1.2, 0.23, 'kg'),
 ('Alface', 2, 2, 3, 0.5, 0.13, 'unidade'),
-('Pêra', 6, 1, 4, 1.3, 0.23, 'kg'),
-('Tomate', 8, 2, 5, 0.8, 0.13, 'kg'),
-('Milho', 9, 2, 6, 0.6, 0.13, 'kg'),
-('Cereja', 10, 1, 7, 2.0, 0.23, 'kg'),
-('Melão', 11, 1, 8, 1.0, 0.13, 'unidade'),
-('Banana', 12, 1, 9, 1.5, 0.23, 'kg'),
-('Cenoura', 13, 2, 10, 0.4, 0.13, 'kg'),
-('Abóbora', 14, 2, 11, 0.7, 0.13, 'kg'),
-('Morango', 15, 1, 12, 2.5, 0.23, 'kg'),
-('Vinho', 16, 1, 13, 3.0, 0.23, 'litro'),
-('Feijão', 17, 2, 14, 0.8, 0.13, 'kg'),
-('Cebola', 18, 2, 15, 0.6, 0.13, 'kg'),
-('Batata', 19, 2, 16, 0.5, 0.13, 'kg'),
-('Pato', 20, 3, 17, 5.0, 0.23, 'kg'),
-('Ganso', 21, 3, 18, 4.0, 0.23, 'kg'),
-('Galinha', 22, 3, 19, 3.0, 0.23, 'kg'),
-('Peru', 23, 3, 20, 6.0, 0.23, 'kg'),
-('Vaca', 24, 3, 21, 7.0, 0.23, 'kg'),
-('Ovelha', 25, 3, 22, 8.0, 0.23, 'kg'),
-('Porco', 26, 3, 23, 9.0, 0.23, 'kg'),
-('Frango', 27, 3, 24, 3.0, 0.23, 'kg'),
-('Leite', 28, 3, 25, 10.0, 0.23, 'litro'),
-('Cabra', 29, 3, 26, 8.0, 0.23, 'kg'),
-('Coelho', 31, 3, 28, 2.0, 0.23, 'kg');
+('Pêra', 1, 1, 4, 1.3, 0.23, 'kg'),
+('Tomate', 2, 2, 5, 0.8, 0.13, 'kg'),
+('Milho', 3, 2, 6, 0.6, 0.13, 'kg'),
+('Cereja', 4, 1, 7, 2.0, 0.23, 'kg'),
+('Melão', 5, 1, 8, 1.0, 0.13, 'unidade'),
+('Banana', 1, 1, 9, 1.5, 0.23, 'kg'),
+('Cenoura', 2, 2, 10, 0.4, 0.13, 'kg'),
+('Abóbora', 3, 2, 11, 0.7, 0.13, 'kg'),
+('Morango', 4, 1, 12, 2.5, 0.23, 'kg'),
+('Vinho', 5, 1, 13, 3.0, 0.23, 'litro'),
+('Feijão', 1, 2, 14, 0.8, 0.13, 'kg'),
+('Cebola', 2, 2, 15, 0.6, 0.13, 'kg'),
+('Batata', 3, 2, 16, 0.5, 0.13, 'kg'),
+('Pato', 4, 3, 17, 5.0, 0.23, 'kg'),
+('Ganso', 5, 3, 18, 4.0, 0.23, 'kg'),
+('Galinha', 1, 3, 19, 3.0, 0.23, 'kg'),
+('Peru', 2, 3, 20, 6.0, 0.23, 'kg'),
+('Vaca', 3, 3, 21, 7.0, 0.23, 'kg'),
+('Ovelha', 4, 3, 22, 8.0, 0.23, 'kg'),
+('Porco', 5, 3, 23, 9.0, 0.23, 'kg'),
+('Frango', 1, 3, 24, 3.0, 0.23, 'kg'),
+('Leite', 2, 3, 25, 10.0, 0.23, 'litro'),
+('Cabra', 3, 3, 26, 8.0, 0.23, 'kg'),
+('Coelho', 5, 3, 28, 2.0, 0.23, 'kg');
 
+
+UPDATE AgroTrack_Produto
+SET Tipo_de_Produto = 
+    CASE 
+        WHEN Tipo_de_Produto = '1' THEN 'Fruto'
+        WHEN Tipo_de_Produto = '2' THEN 'Legume'
+        WHEN Tipo_de_Produto = '3' THEN 'Animal'
+        ELSE Tipo_de_Produto
+    END;
 
 INSERT INTO AgroTrack_Contrato(Date_str, Date_end, Descricao, Salario, ID, Agricultor_Pessoa_N_CartaoCidadao) VALUES
 ('2024-01-01', '2024-12-31', 'Contrato de trabalho', 1000, 1, 12345678),

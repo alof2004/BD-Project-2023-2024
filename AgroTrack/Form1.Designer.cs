@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Páginas = new TabControl();
+            OrdenarPor = new TabControl();
             Clientes = new TabPage();
             ComprouProduto = new ComboBox();
             label37 = new Label();
@@ -169,41 +169,53 @@
             textBox22 = new TextBox();
             ListaRetalhistas = new ListBox();
             Produtos = new TabPage();
+            UnidadeAdicionarBox = new ComboBox();
+            ProdutoIvaBox = new ComboBox();
+            LocalQuintaBox = new ComboBox();
+            LocalQuinta = new Label();
+            TipoAdicionarBox = new ComboBox();
+            ProdutoQuantidadeBox = new TextBox();
+            ProdutoPrecoBox = new TextBox();
+            ProdutoAdicionarBox = new TextBox();
+            ConfirmarOperacao = new Button();
+            CodigoAdicionarText = new Label();
+            label9 = new Label();
+            ProdutoAdicionarInfo = new TextBox();
             QuintasProdutos = new ListBox();
             InformaçoesProduto = new Label();
-            ProdutoVendido = new TextBox();
-            label8 = new Label();
+            QuantidadeVendidaBox = new TextBox();
+            QuantidadeVendidaText = new Label();
             ProdutoDisponivel = new TextBox();
-            label7 = new Label();
-            ProdutoMedida = new TextBox();
+            ProdutoQuantidade = new Label();
+            ProdutoUnidade = new TextBox();
             ProdutoIva = new TextBox();
             ProdutoPreco = new TextBox();
             label6 = new Label();
             label5 = new Label();
             label2 = new Label();
-            button12 = new Button();
-            PesquisarProduto = new TextBox();
-            label27 = new Label();
-            button10 = new Button();
+            PesquisarNomeProdutoClear = new Button();
+            PesquisarNomeProdutoBox = new TextBox();
+            PesquisarNomeProduto = new Label();
+            EditarInfo = new Button();
             ProdutoTipo = new TextBox();
-            ProdutoNome = new TextBox();
-            label24 = new Label();
+            CodigoAdicionarBox = new TextBox();
+            LocaldeProducao = new Label();
             label21 = new Label();
-            label20 = new Label();
-            button9 = new Button();
-            button8 = new Button();
-            numericUpDown1 = new NumericUpDown();
-            label19 = new Label();
+            ProdutoInfo = new Label();
+            EliminarProduto = new Button();
+            AdicionarProdutoProduto = new Button();
+            QuantidadeBox = new NumericUpDown();
+            QuantidadeText = new Label();
             label18 = new Label();
-            comboBox4 = new ComboBox();
-            label17 = new Label();
-            comboBox3 = new ComboBox();
-            label16 = new Label();
-            checkedListBox1 = new CheckedListBox();
-            label15 = new Label();
+            FiltrarPorQuinta = new ComboBox();
+            QuintaText = new Label();
+            FiltrarPorTipo = new ComboBox();
+            TipoText = new Label();
+            Ordenar = new CheckedListBox();
+            OrdenarText = new Label();
             label14 = new Label();
             ListaProdutos = new ListBox();
-            Páginas.SuspendLayout();
+            OrdenarPor.SuspendLayout();
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NúmeroComprasCliente).BeginInit();
             Agricultor.SuspendLayout();
@@ -213,23 +225,23 @@
             Transportes.SuspendLayout();
             Retalhistas.SuspendLayout();
             Produtos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeBox).BeginInit();
             SuspendLayout();
             // 
-            // Páginas
+            // OrdenarPor
             // 
-            Páginas.Controls.Add(Clientes);
-            Páginas.Controls.Add(Agricultor);
-            Páginas.Controls.Add(Quintas);
-            Páginas.Controls.Add(Transportes);
-            Páginas.Controls.Add(Retalhistas);
-            Páginas.Controls.Add(Produtos);
-            Páginas.Location = new Point(-7, 0);
-            Páginas.Name = "Páginas";
-            Páginas.SelectedIndex = 0;
-            Páginas.Size = new Size(1160, 627);
-            Páginas.TabIndex = 0;
-            Páginas.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            OrdenarPor.Controls.Add(Clientes);
+            OrdenarPor.Controls.Add(Agricultor);
+            OrdenarPor.Controls.Add(Quintas);
+            OrdenarPor.Controls.Add(Transportes);
+            OrdenarPor.Controls.Add(Retalhistas);
+            OrdenarPor.Controls.Add(Produtos);
+            OrdenarPor.Location = new Point(-7, 0);
+            OrdenarPor.Name = "OrdenarPor";
+            OrdenarPor.SelectedIndex = 0;
+            OrdenarPor.Size = new Size(1160, 627);
+            OrdenarPor.TabIndex = 0;
+            OrdenarPor.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // Clientes
             // 
@@ -361,6 +373,7 @@
             // 
             // checkedListBox3
             // 
+            checkedListBox3.AccessibleDescription = "ClientesOrdem";
             checkedListBox3.FormattingEnabled = true;
             checkedListBox3.Items.AddRange(new object[] { "Nome (crescente)", "Nome (decrescente)", "ID (decrescente)" });
             checkedListBox3.Location = new Point(19, 480);
@@ -1227,6 +1240,7 @@
             TransportesTipo.Name = "TransportesTipo";
             TransportesTipo.Size = new Size(443, 31);
             TransportesTipo.TabIndex = 50;
+            TransportesTipo.Text = "Transporte de Mercadorias";
             // 
             // label53
             // 
@@ -1503,6 +1517,7 @@
             RetalhistasTipo.Name = "RetalhistasTipo";
             RetalhistasTipo.Size = new Size(443, 31);
             RetalhistasTipo.TabIndex = 50;
+            RetalhistasTipo.Text = "Retalhistas";
             // 
             // label62
             // 
@@ -1610,38 +1625,50 @@
             // 
             // Produtos
             // 
+            Produtos.Controls.Add(UnidadeAdicionarBox);
+            Produtos.Controls.Add(ProdutoIvaBox);
+            Produtos.Controls.Add(LocalQuintaBox);
+            Produtos.Controls.Add(LocalQuinta);
+            Produtos.Controls.Add(TipoAdicionarBox);
+            Produtos.Controls.Add(ProdutoQuantidadeBox);
+            Produtos.Controls.Add(ProdutoPrecoBox);
+            Produtos.Controls.Add(ProdutoAdicionarBox);
+            Produtos.Controls.Add(ConfirmarOperacao);
+            Produtos.Controls.Add(CodigoAdicionarText);
+            Produtos.Controls.Add(label9);
+            Produtos.Controls.Add(ProdutoAdicionarInfo);
             Produtos.Controls.Add(QuintasProdutos);
             Produtos.Controls.Add(InformaçoesProduto);
-            Produtos.Controls.Add(ProdutoVendido);
-            Produtos.Controls.Add(label8);
+            Produtos.Controls.Add(QuantidadeVendidaBox);
+            Produtos.Controls.Add(QuantidadeVendidaText);
             Produtos.Controls.Add(ProdutoDisponivel);
-            Produtos.Controls.Add(label7);
-            Produtos.Controls.Add(ProdutoMedida);
+            Produtos.Controls.Add(ProdutoQuantidade);
+            Produtos.Controls.Add(ProdutoUnidade);
             Produtos.Controls.Add(ProdutoIva);
             Produtos.Controls.Add(ProdutoPreco);
             Produtos.Controls.Add(label6);
             Produtos.Controls.Add(label5);
             Produtos.Controls.Add(label2);
-            Produtos.Controls.Add(button12);
-            Produtos.Controls.Add(PesquisarProduto);
-            Produtos.Controls.Add(label27);
-            Produtos.Controls.Add(button10);
+            Produtos.Controls.Add(PesquisarNomeProdutoClear);
+            Produtos.Controls.Add(PesquisarNomeProdutoBox);
+            Produtos.Controls.Add(PesquisarNomeProduto);
+            Produtos.Controls.Add(EditarInfo);
             Produtos.Controls.Add(ProdutoTipo);
-            Produtos.Controls.Add(ProdutoNome);
-            Produtos.Controls.Add(label24);
+            Produtos.Controls.Add(CodigoAdicionarBox);
+            Produtos.Controls.Add(LocaldeProducao);
             Produtos.Controls.Add(label21);
-            Produtos.Controls.Add(label20);
-            Produtos.Controls.Add(button9);
-            Produtos.Controls.Add(button8);
-            Produtos.Controls.Add(numericUpDown1);
-            Produtos.Controls.Add(label19);
+            Produtos.Controls.Add(ProdutoInfo);
+            Produtos.Controls.Add(EliminarProduto);
+            Produtos.Controls.Add(AdicionarProdutoProduto);
+            Produtos.Controls.Add(QuantidadeBox);
+            Produtos.Controls.Add(QuantidadeText);
             Produtos.Controls.Add(label18);
-            Produtos.Controls.Add(comboBox4);
-            Produtos.Controls.Add(label17);
-            Produtos.Controls.Add(comboBox3);
-            Produtos.Controls.Add(label16);
-            Produtos.Controls.Add(checkedListBox1);
-            Produtos.Controls.Add(label15);
+            Produtos.Controls.Add(FiltrarPorQuinta);
+            Produtos.Controls.Add(QuintaText);
+            Produtos.Controls.Add(FiltrarPorTipo);
+            Produtos.Controls.Add(TipoText);
+            Produtos.Controls.Add(Ordenar);
+            Produtos.Controls.Add(OrdenarText);
             Produtos.Controls.Add(label14);
             Produtos.Controls.Add(ListaProdutos);
             Produtos.Location = new Point(4, 34);
@@ -1652,6 +1679,109 @@
             Produtos.Text = "Produtos";
             Produtos.UseVisualStyleBackColor = true;
             // 
+            // UnidadeAdicionarBox
+            // 
+            UnidadeAdicionarBox.FormattingEnabled = true;
+            UnidadeAdicionarBox.Items.AddRange(new object[] { "unidade", " kg ", "g", "litro", "ml" });
+            UnidadeAdicionarBox.Location = new Point(733, 213);
+            UnidadeAdicionarBox.Name = "UnidadeAdicionarBox";
+            UnidadeAdicionarBox.Size = new Size(408, 33);
+            UnidadeAdicionarBox.TabIndex = 94;
+            UnidadeAdicionarBox.Text = "Seleciona um valor do iva";
+            // 
+            // ProdutoIvaBox
+            // 
+            ProdutoIvaBox.FormattingEnabled = true;
+            ProdutoIvaBox.Items.AddRange(new object[] { "0.06", "0.13", "0.23" });
+            ProdutoIvaBox.Location = new Point(661, 178);
+            ProdutoIvaBox.Name = "ProdutoIvaBox";
+            ProdutoIvaBox.Size = new Size(480, 33);
+            ProdutoIvaBox.TabIndex = 93;
+            ProdutoIvaBox.Text = "Seleciona um valor do iva";
+            // 
+            // LocalQuintaBox
+            // 
+            LocalQuintaBox.FormattingEnabled = true;
+            LocalQuintaBox.Location = new Point(733, 288);
+            LocalQuintaBox.Name = "LocalQuintaBox";
+            LocalQuintaBox.Size = new Size(408, 33);
+            LocalQuintaBox.TabIndex = 92;
+            LocalQuintaBox.Text = "Seleciona uma quinta";
+            // 
+            // LocalQuinta
+            // 
+            LocalQuinta.AutoSize = true;
+            LocalQuinta.Location = new Point(557, 291);
+            LocalQuinta.Name = "LocalQuinta";
+            LocalQuinta.Size = new Size(162, 25);
+            LocalQuinta.TabIndex = 90;
+            LocalQuinta.Text = "Local de Produção:";
+            // 
+            // TipoAdicionarBox
+            // 
+            TipoAdicionarBox.FormattingEnabled = true;
+            TipoAdicionarBox.Location = new Point(703, 105);
+            TipoAdicionarBox.Name = "TipoAdicionarBox";
+            TipoAdicionarBox.Size = new Size(438, 33);
+            TipoAdicionarBox.TabIndex = 89;
+            TipoAdicionarBox.Text = "Seleciona um tipo";
+            // 
+            // ProdutoQuantidadeBox
+            // 
+            ProdutoQuantidadeBox.Location = new Point(748, 250);
+            ProdutoQuantidadeBox.Name = "ProdutoQuantidadeBox";
+            ProdutoQuantidadeBox.Size = new Size(393, 31);
+            ProdutoQuantidadeBox.TabIndex = 88;
+            // 
+            // ProdutoPrecoBox
+            // 
+            ProdutoPrecoBox.Location = new Point(615, 141);
+            ProdutoPrecoBox.Name = "ProdutoPrecoBox";
+            ProdutoPrecoBox.Size = new Size(531, 31);
+            ProdutoPrecoBox.TabIndex = 86;
+            // 
+            // ProdutoAdicionarBox
+            // 
+            ProdutoAdicionarBox.Location = new Point(635, 70);
+            ProdutoAdicionarBox.Name = "ProdutoAdicionarBox";
+            ProdutoAdicionarBox.Size = new Size(506, 31);
+            ProdutoAdicionarBox.TabIndex = 85;
+            // 
+            // ConfirmarOperacao
+            // 
+            ConfirmarOperacao.Font = new Font("Segoe UI", 11F);
+            ConfirmarOperacao.Location = new Point(20, 367);
+            ConfirmarOperacao.Name = "ConfirmarOperacao";
+            ConfirmarOperacao.Size = new Size(1121, 55);
+            ConfirmarOperacao.TabIndex = 84;
+            ConfirmarOperacao.Text = "Confirmar";
+            ConfirmarOperacao.UseVisualStyleBackColor = true;
+            ConfirmarOperacao.Click += ConfirmarOperacao_Click;
+            // 
+            // CodigoAdicionarText
+            // 
+            CodigoAdicionarText.AutoSize = true;
+            CodigoAdicionarText.Location = new Point(557, 32);
+            CodigoAdicionarText.Name = "CodigoAdicionarText";
+            CodigoAdicionarText.Size = new Size(75, 25);
+            CodigoAdicionarText.TabIndex = 82;
+            CodigoAdicionarText.Text = "Codigo:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(554, 289);
+            label9.Name = "label9";
+            label9.Size = new Size(0, 25);
+            label9.TabIndex = 81;
+            // 
+            // ProdutoAdicionarInfo
+            // 
+            ProdutoAdicionarInfo.Location = new Point(636, 71);
+            ProdutoAdicionarInfo.Name = "ProdutoAdicionarInfo";
+            ProdutoAdicionarInfo.Size = new Size(226, 31);
+            ProdutoAdicionarInfo.TabIndex = 71;
+            // 
             // QuintasProdutos
             // 
             QuintasProdutos.FormattingEnabled = true;
@@ -1660,7 +1790,6 @@
             QuintasProdutos.Name = "QuintasProdutos";
             QuintasProdutos.Size = new Size(273, 204);
             QuintasProdutos.TabIndex = 68;
-            QuintasProdutos.SelectedIndexChanged += QuintasProdutos_SelectedIndexChanged;
             // 
             // InformaçoesProduto
             // 
@@ -1672,21 +1801,21 @@
             InformaçoesProduto.Text = "Informações sobre o produto:";
             InformaçoesProduto.Click += label9_Click_1;
             // 
-            // ProdutoVendido
+            // QuantidadeVendidaBox
             // 
-            ProdutoVendido.Location = new Point(733, 283);
-            ProdutoVendido.Name = "ProdutoVendido";
-            ProdutoVendido.Size = new Size(129, 31);
-            ProdutoVendido.TabIndex = 66;
+            QuantidadeVendidaBox.Location = new Point(733, 283);
+            QuantidadeVendidaBox.Name = "QuantidadeVendidaBox";
+            QuantidadeVendidaBox.Size = new Size(129, 31);
+            QuantidadeVendidaBox.TabIndex = 66;
             // 
-            // label8
+            // QuantidadeVendidaText
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(554, 286);
-            label8.Name = "label8";
-            label8.Size = new Size(177, 25);
-            label8.TabIndex = 65;
-            label8.Text = "Quantidade vendida:";
+            QuantidadeVendidaText.AutoSize = true;
+            QuantidadeVendidaText.Location = new Point(554, 286);
+            QuantidadeVendidaText.Name = "QuantidadeVendidaText";
+            QuantidadeVendidaText.Size = new Size(177, 25);
+            QuantidadeVendidaText.TabIndex = 65;
+            QuantidadeVendidaText.Text = "Quantidade vendida:";
             // 
             // ProdutoDisponivel
             // 
@@ -1695,25 +1824,25 @@
             ProdutoDisponivel.Size = new Size(114, 31);
             ProdutoDisponivel.TabIndex = 64;
             // 
-            // label7
+            // ProdutoQuantidade
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(554, 249);
-            label7.Name = "label7";
-            label7.Size = new Size(195, 25);
-            label7.TabIndex = 63;
-            label7.Text = "Quantidade disponivel:";
+            ProdutoQuantidade.AutoSize = true;
+            ProdutoQuantidade.Location = new Point(554, 249);
+            ProdutoQuantidade.Name = "ProdutoQuantidade";
+            ProdutoQuantidade.Size = new Size(195, 25);
+            ProdutoQuantidade.TabIndex = 63;
+            ProdutoQuantidade.Text = "Quantidade disponivel:";
             // 
-            // ProdutoMedida
+            // ProdutoUnidade
             // 
-            ProdutoMedida.Location = new Point(726, 213);
-            ProdutoMedida.Name = "ProdutoMedida";
-            ProdutoMedida.Size = new Size(136, 31);
-            ProdutoMedida.TabIndex = 62;
+            ProdutoUnidade.Location = new Point(733, 212);
+            ProdutoUnidade.Name = "ProdutoUnidade";
+            ProdutoUnidade.Size = new Size(136, 31);
+            ProdutoUnidade.TabIndex = 62;
             // 
             // ProdutoIva
             // 
-            ProdutoIva.Location = new Point(661, 176);
+            ProdutoIva.Location = new Point(661, 179);
             ProdutoIva.Name = "ProdutoIva";
             ProdutoIva.Size = new Size(201, 31);
             ProdutoIva.TabIndex = 61;
@@ -1747,70 +1876,70 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(557, 139);
+            label2.Location = new Point(557, 142);
             label2.Name = "label2";
             label2.Size = new Size(60, 25);
             label2.TabIndex = 57;
             label2.Text = "Preço:";
             // 
-            // button12
+            // PesquisarNomeProdutoClear
             // 
-            button12.Location = new Point(577, 409);
-            button12.Name = "button12";
-            button12.Size = new Size(554, 34);
-            button12.TabIndex = 56;
-            button12.Text = "Limpar";
-            button12.UseVisualStyleBackColor = true;
-            button12.Click += button12_Click;
+            PesquisarNomeProdutoClear.Location = new Point(577, 409);
+            PesquisarNomeProdutoClear.Name = "PesquisarNomeProdutoClear";
+            PesquisarNomeProdutoClear.Size = new Size(554, 34);
+            PesquisarNomeProdutoClear.TabIndex = 56;
+            PesquisarNomeProdutoClear.Text = "Limpar";
+            PesquisarNomeProdutoClear.UseVisualStyleBackColor = true;
+            PesquisarNomeProdutoClear.Click += button12_Click;
             // 
-            // PesquisarProduto
+            // PesquisarNomeProdutoBox
             // 
-            PesquisarProduto.Location = new Point(577, 372);
-            PesquisarProduto.Name = "PesquisarProduto";
-            PesquisarProduto.Size = new Size(554, 31);
-            PesquisarProduto.TabIndex = 54;
-            PesquisarProduto.TextChanged += textBox14_TextChanged;
+            PesquisarNomeProdutoBox.Location = new Point(577, 372);
+            PesquisarNomeProdutoBox.Name = "PesquisarNomeProdutoBox";
+            PesquisarNomeProdutoBox.Size = new Size(554, 31);
+            PesquisarNomeProdutoBox.TabIndex = 54;
+            PesquisarNomeProdutoBox.TextChanged += textBox14_TextChanged;
             // 
-            // label27
+            // PesquisarNomeProduto
             // 
-            label27.AutoSize = true;
-            label27.Location = new Point(768, 336);
-            label27.Name = "label27";
-            label27.Size = new Size(174, 25);
-            label27.TabIndex = 53;
-            label27.Text = "Pesquisar por nome:";
+            PesquisarNomeProduto.AutoSize = true;
+            PesquisarNomeProduto.Location = new Point(768, 336);
+            PesquisarNomeProduto.Name = "PesquisarNomeProduto";
+            PesquisarNomeProduto.Size = new Size(174, 25);
+            PesquisarNomeProduto.TabIndex = 53;
+            PesquisarNomeProduto.Text = "Pesquisar por nome:";
             // 
-            // button10
+            // EditarInfo
             // 
-            button10.Location = new Point(710, 533);
-            button10.Name = "button10";
-            button10.Size = new Size(291, 34);
-            button10.TabIndex = 52;
-            button10.Text = "Editar informações";
-            button10.UseVisualStyleBackColor = true;
+            EditarInfo.Location = new Point(710, 533);
+            EditarInfo.Name = "EditarInfo";
+            EditarInfo.Size = new Size(291, 34);
+            EditarInfo.TabIndex = 52;
+            EditarInfo.Text = "Editar informações";
+            EditarInfo.UseVisualStyleBackColor = true;
             // 
             // ProdutoTipo
             // 
-            ProdutoTipo.Location = new Point(703, 102);
+            ProdutoTipo.Location = new Point(703, 107);
             ProdutoTipo.Name = "ProdutoTipo";
             ProdutoTipo.Size = new Size(159, 31);
             ProdutoTipo.TabIndex = 46;
             // 
-            // ProdutoNome
+            // CodigoAdicionarBox
             // 
-            ProdutoNome.Location = new Point(636, 65);
-            ProdutoNome.Name = "ProdutoNome";
-            ProdutoNome.Size = new Size(226, 31);
-            ProdutoNome.TabIndex = 45;
+            CodigoAdicionarBox.Location = new Point(636, 32);
+            CodigoAdicionarBox.Name = "CodigoAdicionarBox";
+            CodigoAdicionarBox.Size = new Size(505, 31);
+            CodigoAdicionarBox.TabIndex = 45;
             // 
-            // label24
+            // LocaldeProducao
             // 
-            label24.AutoSize = true;
-            label24.Location = new Point(923, 71);
-            label24.Name = "label24";
-            label24.Size = new Size(163, 25);
-            label24.TabIndex = 42;
-            label24.Text = "Local de produção:";
+            LocaldeProducao.AutoSize = true;
+            LocaldeProducao.Location = new Point(932, 74);
+            LocaldeProducao.Name = "LocaldeProducao";
+            LocaldeProducao.Size = new Size(163, 25);
+            LocaldeProducao.TabIndex = 42;
+            LocaldeProducao.Text = "Local de produção:";
             // 
             // label21
             // 
@@ -1821,49 +1950,51 @@
             label21.TabIndex = 39;
             label21.Text = "Tipo de produto:";
             // 
-            // label20
+            // ProdutoInfo
             // 
-            label20.AutoSize = true;
-            label20.Location = new Point(557, 68);
-            label20.Name = "label20";
-            label20.Size = new Size(81, 25);
-            label20.TabIndex = 38;
-            label20.Text = "Produto:";
+            ProdutoInfo.AutoSize = true;
+            ProdutoInfo.Location = new Point(557, 71);
+            ProdutoInfo.Name = "ProdutoInfo";
+            ProdutoInfo.Size = new Size(81, 25);
+            ProdutoInfo.TabIndex = 38;
+            ProdutoInfo.Text = "Produto:";
             // 
-            // button9
+            // EliminarProduto
             // 
-            button9.Location = new Point(564, 493);
-            button9.Name = "button9";
-            button9.Size = new Size(287, 34);
-            button9.TabIndex = 37;
-            button9.Text = "Eliminar Produto";
-            button9.UseVisualStyleBackColor = true;
+            EliminarProduto.Location = new Point(854, 493);
+            EliminarProduto.Name = "EliminarProduto";
+            EliminarProduto.Size = new Size(287, 34);
+            EliminarProduto.TabIndex = 37;
+            EliminarProduto.Text = "Eliminar Produto";
+            EliminarProduto.UseVisualStyleBackColor = true;
+            EliminarProduto.Click += EliminarProduto_Click;
             // 
-            // button8
+            // AdicionarProdutoProduto
             // 
-            button8.Location = new Point(857, 493);
-            button8.Name = "button8";
-            button8.Size = new Size(261, 34);
-            button8.TabIndex = 36;
-            button8.Text = "Adicionar Produto";
-            button8.UseVisualStyleBackColor = true;
+            AdicionarProdutoProduto.Location = new Point(586, 493);
+            AdicionarProdutoProduto.Name = "AdicionarProdutoProduto";
+            AdicionarProdutoProduto.Size = new Size(261, 34);
+            AdicionarProdutoProduto.TabIndex = 36;
+            AdicionarProdutoProduto.Text = "Adicionar Produto";
+            AdicionarProdutoProduto.UseVisualStyleBackColor = true;
+            AdicionarProdutoProduto.Click += AdicionarProdutoProduto_Click_1;
             // 
-            // numericUpDown1
+            // QuantidadeBox
             // 
-            numericUpDown1.Location = new Point(251, 545);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(290, 31);
-            numericUpDown1.TabIndex = 34;
-            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
+            QuantidadeBox.Location = new Point(251, 545);
+            QuantidadeBox.Name = "QuantidadeBox";
+            QuantidadeBox.Size = new Size(290, 31);
+            QuantidadeBox.TabIndex = 34;
+            QuantidadeBox.ValueChanged += numericUpDown1_ValueChanged;
             // 
-            // label19
+            // QuantidadeText
             // 
-            label19.AutoSize = true;
-            label19.Location = new Point(251, 515);
-            label19.Name = "label19";
-            label19.Size = new Size(105, 25);
-            label19.TabIndex = 33;
-            label19.Text = "Quantidade";
+            QuantidadeText.AutoSize = true;
+            QuantidadeText.Location = new Point(251, 515);
+            QuantidadeText.Name = "QuantidadeText";
+            QuantidadeText.Size = new Size(105, 25);
+            QuantidadeText.TabIndex = 33;
+            QuantidadeText.Text = "Quantidade";
             // 
             // label18
             // 
@@ -1873,63 +2004,63 @@
             label18.Size = new Size(0, 25);
             label18.TabIndex = 32;
             // 
-            // comboBox4
+            // FiltrarPorQuinta
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(251, 479);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(290, 33);
-            comboBox4.TabIndex = 31;
-            comboBox4.Text = "Seleciona uma quinta";
-            comboBox4.SelectedIndexChanged += comboBox4_SelectedIndexChanged;
+            FiltrarPorQuinta.FormattingEnabled = true;
+            FiltrarPorQuinta.Location = new Point(251, 479);
+            FiltrarPorQuinta.Name = "FiltrarPorQuinta";
+            FiltrarPorQuinta.Size = new Size(290, 33);
+            FiltrarPorQuinta.TabIndex = 31;
+            FiltrarPorQuinta.Text = "Seleciona uma quinta";
+            FiltrarPorQuinta.SelectedIndexChanged += comboBox4_SelectedIndexChanged;
             // 
-            // label17
+            // QuintaText
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(251, 451);
-            label17.Name = "label17";
-            label17.Size = new Size(65, 25);
-            label17.TabIndex = 30;
-            label17.Text = "Quinta";
+            QuintaText.AutoSize = true;
+            QuintaText.Location = new Point(251, 451);
+            QuintaText.Name = "QuintaText";
+            QuintaText.Size = new Size(65, 25);
+            QuintaText.TabIndex = 30;
+            QuintaText.Text = "Quinta";
             // 
-            // comboBox3
+            // FiltrarPorTipo
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(251, 406);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(290, 33);
-            comboBox3.TabIndex = 29;
-            comboBox3.Text = "Seleciona um tipo";
-            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
+            FiltrarPorTipo.FormattingEnabled = true;
+            FiltrarPorTipo.Location = new Point(251, 406);
+            FiltrarPorTipo.Name = "FiltrarPorTipo";
+            FiltrarPorTipo.Size = new Size(290, 33);
+            FiltrarPorTipo.TabIndex = 29;
+            FiltrarPorTipo.Text = "Seleciona um tipo";
+            FiltrarPorTipo.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
-            // label16
+            // TipoText
             // 
-            label16.AutoSize = true;
-            label16.Location = new Point(251, 378);
-            label16.Name = "label16";
-            label16.Size = new Size(146, 25);
-            label16.TabIndex = 8;
-            label16.Text = "Tipo de Produto:";
-            label16.Click += label16_Click;
+            TipoText.AutoSize = true;
+            TipoText.Location = new Point(251, 378);
+            TipoText.Name = "TipoText";
+            TipoText.Size = new Size(146, 25);
+            TipoText.TabIndex = 8;
+            TipoText.Text = "Tipo de Produto:";
+            TipoText.Click += label16_Click;
             // 
-            // checkedListBox1
+            // Ordenar
             // 
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Items.AddRange(new object[] { "Nome", "Código (decrescente)", "Preço    (crescente)", "Preço    (decrescente)", "Quantidade (crescente)", "Quantidade (descrescente)", "Taxa_de_Iva(crescente)", "Taxa_de_Iva(decrescente)" });
-            checkedListBox1.Location = new Point(20, 406);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(225, 172);
-            checkedListBox1.TabIndex = 7;
-            checkedListBox1.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
+            Ordenar.FormattingEnabled = true;
+            Ordenar.Items.AddRange(new object[] { "Nome", "Código (decrescente)", "Preço    (crescente)", "Preço    (decrescente)", "Taxa_de_Iva(crescente)", "Taxa_de_Iva(decrescente)" });
+            Ordenar.Location = new Point(20, 406);
+            Ordenar.Name = "Ordenar";
+            Ordenar.Size = new Size(225, 172);
+            Ordenar.TabIndex = 7;
+            Ordenar.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
-            // label15
+            // OrdenarText
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(20, 378);
-            label15.Name = "label15";
-            label15.Size = new Size(95, 25);
-            label15.TabIndex = 6;
-            label15.Text = "Order por:";
+            OrdenarText.AutoSize = true;
+            OrdenarText.Location = new Point(20, 378);
+            OrdenarText.Name = "OrdenarText";
+            OrdenarText.Size = new Size(95, 25);
+            OrdenarText.TabIndex = 6;
+            OrdenarText.Text = "Order por:";
             // 
             // label14
             // 
@@ -1956,11 +2087,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1150, 635);
-            Controls.Add(Páginas);
+            Controls.Add(OrdenarPor);
             Name = "AgroTrack";
             Text = "AgroTrack";
             Load += Form1_Load;
-            Páginas.ResumeLayout(false);
+            OrdenarPor.ResumeLayout(false);
             Clientes.ResumeLayout(false);
             Clientes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)NúmeroComprasCliente).EndInit();
@@ -1976,13 +2107,13 @@
             Retalhistas.PerformLayout();
             Produtos.ResumeLayout(false);
             Produtos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeBox).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TabControl Páginas;
+        private TabControl OrdenarPor;
         private TabPage Quintas;
         private TabPage Empresas;
         private TabPage Produtos;
@@ -1999,7 +2130,7 @@
         private Button buttonLimparPesquisaQuinta;
         private ListBox ListaEmpresas;
         private TextBox PesquisarNome;
-        private Button button1;
+        private Button ConfirmarOperacao;
         private Button button2;
         private Label label5;
         private Label label2;
@@ -2007,18 +2138,15 @@
         private TextBox Morada;
         private TextBox Nome;
         private Label label6;
-        private Label label7;
-        private Label label8;
+        private Label ProdutoQuantidade;
+        private Label QuantidadeVendidaText;
         private ListBox Encomenda;
         private TextBox TipoEmpresa;
         private Label InformaçoesProduto;
         private DateTimePicker dateTimePicker1;
         private ComboBox comboBox1;
-        private Label label11;
-        private Label label10;
         private ComboBox comboBox2;
-        private TextBox ProdutoVendido;
-        private Label label12;
+        private TextBox QuantidadeVendidaBox;
         private Button button3;
         private Label label13;
         private TextBox QuintaContacto;
@@ -2029,26 +2157,26 @@
         private Button button7;
         private Label label14;
         private ListBox ListaProdutos;
-        private CheckedListBox checkedListBox1;
-        private Label label15;
-        private Label label16;
-        private Label label17;
-        private ComboBox comboBox3;
-        private Label label19;
+        private CheckedListBox Ordenar;
+        private Label OrdenarText;
+        private Label TipoText;
+        private Label QuintaText;
+        private ComboBox FiltrarPorTipo;
+        private Label QuantidadeText;
         private Label label18;
-        private ComboBox comboBox4;
-        private NumericUpDown numericUpDown1;
-        private Label label24;
+        private ComboBox FiltrarPorQuinta;
+        private NumericUpDown QuantidadeBox;
+        private Label LocaldeProducao;
         private Label label21;
-        private Label label20;
-        private Button button9;
-        private Button button8;
-        private Button button10;
+        private Label ProdutoInfo;
+        private Button EliminarProduto;
+        private Button AdicionarProdutoProduto;
+        private Button EditarInfo;
         private TextBox ProdutoTipo;
-        private TextBox ProdutoNome;
-        private TextBox PesquisarProduto;
-        private Label label27;
-        private Button button12;
+        private TextBox CodigoAdicionarBox;
+        private TextBox PesquisarNomeProdutoBox;
+        private Label PesquisarNomeProduto;
+        private Button PesquisarNomeProdutoClear;
         private TabPage Agricultor;
         private ListBox ListaColheitas;
         private Label label28;
@@ -2173,10 +2301,21 @@
         private Label label66;
         private TextBox textBox22;
         private ListBox ListaRetalhistas;
-        private TextBox ProdutoMedida;
+        private TextBox ProdutoUnidade;
         private TextBox ProdutoIva;
         private TextBox ProdutoPreco;
         private TextBox ProdutoDisponivel;
         private ListBox QuintasProdutos;
+        private Label CodigoAdicionarText;
+        private Label label9;
+        private TextBox ProdutoAdicionarInfo;
+        private TextBox ProdutoAdicionarBox;
+        private TextBox ProdutoPrecoBox;
+        private TextBox ProdutoQuantidadeBox;
+        private ComboBox TipoAdicionarBox;
+        private Label LocalQuinta;
+        private ComboBox LocalQuintaBox;
+        private ComboBox ProdutoIvaBox;
+        private ComboBox UnidadeAdicionarBox;
     }
 }

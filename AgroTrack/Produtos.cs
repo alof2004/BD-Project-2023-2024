@@ -32,7 +32,7 @@ namespace AgroTrack
 
         public override string ToString()
         {
-            return Id_origem + "     -     " + Nome;
+            return Codigo + "     -     " + Nome;
         }
     }
 }

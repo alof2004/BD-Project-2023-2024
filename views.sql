@@ -67,7 +67,7 @@ go
 drop view IF EXISTS AgroTrack.RetalhistasE
 go
 create view AgroTrack.RetalhistasE as
-	select R.Empresa_Id_Empresa, E.Nome, E.Morada
+	select R.Empresa_Id_Empresa, E.Nome, E.Morada,E.Contacto
 	from  (AgroTrack_Retalhistas as R join AgroTrack_Empresa as E on R.Empresa_Id_Empresa=E.Id_Empresa)
 go
 
@@ -75,7 +75,7 @@ go
 drop view IF EXISTS AgroTrack.TransportesE
 go
 create view AgroTrack.TransportesE as
-	select T.Empresa_Id_Empresa, E.Nome,E.Morada
+	select T.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto
 	from  (AgroTrack_Empresa_De_Transportes as T join AgroTrack_Empresa as E on T.Empresa_Id_Empresa=E.Id_Empresa)
 go
 
