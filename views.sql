@@ -172,3 +172,18 @@ create view AgroTrack.Contem as
 	from  AgroTrack_Contem as Contem
 go
 
+--Encomenda e Retalhista
+drop view IF EXISTS AgroTrack.EncomendaRetalhista
+go
+create view AgroTrack.EncomendaRetalhista as
+	select R.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa
+	from  ((AgroTrack_Retalhistas as R join AgroTrack_Empresa as E on R.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Encomenda as Enc on R.Empresa_Id_Empresa=Enc.Retalhista_Empresa_Id_Empresa)
+go
+
+--Retalhista e empresa
+drop view IF EXISTS AgroTrack.RetalhistaEmpresa
+go
+create view AgroTrack.RetalhistaEmpresa as
+	select R.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto
+	from  (AgroTrack_Retalhistas as R join AgroTrack_Empresa as E on R.Empresa_Id_Empresa=E.Id_Empresa)
+go

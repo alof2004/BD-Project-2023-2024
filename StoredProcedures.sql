@@ -158,23 +158,18 @@ IF OBJECT_ID('AddProduto', 'P') IS NOT NULL
     DROP PROCEDURE AddProduto;
 GO
 CREATE PROCEDURE AddProduto
+    @Codigo INT,
     @NomeProduto VARCHAR(64),
     @Id_origem INT,
-    @Tipo_de_Produto varchar(64),
+    @Tipo_de_Produto VARCHAR(64),
     @Preco FLOAT,
     @Taxa_de_iva FLOAT,
     @Unidade_medida VARCHAR(16)
 AS
 BEGIN
-    -- Declaração de variáveis
-    DECLARE @Codigo INT;
-
-    -- Determina o próximo código disponível para o novo produto
-    SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Produto;
-
     -- Insere o novo produto na tabela AgroTrack_Produto
-    INSERT INTO AgroTrack_Produto (Nome, Id_origem, Tipo_de_Produto, Codigo, Preco, Taxa_de_iva, Unidade_medida)
-    VALUES (@NomeProduto, @Id_origem, @Tipo_de_Produto, @Codigo, @Preco, @Taxa_de_iva, @Unidade_medida);
+    INSERT INTO AgroTrack_Produto (Codigo, Nome, Id_origem, Tipo_de_Produto, Preco, Taxa_de_iva, Unidade_medida)
+    VALUES (@Codigo, @NomeProduto, @Id_origem, @Tipo_de_Produto, @Preco, @Taxa_de_iva, @Unidade_medida);
 
     -- Mensagem de sucesso
     PRINT 'Novo produto adicionado com sucesso.';

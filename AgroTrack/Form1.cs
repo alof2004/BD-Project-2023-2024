@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Windows.Forms;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -39,6 +40,8 @@ namespace AgroTrack
             LoadTransportes();
             LoadFiltersProduto();
             OrdenarProdutos();
+            LoadEncomendasRealizadas();
+            LoadEncomendasParaEntrega();
 
             OrdenarPor.Dock = DockStyle.Fill;
         }
@@ -1521,7 +1524,10 @@ namespace AgroTrack
                 try
                 {
                     int id_origem = GetQuintaIdByName(LocalQuintaBox.Text);
-                    AddProduto(id_origem, ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, ProdutoIvaBox.Text, TipoAdicionarBox.Text, double.Parse(ProdutoQuantidadeBox.Text), double.Parse(ProdutoPrecoBox.Text));
+                    int codigo = int.Parse(CodigoAdicionarBox.Text);
+                    float preco = float.Parse(ProdutoPrecoBox.Text, CultureInfo.InvariantCulture);
+                    float iva = float.Parse(ProdutoIvaBox.Text, CultureInfo.InvariantCulture);
+                    AddProduto(codigo, id_origem, ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, iva, TipoAdicionarBox.Text, preco);
                 }
                 catch (Exception ex)
                 {
@@ -1574,45 +1580,47 @@ namespace AgroTrack
             }
         }
 
-
-        private void AddProduto(int id_origem, string ProdutoNome, string unidademedidaValue, string IvaValue, string tipo, double tipoValue, double preco)
+        private void AddProduto(int codigo, int id_origem, string ProdutoNome, string unidademedidaValue, float IvaValue, string tipo, float preco)
         {
             try
             {
                 using (SqlCommand command = new SqlCommand("AddProduto", cn) { CommandType = CommandType.StoredProcedure })
                 {
+                    // Adiciona os parâmetros ao comando
+                    command.Parameters.Add(new SqlParameter("@Codigo", codigo));
                     command.Parameters.Add(new SqlParameter("@NomeProduto", ProdutoNome));
                     command.Parameters.Add(new SqlParameter("@Id_origem", id_origem));
-                    command.Parameters.Add(new SqlParameter("@Tipo_de_Produto", tipoValue));
+                    command.Parameters.Add(new SqlParameter("@Tipo_de_Produto", tipo));
                     command.Parameters.Add(new SqlParameter("@Preco", preco));
                     command.Parameters.Add(new SqlParameter("@Taxa_de_iva", IvaValue));
                     command.Parameters.Add(new SqlParameter("@Unidade_medida", unidademedidaValue));
 
+                    // Verifica o estado da conexão e abre se necessário
                     if (cn.State == ConnectionState.Closed)
                     {
                         cn.Open();
                     }
 
+                    // Executa o comando
                     command.ExecuteNonQuery();
 
-                    if (cn.State == ConnectionState.Open)
-                    {
-                        cn.Close();
-                    }
-
+                    // Exibe mensagem de sucesso
                     MessageBox.Show("Produto adicionado com sucesso!");
                 }
             }
             catch (Exception ex)
             {
+                // Fecha a conexão se estiver aberta
                 if (cn.State == ConnectionState.Open)
                 {
                     cn.Close();
                 }
 
+                // Lança a exceção
                 throw new Exception("Falha ao adicionar o produto: " + ex.Message);
             }
         }
+
 
 
 
@@ -2000,6 +2008,81 @@ namespace AgroTrack
         private void PesquisaPorNomeCliente_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+
+        private void LoadEncomendasRealizadas()
+        {
+            EncomendasRealizadas.Items.Clear(); // Limpa a lista antes de carregar novos itens
+
+            // Query para selecionar as encomendas com detalhes do retalhista
+            string query = "SELECT Empresa_Id_Empresa, Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa FROM AgroTrack.EncomendaRetalhista";
+
+            SqlCommand cmd = new SqlCommand(query, cn);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    // Cria um objeto EncomendaRRetalhista com os dados lidos do banco de dados
+                    EncomendaRRetalhista encomenda = new EncomendaRRetalhista
+                    {
+                        Codigo = (int)reader["Codigo"],
+                        PrazoEntrega = (int)reader["prazo_entrega"],
+                        MoradaEntrega = reader["Morada_entrega"].ToString(),
+                        Entrega = (DateTime)reader["Entrega"],
+                        RetalhistaEmpresaId = (int)reader["Empresa_Id_Empresa"],
+                        NomeRetalhista = reader["Nome"].ToString()
+                    };
+
+                    // Adiciona a encomenda à ListBox
+                    EncomendasRealizadas.Items.Add(encomenda.ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao carregar encomendas realizadas: " + ex.Message);
+            }
+        }
+
+
+
+        private void LoadEncomendasParaEntrega()
+        {
+            EncomendasEntrega.Items.Clear(); // Limpa a lista antes de carregar novos itens
+
+            // Query para selecionar as encomendas com detalhes do retalhista
+            string query = "SELECT Empresa_Id_Empresa, Nome,Morada,Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Empresa_De_Transportes_Id_Empresa FROM AgroTrack.EncomendaTransportes";
+
+            SqlCommand cmd = new SqlCommand(query, cn);
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    // Cria um objeto EncomendaRRetalhista com os dados lidos do banco de dados
+                    EncomendaEmpresaTransporte encomenda = new EncomendaEmpresaTransporte
+                    {
+                        Codigo = (int)reader["Codigo"],
+                        PrazoEntrega = (int)reader["prazo_entrega"],
+                        MoradaEntrega = reader["Morada_entrega"].ToString(),
+                        Entrega = (DateTime)reader["Entrega"],
+                        TransporteEmpresaId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                        NomeEmpresa = reader["Nome"].ToString()
+                    };
+
+                    // Adiciona a encomenda à ListBox
+                    EncomendasEntrega.Items.Add(encomenda.ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao carregar encomendas por entregar: " + ex.Message);
+            }
         }
     }
 
