@@ -128,8 +128,8 @@ go
 drop view IF EXISTS AgroTrack.Agriculcolhe
 go
 create view AgroTrack.Agriculcolhe as
-	select A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao,A.Quinta_Empresa_Id_Empresa,colhe.Duracao_colheita,colhe.Quantidade,colhe.Produto_codigo, colhe.DataColheita
-	from  (AgroTrack_Agricultor as A join AgroTrack_Colhe as colhe on A.Pessoa_N_CartaoCidadao=colhe.Agricultor_Pessoa_N_CartaoCidadao)
+	select A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao,A.Quinta_Empresa_Id_Empresa,colhe.Duracao_colheita,colhe.Quantidade,colhe.Produto_codigo, colhe.DataColheita, Pro.Nome as NomeProduto, Pro.Codigo, Pro.Unidade_medida
+	from  (AgroTrack_Agricultor as A join AgroTrack_Colhe as colhe on A.Pessoa_N_CartaoCidadao=colhe.Agricultor_Pessoa_N_CartaoCidadao Join AgroTrack_Produto as Pro on colhe.Produto_codigo=Pro.Codigo)
 go
 
 --Empresa e Encomenda

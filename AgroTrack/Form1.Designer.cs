@@ -30,6 +30,7 @@
         {
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
+            SubmeterAdicionarQuinta = new Button();
             ComprouProduto = new ComboBox();
             label37 = new Label();
             button17 = new Button();
@@ -64,7 +65,7 @@
             AddColheita = new Button();
             button15 = new Button();
             button16 = new Button();
-            QuantidadeMinimaColheitas = new NumericUpDown();
+            QuantidadeColheitas = new NumericUpDown();
             label35 = new Label();
             TrabalhaQuinta = new ComboBox();
             label34 = new Label();
@@ -217,7 +218,7 @@
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NúmeroComprasCliente).BeginInit();
             Agricultor.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)QuantidadeMinimaColheitas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeColheitas).BeginInit();
             Quintas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).BeginInit();
             Transportes.SuspendLayout();
@@ -243,6 +244,7 @@
             // 
             // Clientes
             // 
+            Clientes.Controls.Add(SubmeterAdicionarQuinta);
             Clientes.Controls.Add(ComprouProduto);
             Clientes.Controls.Add(label37);
             Clientes.Controls.Add(button17);
@@ -276,6 +278,16 @@
             Clientes.TabIndex = 3;
             Clientes.Text = "Clientes";
             Clientes.UseVisualStyleBackColor = true;
+            // 
+            // SubmeterAdicionarQuinta
+            // 
+            SubmeterAdicionarQuinta.Location = new Point(694, 251);
+            SubmeterAdicionarQuinta.Name = "SubmeterAdicionarQuinta";
+            SubmeterAdicionarQuinta.Size = new Size(187, 47);
+            SubmeterAdicionarQuinta.TabIndex = 77;
+            SubmeterAdicionarQuinta.Text = "Submeter";
+            SubmeterAdicionarQuinta.UseVisualStyleBackColor = true;
+            SubmeterAdicionarQuinta.Click += SubmeterAdicionarQuinta_Click;
             // 
             // ComprouProduto
             // 
@@ -514,7 +526,7 @@
             Agricultor.Controls.Add(AddColheita);
             Agricultor.Controls.Add(button15);
             Agricultor.Controls.Add(button16);
-            Agricultor.Controls.Add(QuantidadeMinimaColheitas);
+            Agricultor.Controls.Add(QuantidadeColheitas);
             Agricultor.Controls.Add(label35);
             Agricultor.Controls.Add(TrabalhaQuinta);
             Agricultor.Controls.Add(label34);
@@ -597,6 +609,7 @@
             button15.TabIndex = 42;
             button15.Text = "Adicionar Agricultor";
             button15.UseVisualStyleBackColor = true;
+            button15.Click += AddAgricultor_Click;
             // 
             // button16
             // 
@@ -607,12 +620,13 @@
             button16.Text = "Apagar Agricultor";
             button16.UseVisualStyleBackColor = true;
             // 
-            // QuantidadeMinimaColheitas
+            // QuantidadeColheitas
             // 
-            QuantidadeMinimaColheitas.Location = new Point(406, 486);
-            QuantidadeMinimaColheitas.Name = "QuantidadeMinimaColheitas";
-            QuantidadeMinimaColheitas.Size = new Size(207, 31);
-            QuantidadeMinimaColheitas.TabIndex = 40;
+            QuantidadeColheitas.Location = new Point(406, 486);
+            QuantidadeColheitas.Name = "QuantidadeColheitas";
+            QuantidadeColheitas.Size = new Size(207, 31);
+            QuantidadeColheitas.TabIndex = 40;
+            QuantidadeColheitas.ValueChanged += QuantidadeColheitas_ValueChanged;
             // 
             // label35
             // 
@@ -706,10 +720,11 @@
             // 
             ListaColheitas.FormattingEnabled = true;
             ListaColheitas.ItemHeight = 25;
-            ListaColheitas.Location = new Point(666, 263);
+            ListaColheitas.Location = new Point(650, 263);
             ListaColheitas.Name = "ListaColheitas";
             ListaColheitas.Size = new Size(475, 254);
             ListaColheitas.TabIndex = 29;
+            ListaColheitas.SelectedIndexChanged += ListaColheitas_SelectedIndexChanged;
             // 
             // label28
             // 
@@ -2084,7 +2099,7 @@
             ((System.ComponentModel.ISupportInitialize)NúmeroComprasCliente).EndInit();
             Agricultor.ResumeLayout(false);
             Agricultor.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)QuantidadeMinimaColheitas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeColheitas).EndInit();
             Quintas.ResumeLayout(false);
             Quintas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).EndInit();
@@ -2184,7 +2199,7 @@
         private Label label33;
         private ComboBox TrabalhaQuinta;
         private Label label34;
-        private NumericUpDown QuantidadeMinimaColheitas;
+        private NumericUpDown QuantidadeColheitas;
         private Label label35;
         private Button button18;
         private Button AddColheita;
@@ -2303,5 +2318,6 @@
         private ComboBox LocalQuintaBox;
         private ComboBox ProdutoIvaBox;
         private ComboBox UnidadeAdicionarBox;
+        private Button SubmeterAdicionarQuinta;
     }
 }
