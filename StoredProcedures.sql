@@ -1,4 +1,12 @@
 
+IF OBJECT_ID('ApagarProduto', 'P') IS NOT NULL
+    DROP PROCEDURE ApagarProduto;
+GO
+
+IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AddProdutoToQuinta;
+GO
+
 IF OBJECT_ID('AddQuinta', 'P') IS NOT NULL
     DROP PROCEDURE AddQuinta;
 GO
@@ -158,21 +166,25 @@ CREATE PROCEDURE AddProduto
     @Unidade_medida VARCHAR(16)
 AS
 BEGIN
-	DECLARE @Codigo INT;
-	SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Produto;
-    -- Insere o novo produto
+    -- Declaração de variáveis
+    DECLARE @Codigo INT;
+
+    -- Determina o próximo código disponível para o novo produto
+    SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Produto;
+
+    -- Insere o novo produto na tabela AgroTrack_Produto
     INSERT INTO AgroTrack_Produto (Nome, Id_origem, Tipo_de_Produto, Codigo, Preco, Taxa_de_iva, Unidade_medida)
     VALUES (@NomeProduto, @Id_origem, @Tipo_de_Produto, @Codigo, @Preco, @Taxa_de_iva, @Unidade_medida);
 
+    -- Mensagem de sucesso
     PRINT 'Novo produto adicionado com sucesso.';
 END
-GO
+
 
 
 IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
     DROP PROCEDURE AddProdutoToQuinta;
 GO
-
 CREATE PROCEDURE AddProdutoToQuinta
     @NomeProduto VARCHAR(64),
     @NomeQuinta VARCHAR(64),
@@ -475,6 +487,10 @@ AS
 		execute sp_executesql @query;
 	end;
 GO
+
+IF OBJECT_ID('ApagarQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE ApagarQuinta;
+GO
 CREATE PROCEDURE ApagarQuinta
     @Empresa_Id_Empresa INT
 AS
@@ -526,3 +542,51 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
+
+IF OBJECT_ID('ApagarProduto', 'P') IS NOT NULL
+    DROP PROCEDURE ApagarProduto;
+GO
+CREATE PROCEDURE ApagarProduto
+    @Codigo INT
+AS
+BEGIN
+    -- Start a transaction
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Delete the product from the AgroTrack_Produto table
+        DELETE FROM AgroTrack_Produto
+        WHERE Codigo = @Codigo;
+
+        -- Delete the product from the AgroTrack_Contem table
+        DELETE FROM AgroTrack_Contem
+        WHERE Produto_codigo = @Codigo;
+
+        -- Delete the product from the AgroTrack_Item table
+        DELETE FROM AgroTrack_Item
+        WHERE ProdutoCodigo = @Codigo;
+
+        -- Commit the transaction
+        COMMIT TRANSACTION;
+
+        PRINT 'Produto deleted successfully.';
+    END TRY
+    BEGIN CATCH
+        -- Rollback the transaction in case of error
+        ROLLBACK TRANSACTION;
+
+        -- Get the error details
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Raise the error again to propagate it
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
+
