@@ -1252,8 +1252,9 @@ namespace AgroTrack
                 ProdutoDisponivel.Text = GetQuantidadeDisponivel(selectedproduct.Codigo).ToString();
 
                 LoadQuintas(selectedproduct.Id_origem);
-                LoadProdutos();
+                
             }
+           
         }
 
         private void Retalhistas_Click(object sender, EventArgs e)
@@ -1719,7 +1720,7 @@ namespace AgroTrack
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to remove farm from database: " + ex.Message);
+                    MessageBox.Show("Failed to remove product from database: " + ex.Message);
                 }
             }
         }
