@@ -1,4 +1,12 @@
 
+IF OBJECT_ID('ApagarProduto', 'P') IS NOT NULL
+    DROP PROCEDURE ApagarProduto;
+GO
+
+IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AddProdutoToQuinta;
+GO
+
 IF OBJECT_ID('AddQuinta', 'P') IS NOT NULL
     DROP PROCEDURE AddQuinta;
 GO
@@ -174,10 +182,10 @@ END
 
 
 
-IF OBJECT_ID('AddProdutQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddProdutQuinta;
+IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AddProdutoToQuinta;
 GO
-CREATE PROCEDURE AddProdutQuinta
+CREATE PROCEDURE AddProdutoToQuinta
     @NomeProduto VARCHAR(64),
     @NomeQuinta VARCHAR(64),
     @Quantidade INT,

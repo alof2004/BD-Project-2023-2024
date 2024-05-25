@@ -135,10 +135,9 @@
             TransportesContacto = new TextBox();
             TransportesMorada = new TextBox();
             TransportesNome = new TextBox();
-            button27 = new Button();
             button28 = new Button();
             label57 = new Label();
-            textBox15 = new TextBox();
+            PesquisarNomeTransporte = new TextBox();
             ListaTransportes = new ListBox();
             Retalhistas = new TabPage();
             button29 = new Button();
@@ -163,10 +162,9 @@
             RetalhistasContacto = new TextBox();
             RetalhistasMorada = new TextBox();
             RetalhistasNome = new TextBox();
-            button34 = new Button();
             button35 = new Button();
             label66 = new Label();
-            textBox22 = new TextBox();
+            PesquisarNomeRetalhistaBox = new TextBox();
             ListaRetalhistas = new ListBox();
             Produtos = new TabPage();
             UnidadeAdicionarBox = new ComboBox();
@@ -489,6 +487,7 @@
             NomeClientes.Name = "NomeClientes";
             NomeClientes.Size = new Size(667, 31);
             NomeClientes.TabIndex = 50;
+            NomeClientes.TextChanged += NomeClientes_TextChanged;
             // 
             // PesquisaPorNomeCliente
             // 
@@ -1094,10 +1093,9 @@
             Transportes.Controls.Add(TransportesContacto);
             Transportes.Controls.Add(TransportesMorada);
             Transportes.Controls.Add(TransportesNome);
-            Transportes.Controls.Add(button27);
             Transportes.Controls.Add(button28);
             Transportes.Controls.Add(label57);
-            Transportes.Controls.Add(textBox15);
+            Transportes.Controls.Add(PesquisarNomeTransporte);
             Transportes.Controls.Add(ListaTransportes);
             Transportes.Location = new Point(4, 34);
             Transportes.Name = "Transportes";
@@ -1303,23 +1301,15 @@
             TransportesNome.Size = new Size(493, 31);
             TransportesNome.TabIndex = 43;
             // 
-            // button27
-            // 
-            button27.Location = new Point(39, 87);
-            button27.Name = "button27";
-            button27.Size = new Size(183, 34);
-            button27.TabIndex = 42;
-            button27.Text = "Pesquisar";
-            button27.UseVisualStyleBackColor = true;
-            // 
             // button28
             // 
-            button28.Location = new Point(228, 86);
+            button28.Location = new Point(39, 86);
             button28.Name = "button28";
-            button28.Size = new Size(185, 34);
+            button28.Size = new Size(374, 34);
             button28.TabIndex = 41;
             button28.Text = "Limpar";
             button28.UseVisualStyleBackColor = true;
+            button28.Click += button28_Click;
             // 
             // label57
             // 
@@ -1330,12 +1320,13 @@
             label57.TabIndex = 40;
             label57.Text = "Pesquisar por Nome";
             // 
-            // textBox15
+            // PesquisarNomeTransporte
             // 
-            textBox15.Location = new Point(39, 49);
-            textBox15.Name = "textBox15";
-            textBox15.Size = new Size(374, 31);
-            textBox15.TabIndex = 39;
+            PesquisarNomeTransporte.Location = new Point(39, 49);
+            PesquisarNomeTransporte.Name = "PesquisarNomeTransporte";
+            PesquisarNomeTransporte.Size = new Size(374, 31);
+            PesquisarNomeTransporte.TabIndex = 39;
+            PesquisarNomeTransporte.TextChanged += PesquisarNomeTransporte_TextChanged;
             // 
             // ListaTransportes
             // 
@@ -1345,6 +1336,7 @@
             ListaTransportes.Name = "ListaTransportes";
             ListaTransportes.Size = new Size(374, 379);
             ListaTransportes.TabIndex = 38;
+            ListaTransportes.SelectedIndexChanged += ListaTransportes_SelectedIndexChanged_1;
             // 
             // Retalhistas
             // 
@@ -1370,10 +1362,9 @@
             Retalhistas.Controls.Add(RetalhistasContacto);
             Retalhistas.Controls.Add(RetalhistasMorada);
             Retalhistas.Controls.Add(RetalhistasNome);
-            Retalhistas.Controls.Add(button34);
             Retalhistas.Controls.Add(button35);
             Retalhistas.Controls.Add(label66);
-            Retalhistas.Controls.Add(textBox22);
+            Retalhistas.Controls.Add(PesquisarNomeRetalhistaBox);
             Retalhistas.Controls.Add(ListaRetalhistas);
             Retalhistas.Location = new Point(4, 34);
             Retalhistas.Name = "Retalhistas";
@@ -1579,24 +1570,17 @@
             RetalhistasNome.Name = "RetalhistasNome";
             RetalhistasNome.Size = new Size(493, 31);
             RetalhistasNome.TabIndex = 43;
-            // 
-            // button34
-            // 
-            button34.Location = new Point(39, 87);
-            button34.Name = "button34";
-            button34.Size = new Size(183, 34);
-            button34.TabIndex = 42;
-            button34.Text = "Pesquisar";
-            button34.UseVisualStyleBackColor = true;
+            RetalhistasNome.TextChanged += RetalhistasNome_TextChanged;
             // 
             // button35
             // 
-            button35.Location = new Point(228, 86);
+            button35.Location = new Point(39, 86);
             button35.Name = "button35";
-            button35.Size = new Size(185, 34);
+            button35.Size = new Size(374, 34);
             button35.TabIndex = 41;
             button35.Text = "Limpar";
             button35.UseVisualStyleBackColor = true;
+            button35.Click += button35_Click;
             // 
             // label66
             // 
@@ -1607,12 +1591,13 @@
             label66.TabIndex = 40;
             label66.Text = "Pesquisar por Nome";
             // 
-            // textBox22
+            // PesquisarNomeRetalhistaBox
             // 
-            textBox22.Location = new Point(39, 49);
-            textBox22.Name = "textBox22";
-            textBox22.Size = new Size(374, 31);
-            textBox22.TabIndex = 39;
+            PesquisarNomeRetalhistaBox.Location = new Point(39, 49);
+            PesquisarNomeRetalhistaBox.Name = "PesquisarNomeRetalhistaBox";
+            PesquisarNomeRetalhistaBox.Size = new Size(374, 31);
+            PesquisarNomeRetalhistaBox.TabIndex = 39;
+            PesquisarNomeRetalhistaBox.TextChanged += PesquisarNomeRetalhistaBox_TextChanged;
             // 
             // ListaRetalhistas
             // 
@@ -1622,6 +1607,7 @@
             ListaRetalhistas.Name = "ListaRetalhistas";
             ListaRetalhistas.Size = new Size(374, 379);
             ListaRetalhistas.TabIndex = 38;
+            ListaRetalhistas.SelectedIndexChanged += ListaRetalhistas_SelectedIndexChanged_1;
             // 
             // Produtos
             // 
@@ -1682,12 +1668,12 @@
             // UnidadeAdicionarBox
             // 
             UnidadeAdicionarBox.FormattingEnabled = true;
-            UnidadeAdicionarBox.Items.AddRange(new object[] { "unidade", " kg ", "g", "litro", "ml" });
+            UnidadeAdicionarBox.Items.AddRange(new object[] { "unidade", "kg ", "g", "litro", "ml" });
             UnidadeAdicionarBox.Location = new Point(733, 213);
             UnidadeAdicionarBox.Name = "UnidadeAdicionarBox";
             UnidadeAdicionarBox.Size = new Size(408, 33);
             UnidadeAdicionarBox.TabIndex = 94;
-            UnidadeAdicionarBox.Text = "Seleciona um valor do iva";
+            UnidadeAdicionarBox.Text = "Seleciona uma unidade de Medida";
             // 
             // ProdutoIvaBox
             // 
@@ -1750,7 +1736,7 @@
             // ConfirmarOperacao
             // 
             ConfirmarOperacao.Font = new Font("Segoe UI", 11F);
-            ConfirmarOperacao.Location = new Point(20, 367);
+            ConfirmarOperacao.Location = new Point(20, 372);
             ConfirmarOperacao.Name = "ConfirmarOperacao";
             ConfirmarOperacao.Size = new Size(1121, 55);
             ConfirmarOperacao.TabIndex = 84;
@@ -1931,6 +1917,7 @@
             CodigoAdicionarBox.Name = "CodigoAdicionarBox";
             CodigoAdicionarBox.Size = new Size(505, 31);
             CodigoAdicionarBox.TabIndex = 45;
+            CodigoAdicionarBox.TextChanged += CodigoAdicionarBox_TextChanged;
             // 
             // LocaldeProducao
             // 
@@ -2271,7 +2258,7 @@
         private Button button27;
         private Button button28;
         private Label label57;
-        private TextBox textBox15;
+        private TextBox PesquisarNomeTransporte;
         private ListBox ListaTransportes;
         private TabPage Retalhistas;
         private Button button29;
@@ -2296,10 +2283,9 @@
         private TextBox RetalhistasContacto;
         private TextBox RetalhistasMorada;
         private TextBox RetalhistasNome;
-        private Button button34;
         private Button button35;
         private Label label66;
-        private TextBox textBox22;
+        private TextBox PesquisarNomeRetalhistaBox;
         private ListBox ListaRetalhistas;
         private TextBox ProdutoUnidade;
         private TextBox ProdutoIva;

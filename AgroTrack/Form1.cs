@@ -33,10 +33,7 @@ namespace AgroTrack
             TipoAdicionarBox.Hide();
             LocalQuintaBox.Hide();
             LocalQuinta.Hide();
-
-
             LoadProdutos();
-            LoadTransportes();
             LoadRetalhistas();
             LoadTransportes();
             LoadFiltersProduto();
@@ -457,6 +454,59 @@ namespace AgroTrack
                     MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
                 }
             }
+            else if (table == "Retalhista")
+            {
+                try
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    ListaRetalhistas.Items.Clear(); // Clear previous items
+                    while (reader.Read())
+                    {
+                        Retalhista retalho = new Retalhista
+                        {
+                            Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"],
+                            Nome = reader["Nome"].ToString(),
+                            Morada = reader["Morada"].ToString(),
+                            Contacto = (int)reader["Contacto"]
+
+                        };
+
+                        ListaRetalhistas.Items.Add(retalho);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+                }
+            }
+            else if (table == "Transporte")
+            {
+                try
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    ListaProdutos.Items.Clear(); // Clear previous items
+                    while (reader.Read())
+                    {
+                        Transportes transporte = new Transportes
+                        {
+                            Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"],
+                            Nome = reader["Nome"].ToString(),
+                            Morada = reader["Morada"].ToString(),
+                            Contacto = (int)reader["Contacto"]
+
+                        };
+
+                        ListaTransportes.Items.Add(transporte);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+                }
+            }
+
 
         }
 
@@ -1106,10 +1156,8 @@ namespace AgroTrack
                 ProdutoUnidade.Text = selectedproduct.Unidade_medida;
                 ProdutoDisponivel.Text = GetQuantidadeDisponivel(selectedproduct.Codigo).ToString();
 
-                OrdenarProdutos();
-                LoadProdutos();
                 LoadQuintas(selectedproduct.Id_origem);
-
+                LoadProdutos();
             }
         }
 
@@ -1276,12 +1324,14 @@ namespace AgroTrack
         //filtrar por tipo de produto
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
+            OrdenarProdutos();
             LoadProdutos();
         }
 
         //filtrar por quinta opcoes ja aparecem
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
+            OrdenarProdutos();
             LoadProdutos();
         }
 
@@ -1366,7 +1416,7 @@ namespace AgroTrack
         //ConfirmarOperacao
         private void ConfirmarOperacao_Click(object sender, EventArgs e)
         {
-            if (ProdutoAdicionarBox.Text == "" || UnidadeAdicionarBox.Text == "" || ProdutoQuantidadeBox.Text == "" || ProdutoIvaBox.Text == "" || TipoAdicionarBox.Text == "" || ProdutoPrecoBox.Text == "")
+            if (CodigoAdicionarBox.Text == "" || ProdutoAdicionarBox.Text == "" || UnidadeAdicionarBox.Text == "" || ProdutoQuantidadeBox.Text == "" || ProdutoIvaBox.Text == "" || TipoAdicionarBox.Text == "" || ProdutoPrecoBox.Text == "")
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -1509,6 +1559,7 @@ namespace AgroTrack
             ProdutoQuantidadeBox.ReadOnly = false;
             ProdutoPrecoBox.ReadOnly = false;
 
+
             // Clear input fields
             CodigoAdicionarBox.Text = "";
             ProdutoAdicionarBox.Text = "";
@@ -1580,7 +1631,7 @@ namespace AgroTrack
 
         private void EliminarProduto_Click(object sender, EventArgs e)
         {
-            sbyte index = (sbyte)ListaQuintas.SelectedIndex;
+            sbyte index = (sbyte)ListaProdutos.SelectedIndex;
             if (index == -1)
             {
                 MessageBox.Show("Por favor selecione um produto para remover!");
@@ -1603,9 +1654,45 @@ namespace AgroTrack
             }
         }
 
+
+        //PesquisarNomeRetalhistaBox
+        private void button35_Click(object sender, EventArgs e)
+        {
+            PesquisarNomeRetalhistaBox.Text = string.Empty;
+        }
+
+        private void PesquisarNomeRetalhistaBox_TextChanged(object sender, EventArgs e)
+        {
+            string inputRetalhistaNome = (string)PesquisarNomeRetalhistaBox.Text;
+            searchBar(inputRetalhistaNome, "Retalhista");
+        }
+
+        //PesquisarNomeTransporte
+        private void button28_Click(object sender, EventArgs e)
+        {
+            PesquisarNomeTransporte.Text = string.Empty;
+        }
+
+        private void PesquisarNomeTransporte_TextChanged(object sender, EventArgs e)
+        {
+            string inputTransporteNome = (string)PesquisarNomeTransporte.Text;
+            searchBar(inputTransporteNome, "Transporte");
+        }
+
+        private void NomeClientes_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RetalhistasNome_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void LoadRetalhistas()
         {
-            string query = " SELECT Empresa_Id_Empresa, Nome, Morada,Contacto FROM AgroTrack.RetalhistasE;";
+            ListaRetalhistas.Items.Clear();
+            string query = "SELECT Empresa_Id_Empresa, Nome, Morada, Contacto FROM AgroTrack.RetalhistasE;";
             SqlCommand cmd = new SqlCommand(query, cn);
 
             try
@@ -1614,7 +1701,7 @@ namespace AgroTrack
                 while (reader.Read())
                 {
                     Retalhista retalho = new Retalhista
-                    { 
+                    {
                         Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"],
                         Nome = reader["Nome"].ToString(),
                         Morada = reader["Morada"].ToString(),
@@ -1632,27 +1719,12 @@ namespace AgroTrack
             }
         }
 
-        private void ListaRetalhistas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ListaRetalhistas.SelectedItem is Retalhista selectedretalho)
-            {
-                RetalhistasNome.ReadOnly = true;
-                RetalhistasMorada.ReadOnly = true;
-                RetalhistasContacto.ReadOnly = true;
-
-                RetalhistasNome.Text = selectedretalho.Nome;
-                RetalhistasMorada.Text = selectedretalho.Morada;
-                RetalhistasContacto.Text = selectedretalho.Contacto.ToString();
-
-                LoadRetalhistas();
-
-            }
-        }
 
 
         private void LoadTransportes()
         {
-            string query = " SELECT Empresa_Id_Empresa, Nome, Morada,Contacto FROM AgroTrack.TransportesE;";
+            ListaTransportes.Items.Clear();
+            string query = "SELECT Empresa_Id_Empresa, Nome, Morada, Contacto FROM AgroTrack.TransportesE;";
             SqlCommand cmd = new SqlCommand(query, cn);
 
             try
@@ -1679,9 +1751,28 @@ namespace AgroTrack
             }
         }
 
-        private void ListaTransportes_SelectedIndexChanged(object sender, EventArgs e)
+
+
+        //ListaRetalhistas e boxs
+        private void ListaRetalhistas_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (ListaRetalhistas.SelectedItem is Retalhista selectedtransporte)
+            if (ListaRetalhistas.SelectedItem is Retalhista selectedretalho)
+            {
+                RetalhistasNome.ReadOnly = true;
+                RetalhistasMorada.ReadOnly = true;
+                RetalhistasContacto.ReadOnly = true;
+
+                RetalhistasNome.Text = selectedretalho.Nome;
+                RetalhistasMorada.Text = selectedretalho.Morada;
+                RetalhistasContacto.Text = selectedretalho.Contacto.ToString();
+
+            }
+        }
+
+        //ListaTransportes e boxs
+        private void ListaTransportes_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (ListaTransportes.SelectedItem is Transportes selectedtransporte)
             {
                 TransportesNome.ReadOnly = true;
                 TransportesMorada.ReadOnly = true;
@@ -1691,9 +1782,14 @@ namespace AgroTrack
                 TransportesMorada.Text = selectedtransporte.Morada;
                 TransportesContacto.Text = selectedtransporte.Contacto.ToString();
 
-                LoadTransportes();
+
 
             }
+        }
+
+        private void CodigoAdicionarBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
