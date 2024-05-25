@@ -514,7 +514,7 @@ namespace AgroTrack
                     MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
                 }
             }
-            else if (table == "Retalhista")
+            else if (table == "RetalhistasE")
             {
                 try
                 {
@@ -540,12 +540,12 @@ namespace AgroTrack
                     MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
                 }
             }
-            else if (table == "Transporte")
+            else if (table == "TransportesE")
             {
                 try
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
-                    ListaProdutos.Items.Clear(); // Clear previous items
+                    ListaTransportes.Items.Clear(); // Clear previous items
                     while (reader.Read())
                     {
                         Transportes transporte = new Transportes
@@ -1252,9 +1252,9 @@ namespace AgroTrack
                 ProdutoDisponivel.Text = GetQuantidadeDisponivel(selectedproduct.Codigo).ToString();
 
                 LoadQuintas(selectedproduct.Id_origem);
-                
+
             }
-           
+
         }
 
         private void Retalhistas_Click(object sender, EventArgs e)
@@ -1760,7 +1760,7 @@ namespace AgroTrack
         private void PesquisarNomeRetalhistaBox_TextChanged(object sender, EventArgs e)
         {
             string inputRetalhistaNome = (string)PesquisarNomeRetalhistaBox.Text;
-            searchBar(inputRetalhistaNome, "Retalhista");
+            searchBar(inputRetalhistaNome, "RetalhistasE");
         }
 
         //PesquisarNomeTransporte
@@ -1772,7 +1772,7 @@ namespace AgroTrack
         private void PesquisarNomeTransporte_TextChanged(object sender, EventArgs e)
         {
             string inputTransporteNome = (string)PesquisarNomeTransporte.Text;
-            searchBar(inputTransporteNome, "Transporte");
+            searchBar(inputTransporteNome, "TransportesE");
         }
 
         private void NomeClientes_TextChanged(object sender, EventArgs e)
@@ -1913,7 +1913,7 @@ namespace AgroTrack
             QuantidadeColheitas.Hide();
             label35.Hide();
             label33.Hide();
-            
+
 
             // Enable input fields
             AgricultorNome.ReadOnly = false;
@@ -1941,34 +1941,34 @@ namespace AgroTrack
                 {
                     AddAgricultor(AgricultorNome.Text, int.Parse(AgricultorNumeroCC.Text), AgricultorQuinta.Text, int.Parse(AgricultorContacto.Text));
                 }
-                catch(Exception ex)
-                        {
-                            MessageBox.Show("Erro ao adicionar agricultor: " + ex.Message);
-                        }
-                 finally
-                        {
-                            SubmeterAdicionarQuinta.Hide();
-                            QuantidadeColheitas.Show();
-                            ColheuProduto.Show();
-                            TrabalhaQuinta.Show();
-                            buttonLimparPesquisaQuinta.Show();
-                            label48.Show();
-                            label49.Show();
-                            label41.Show();
-                            label47.Show();
-                            label4.Show();
-                            PesquisarQuinta.Show();
-                            button20.Show();
-                            Agricultores.Show();
-                            ProdutosQuinta.Show();
-                            Plantas.Show();
-                            RemoverQuinta.Show();
-                            PesquisaPorNomeCliente.Show();
-                            Animais.Show();
-                            ListaAgricultores.Items.Clear();
-                            LoadAgricultor();
-                        }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar agricultor: " + ex.Message);
                 }
+                finally
+                {
+                    SubmeterAdicionarQuinta.Hide();
+                    QuantidadeColheitas.Show();
+                    ColheuProduto.Show();
+                    TrabalhaQuinta.Show();
+                    buttonLimparPesquisaQuinta.Show();
+                    label48.Show();
+                    label49.Show();
+                    label41.Show();
+                    label47.Show();
+                    label4.Show();
+                    PesquisarQuinta.Show();
+                    button20.Show();
+                    Agricultores.Show();
+                    ProdutosQuinta.Show();
+                    Plantas.Show();
+                    RemoverQuinta.Show();
+                    PesquisaPorNomeCliente.Show();
+                    Animais.Show();
+                    ListaAgricultores.Items.Clear();
+                    LoadAgricultor();
+                }
+            }
         }
 
         private void CodigoAdicionarBox_TextChanged(object sender, EventArgs e)
@@ -1995,6 +1995,11 @@ namespace AgroTrack
                     MessageBox.Show("Failed to add farmer to database: " + ex.Message);
                 }
             }
+        }
+
+        private void PesquisaPorNomeCliente_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

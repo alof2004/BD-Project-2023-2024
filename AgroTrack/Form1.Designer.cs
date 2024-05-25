@@ -507,6 +507,8 @@
             PesquisaPorNomeCliente.Name = "PesquisaPorNomeCliente";
             PesquisaPorNomeCliente.Size = new Size(359, 31);
             PesquisaPorNomeCliente.TabIndex = 49;
+            PesquisaPorNomeCliente.Text = "d";
+            PesquisaPorNomeCliente.TextChanged += PesquisaPorNomeCliente_TextChanged;
             // 
             // ListaClientes
             // 

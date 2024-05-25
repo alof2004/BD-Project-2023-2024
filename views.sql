@@ -72,9 +72,9 @@ create view AgroTrack.RetalhistasE as
 go
 
 --Empresa de transportes e Empresa
-drop view IF EXISTS AgroTrack.Transportes
+drop view IF EXISTS AgroTrack.TransportesE
 go
-create view AgroTrack.Transportes as
+create view AgroTrack.TransportesE as
 	select T.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto
 	from  (AgroTrack_Empresa_De_Transportes as T join AgroTrack_Empresa as E on T.Empresa_Id_Empresa=E.Id_Empresa)
 go
