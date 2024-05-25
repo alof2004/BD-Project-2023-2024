@@ -1903,23 +1903,16 @@ namespace AgroTrack
         private void AddAgricultor_Click(object sender, EventArgs e)
         {
             // Hide controls
-            QuantidadeColheitas.Hide();
+            button13.Hide();
+            button14.Hide();
+            label29.Hide();
+            label36.Hide();
             ColheuProduto.Hide();
             TrabalhaQuinta.Hide();
-            buttonLimparPesquisaQuinta.Hide();
-            label48.Hide();
-            label49.Hide();
-            label41.Hide();
-            label47.Hide();
-            label4.Hide();
-            PesquisarQuinta.Hide();
-            PesquisaPorNomeCliente.Hide();
-            Agricultores.Hide();
-            ProdutosQuinta.Hide();
-            Plantas.Hide();
-            button20.Hide();
-            RemoverQuinta.Hide();
-            Animais.Hide();
+            QuantidadeColheitas.Hide();
+            label35.Hide();
+            label33.Hide();
+            
 
             // Enable input fields
             AgricultorNome.ReadOnly = false;
