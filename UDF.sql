@@ -14,6 +14,21 @@ BEGIN
 END;
 GO
 
+DROP FUNCTION IF EXISTS AgroTrack.GetNumberOfColheitasOfFarmer;
+GO
+CREATE FUNCTION AgroTrack.GetNumberOfColheitasOfFarmer(@MinColheitas INT)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT a.Pessoa_N_CartaoCidadao, COUNT(*) AS NumberOfColheitas
+    FROM AgroTrack_Agricultor a
+    JOIN AgroTrack_Colhe c ON a.Pessoa_N_CartaoCidadao = c.Agricultor_Pessoa_N_CartaoCidadao
+    GROUP BY a.Pessoa_N_CartaoCidadao
+    HAVING COUNT(*) >= @MinColheitas
+);
+GO
+
 DROP FUNCTION IF EXISTS AgroTrack.FilterFarmByProduct;
 GO
 CREATE FUNCTION AgroTrack.FilterFarmByProduct(@ProductId INT)
@@ -97,3 +112,16 @@ RETURN
     HAVING COUNT(a.Pessoa_N_CartaoCidadao) >= @NumberOfFarmers
 );
 GO
+DROP FUNCTION IF EXISTS AgroTrack.FilterFarmerByProduct;
+GO
+CREATE FUNCTION AgroTrack.FilterFarmerByProduct(@ProductId INT)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT a.Pessoa_N_CartaoCidadao
+    FROM AgroTrack_Agricultor a
+    JOIN AgroTrack_Colhe c ON a.Pessoa_N_CartaoCidadao = c.Agricultor_Pessoa_N_CartaoCidadao
+    WHERE c.Produto_codigo = @ProductId
+);
+

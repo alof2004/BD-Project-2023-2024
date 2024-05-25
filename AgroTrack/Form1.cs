@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
 using System.Windows.Forms;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AgroTrack
@@ -22,7 +23,7 @@ namespace AgroTrack
             LoadFiltersAgricultores();
             SubmeterNovaQuinta.Hide();
             LoadProdutos();
-            Páginas.Dock = DockStyle.Fill;
+            Paginas.Dock = DockStyle.Fill;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -356,6 +357,7 @@ namespace AgroTrack
             {
                 SqlDataReader reader = cmd.ExecuteReader();
                 TrabalhaQuinta.Items.Clear(); // Clear previous items
+                TrabalhaQuinta.Items.Clear(); // Clear previous items
                 TrabalhaQuinta.Items.Add("Todas as quintas");
                 while (reader.Read())
                 {
@@ -374,6 +376,63 @@ namespace AgroTrack
             }
 
         }
+
+        private void ApplyCombinedFiltersAgricultores()
+        {
+            var productId = (ColheuProduto.SelectedItem as ProdutosOnlyName)?.Id_Produto;
+            var farmId = (TrabalhaQuinta.SelectedItem as QuintaOnlyName)?.Id_Quinta;
+            var numberOfColheitas = (int?)QuantidadeColheitas.Value > 0 ? (int?)QuantidadeColheitas.Value : null;
+
+            string query = "SELECT DISTINCT Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa, Nome, Contacto, NomeQuinta FROM AgroTrack.AgriculQuinta WHERE 1 = 1";
+
+            if (productId != null)
+            {
+                query += " AND Pessoa_N_CartaoCidadao IN (SELECT Pessoa_N_CartaoCidadao FROM AgroTrack.FilterFarmerByProduct(@ProductId))";
+            }
+
+            if (farmId != null)
+            {
+                query += " AND Quinta_Empresa_Id_Empresa = @FarmId";
+            }
+
+            if (numberOfColheitas.HasValue)
+            {
+                query += " AND Pessoa_N_CartaoCidadao IN (SELECT Pessoa_N_CartaoCidadao FROM AgroTrack.GetNumberOfColheitasOfFarmer(@MinColheitas))";
+            }
+
+            using (SqlCommand cmd = new SqlCommand(query, cn))
+            {
+                if (productId != null) cmd.Parameters.AddWithValue("@ProductId", productId);
+                if (farmId != null) cmd.Parameters.AddWithValue("@FarmId", farmId);
+                if (numberOfColheitas.HasValue) cmd.Parameters.AddWithValue("@MinColheitas", numberOfColheitas.Value);
+
+                try
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    ListaAgricultores.Items.Clear(); // Clear previous items
+                    while (reader.Read())
+                    {
+                        Agricultores agricultores = new Agricultores
+                        {
+                            Id_Trabalhador = (int)reader["Id_Trabalhador"],
+                            Pessoa_N_CartaoCidadao = (int)reader["Pessoa_N_CartaoCidadao"],
+                            Quinta_Empresa_Id_Empresa = (int)reader["Quinta_Empresa_Id_Empresa"],
+                            NomeQuinta = reader["NomeQuinta"].ToString(),
+                            Nome = reader["Nome"].ToString(),
+                            Contacto = (int)reader["Contacto"]
+                        };
+                        ListaAgricultores.Items.Add(agricultores);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to retrieve farmers from database: " + ex.Message);
+                }
+            }
+        }
+
+
 
         private void searchBar(string nome, string table)
         {
@@ -449,6 +508,7 @@ namespace AgroTrack
 
         }
 
+        //ColheitasListBox
 
 
 
@@ -650,11 +710,45 @@ namespace AgroTrack
                 AgricultorQuinta.Text = selectedFarmer.NomeQuinta.ToString();
 
                 LoadContrato(selectedFarmer.Pessoa_N_CartaoCidadao);
+                LoadColheitas(selectedFarmer.Pessoa_N_CartaoCidadao);
 
             }
 
         }
 
+        private void LoadColheitas(int pessoa_N_CartaoCidadao)
+        {
+            string query = "select Id_Trabalhador, Pessoa_N_CartaoCidadao,Quinta_Empresa_Id_Empresa, Duracao_colheita, Quantidade, Produto_codigo, DataColheita,NomeProduto, Unidade_medida FROM AgroTrack.AgriculColhe WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@Pessoa_N_CartaoCidadao", pessoa_N_CartaoCidadao);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                ListaColheitas.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    Colheita colheita = new Colheita
+                    {
+                        Id_Trabalhador = (int)reader["Id_Trabalhador"],
+                        Pessoa_N_CartaoCidadao = (int)reader["Pessoa_N_CartaoCidadao"],
+                        Quinta_Empresa_Id_Empresa = (int)reader["Quinta_Empresa_Id_Empresa"],
+                        Duracao_colheita = (double)reader["Duracao_colheita"],
+                        Quantidade = (int)reader["Quantidade"],
+                        DataColheita = DateTime.Parse(reader["DataColheita"].ToString()),
+                        Produto_codigo = (int)reader["Produto_codigo"],
+                        ProdutoNome = reader["NomeProduto"].ToString(),
+                        Unidade_de_medida = reader["Unidade_medida"].ToString()
+                    };
+
+                    ListaColheitas.Items.Add(colheita);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve colheitas from database: " + ex.Message);
+            }
+        }
         private void LoadContrato(int pessoa_N_CartaoCidadao)
         {
             string query = "SELECT ID, Id_Trabalhador, Pessoa_N_CartaoCidadao, Date_str, Date_end, Salario, Descricao FROM AgroTrack.AgriculConquinta WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao";
@@ -681,10 +775,10 @@ namespace AgroTrack
                     string contractInfo = $"ID: {contrato.ID}\n" +
                       $"Id Trabalhador: {contrato.Id_Trabalhador}\n" +
                       $"Pessoa N Cartao Cidadao: {contrato.Pessoa_N_CartaoCidadao}\n" +
-                      $"Data de Início: {contrato.Date_str.ToShortDateString()}\n" +
-                      $"Data de Término: {contrato.Date_end.ToShortDateString()}\n" +
-                      $"Salário: {contrato.Salario}\n" +
-                      $"Descrição: {contrato.Descricao}\n" +
+                      $"Data de Inï¿½cio: {contrato.Date_str.ToShortDateString()}\n" +
+                      $"Data de Tï¿½rmino: {contrato.Date_end.ToShortDateString()}\n" +
+                      $"Salï¿½rio: {contrato.Salario}\n" +
+                      $"Descriï¿½ï¿½o: {contrato.Descricao}\n" +
                       $"-----------------------------\n";
 
                     AgricultorContrato.AppendText(contractInfo);
@@ -731,7 +825,7 @@ namespace AgroTrack
 
         }
 
-        private void ApplyCombinedFilters()
+        private void ApplyCombinedFiltersQuinta()
         {
             var plantType = (FilterByPlantQuinta.SelectedItem as Planta)?.Tipo;
             var animalType = (FilterByAnimalQuinta.SelectedItem as AnimalOnlyName)?.Tipo;
@@ -796,22 +890,22 @@ namespace AgroTrack
 
         private void FiltrarPorProdutoQuinta_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyCombinedFilters();
+            ApplyCombinedFiltersQuinta();
         }
 
         private void FilterByPlantQuinta_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyCombinedFilters();
+            ApplyCombinedFiltersQuinta();
         }
 
         private void FilterByAnimalQuinta_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyCombinedFilters();
+            ApplyCombinedFiltersQuinta();
         }
 
         private void QuantidadeAgricultores_ValueChanged(object sender, EventArgs e)
         {
-            ApplyCombinedFilters();
+            ApplyCombinedFiltersQuinta();
         }
 
         private void AdicionarQuinta_Click(object sender, EventArgs e)
@@ -1153,12 +1247,123 @@ namespace AgroTrack
 
         private void ColheuProduto_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ApplyCombinedFiltersAgricultores();
         }
 
         private void TrabalhaQuinta_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ApplyCombinedFiltersAgricultores();
+        }
 
+        private void QuantidadeColheitas_ValueChanged(object sender, EventArgs e)
+        {
+            ApplyCombinedFiltersAgricultores();
+        }
+
+        private void ListaColheitas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddAgricultor_Click(object sender, EventArgs e)
+        {
+            // Hide controls
+            QuantidadeColheitas.Hide();
+            ColheuProduto.Hide();
+            TrabalhaQuinta.Hide();
+            buttonLimparPesquisaQuinta.Hide();
+            label48.Hide();
+            label49.Hide();
+            label41.Hide();
+            label47.Hide();
+            label4.Hide();
+            PesquisarQuinta.Hide();
+            PesquisaPorNomeCliente.Hide();
+            Agricultores.Hide();
+            ProdutosQuinta.Hide();
+            Plantas.Hide();
+            button20.Hide();
+            RemoverQuinta.Hide();
+            Animais.Hide();
+
+            // Enable input fields
+            AgricultorNome.ReadOnly = false;
+            AgricultorNumeroCC.ReadOnly = false;
+            AgricultorContacto.ReadOnly = false;
+            AgricultorQuinta.ReadOnly = false;
+
+            // Clear input fields
+            AgricultorNome.Text = "";
+            AgricultorNumeroCC.Text = "";
+            AgricultorContacto.Text = "";
+            AgricultorQuinta.Text = "";
+            SubmeterAdicionarQuinta.Show();
+        }
+
+        private void SubmeterAdicionarQuinta_Click(object sender, EventArgs e)
+        {
+            if (AgricultorNome.Text == "" || AgricultorNumeroCC.Text == "" || AgricultorContacto.Text == "" || AgricultorQuinta.Text == "")
+            {
+                MessageBox.Show("Por favor preencha todos os campos!");
+            }
+            else
+            {
+                try
+                {
+                    AddAgricultor(AgricultorNome.Text, int.Parse(AgricultorNumeroCC.Text), AgricultorQuinta.Text, int.Parse(AgricultorContacto.Text));
+
+                }
+
+                catch
+                (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar agricultor: " + ex.Message);
+                }
+                finally
+                {
+                    SubmeterAdicionarQuinta.Hide();
+                    QuantidadeColheitas.Show();
+                    ColheuProduto.Show();
+                    TrabalhaQuinta.Show();
+                    buttonLimparPesquisaQuinta.Show();
+                    label48.Show();
+                    label49.Show();
+                    label41.Show();
+                    label47.Show();
+                    label4.Show();
+                    PesquisarQuinta.Show();
+                    button20.Show();
+                    Agricultores.Show();
+                    ProdutosQuinta.Show();
+                    Plantas.Show();
+                    RemoverQuinta.Show();
+                    PesquisaPorNomeCliente.Show();
+                    Animais.Show();
+                    ListaAgricultores.Items.Clear();
+                    LoadAgricultor();
+                }
+            }
+        }
+        private void AddAgricultor(string nome, int numeroCC, string quinta, int contacto)
+        {
+            using (SqlCommand command = new SqlCommand("AddAgricultor", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Nome", nome));
+                command.Parameters.Add(new SqlParameter("@NumeroCC", numeroCC));
+                command.Parameters.Add(new SqlParameter("@Quinta", quinta));
+                command.Parameters.Add(new SqlParameter("@Contacto", contacto));
+                LoadAgricultor();
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Agricultor adicionado com sucesso!");
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to add farmer to database: " + ex.Message);
+                }
+            }
         }
     }
 }
