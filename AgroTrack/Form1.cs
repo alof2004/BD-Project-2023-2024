@@ -40,7 +40,7 @@ namespace AgroTrack
             LoadFiltersProduto();
             OrdenarProdutos();
 
-            Paginas.Dock = DockStyle.Fill;
+            OrdenarPor.Dock = DockStyle.Fill;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -1876,6 +1876,8 @@ namespace AgroTrack
                 TransportesNome.Text = selectedtransporte.Nome;
                 TransportesMorada.Text = selectedtransporte.Morada;
                 TransportesContacto.Text = selectedtransporte.Contacto.ToString();
+            }
+        }
 
 
         private void ColheuProduto_SelectedIndexChanged(object sender, EventArgs e)
@@ -1944,42 +1946,40 @@ namespace AgroTrack
                 try
                 {
                     AddAgricultor(AgricultorNome.Text, int.Parse(AgricultorNumeroCC.Text), AgricultorQuinta.Text, int.Parse(AgricultorContacto.Text));
-
-            }
-        }
                 }
+                catch(Exception ex)
+                        {
+                            MessageBox.Show("Erro ao adicionar agricultor: " + ex.Message);
+                        }
+                 finally
+                        {
+                            SubmeterAdicionarQuinta.Hide();
+                            QuantidadeColheitas.Show();
+                            ColheuProduto.Show();
+                            TrabalhaQuinta.Show();
+                            buttonLimparPesquisaQuinta.Show();
+                            label48.Show();
+                            label49.Show();
+                            label41.Show();
+                            label47.Show();
+                            label4.Show();
+                            PesquisarQuinta.Show();
+                            button20.Show();
+                            Agricultores.Show();
+                            ProdutosQuinta.Show();
+                            Plantas.Show();
+                            RemoverQuinta.Show();
+                            PesquisaPorNomeCliente.Show();
+                            Animais.Show();
+                            ListaAgricultores.Items.Clear();
+                            LoadAgricultor();
+                        }
+                }
+        }
 
         private void CodigoAdicionarBox_TextChanged(object sender, EventArgs e)
         {
-                catch
-                (Exception ex)
-                {
-                    MessageBox.Show("Erro ao adicionar agricultor: " + ex.Message);
-                }
-                finally
-                {
-                    SubmeterAdicionarQuinta.Hide();
-                    QuantidadeColheitas.Show();
-                    ColheuProduto.Show();
-                    TrabalhaQuinta.Show();
-                    buttonLimparPesquisaQuinta.Show();
-                    label48.Show();
-                    label49.Show();
-                    label41.Show();
-                    label47.Show();
-                    label4.Show();
-                    PesquisarQuinta.Show();
-                    button20.Show();
-                    Agricultores.Show();
-                    ProdutosQuinta.Show();
-                    Plantas.Show();
-                    RemoverQuinta.Show();
-                    PesquisaPorNomeCliente.Show();
-                    Animais.Show();
-                    ListaAgricultores.Items.Clear();
-                    LoadAgricultor();
-                }
-            }
+
         }
         private void AddAgricultor(string nome, int numeroCC, string quinta, int contacto)
         {
