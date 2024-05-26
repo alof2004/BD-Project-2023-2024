@@ -46,7 +46,6 @@
             SubmeterCliente = new Button();
             ComprouProduto = new ComboBox();
             label37 = new Label();
-            button17 = new Button();
             AdicionarCompra = new Button();
             AdicionarCliente = new Button();
             ApagarCliente = new Button();
@@ -111,7 +110,6 @@
             AgricultorNumeroCC = new TextBox();
             ListaColheitas = new ListBox();
             label28 = new Label();
-            button13 = new Button();
             button14 = new Button();
             label29 = new Label();
             label31 = new Label();
@@ -294,7 +292,6 @@
             Clientes.Controls.Add(SubmeterCliente);
             Clientes.Controls.Add(ComprouProduto);
             Clientes.Controls.Add(label37);
-            Clientes.Controls.Add(button17);
             Clientes.Controls.Add(AdicionarCompra);
             Clientes.Controls.Add(AdicionarCliente);
             Clientes.Controls.Add(ApagarCliente);
@@ -443,7 +440,7 @@
             // 
             // SubmeterCliente
             // 
-            SubmeterCliente.Location = new Point(398, 240);
+            SubmeterCliente.Location = new Point(406, 226);
             SubmeterCliente.Name = "SubmeterCliente";
             SubmeterCliente.Size = new Size(735, 47);
             SubmeterCliente.TabIndex = 77;
@@ -455,7 +452,7 @@
             // 
             ComprouProduto.FormattingEnabled = true;
             ComprouProduto.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            ComprouProduto.Location = new Point(398, 290);
+            ComprouProduto.Location = new Point(398, 359);
             ComprouProduto.Name = "ComprouProduto";
             ComprouProduto.Size = new Size(207, 33);
             ComprouProduto.TabIndex = 76;
@@ -465,24 +462,15 @@
             // label37
             // 
             label37.AutoSize = true;
-            label37.Location = new Point(398, 262);
+            label37.Location = new Point(397, 331);
             label37.Name = "label37";
             label37.Size = new Size(162, 25);
             label37.TabIndex = 75;
             label37.Text = "Comprou Produto:";
             // 
-            // button17
-            // 
-            button17.Location = new Point(956, 534);
-            button17.Name = "button17";
-            button17.Size = new Size(177, 48);
-            button17.TabIndex = 74;
-            button17.Text = "Eliminar Compra";
-            button17.UseVisualStyleBackColor = true;
-            // 
             // AdicionarCompra
             // 
-            AdicionarCompra.Location = new Point(773, 534);
+            AdicionarCompra.Location = new Point(956, 534);
             AdicionarCompra.Name = "AdicionarCompra";
             AdicionarCompra.Size = new Size(177, 47);
             AdicionarCompra.TabIndex = 73;
@@ -492,9 +480,9 @@
             // 
             // AdicionarCliente
             // 
-            AdicionarCliente.Location = new Point(398, 534);
+            AdicionarCliente.Location = new Point(621, 533);
             AdicionarCliente.Name = "AdicionarCliente";
-            AdicionarCliente.Size = new Size(187, 47);
+            AdicionarCliente.Size = new Size(162, 47);
             AdicionarCliente.TabIndex = 72;
             AdicionarCliente.Text = "Adicionar Cliente";
             AdicionarCliente.UseVisualStyleBackColor = true;
@@ -502,9 +490,9 @@
             // 
             // ApagarCliente
             // 
-            ApagarCliente.Location = new Point(591, 534);
+            ApagarCliente.Location = new Point(789, 533);
             ApagarCliente.Name = "ApagarCliente";
-            ApagarCliente.Size = new Size(176, 48);
+            ApagarCliente.Size = new Size(161, 48);
             ApagarCliente.TabIndex = 71;
             ApagarCliente.Text = "Apagar Cliente";
             ApagarCliente.UseVisualStyleBackColor = true;
@@ -512,7 +500,7 @@
             // 
             // NumeroComprasCliente
             // 
-            NumeroComprasCliente.Location = new Point(398, 470);
+            NumeroComprasCliente.Location = new Point(398, 539);
             NumeroComprasCliente.Name = "NumeroComprasCliente";
             NumeroComprasCliente.Size = new Size(207, 31);
             NumeroComprasCliente.TabIndex = 70;
@@ -521,7 +509,7 @@
             // label38
             // 
             label38.AutoSize = true;
-            label38.Location = new Point(398, 442);
+            label38.Location = new Point(398, 511);
             label38.Name = "label38";
             label38.Size = new Size(211, 25);
             label38.TabIndex = 69;
@@ -532,7 +520,7 @@
             // 
             ComprouQuinta.FormattingEnabled = true;
             ComprouQuinta.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            ComprouQuinta.Location = new Point(397, 384);
+            ComprouQuinta.Location = new Point(397, 453);
             ComprouQuinta.Name = "ComprouQuinta";
             ComprouQuinta.Size = new Size(207, 33);
             ComprouQuinta.TabIndex = 68;
@@ -542,7 +530,7 @@
             // label39
             // 
             label39.AutoSize = true;
-            label39.Location = new Point(398, 356);
+            label39.Location = new Point(398, 425);
             label39.Name = "label39";
             label39.Size = new Size(171, 25);
             label39.TabIndex = 67;
@@ -620,6 +608,7 @@
             button23.TabIndex = 55;
             button23.Text = "Limpar";
             button23.UseVisualStyleBackColor = true;
+            button23.Click += button23_Click;
             // 
             // label44
             // 
@@ -710,7 +699,6 @@
             Agricultor.Controls.Add(AgricultorNumeroCC);
             Agricultor.Controls.Add(ListaColheitas);
             Agricultor.Controls.Add(label28);
-            Agricultor.Controls.Add(button13);
             Agricultor.Controls.Add(button14);
             Agricultor.Controls.Add(label29);
             Agricultor.Controls.Add(label31);
@@ -1104,23 +1092,15 @@
             label28.TabIndex = 28;
             label28.Text = "Contacto:";
             // 
-            // button13
-            // 
-            button13.Location = new Point(27, 72);
-            button13.Name = "button13";
-            button13.Size = new Size(177, 34);
-            button13.TabIndex = 26;
-            button13.Text = "Pesquisar";
-            button13.UseVisualStyleBackColor = true;
-            // 
             // button14
             // 
-            button14.Location = new Point(210, 72);
+            button14.Location = new Point(27, 72);
             button14.Name = "button14";
-            button14.Size = new Size(176, 34);
+            button14.Size = new Size(359, 34);
             button14.TabIndex = 25;
             button14.Text = "Limpar";
             button14.UseVisualStyleBackColor = true;
+            button14.Click += button14_Click;
             // 
             // label29
             // 
@@ -2554,7 +2534,6 @@
         private TabPage Agricultor;
         private ListBox ListaColheitas;
         private Label label28;
-        private Button button13;
         private Button button14;
         private Label label29;
         private Label label31;
@@ -2581,7 +2560,6 @@
         private Label label36;
         private ComboBox ComprouProduto;
         private Label label37;
-        private Button button17;
         private Button AdicionarCompra;
         private Button AdicionarCliente;
         private Button ApagarCliente;

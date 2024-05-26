@@ -773,7 +773,7 @@ namespace AgroTrack
 
         private void buttonLimparPesquisaQuinta_Click(object sender, EventArgs e)
         {
-            PesquisarQuinta.Text = string.Empty;
+            PesquisarQuinta.Text = "";
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -2014,7 +2014,6 @@ namespace AgroTrack
         private void AddAgricultor_Click(object sender, EventArgs e)
         {
             // Hide controls
-            button13.Hide();
             ListaAgricultores.Hide();
             textBox18.Hide();
             OrdenarAgricultores.Hide();
@@ -2127,7 +2126,6 @@ namespace AgroTrack
                     AgricultorContacto.Text = "";
                     AgricultorQuinta.Text = "";
                     button15.Show();
-                    button13.Show();
                     button14.Show();
                     label29.Show();
                     label36.Show();
@@ -2218,7 +2216,6 @@ namespace AgroTrack
             AgricultorContacto.Text = "";
             AgricultorQuinta.Text = "";
             button15.Hide();
-            button13.Hide();
             button14.Hide();
             label29.Hide();
             label36.Hide();
@@ -2300,7 +2297,6 @@ namespace AgroTrack
                     AddColheitaValidadeLabel.Hide();
                     SubmeterColheita.Hide();
                     button15.Show();
-                    button13.Show();
                     button14.Show();
                     label29.Show();
                     label36.Show();
@@ -2634,7 +2630,6 @@ namespace AgroTrack
             ListaCompras.Hide();
             ApagarCliente.Hide();
             AdicionarCompra.Hide();
-            button17.Hide();
             SubmeterCliente.Show();
 
 
@@ -2688,7 +2683,6 @@ namespace AgroTrack
                     ListaCompras.Show();
                     ApagarCliente.Show();
                     AdicionarCompra.Show();
-                    button17.Show();
                     ListaClientes.Items.Clear();
                     LoadClientes();
                 }
@@ -2771,7 +2765,6 @@ namespace AgroTrack
             ListaCompras.Hide();
             ApagarCliente.Hide();
             AdicionarCompra.Hide();
-            button17.Hide();
             NomeClientes.Hide();
             ContactoCliente.Hide();
             CCclientes.Hide();
@@ -2838,7 +2831,6 @@ namespace AgroTrack
                     ListaCompras.Show();
                     ApagarCliente.Show();
                     AdicionarCompra.Show();
-                    button17.Show();
                     NomeClientes.Show();
                     ContactoCliente.Show();
                     CCclientes.Show();
@@ -3103,5 +3095,14 @@ namespace AgroTrack
 
         }
 
+        private void button23_Click(object sender, EventArgs e)
+        {
+            PesquisaPorNomeCliente.Text = "";
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            textBox18.Text = "";
+        }
     }
 }
