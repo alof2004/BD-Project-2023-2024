@@ -2987,19 +2987,30 @@ namespace AgroTrack
         {
             SqlCommand cmd = new SqlCommand("AgroTrack.OrdenarAgricultores", cn) { CommandType = CommandType.StoredProcedure };
             cmd.Parameters.AddWithValue("@Order", order);
-                }
-                catch (Exception ex)
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                ListaAgricultores.Items.Clear(); // Clear previous items
+                while (reader.Read())
                 {
-                    MessageBox.Show("Failed to add farmer to database: " + ex.Message);
+                    Agricultores agricultor = new Agricultores
+                    {
+                        Id_Trabalhador = (int)reader["Id_Trabalhador"],
+                        Pessoa_N_CartaoCidadao = (int)reader["Pessoa_N_CartaoCidadao"],
+                        Quinta_Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"],
+                        NomeQuinta = reader["NomeQuinta"].ToString(),
+                        Nome = reader["Nome"].ToString(),
+                        Contacto = (int)reader["Contacto"]
+                    };
+                    ListaAgricultores.Items.Add(agricultor);
                 }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
             }
         }
-
-        private void PesquisaPorNomeCliente_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void LoadEncomendasRealizadas(int Empresa_Id_Empresa)
         {
@@ -3091,32 +3102,6 @@ namespace AgroTrack
         {
 
         }
-    }
 
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
-                ListaAgricultores.Items.Clear(); // Clear previous items
-                while (reader.Read())
-                {
-                    Agricultores agricultor = new Agricultores
-                    {
-                        Id_Trabalhador = (int)reader["Id_Trabalhador"],
-                        Pessoa_N_CartaoCidadao = (int)reader["Pessoa_N_CartaoCidadao"],
-                        Quinta_Empresa_Id_Empresa = (int)reader["Quinta_Empresa_Id_Empresa"],
-                        NomeQuinta = reader["NomeQuinta"].ToString(),
-                        Nome = reader["Nome"].ToString(),
-                        Contacto = (int)reader["Contacto"]
-                    };
-                    ListaAgricultores.Items.Add(agricultor);
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
-            }
-        }
     }
-}
 }
