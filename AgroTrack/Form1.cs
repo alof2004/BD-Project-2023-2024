@@ -51,6 +51,20 @@ namespace AgroTrack
             TransportesBox.Hide();
             QuintaEncomenda.Hide();
             QuintaBox.Hide();
+            ConfirmarRetalhista.Hide();
+            PrazoEncomendaRetalhista.Hide();
+            PrazoBoxRetalhista.Hide();
+            MoradaRetalhista.Hide();
+            MoradaRetalhistaBox.Hide();
+            DataRetalhistaEncoemnda.Hide();
+            DataRetalhistaEncoemndabOX.Hide();
+            CompradorEncoemndaRetalhista.Hide();
+            CompradorEncoemndaRetalhistaBox.Hide();
+            EmpresaDeTransporteEncoemndaRetalhista.Hide();
+            EmpresaDeTransporteEncoemndaRetalhistaBox.Hide();
+            QuintaEncoemndaRetalhista.Hide();
+            QuintaEncoemndaRetalhistaBox.Hide();
+            ConfirmarRetalhistaEncoemnda.Hide();
 
 
             // botoes de adicionar agricultor que são escondidos no início 
@@ -3463,6 +3477,13 @@ namespace AgroTrack
             TransportesNome.Hide();
             TransportesMorada.Hide();
             TransportesContacto.Hide();
+            TipoDeEmpresaRetalhista.Hide();
+            RetalhistasTipo.Hide();
+            RetalhistasNome.Hide();
+            RetalhistasMorada.Hide();
+            RetalhistasContacto.Hide();
+
+
 
 
 
@@ -3570,6 +3591,201 @@ namespace AgroTrack
         private void button14_Click(object sender, EventArgs e)
         {
             textBox18.Text = "";
+        }
+
+        private void AdicionarRetalhistas_Click(object sender, EventArgs e)
+        {
+            RetalhistasNome.Text = "";
+            RetalhistasMorada.Text = "";
+            RetalhistasContacto.Text = "";
+
+            RetalhistasNome.ReadOnly = false;
+            RetalhistasMorada.ReadOnly = false;
+            RetalhistasContacto.ReadOnly = false;
+
+
+            ConfirmarRetalhista.Show();
+
+            dataRetalhista.Hide();
+            empresaretalhistas.Hide();
+            QuintaRetalhistaSelecao.Hide();
+            DataRetalhistasEncomenda.Hide();
+            FiltrarTransporteRetalhistas.Hide();
+            QuintasRetalhistas.Hide();
+            AdicionarRetalhistas.Hide();
+            AdicionarEncomendasRetalhista.Hide();
+            EliminarRetalhista.Hide();
+            CancelarEncoemendRetalhistas.Hide();
+            EncomendasRealizadas.Hide();
+
+
+
+
+        }
+
+        private void ConfirmarRetalhista_Click(object sender, EventArgs e)
+        {
+            if (RetalhistasNome.Text == "" || RetalhistasMorada.Text == "" || RetalhistasContacto.Text == "")
+            {
+                MessageBox.Show("Por favor preencha todos os campos!");
+            }
+            else
+            {
+                try
+                {
+                    string nome = TransportesNome.Text;
+                    string morada = TransportesMorada.Text;
+                    int contacto = int.Parse(TransportesContacto.Text);
+                    //AddRetalhista(nome, morada, contacto);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar encomenda: " + ex.Message);
+                }
+                finally
+                {
+
+                    dataRetalhista.Show();
+                    empresaretalhistas.Show();
+                    QuintaRetalhistaSelecao.Show();
+                    DataRetalhistasEncomenda.Show();
+                    FiltrarTransporteRetalhistas.Show();
+                    QuintasRetalhistas.Show();
+                    AdicionarRetalhistas.Hide();
+                    AdicionarEncomendasRetalhista.Show();
+                    EliminarRetalhista.Show();
+                    CancelarEncoemendRetalhistas.Show();
+                    EncomendasRealizadas.Show();
+                    ConfirmarRetalhista.Hide();
+
+                    RetalhistasNome.ReadOnly = true;
+                    RetalhistasMorada.ReadOnly = true;
+                    RetalhistasContacto.ReadOnly = true;
+
+                    RetalhistasNome.Text = "";
+                    RetalhistasMorada.Text = "";
+                    RetalhistasContacto.Text = "";
+
+
+
+                    ListaRetalhistas.Items.Clear();
+                    LoadRetalhistas();
+                }
+            }
+        }
+
+        private void AdicionarEncomendasRetalhista_Click(object sender, EventArgs e)
+        {
+            PrazoEncomendaRetalhista.Show();
+            PrazoBoxRetalhista.Show();
+            MoradaRetalhista.Show();
+            MoradaRetalhistaBox.Show();
+            DataRetalhistaEncoemnda.Show();
+            DataRetalhistaEncoemndabOX.Show();
+            CompradorEncoemndaRetalhista.Show();
+            CompradorEncoemndaRetalhistaBox.Show();
+            EmpresaDeTransporteEncoemndaRetalhista.Show();
+            EmpresaDeTransporteEncoemndaRetalhistaBox.Show();
+            QuintaEncoemndaRetalhista.Show();
+            QuintaEncoemndaRetalhistaBox.Show();
+            ConfirmarRetalhistaEncoemnda.Show();
+            RetalhistasTipo.Hide();
+            RetalhistasNome.Hide();
+            RetalhistasMorada.Hide();
+            RetalhistasContacto.Hide();
+            TipoDeEmpresaRetalhista.Hide();
+
+
+            AdicionarRetalhistas.Hide();
+            AdicionarEncomendasRetalhista.Hide();
+            EliminarRetalhista.Hide();
+            CancelarEncoemendRetalhistas.Hide();
+
+            dataRetalhista.Hide();
+            empresaretalhistas.Hide();
+            QuintaRetalhistaSelecao.Hide();
+            DataRetalhistasEncomenda.Hide();
+            FiltrarTransporteRetalhistas.Hide();
+            QuintasRetalhistas.Hide();
+            AdicionarRetalhistas.Hide();
+            AdicionarEncomendasRetalhista.Hide();
+            EliminarRetalhista.Hide();
+            CancelarEncoemendRetalhistas.Hide();
+            EncomendasRealizadas.Hide();
+
+            PrazoBoxRetalhista.Text = "";
+            MoradaRetalhistaBox.Text = "";
+            DataRetalhistaEncoemndabOX.Text = "";
+            CompradorEncoemndaRetalhistaBox.Text = "";
+            EmpresaDeTransporteEncoemndaRetalhistaBox.Text = "";
+            QuintaEncoemndaRetalhistaBox.Text = "";
+
+
+
+        }
+
+        private void ConfirmarRetalhistaEncoemnda_Click(object sender, EventArgs e)
+        {
+            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || CompradorEncoemndaRetalhistaBox.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "")
+            {
+                MessageBox.Show("Por favor preencha todos os campos!");
+            }
+            else
+            {
+                try
+                {
+                    string nome = TransportesNome.Text;
+                    string morada = TransportesMorada.Text;
+                    int contacto = int.Parse(TransportesContacto.Text);
+                    //AddRetalhista(nome, morada, contacto);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar encomenda: " + ex.Message);
+                }
+                finally
+                {
+                    dataRetalhista.Show();
+                    empresaretalhistas.Show();
+                    QuintaRetalhistaSelecao.Show();
+                    DataRetalhistasEncomenda.Show();
+                    FiltrarTransporteRetalhistas.Show();
+                    QuintasRetalhistas.Show();
+                    AdicionarRetalhistas.Show();
+                    AdicionarEncomendasRetalhista.Show();
+                    EliminarRetalhista.Show();
+                    CancelarEncoemendRetalhistas.Show();
+                    EncomendasRealizadas.Show();
+
+                    PrazoEncomendaRetalhista.Hide();
+                    PrazoBoxRetalhista.Hide();
+                    MoradaRetalhista.Hide();
+                    MoradaRetalhistaBox.Hide();
+                    DataRetalhistaEncoemnda.Hide();
+                    DataRetalhistaEncoemndabOX.Hide();
+                    CompradorEncoemndaRetalhista.Hide();
+                    CompradorEncoemndaRetalhistaBox.Hide();
+                    EmpresaDeTransporteEncoemndaRetalhista.Hide();
+                    EmpresaDeTransporteEncoemndaRetalhistaBox.Hide();
+                    QuintaEncoemndaRetalhista.Hide();
+                    QuintaEncoemndaRetalhistaBox.Hide();
+                    ConfirmarRetalhistaEncoemnda.Hide();
+
+                    PrazoBoxRetalhista.Text = "";
+                    MoradaRetalhistaBox.Text = "";
+                    DataRetalhistaEncoemndabOX.Text = "";
+                    CompradorEncoemndaRetalhistaBox.Text = "";
+                    EmpresaDeTransporteEncoemndaRetalhistaBox.Text = "";
+                    QuintaEncoemndaRetalhistaBox.Text = "";
+
+                    ListaRetalhistas.Items.Clear();
+                    LoadRetalhistas();
+
+
+                }
+            }
+           
+
         }
     }
 
