@@ -1,3 +1,4 @@
+DELETE FROM AgroTrack_Compra;
 DELETE FROM AgroTrack_Item;
 DELETE FROM AgroTrack_Encomenda;
 DELETE FROM AgroTrack_Colhe;
@@ -323,3 +324,10 @@ INSERT INTO AgroTrack_Item (ProdutoCodigo, Quantidade, Encomenda_Codigo) VALUES
     (3, 100, 3),
     (4, 100, 4),
     (5, 100, 5);
+
+INSERT INTO AgroTrack_Compra(Produto_codigo, Cliente_Pessoa_N_CartaoCidadao, Preco, Quantidade, Metodo_de_pagamento, ID_Quinta, DataCompra) VALUES
+    (1, 36985249, 18, 12, 'MBWay', 1, '2024-05-01'),
+    (2, 32165498, 12, 10, 'Cartão de Crédito', 2, '2024-05-21'),
+    (3, 36985217, 10, 20, 'Dinheiro', 3, '2024-05-25'),
+    (4, 65498732, 10.4, 8, 'Cartão de Débito', 4, '2024-05-26'),
+    (5, 98732165, 4, 5, 'MBWay', 5, '2024-05-27'); 

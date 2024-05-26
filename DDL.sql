@@ -205,15 +205,15 @@ create table AgroTrack_Item(
 create table AgroTrack_Compra(
 	Produto_codigo			int,
 	Cliente_Pessoa_N_CartaoCidadao	int,
-	Preco				float               not null        check(Preco > 0),
+	Preco				float               check(Preco > 0),
 	Quantidade			int					not null, 
 	Metodo_de_pagamento varchar(64)			not null,
-	ID_Quinta 			int 				not null
+	ID_Quinta 			int 				not null,
+	DataCompra		    date				not null,
 
-	PRIMARY KEY (Produto_codigo,Cliente_Pessoa_N_CartaoCidadao)
+	PRIMARY KEY (Produto_codigo,Cliente_Pessoa_N_CartaoCidadao,DataCompra)
 
 ); 
-
 
 
 alter table AgroTrack_Quinta add constraint Empresa_Id_EmpresaPk_Q foreign key(Empresa_Id_Empresa) references AgroTrack_Empresa(Id_Empresa); 
