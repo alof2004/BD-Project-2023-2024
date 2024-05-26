@@ -124,4 +124,38 @@ RETURN
     JOIN AgroTrack_Colhe c ON a.Pessoa_N_CartaoCidadao = c.Agricultor_Pessoa_N_CartaoCidadao
     WHERE c.Produto_codigo = @ProductId
 );
+GO
+DROP FUNCTION IF EXISTS AgroTrack.FiltrarClientes;
+CREATE FUNCTION AgroTrack.FiltrarClientes
+(
+    @ProdutoCodigo INT = NULL,
+    @QuintaId INT = NULL,
+    @NumeroCompras INT = NULL
+)
+RETURNS @Result TABLE 
+(
+    N_CartaoCidadao INT,
+    Nome VARCHAR(255),
+    Contacto INT
+)
+AS
+BEGIN
+    -- Inserir os resultados na tabela retornada
+    INSERT INTO @Result
+    SELECT DISTINCT p.N_CartaoCidadao, p.Nome, p.Contacto
+    FROM AgroTrack_Pessoa p
+    INNER JOIN AgroTrack_Cliente c ON p.N_CartaoCidadao = c.Pessoa_N_CartaoCidadao
+    INNER JOIN AgroTrack_Compra ac ON c.Pessoa_N_CartaoCidadao = ac.Cliente_Pessoa_N_CartaoCidadao
+    WHERE (@ProdutoCodigo IS NULL OR ac.Produto_codigo = @ProdutoCodigo)
+    AND (@QuintaId IS NULL OR ac.ID_Quinta = @QuintaId)
+    AND c.Pessoa_N_CartaoCidadao IN (
+        SELECT Cliente_Pessoa_N_CartaoCidadao
+        FROM AgroTrack_Compra
+        GROUP BY Cliente_Pessoa_N_CartaoCidadao
+        HAVING COUNT(Cliente_Pessoa_N_CartaoCidadao) >= ISNULL(@NumeroCompras, 0)
+    );
+
+    RETURN;
+END;
+GO
 

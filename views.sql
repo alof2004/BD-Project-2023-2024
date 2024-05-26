@@ -63,6 +63,13 @@ create view AgroTrack.AgriculConquinta as
 	from  ((AgroTrack_Agricultor as A join AgroTrack_Contrato as C on A.Pessoa_N_CartaoCidadao=C.Agricultor_Pessoa_N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
 go
 
+--Agricultor e Quinta e contrato
+drop view IF EXISTS AgroTrack.AgriculQuintaContrato
+go
+create view AgroTrack.AgriculQuintaContrato as
+	select C.ID, A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao, C.[Date_str], C.[Date_end], Salario, C.Descricao, Q.Empresa_Id_Empresa, E.Nome as NomeQuinta, P.Nome, P.Contacto
+	from  (((AgroTrack_Agricultor as A join AgroTrack_Contrato as C on A.Pessoa_N_CartaoCidadao=C.Agricultor_Pessoa_N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa) inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Pessoa as P on A.Pessoa_N_CartaoCidadao=P.N_CartaoCidadao
+go
 --retalhistas e Empresa
 drop view IF EXISTS AgroTrack.RetalhistasE
 go
@@ -93,7 +100,7 @@ go
 drop view IF EXISTS AgroTrack.ClienteCompra
 go
 create view AgroTrack.ClienteCompra as
-	select Cli.Pessoa_N_CartaoCidadao, Com.ID_Quinta, Com.Produto_codigo, Com.Quantidade, Com.Preco, Com.Metodo_de_pagamento,Pro.Nome, Pro.Tipo_de_Produto
+	select Cli.Pessoa_N_CartaoCidadao, Com.ID_Quinta, Com.Produto_codigo, Com.Quantidade, Com.Preco, Com.Metodo_de_pagamento,Pro.Nome, Pro.Tipo_de_Produto, Com.DataCompra
 	from  ((AgroTrack_Cliente as Cli join AgroTrack_Compra as Com on Cli.Pessoa_N_CartaoCidadao=Com.Cliente_Pessoa_N_CartaoCidadao) inner join AgroTrack_Produto as Pro on Com.Produto_codigo=Pro.Codigo)
 go
 
@@ -170,5 +177,13 @@ go
 create view AgroTrack.Contem as
 	select Contem.Quinta_Empresa_Id_Empresa, Contem.Produto_codigo, Contem.Quantidade
 	from  AgroTrack_Contem as Contem
+go
+
+--Cliente
+drop view IF EXISTS AgroTrack.Cliente
+go
+create view AgroTrack.Cliente as
+	select Cliente.Pessoa_N_CartaoCidadao, Pessoa.Nome, Pessoa.Contacto
+	from  (AgroTrack_Cliente as Cliente join AgroTrack_Pessoa as Pessoa on Cliente.Pessoa_N_CartaoCidadao=Pessoa.N_CartaoCidadao)
 go
 
