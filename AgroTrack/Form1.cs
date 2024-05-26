@@ -1642,7 +1642,7 @@ namespace AgroTrack
         //ConfirmarOperacao
         private void ConfirmarOperacao_Click(object sender, EventArgs e)
         {
-            if (CodigoAdicionarBox.Text == "" || ProdutoAdicionarBox.Text == "" || UnidadeAdicionarBox.Text == "" || ProdutoQuantidadeBox.Text == "" || ProdutoIvaBox.Text == "" || TipoAdicionarBox.Text == "" || ProdutoPrecoBox.Text == "")
+            if (ProdutoAdicionarBox.Text == "" || UnidadeAdicionarBox.Text == "" || ProdutoQuantidadeBox.Text == "" || ProdutoIvaBox.Text == "" || TipoAdicionarBox.Text == "" || ProdutoPrecoBox.Text == "")
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -1650,11 +1650,11 @@ namespace AgroTrack
             {
                 try
                 {
-                    int id_origem = GetQuintaIdByName(LocalQuintaBox.Text);
+                    int id_origem = (LocalQuintaBox.SelectedItem as QuintaOnlyName).Id_Quinta;
                     int codigo = int.Parse(CodigoAdicionarBox.Text);
-                    float preco = float.Parse(ProdutoPrecoBox.Text, CultureInfo.InvariantCulture);
-                    float iva = float.Parse(ProdutoIvaBox.Text, CultureInfo.InvariantCulture);
-                    AddProduto(codigo, id_origem, ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, iva, TipoAdicionarBox.Text, preco);
+                    double preco = double.Parse(ProdutoPrecoBox.Text);
+                    double iva = double.Parse(ProdutoIvaBox.Text);
+                    AddProduto(ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, iva, TipoAdicionarBox.Text, preco);
                 }
                 catch (Exception ex)
                 {
@@ -1707,16 +1707,14 @@ namespace AgroTrack
             }
         }
 
-        private void AddProduto(int codigo, int id_origem, string ProdutoNome, string unidademedidaValue, float IvaValue, string tipo, float preco)
+        private void AddProduto(string ProdutoNome, string unidademedidaValue, double IvaValue, string tipo, double preco)
         {
             try
             {
                 using (SqlCommand command = new SqlCommand("AddProduto", cn) { CommandType = CommandType.StoredProcedure })
                 {
                     // Adiciona os parâmetros ao comando
-                    command.Parameters.Add(new SqlParameter("@Codigo", codigo));
                     command.Parameters.Add(new SqlParameter("@NomeProduto", ProdutoNome));
-                    command.Parameters.Add(new SqlParameter("@Id_origem", id_origem));
                     command.Parameters.Add(new SqlParameter("@Tipo_de_Produto", tipo));
                     command.Parameters.Add(new SqlParameter("@Preco", preco));
                     command.Parameters.Add(new SqlParameter("@Taxa_de_iva", IvaValue));
