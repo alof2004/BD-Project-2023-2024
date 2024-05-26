@@ -156,7 +156,7 @@
             comboBox8 = new ComboBox();
             label50 = new Label();
             label51 = new Label();
-            dateTimePicker2 = new DateTimePicker();
+            DataEncomendaTransportes = new DateTimePicker();
             label52 = new Label();
             EncomendasEntrega = new ListBox();
             TransportesTipo = new TextBox();
@@ -183,7 +183,7 @@
             comboBox10 = new ComboBox();
             label59 = new Label();
             label60 = new Label();
-            dateTimePicker3 = new DateTimePicker();
+            DataRetalhistasEncomenda = new DateTimePicker();
             label61 = new Label();
             EncomendasRealizadas = new ListBox();
             RetalhistasTipo = new TextBox();
@@ -1447,7 +1447,7 @@
             Transportes.Controls.Add(comboBox8);
             Transportes.Controls.Add(label50);
             Transportes.Controls.Add(label51);
-            Transportes.Controls.Add(dateTimePicker2);
+            Transportes.Controls.Add(DataEncomendaTransportes);
             Transportes.Controls.Add(label52);
             Transportes.Controls.Add(EncomendasEntrega);
             Transportes.Controls.Add(TransportesTipo);
@@ -1571,12 +1571,14 @@
             label51.TabIndex = 54;
             label51.Text = "Empresa de Transporte";
             // 
-            // dateTimePicker2
+            // DataEncomendaTransportes
             // 
-            dateTimePicker2.Location = new Point(452, 409);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(305, 31);
-            dateTimePicker2.TabIndex = 53;
+            DataEncomendaTransportes.Location = new Point(452, 409);
+            DataEncomendaTransportes.Name = "DataEncomendaTransportes";
+            DataEncomendaTransportes.Size = new Size(305, 31);
+            DataEncomendaTransportes.TabIndex = 53;
+            DataEncomendaTransportes.Value = new DateTime(2024, 5, 26, 0, 0, 0, 0);
+            DataEncomendaTransportes.ValueChanged += DataEncomendaTransportes_ValueChanged;
             // 
             // label52
             // 
@@ -1716,7 +1718,7 @@
             Retalhistas.Controls.Add(comboBox10);
             Retalhistas.Controls.Add(label59);
             Retalhistas.Controls.Add(label60);
-            Retalhistas.Controls.Add(dateTimePicker3);
+            Retalhistas.Controls.Add(DataRetalhistasEncomenda);
             Retalhistas.Controls.Add(label61);
             Retalhistas.Controls.Add(EncomendasRealizadas);
             Retalhistas.Controls.Add(RetalhistasTipo);
@@ -1842,12 +1844,12 @@
             label60.TabIndex = 54;
             label60.Text = "Empresa de Transporte";
             // 
-            // dateTimePicker3
+            // DataRetalhistasEncomenda
             // 
-            dateTimePicker3.Location = new Point(450, 410);
-            dateTimePicker3.Name = "dateTimePicker3";
-            dateTimePicker3.Size = new Size(305, 31);
-            dateTimePicker3.TabIndex = 53;
+            DataRetalhistasEncomenda.Location = new Point(450, 410);
+            DataRetalhistasEncomenda.Name = "DataRetalhistasEncomenda";
+            DataRetalhistasEncomenda.Size = new Size(305, 31);
+            DataRetalhistasEncomenda.TabIndex = 53;
             // 
             // label61
             // 
@@ -2606,7 +2608,7 @@
         private ComboBox comboBox8;
         private Label label50;
         private Label label51;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker DataEncomendaTransportes;
         private Label label52;
         private ListBox EncomendasEntrega;
         private TextBox TransportesTipo;
@@ -2634,7 +2636,7 @@
         private ComboBox comboBox10;
         private Label label59;
         private Label label60;
-        private DateTimePicker dateTimePicker3;
+        private DateTimePicker DataRetalhistasEncomenda;
         private Label label61;
         private ListBox EncomendasRealizadas;
         private TextBox RetalhistasTipo;

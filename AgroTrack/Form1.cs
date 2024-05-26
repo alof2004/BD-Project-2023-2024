@@ -1967,7 +1967,7 @@ namespace AgroTrack
                 RetalhistasMorada.Text = selectedretalho.Morada;
                 RetalhistasContacto.Text = selectedretalho.Contacto.ToString();
 
-                LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa);
+                LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, DataRetalhistasEncomenda.Value);
 
             }
         }
@@ -1985,7 +1985,8 @@ namespace AgroTrack
                 TransportesMorada.Text = selectedtransporte.Morada;
                 TransportesContacto.Text = selectedtransporte.Contacto.ToString();
 
-                LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa);
+                LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa, DataEncomendaTransportes.Value);
+
 
             }
         }
@@ -3004,13 +3005,14 @@ namespace AgroTrack
             }
         }
 
-        private void LoadEncomendasRealizadas(int Empresa_Id_Empresa)
+        private void LoadEncomendasRealizadas(int empresaId, DateTime dataLimite)
         {
-            string query = @"SELECT DISTINCT Empresa_Id_Empresa, Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa FROM AgroTrack.EncomendaRetalhista WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;";
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa,Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id FROM AgroTrack.EmpresaEncomenda WHERE Retalhista_Empresa_Id_Empresa = @Empresa_Id_Empresa AND Entrega <= @DataLimite;";
             SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", Empresa_Id_Empresa);
+            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", empresaId);
+            cmd.Parameters.AddWithValue("@DataLimite", dataLimite);
 
-            HashSet<int> Encomendas_ids = new HashSet<int>(); // HashSet para armazenar IDs das quintas já adicionadas
+            HashSet<int> Encomendas_ids = new HashSet<int>();
 
             try
             {
@@ -3018,19 +3020,20 @@ namespace AgroTrack
                 EncomendasRealizadas.Items.Clear(); // Clear previous items
                 while (reader.Read())
                 {
-                    int Empresaid = (int)reader["Empresa_Id_Empresa"];
+                    int Empresaid = (int)reader["Retalhista_Empresa_Id_Empresa"];
                     // Verificar se o ID da quinta já foi adicionado
                     if (!Encomendas_ids.Contains(Empresaid))
                     {
                         Encomendas_ids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
-                        EncomendaRRetalhista Order = new EncomendaRRetalhista
+                        Encomenda Order = new Encomenda
                         {
                             Codigo = (int)reader["Codigo"],
                             PrazoEntrega = (int)reader["prazo_entrega"],
                             MoradaEntrega = reader["Morada_entrega"].ToString(),
-                            Entrega = (DateTime)reader["Entrega"],
+                            Entrega = DateTime.Parse(reader["Entrega"].ToString()),
                             RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
-                            NomeRetalhista = reader["Nome"].ToString()
+                            EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                            QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
 
 
                         };
@@ -3047,14 +3050,14 @@ namespace AgroTrack
         }
 
 
-
-        private void LoadEncomendasEntrega(int Empresa_Id_Empresa)
+        private void LoadEncomendasEntrega(int empresaId, DateTime dataLimite)
         {
-            string query = @"SELECT DISTINCT Empresa_Id_Empresa, Nome,Morada,Contacto, Codigo, prazo_entrega,Morada_entrega, Entrega, Empresa_De_Transportes_Id_Empresa FROM AgroTrack.EncomendaTransportes WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;";
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa,Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id FROM AgroTrack.EmpresaEncomenda WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa AND Entrega <= @DataLimite;";
             SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", Empresa_Id_Empresa);
+            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", empresaId);
+            cmd.Parameters.AddWithValue("@DataLimite", dataLimite);
 
-            HashSet<int> Encomendasids = new HashSet<int>(); // HashSet para armazenar IDs das quintas já adicionadas
+            HashSet<int> Encomendas_ids = new HashSet<int>();
 
             try
             {
@@ -3062,19 +3065,20 @@ namespace AgroTrack
                 EncomendasEntrega.Items.Clear(); // Clear previous items
                 while (reader.Read())
                 {
-                    int Empresaid = (int)reader["Empresa_Id_Empresa"];
+                    int Empresaid = (int)reader["Empresa_De_Transportes_Id_Empresa"];
                     // Verificar se o ID da quinta já foi adicionado
-                    if (!Encomendasids.Contains(Empresaid))
+                    if (!Encomendas_ids.Contains(Empresaid))
                     {
-                        Encomendasids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
-                        EncomendaEmpresaTransporte Order = new EncomendaEmpresaTransporte
+                        Encomendas_ids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
+                        Encomenda Order = new Encomenda
                         {
                             Codigo = (int)reader["Codigo"],
                             PrazoEntrega = (int)reader["prazo_entrega"],
                             MoradaEntrega = reader["Morada_entrega"].ToString(),
-                            Entrega = (DateTime)reader["Entrega"],
-                            TransporteEmpresaId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
-                            NomeEmpresa = reader["Nome"].ToString()
+                            Entrega = DateTime.Parse(reader["Entrega"].ToString()),
+                            RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
+                            EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                            QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
 
 
                         };
@@ -3090,14 +3094,31 @@ namespace AgroTrack
             }
         }
 
+
         private void label59_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void DataEncomendaTransportes_ValueChanged(object sender, EventArgs e)
+        {
+            if (ListaTransportes.SelectedItem is Transportes selectedTransporte)
+            {
+                LoadEncomendasEntrega(selectedTransporte.Empresa_Id_Empresa, DataEncomendaTransportes.Value);
+            }
+        }
 
         }
 
         private void button23_Click(object sender, EventArgs e)
         {
             PesquisaPorNomeCliente.Text = "";
+        private void DataRetalhistasEncomenda_ValueChanged(object sender, EventArgs e)
+        {
+            if (ListaRetalhistas.SelectedItem is Retalhista selectedretalho)
+            {
+                LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, DataRetalhistasEncomenda.Value);
+            }
         }
 
         private void button14_Click(object sender, EventArgs e)

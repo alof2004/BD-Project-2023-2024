@@ -197,33 +197,34 @@ INSERT INTO AgroTrack_Agricultor(Id_Trabalhador, Pessoa_N_CartaoCidadao,Quinta_E
 (2, 36985214, 5);
 
 INSERT INTO AgroTrack_Produto(Nome, Id_origem, Tipo_de_Produto, Codigo, Preco, Taxa_de_iva, Unidade_medida) VALUES
-('Maçã', 1, 1, 1, 1.5, 0.23, 'kg'),
-('Laranja', 5, 1, 2, 1.2, 0.23, 'kg'),
-('Alface', 2, 2, 3, 0.5, 0.13, 'unidade'),
-('Pêra', 1, 1, 4, 1.3, 0.23, 'kg'),
-('Tomate', 2, 2, 5, 0.8, 0.13, 'kg'),
-('Milho', 3, 2, 6, 0.6, 0.13, 'kg'),
-('Cereja', 4, 1, 7, 2.0, 0.23, 'kg'),
-('Melão', 5, 1, 8, 1.0, 0.13, 'unidade'),
-('Banana', 1, 1, 9, 1.5, 0.23, 'kg'),
-('Cenoura', 2, 2, 10, 0.4, 0.13, 'kg'),
-('Abóbora', 3, 2, 11, 0.7, 0.13, 'kg'),
-('Morango', 4, 1, 12, 2.5, 0.23, 'kg'),
-('Vinho', 5, 1, 13, 3.0, 0.23, 'litro'),
-('Feijão', 1, 2, 14, 0.8, 0.13, 'kg'),
-('Cebola', 2, 2, 15, 0.6, 0.13, 'kg'),
-('Batata', 3, 2, 16, 0.5, 0.13, 'kg'),
-('Pato', 4, 3, 17, 5.0, 0.23, 'kg'),
-('Ganso', 5, 3, 18, 4.0, 0.23, 'kg'),
-('Galinha', 1, 3, 19, 3.0, 0.23, 'kg'),
-('Peru', 2, 3, 20, 6.0, 0.23, 'kg'),
-('Vaca', 3, 3, 21, 7.0, 0.23, 'kg'),
-('Ovelha', 4, 3, 22, 8.0, 0.23, 'kg'),
-('Porco', 5, 3, 23, 9.0, 0.23, 'kg'),
-('Frango', 1, 3, 24, 3.0, 0.23, 'kg'),
-('Leite', 2, 3, 25, 10.0, 0.23, 'litro'),
-('Cabra', 3, 3, 26, 8.0, 0.23, 'kg'),
-('Coelho', 5, 3, 28, 2.0, 0.23, 'kg');
+('Maçã', 1, '1', 1, 1.5, 0.23, 'kg'),
+('Laranja', 5, '1', 2, 1.2, 0.23, 'kg'),
+('Alface', 2, '2', 3, 0.5, 0.13, 'unidade'),
+('Pêra', 1, '1', 4, 1.3, 0.23, 'kg'),
+('Tomate', 2, '2', 5, 0.8, 0.13, 'kg'),
+('Milho', 3, '2', 6, 0.6, 0.13, 'kg'),
+('Cereja', 4, '1', 7, 2.0, 0.23, 'kg'),
+('Melão', 5, '1', 8, 1.0, 0.13, 'unidade'),
+('Banana', 1, '1', 9, 1.5, 0.23, 'kg'),
+('Cenoura', 2, '2', 10, 0.4, 0.13, 'kg'),
+('Abóbora', 3, '2', 11, 0.7, 0.13, 'kg'),
+('Morango', 4, '1', 12, 2.5, 0.23, 'kg'),
+('Vinho', 5, '1', 13, 3.0, 0.23, 'litro'),
+('Feijão', 1, '2', 14, 0.8, 0.13, 'kg'),
+('Cebola', 2, '2', 15, 0.6, 0.13, 'kg'),
+('Batata', 3, '2', 16, 0.5, 0.13, 'kg'),
+('Pato', 4, '3', 17, 5.0, 0.23, 'kg'),
+('Ganso', 5, '3', 18, 4.0, 0.23, 'kg'),
+('Galinha', 1, '3', 19, 3.0, 0.23, 'kg'),
+('Peru', 2, '3', 20, 6.0, 0.23, 'kg'),
+('Vaca', 3, '3', 21, 7.0, 0.23, 'kg'),
+('Ovelha', 4, '3', 22, 8.0, 0.23, 'kg'),
+('Porco', 5, '3', 23, 9.0, 0.23, 'kg'),
+('Frango', 1, '3', 24, 3.0, 0.23, 'kg'),
+('Leite', 2, '3', 25, 10.0, 0.23, 'litro'),
+('Cabra', 3, '3', 26, 8.0, 0.23, 'kg'),
+('Coelho', 5, '3', 28, 2.0, 0.23, 'kg');
+
 
 
 UPDATE AgroTrack_Produto
@@ -310,11 +311,12 @@ INSERT INTO AgroTrack_Colhe (Agricultor_Pessoa_N_CartaoCidadao, Duracao_colheita
     (95135786, 2.5, 100, 16, '2024-06-01');
 
 INSERT INTO AgroTrack_Encomenda (Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id) VALUES
-    (1, 2, 'Rua Principal, 250', '2024-06-01', 11, 6, 1),
-    (2, 3, 'Avenida Central, 260', '2024-06-02', 12, 7, 2),
+    (1, 2, 'Rua Principal, 250', '2024-05-01', 11, 6, 1),
+    (2, 3, 'Avenida Central, 260', '2024-05-02', 12, 7, 2),
     (3, 4, 'Travessa das Utilidades, 270', '2024-06-03', 13, 8, 3),
-    (4, 5, 'Rua das Novidades, 280', '2024-06-04', 14, 9, 4),
-    (5, 6, 'Avenida das Mercadorias, 290', '2024-06-05', 15, 10, 5);
+    (4, 5, 'Rua das Novidades, 280', '2024-07-03', 14, 9, 4),
+    (5, 6, 'Avenida das Mercadorias, 290', '2024-09-12', 15, 10, 5);
+
 
 INSERT INTO AgroTrack_Item (ProdutoCodigo, Quantidade, Encomenda_Codigo) VALUES
     (1, 100, 1),
