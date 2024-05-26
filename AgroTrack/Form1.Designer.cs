@@ -147,25 +147,36 @@
             Animais = new ListBox();
             ListaQuintas = new ListBox();
             Transportes = new TabPage();
-            button19 = new Button();
-            button21 = new Button();
-            button24 = new Button();
-            button25 = new Button();
-            button26 = new Button();
-            textBox1 = new TextBox();
-            label30 = new Label();
-            comboBox7 = new ComboBox();
-            comboBox8 = new ComboBox();
-            label50 = new Label();
-            label51 = new Label();
+            MoradaBox = new TextBox();
+            EntregaBox = new TextBox();
+            RetalhistaBox = new TextBox();
+            TransportesBox = new TextBox();
+            QuintaBox = new TextBox();
+            QuintaEncomenda = new Label();
+            TransportesEncomenda = new Label();
+            RetalhistaEncomenda = new Label();
+            EntregaEncomenda = new Label();
+            MoradaEncomenda = new Label();
+            PrazoBox = new TextBox();
+            PrazoEncomenda = new Label();
+            ConfirmarEncomenda = new Button();
+            ConfirmarEmpresa = new Button();
+            EliminarEmpresaTransportes = new Button();
+            CancelarEncoemndaTransportes = new Button();
+            AdicionarEncomendaTransportes = new Button();
+            AdicionarEmpresa = new Button();
+            QuintasTransportes = new ComboBox();
+            FiltrarRetalhistaTransportes = new ComboBox();
+            OrigemTransportes = new Label();
+            EmpresaRetalhista = new Label();
             DataEncomendaTransportes = new DateTimePicker();
-            label52 = new Label();
+            FiltrarPorDataTransportes = new Label();
             EncomendasEntrega = new ListBox();
             TransportesTipo = new TextBox();
-            label53 = new Label();
-            label54 = new Label();
-            label55 = new Label();
-            label56 = new Label();
+            TransportesIdEmpresa = new Label();
+            ContactoTransportes = new Label();
+            MoradaTransportes = new Label();
+            NomeTransportes = new Label();
             TransportesContacto = new TextBox();
             TransportesMorada = new TextBox();
             TransportesNome = new TextBox();
@@ -178,11 +189,8 @@
             button30 = new Button();
             button31 = new Button();
             button32 = new Button();
-            button33 = new Button();
-            textBox16 = new TextBox();
-            label58 = new Label();
-            comboBox9 = new ComboBox();
-            comboBox10 = new ComboBox();
+            QuintasRetalhistas = new ComboBox();
+            FiltrarTransporteRetalhistas = new ComboBox();
             label59 = new Label();
             label60 = new Label();
             DataRetalhistasEncomenda = new DateTimePicker();
@@ -192,7 +200,7 @@
             label62 = new Label();
             label63 = new Label();
             label64 = new Label();
-            label65 = new Label();
+            NomeRetalhista = new Label();
             RetalhistasContacto = new TextBox();
             RetalhistasMorada = new TextBox();
             RetalhistasNome = new TextBox();
@@ -1456,25 +1464,36 @@
             // 
             // Transportes
             // 
-            Transportes.Controls.Add(button19);
-            Transportes.Controls.Add(button21);
-            Transportes.Controls.Add(button24);
-            Transportes.Controls.Add(button25);
-            Transportes.Controls.Add(button26);
-            Transportes.Controls.Add(textBox1);
-            Transportes.Controls.Add(label30);
-            Transportes.Controls.Add(comboBox7);
-            Transportes.Controls.Add(comboBox8);
-            Transportes.Controls.Add(label50);
-            Transportes.Controls.Add(label51);
+            Transportes.Controls.Add(MoradaBox);
+            Transportes.Controls.Add(EntregaBox);
+            Transportes.Controls.Add(RetalhistaBox);
+            Transportes.Controls.Add(TransportesBox);
+            Transportes.Controls.Add(QuintaBox);
+            Transportes.Controls.Add(QuintaEncomenda);
+            Transportes.Controls.Add(TransportesEncomenda);
+            Transportes.Controls.Add(RetalhistaEncomenda);
+            Transportes.Controls.Add(EntregaEncomenda);
+            Transportes.Controls.Add(MoradaEncomenda);
+            Transportes.Controls.Add(PrazoBox);
+            Transportes.Controls.Add(PrazoEncomenda);
+            Transportes.Controls.Add(ConfirmarEncomenda);
+            Transportes.Controls.Add(ConfirmarEmpresa);
+            Transportes.Controls.Add(EliminarEmpresaTransportes);
+            Transportes.Controls.Add(CancelarEncoemndaTransportes);
+            Transportes.Controls.Add(AdicionarEncomendaTransportes);
+            Transportes.Controls.Add(AdicionarEmpresa);
+            Transportes.Controls.Add(QuintasTransportes);
+            Transportes.Controls.Add(FiltrarRetalhistaTransportes);
+            Transportes.Controls.Add(OrigemTransportes);
+            Transportes.Controls.Add(EmpresaRetalhista);
             Transportes.Controls.Add(DataEncomendaTransportes);
-            Transportes.Controls.Add(label52);
+            Transportes.Controls.Add(FiltrarPorDataTransportes);
             Transportes.Controls.Add(EncomendasEntrega);
             Transportes.Controls.Add(TransportesTipo);
-            Transportes.Controls.Add(label53);
-            Transportes.Controls.Add(label54);
-            Transportes.Controls.Add(label55);
-            Transportes.Controls.Add(label56);
+            Transportes.Controls.Add(TransportesIdEmpresa);
+            Transportes.Controls.Add(ContactoTransportes);
+            Transportes.Controls.Add(MoradaTransportes);
+            Transportes.Controls.Add(NomeTransportes);
             Transportes.Controls.Add(TransportesContacto);
             Transportes.Controls.Add(TransportesMorada);
             Transportes.Controls.Add(TransportesNome);
@@ -1489,107 +1508,206 @@
             Transportes.Text = "Transportes";
             Transportes.UseVisualStyleBackColor = true;
             // 
-            // button19
+            // MoradaBox
             // 
-            button19.Location = new Point(579, 534);
-            button19.Name = "button19";
-            button19.Size = new Size(264, 34);
-            button19.TabIndex = 64;
-            button19.Text = "Eliminar Empresa";
-            button19.UseVisualStyleBackColor = true;
+            MoradaBox.Location = new Point(531, 76);
+            MoradaBox.Name = "MoradaBox";
+            MoradaBox.Size = new Size(550, 31);
+            MoradaBox.TabIndex = 78;
             // 
-            // button21
+            // EntregaBox
             // 
-            button21.Location = new Point(849, 534);
-            button21.Name = "button21";
-            button21.Size = new Size(264, 34);
-            button21.TabIndex = 63;
-            button21.Text = "Cancelar Encomenda";
-            button21.UseVisualStyleBackColor = true;
+            EntregaBox.Location = new Point(594, 128);
+            EntregaBox.Name = "EntregaBox";
+            EntregaBox.Size = new Size(487, 31);
+            EntregaBox.TabIndex = 77;
             // 
-            // button24
+            // RetalhistaBox
             // 
-            button24.Location = new Point(309, 534);
-            button24.Name = "button24";
-            button24.Size = new Size(264, 34);
-            button24.TabIndex = 62;
-            button24.Text = "Adicionar Encomenda";
-            button24.UseVisualStyleBackColor = true;
+            RetalhistaBox.Location = new Point(551, 179);
+            RetalhistaBox.Name = "RetalhistaBox";
+            RetalhistaBox.Size = new Size(532, 31);
+            RetalhistaBox.TabIndex = 76;
             // 
-            // button25
+            // TransportesBox
             // 
-            button25.Location = new Point(39, 534);
-            button25.Name = "button25";
-            button25.Size = new Size(264, 34);
-            button25.TabIndex = 61;
-            button25.Text = "Adicionar Empresa";
-            button25.UseVisualStyleBackColor = true;
+            TransportesBox.Location = new Point(645, 221);
+            TransportesBox.Name = "TransportesBox";
+            TransportesBox.Size = new Size(438, 31);
+            TransportesBox.TabIndex = 75;
             // 
-            // button26
+            // QuintaBox
             // 
-            button26.Location = new Point(1037, 476);
-            button26.Name = "button26";
-            button26.Size = new Size(46, 33);
-            button26.TabIndex = 60;
-            button26.Text = "Ir";
-            button26.UseVisualStyleBackColor = true;
+            QuintaBox.Location = new Point(598, 264);
+            QuintaBox.Name = "QuintaBox";
+            QuintaBox.Size = new Size(485, 31);
+            QuintaBox.TabIndex = 74;
             // 
-            // textBox1
+            // QuintaEncomenda
             // 
-            textBox1.Location = new Point(776, 477);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(263, 31);
-            textBox1.TabIndex = 59;
+            QuintaEncomenda.AutoSize = true;
+            QuintaEncomenda.Font = new Font("Segoe UI", 8.25F);
+            QuintaEncomenda.Location = new Point(452, 269);
+            QuintaEncomenda.Name = "QuintaEncomenda";
+            QuintaEncomenda.Size = new Size(148, 23);
+            QuintaEncomenda.TabIndex = 73;
+            QuintaEncomenda.Text = "Quinta produtora:";
             // 
-            // label30
+            // TransportesEncomenda
             // 
-            label30.AutoSize = true;
-            label30.Font = new Font("Segoe UI", 9F);
-            label30.Location = new Point(776, 447);
-            label30.Name = "label30";
-            label30.Size = new Size(70, 25);
-            label30.TabIndex = 58;
-            label30.Text = "Cliente ";
+            TransportesEncomenda.AutoSize = true;
+            TransportesEncomenda.Font = new Font("Segoe UI", 8.25F);
+            TransportesEncomenda.Location = new Point(452, 226);
+            TransportesEncomenda.Name = "TransportesEncomenda";
+            TransportesEncomenda.Size = new Size(187, 23);
+            TransportesEncomenda.TabIndex = 72;
+            TransportesEncomenda.Text = "Empresa de transporte:";
             // 
-            // comboBox7
+            // RetalhistaEncomenda
             // 
-            comboBox7.FormattingEnabled = true;
-            comboBox7.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
-            comboBox7.Location = new Point(452, 477);
-            comboBox7.Name = "comboBox7";
-            comboBox7.Size = new Size(307, 33);
-            comboBox7.TabIndex = 57;
-            comboBox7.Text = "Seleciona uma quinta";
+            RetalhistaEncomenda.AutoSize = true;
+            RetalhistaEncomenda.Font = new Font("Segoe UI", 8.25F);
+            RetalhistaEncomenda.Location = new Point(452, 184);
+            RetalhistaEncomenda.Name = "RetalhistaEncomenda";
+            RetalhistaEncomenda.Size = new Size(101, 23);
+            RetalhistaEncomenda.TabIndex = 71;
+            RetalhistaEncomenda.Text = "Comprador:";
             // 
-            // comboBox8
+            // EntregaEncomenda
             // 
-            comboBox8.FormattingEnabled = true;
-            comboBox8.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            comboBox8.Location = new Point(776, 407);
-            comboBox8.Name = "comboBox8";
-            comboBox8.Size = new Size(307, 33);
-            comboBox8.TabIndex = 56;
-            comboBox8.Text = "Seleciona uma empresa";
+            EntregaEncomenda.AutoSize = true;
+            EntregaEncomenda.Font = new Font("Segoe UI", 8.25F);
+            EntregaEncomenda.Location = new Point(452, 133);
+            EntregaEncomenda.Name = "EntregaEncomenda";
+            EntregaEncomenda.Size = new Size(138, 23);
+            EntregaEncomenda.TabIndex = 70;
+            EntregaEncomenda.Text = "Data de entrega:";
             // 
-            // label50
+            // MoradaEncomenda
             // 
-            label50.AutoSize = true;
-            label50.Font = new Font("Segoe UI", 9F);
-            label50.Location = new Point(452, 447);
-            label50.Name = "label50";
-            label50.Size = new Size(77, 25);
-            label50.TabIndex = 55;
-            label50.Text = "Origem ";
+            MoradaEncomenda.AutoSize = true;
+            MoradaEncomenda.Font = new Font("Segoe UI", 8.25F);
+            MoradaEncomenda.Location = new Point(452, 81);
+            MoradaEncomenda.Name = "MoradaEncomenda";
+            MoradaEncomenda.Size = new Size(73, 23);
+            MoradaEncomenda.TabIndex = 69;
+            MoradaEncomenda.Text = "Morada:";
             // 
-            // label51
+            // PrazoBox
             // 
-            label51.AutoSize = true;
-            label51.Font = new Font("Segoe UI", 9F);
-            label51.Location = new Point(776, 372);
-            label51.Name = "label51";
-            label51.Size = new Size(193, 25);
-            label51.TabIndex = 54;
-            label51.Text = "Empresa de Transporte";
+            PrazoBox.Location = new Point(658, 24);
+            PrazoBox.Name = "PrazoBox";
+            PrazoBox.Size = new Size(423, 31);
+            PrazoBox.TabIndex = 68;
+            // 
+            // PrazoEncomenda
+            // 
+            PrazoEncomenda.AutoSize = true;
+            PrazoEncomenda.Font = new Font("Segoe UI", 8.25F);
+            PrazoEncomenda.Location = new Point(452, 29);
+            PrazoEncomenda.Name = "PrazoEncomenda";
+            PrazoEncomenda.Size = new Size(200, 23);
+            PrazoEncomenda.TabIndex = 67;
+            PrazoEncomenda.Text = "Prazo para entrega(dias):";
+            // 
+            // ConfirmarEncomenda
+            // 
+            ConfirmarEncomenda.Location = new Point(452, 184);
+            ConfirmarEncomenda.Name = "ConfirmarEncomenda";
+            ConfirmarEncomenda.Size = new Size(629, 39);
+            ConfirmarEncomenda.TabIndex = 66;
+            ConfirmarEncomenda.Text = "Confirmar";
+            ConfirmarEncomenda.UseVisualStyleBackColor = true;
+            ConfirmarEncomenda.Click += ConfirmarEncomenda_Click;
+            // 
+            // ConfirmarEmpresa
+            // 
+            ConfirmarEmpresa.Location = new Point(452, 330);
+            ConfirmarEmpresa.Name = "ConfirmarEmpresa";
+            ConfirmarEmpresa.Size = new Size(629, 39);
+            ConfirmarEmpresa.TabIndex = 65;
+            ConfirmarEmpresa.Text = "Confirmar ";
+            ConfirmarEmpresa.UseVisualStyleBackColor = true;
+            ConfirmarEmpresa.Click += ConfirmarEmpresa_Click;
+            // 
+            // EliminarEmpresaTransportes
+            // 
+            EliminarEmpresaTransportes.Location = new Point(579, 534);
+            EliminarEmpresaTransportes.Name = "EliminarEmpresaTransportes";
+            EliminarEmpresaTransportes.Size = new Size(264, 34);
+            EliminarEmpresaTransportes.TabIndex = 64;
+            EliminarEmpresaTransportes.Text = "Eliminar Empresa";
+            EliminarEmpresaTransportes.UseVisualStyleBackColor = true;
+            // 
+            // CancelarEncoemndaTransportes
+            // 
+            CancelarEncoemndaTransportes.Location = new Point(849, 534);
+            CancelarEncoemndaTransportes.Name = "CancelarEncoemndaTransportes";
+            CancelarEncoemndaTransportes.Size = new Size(264, 34);
+            CancelarEncoemndaTransportes.TabIndex = 63;
+            CancelarEncoemndaTransportes.Text = "Cancelar Encomenda";
+            CancelarEncoemndaTransportes.UseVisualStyleBackColor = true;
+            // 
+            // AdicionarEncomendaTransportes
+            // 
+            AdicionarEncomendaTransportes.Location = new Point(309, 534);
+            AdicionarEncomendaTransportes.Name = "AdicionarEncomendaTransportes";
+            AdicionarEncomendaTransportes.Size = new Size(264, 34);
+            AdicionarEncomendaTransportes.TabIndex = 62;
+            AdicionarEncomendaTransportes.Text = "Adicionar Encomenda";
+            AdicionarEncomendaTransportes.UseVisualStyleBackColor = true;
+            AdicionarEncomendaTransportes.Click += AdicionarEncomendaTransportes_Click;
+            // 
+            // AdicionarEmpresa
+            // 
+            AdicionarEmpresa.Location = new Point(39, 534);
+            AdicionarEmpresa.Name = "AdicionarEmpresa";
+            AdicionarEmpresa.Size = new Size(264, 34);
+            AdicionarEmpresa.TabIndex = 61;
+            AdicionarEmpresa.Text = "Adicionar Empresa";
+            AdicionarEmpresa.UseVisualStyleBackColor = true;
+            AdicionarEmpresa.Click += AdicionarEmpresa_Click;
+            // 
+            // QuintasTransportes
+            // 
+            QuintasTransportes.FormattingEnabled = true;
+            QuintasTransportes.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
+            QuintasTransportes.Location = new Point(614, 473);
+            QuintasTransportes.Name = "QuintasTransportes";
+            QuintasTransportes.Size = new Size(307, 33);
+            QuintasTransportes.TabIndex = 57;
+            QuintasTransportes.Text = "Seleciona uma quinta";
+            QuintasTransportes.SelectedIndexChanged += QuintasTransportes_SelectedIndexChanged;
+            // 
+            // FiltrarRetalhistaTransportes
+            // 
+            FiltrarRetalhistaTransportes.FormattingEnabled = true;
+            FiltrarRetalhistaTransportes.Location = new Point(776, 407);
+            FiltrarRetalhistaTransportes.Name = "FiltrarRetalhistaTransportes";
+            FiltrarRetalhistaTransportes.Size = new Size(307, 33);
+            FiltrarRetalhistaTransportes.TabIndex = 56;
+            FiltrarRetalhistaTransportes.Text = "Seleciona um Retalhista";
+            FiltrarRetalhistaTransportes.SelectedIndexChanged += FiltrarRetalhistaTransportes_SelectedIndexChanged;
+            // 
+            // OrigemTransportes
+            // 
+            OrigemTransportes.AutoSize = true;
+            OrigemTransportes.Font = new Font("Segoe UI", 9F);
+            OrigemTransportes.Location = new Point(729, 443);
+            OrigemTransportes.Name = "OrigemTransportes";
+            OrigemTransportes.Size = new Size(77, 25);
+            OrigemTransportes.TabIndex = 55;
+            OrigemTransportes.Text = "Origem ";
+            // 
+            // EmpresaRetalhista
+            // 
+            EmpresaRetalhista.AutoSize = true;
+            EmpresaRetalhista.Font = new Font("Segoe UI", 9F);
+            EmpresaRetalhista.Location = new Point(776, 372);
+            EmpresaRetalhista.Name = "EmpresaRetalhista";
+            EmpresaRetalhista.Size = new Size(184, 25);
+            EmpresaRetalhista.TabIndex = 54;
+            EmpresaRetalhista.Text = "Retalhista Comprador";
             // 
             // DataEncomendaTransportes
             // 
@@ -1600,15 +1718,15 @@
             DataEncomendaTransportes.Value = new DateTime(2024, 5, 26, 0, 0, 0, 0);
             DataEncomendaTransportes.ValueChanged += DataEncomendaTransportes_ValueChanged;
             // 
-            // label52
+            // FiltrarPorDataTransportes
             // 
-            label52.AutoSize = true;
-            label52.Font = new Font("Segoe UI", 9F);
-            label52.Location = new Point(452, 372);
-            label52.Name = "label52";
-            label52.Size = new Size(129, 25);
-            label52.TabIndex = 52;
-            label52.Text = "Filtrar por data";
+            FiltrarPorDataTransportes.AutoSize = true;
+            FiltrarPorDataTransportes.Font = new Font("Segoe UI", 9F);
+            FiltrarPorDataTransportes.Location = new Point(452, 372);
+            FiltrarPorDataTransportes.Name = "FiltrarPorDataTransportes";
+            FiltrarPorDataTransportes.Size = new Size(129, 25);
+            FiltrarPorDataTransportes.TabIndex = 52;
+            FiltrarPorDataTransportes.Text = "Filtrar por data";
             // 
             // EncomendasEntrega
             // 
@@ -1627,45 +1745,45 @@
             TransportesTipo.TabIndex = 50;
             TransportesTipo.Text = "Transporte de Mercadorias";
             // 
-            // label53
+            // TransportesIdEmpresa
             // 
-            label53.AutoSize = true;
-            label53.Font = new Font("Segoe UI", 9F);
-            label53.Location = new Point(452, 192);
-            label53.Name = "label53";
-            label53.Size = new Size(149, 25);
-            label53.TabIndex = 49;
-            label53.Text = "Tipo de Empresa:";
+            TransportesIdEmpresa.AutoSize = true;
+            TransportesIdEmpresa.Font = new Font("Segoe UI", 9F);
+            TransportesIdEmpresa.Location = new Point(452, 192);
+            TransportesIdEmpresa.Name = "TransportesIdEmpresa";
+            TransportesIdEmpresa.Size = new Size(149, 25);
+            TransportesIdEmpresa.TabIndex = 49;
+            TransportesIdEmpresa.Text = "Tipo de Empresa:";
             // 
-            // label54
+            // ContactoTransportes
             // 
-            label54.AutoSize = true;
-            label54.Font = new Font("Segoe UI", 9F);
-            label54.Location = new Point(452, 133);
-            label54.Name = "label54";
-            label54.Size = new Size(88, 25);
-            label54.TabIndex = 48;
-            label54.Text = "Contacto:";
+            ContactoTransportes.AutoSize = true;
+            ContactoTransportes.Font = new Font("Segoe UI", 9F);
+            ContactoTransportes.Location = new Point(452, 133);
+            ContactoTransportes.Name = "ContactoTransportes";
+            ContactoTransportes.Size = new Size(88, 25);
+            ContactoTransportes.TabIndex = 48;
+            ContactoTransportes.Text = "Contacto:";
             // 
-            // label55
+            // MoradaTransportes
             // 
-            label55.AutoSize = true;
-            label55.Font = new Font("Segoe UI", 9F);
-            label55.Location = new Point(452, 79);
-            label55.Name = "label55";
-            label55.Size = new Size(78, 25);
-            label55.TabIndex = 47;
-            label55.Text = "Morada:";
+            MoradaTransportes.AutoSize = true;
+            MoradaTransportes.Font = new Font("Segoe UI", 9F);
+            MoradaTransportes.Location = new Point(452, 79);
+            MoradaTransportes.Name = "MoradaTransportes";
+            MoradaTransportes.Size = new Size(78, 25);
+            MoradaTransportes.TabIndex = 47;
+            MoradaTransportes.Text = "Morada:";
             // 
-            // label56
+            // NomeTransportes
             // 
-            label56.AutoSize = true;
-            label56.Font = new Font("Segoe UI", 8.25F);
-            label56.Location = new Point(452, 26);
-            label56.Name = "label56";
-            label56.Size = new Size(61, 23);
-            label56.TabIndex = 46;
-            label56.Text = "Nome:";
+            NomeTransportes.AutoSize = true;
+            NomeTransportes.Font = new Font("Segoe UI", 8.25F);
+            NomeTransportes.Location = new Point(452, 26);
+            NomeTransportes.Name = "NomeTransportes";
+            NomeTransportes.Size = new Size(61, 23);
+            NomeTransportes.TabIndex = 46;
+            NomeTransportes.Text = "Nome:";
             // 
             // TransportesContacto
             // 
@@ -1731,11 +1849,8 @@
             Retalhistas.Controls.Add(button30);
             Retalhistas.Controls.Add(button31);
             Retalhistas.Controls.Add(button32);
-            Retalhistas.Controls.Add(button33);
-            Retalhistas.Controls.Add(textBox16);
-            Retalhistas.Controls.Add(label58);
-            Retalhistas.Controls.Add(comboBox9);
-            Retalhistas.Controls.Add(comboBox10);
+            Retalhistas.Controls.Add(QuintasRetalhistas);
+            Retalhistas.Controls.Add(FiltrarTransporteRetalhistas);
             Retalhistas.Controls.Add(label59);
             Retalhistas.Controls.Add(label60);
             Retalhistas.Controls.Add(DataRetalhistasEncomenda);
@@ -1745,7 +1860,7 @@
             Retalhistas.Controls.Add(label62);
             Retalhistas.Controls.Add(label63);
             Retalhistas.Controls.Add(label64);
-            Retalhistas.Controls.Add(label65);
+            Retalhistas.Controls.Add(NomeRetalhista);
             Retalhistas.Controls.Add(RetalhistasContacto);
             Retalhistas.Controls.Add(RetalhistasMorada);
             Retalhistas.Controls.Add(RetalhistasNome);
@@ -1797,57 +1912,32 @@
             button32.Text = "Adicionar Empresa";
             button32.UseVisualStyleBackColor = true;
             // 
-            // button33
+            // QuintasRetalhistas
             // 
-            button33.Location = new Point(1070, 472);
-            button33.Name = "button33";
-            button33.Size = new Size(43, 31);
-            button33.TabIndex = 60;
-            button33.Text = "Ir";
-            button33.UseVisualStyleBackColor = true;
+            QuintasRetalhistas.FormattingEnabled = true;
+            QuintasRetalhistas.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
+            QuintasRetalhistas.Location = new Point(614, 473);
+            QuintasRetalhistas.Name = "QuintasRetalhistas";
+            QuintasRetalhistas.Size = new Size(308, 33);
+            QuintasRetalhistas.TabIndex = 57;
+            QuintasRetalhistas.Text = "Seleciona uma quinta";
+            QuintasRetalhistas.SelectedIndexChanged += QuintasRetalhistas_SelectedIndexChanged;
             // 
-            // textBox16
+            // FiltrarTransporteRetalhistas
             // 
-            textBox16.Location = new Point(806, 472);
-            textBox16.Name = "textBox16";
-            textBox16.Size = new Size(263, 31);
-            textBox16.TabIndex = 59;
-            // 
-            // label58
-            // 
-            label58.AutoSize = true;
-            label58.Font = new Font("Segoe UI", 9F);
-            label58.Location = new Point(806, 446);
-            label58.Name = "label58";
-            label58.Size = new Size(70, 25);
-            label58.TabIndex = 58;
-            label58.Text = "Cliente ";
-            // 
-            // comboBox9
-            // 
-            comboBox9.FormattingEnabled = true;
-            comboBox9.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
-            comboBox9.Location = new Point(452, 473);
-            comboBox9.Name = "comboBox9";
-            comboBox9.Size = new Size(307, 33);
-            comboBox9.TabIndex = 57;
-            comboBox9.Text = "Seleciona uma quinta";
-            // 
-            // comboBox10
-            // 
-            comboBox10.FormattingEnabled = true;
-            comboBox10.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            comboBox10.Location = new Point(806, 410);
-            comboBox10.Name = "comboBox10";
-            comboBox10.Size = new Size(307, 33);
-            comboBox10.TabIndex = 56;
-            comboBox10.Text = "Seleciona uma empresa";
+            FiltrarTransporteRetalhistas.FormattingEnabled = true;
+            FiltrarTransporteRetalhistas.Location = new Point(779, 399);
+            FiltrarTransporteRetalhistas.Name = "FiltrarTransporteRetalhistas";
+            FiltrarTransporteRetalhistas.Size = new Size(308, 33);
+            FiltrarTransporteRetalhistas.TabIndex = 56;
+            FiltrarTransporteRetalhistas.Text = "Seleciona uma Empresa";
+            FiltrarTransporteRetalhistas.SelectedIndexChanged += FiltrarTransporteRetalhistas_SelectedIndexChanged;
             // 
             // label59
             // 
             label59.AutoSize = true;
             label59.Font = new Font("Segoe UI", 9F);
-            label59.Location = new Point(450, 444);
+            label59.Location = new Point(731, 443);
             label59.Name = "label59";
             label59.Size = new Size(77, 25);
             label59.TabIndex = 55;
@@ -1858,7 +1948,7 @@
             // 
             label60.AutoSize = true;
             label60.Font = new Font("Segoe UI", 9F);
-            label60.Location = new Point(806, 380);
+            label60.Location = new Point(779, 371);
             label60.Name = "label60";
             label60.Size = new Size(193, 25);
             label60.TabIndex = 54;
@@ -1866,16 +1956,16 @@
             // 
             // DataRetalhistasEncomenda
             // 
-            DataRetalhistasEncomenda.Location = new Point(450, 410);
+            DataRetalhistasEncomenda.Location = new Point(450, 399);
             DataRetalhistasEncomenda.Name = "DataRetalhistasEncomenda";
-            DataRetalhistasEncomenda.Size = new Size(305, 31);
+            DataRetalhistasEncomenda.Size = new Size(306, 31);
             DataRetalhistasEncomenda.TabIndex = 53;
             // 
             // label61
             // 
             label61.AutoSize = true;
             label61.Font = new Font("Segoe UI", 9F);
-            label61.Location = new Point(450, 380);
+            label61.Location = new Point(452, 371);
             label61.Name = "label61";
             label61.Size = new Size(129, 25);
             label61.TabIndex = 52;
@@ -1885,9 +1975,9 @@
             // 
             EncomendasRealizadas.FormattingEnabled = true;
             EncomendasRealizadas.ItemHeight = 25;
-            EncomendasRealizadas.Location = new Point(450, 248);
+            EncomendasRealizadas.Location = new Point(452, 229);
             EncomendasRealizadas.Name = "EncomendasRealizadas";
-            EncomendasRealizadas.Size = new Size(638, 129);
+            EncomendasRealizadas.Size = new Size(636, 129);
             EncomendasRealizadas.TabIndex = 51;
             // 
             // RetalhistasTipo
@@ -1928,15 +2018,15 @@
             label64.TabIndex = 47;
             label64.Text = "Morada:";
             // 
-            // label65
+            // NomeRetalhista
             // 
-            label65.AutoSize = true;
-            label65.Font = new Font("Segoe UI", 8.25F);
-            label65.Location = new Point(452, 26);
-            label65.Name = "label65";
-            label65.Size = new Size(61, 23);
-            label65.TabIndex = 46;
-            label65.Text = "Nome:";
+            NomeRetalhista.AutoSize = true;
+            NomeRetalhista.Font = new Font("Segoe UI", 8.25F);
+            NomeRetalhista.Location = new Point(452, 26);
+            NomeRetalhista.Name = "NomeRetalhista";
+            NomeRetalhista.Size = new Size(61, 23);
+            NomeRetalhista.TabIndex = 46;
+            NomeRetalhista.Text = "Nome:";
             // 
             // RetalhistasContacto
             // 
@@ -2507,7 +2597,7 @@
         private ListBox ListaEmpresas;
         private TextBox PesquisarNome;
         private Button ConfirmarOperacao;
-        private Button button2;
+        private Button ConfirmarEncomenda;
         private Label label5;
         private Label label2;
         private TextBox Contacto;
@@ -2619,25 +2709,22 @@
         private Button SubmeterNovaQuinta;
         private Label ContratoLabel;
         private TabPage Transportes;
-        private Button button19;
-        private Button button21;
-        private Button button24;
-        private Button button25;
-        private Button button26;
-        private TextBox textBox1;
-        private Label label30;
-        private ComboBox comboBox7;
-        private ComboBox comboBox8;
-        private Label label50;
-        private Label label51;
+        private Button EliminarEmpresaTransportes;
+        private Button CancelarEncoemndaTransportes;
+        private Button AdicionarEncomendaTransportes;
+        private Button AdicionarEmpresa;
+        private ComboBox QuintasTransportes;
+        private ComboBox FiltrarRetalhistaTransportes;
+        private Label OrigemTransportes;
+        private Label EmpresaRetalhista;
         private DateTimePicker DataEncomendaTransportes;
-        private Label label52;
+        private Label FiltrarPorDataTransportes;
         private ListBox EncomendasEntrega;
         private TextBox TransportesTipo;
-        private Label label53;
-        private Label label54;
-        private Label label55;
-        private Label label56;
+        private Label TransportesIdEmpresa;
+        private Label ContactoTransportes;
+        private Label MoradaTransportes;
+        private Label NomeTransportes;
         private TextBox TransportesContacto;
         private TextBox TransportesMorada;
         private TextBox TransportesNome;
@@ -2651,11 +2738,8 @@
         private Button button30;
         private Button button31;
         private Button button32;
-        private Button button33;
-        private TextBox textBox16;
-        private Label label58;
-        private ComboBox comboBox9;
-        private ComboBox comboBox10;
+        private ComboBox QuintasRetalhistas;
+        private ComboBox FiltrarTransporteRetalhistas;
         private Label label59;
         private Label label60;
         private DateTimePicker DataRetalhistasEncomenda;
@@ -2665,7 +2749,7 @@
         private Label label62;
         private Label label63;
         private Label label64;
-        private Label label65;
+        private Label NomeRetalhista;
         private TextBox RetalhistasContacto;
         private TextBox RetalhistasMorada;
         private TextBox RetalhistasNome;
@@ -2724,5 +2808,18 @@
         private DateTimePicker AddCompraData;
         private Label AddCompraDataLabel;
         private Button SubmeterCompra;
+        private Button ConfirmarEmpresa;
+        private Label PrazoEncomenda;
+        private TextBox PrazoBox;
+        private Label RetalhistaEncomenda;
+        private Label EntregaEncomenda;
+        private Label MoradaEncomenda;
+        private Label QuintaEncomenda;
+        private Label TransportesEncomenda;
+        private TextBox MoradaBox;
+        private TextBox EntregaBox;
+        private TextBox RetalhistaBox;
+        private TextBox TransportesBox;
+        private TextBox QuintaBox;
     }
 }

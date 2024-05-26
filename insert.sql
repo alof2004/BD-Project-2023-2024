@@ -315,7 +315,17 @@ INSERT INTO AgroTrack_Encomenda (Codigo, prazo_entrega, Morada_entrega, Entrega,
     (2, 3, 'Avenida Central, 260', '2024-05-02', 12, 7, 2),
     (3, 4, 'Travessa das Utilidades, 270', '2024-06-03', 13, 8, 3),
     (4, 5, 'Rua das Novidades, 280', '2024-07-03', 14, 9, 4),
-    (5, 6, 'Avenida das Mercadorias, 290', '2024-09-12', 15, 10, 5);
+    (5, 6, 'Avenida das Mercadorias, 290', '2024-09-12', 15, 10, 5),
+    (6, 7, 'Praça das Flores, 300', '2024-05-01', 11, 6,3),
+    (7, 8, 'Largo do Mercado, 310', '2024-05-02', 12, 7, 2),
+    (8, 9, 'Beco do Comércio, 320', '2024-06-03', 13, 8, 3),
+    (9, 10, 'Estrada Velha, 330', '2024-07-03', 14, 9, 4),
+    (10, 11, 'Alameda das Árvores, 340', '2024-09-12', 15, 10, 5),
+    (11, 12, 'Rua do Sol, 350', '2024-05-01', 11, 6, 5),
+    (12, 13, 'Avenida das Nações, 360', '2024-05-02', 12, 7, 2),
+    (13, 14, 'Travessa da Esperança, 370', '2024-06-03', 13, 8, 3),
+    (14, 15, 'Rua das Flores, 380', '2024-07-03', 14, 9, 4),
+    (15, 16, 'Avenida do Futuro, 390', '2024-09-12', 15, 10, 5);
 
 
 INSERT INTO AgroTrack_Item (ProdutoCodigo, Quantidade, Encomenda_Codigo) VALUES
