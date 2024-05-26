@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Windows.Forms;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -568,7 +569,7 @@ namespace AgroTrack
                     MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
                 }
             }
-            else if (table == "Retalhista")
+            else if (table == "RetalhistasE")
             {
                 try
                 {
@@ -594,12 +595,12 @@ namespace AgroTrack
                     MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
                 }
             }
-            else if (table == "Transporte")
+            else if (table == "TransportesE")
             {
                 try
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
-                    ListaProdutos.Items.Clear(); // Clear previous items
+                    ListaTransportes.Items.Clear(); // Clear previous items
                     while (reader.Read())
                     {
                         Transportes transporte = new Transportes
@@ -1351,8 +1352,9 @@ namespace AgroTrack
                 ProdutoDisponivel.Text = GetQuantidadeDisponivel(selectedproduct.Codigo).ToString();
 
                 LoadQuintas(selectedproduct.Id_origem);
-                LoadProdutos();
+
             }
+
         }
 
         private void Retalhistas_Click(object sender, EventArgs e)
@@ -1619,7 +1621,10 @@ namespace AgroTrack
                 try
                 {
                     int id_origem = GetQuintaIdByName(LocalQuintaBox.Text);
-                    AddProduto(id_origem, ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, ProdutoIvaBox.Text, TipoAdicionarBox.Text, double.Parse(ProdutoQuantidadeBox.Text), double.Parse(ProdutoPrecoBox.Text));
+                    int codigo = int.Parse(CodigoAdicionarBox.Text);
+                    float preco = float.Parse(ProdutoPrecoBox.Text, CultureInfo.InvariantCulture);
+                    float iva = float.Parse(ProdutoIvaBox.Text, CultureInfo.InvariantCulture);
+                    AddProduto(codigo, id_origem, ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, iva, TipoAdicionarBox.Text, preco);
                 }
                 catch (Exception ex)
                 {
@@ -1672,45 +1677,47 @@ namespace AgroTrack
             }
         }
 
-
-        private void AddProduto(int id_origem, string ProdutoNome, string unidademedidaValue, string IvaValue, string tipo, double tipoValue, double preco)
+        private void AddProduto(int codigo, int id_origem, string ProdutoNome, string unidademedidaValue, float IvaValue, string tipo, float preco)
         {
             try
             {
                 using (SqlCommand command = new SqlCommand("AddProduto", cn) { CommandType = CommandType.StoredProcedure })
                 {
+                    // Adiciona os parâmetros ao comando
+                    command.Parameters.Add(new SqlParameter("@Codigo", codigo));
                     command.Parameters.Add(new SqlParameter("@NomeProduto", ProdutoNome));
                     command.Parameters.Add(new SqlParameter("@Id_origem", id_origem));
-                    command.Parameters.Add(new SqlParameter("@Tipo_de_Produto", tipoValue));
+                    command.Parameters.Add(new SqlParameter("@Tipo_de_Produto", tipo));
                     command.Parameters.Add(new SqlParameter("@Preco", preco));
                     command.Parameters.Add(new SqlParameter("@Taxa_de_iva", IvaValue));
                     command.Parameters.Add(new SqlParameter("@Unidade_medida", unidademedidaValue));
 
+                    // Verifica o estado da conexão e abre se necessário
                     if (cn.State == ConnectionState.Closed)
                     {
                         cn.Open();
                     }
 
+                    // Executa o comando
                     command.ExecuteNonQuery();
 
-                    if (cn.State == ConnectionState.Open)
-                    {
-                        cn.Close();
-                    }
-
+                    // Exibe mensagem de sucesso
                     MessageBox.Show("Produto adicionado com sucesso!");
                 }
             }
             catch (Exception ex)
             {
+                // Fecha a conexão se estiver aberta
                 if (cn.State == ConnectionState.Open)
                 {
                     cn.Close();
                 }
 
+                // Lança a exceção
                 throw new Exception("Falha ao adicionar o produto: " + ex.Message);
             }
         }
+
 
 
 
@@ -1818,7 +1825,7 @@ namespace AgroTrack
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to remove farm from database: " + ex.Message);
+                    MessageBox.Show("Failed to remove product from database: " + ex.Message);
                 }
             }
         }
@@ -1858,7 +1865,7 @@ namespace AgroTrack
         private void PesquisarNomeRetalhistaBox_TextChanged(object sender, EventArgs e)
         {
             string inputRetalhistaNome = (string)PesquisarNomeRetalhistaBox.Text;
-            searchBar(inputRetalhistaNome, "Retalhista");
+            searchBar(inputRetalhistaNome, "RetalhistasE");
         }
 
         //PesquisarNomeTransporte
@@ -1870,7 +1877,7 @@ namespace AgroTrack
         private void PesquisarNomeTransporte_TextChanged(object sender, EventArgs e)
         {
             string inputTransporteNome = (string)PesquisarNomeTransporte.Text;
-            searchBar(inputTransporteNome, "Transporte");
+            searchBar(inputTransporteNome, "TransportesE");
         }
 
         private void NomeClientes_TextChanged(object sender, EventArgs e)
@@ -1960,6 +1967,8 @@ namespace AgroTrack
                 RetalhistasMorada.Text = selectedretalho.Morada;
                 RetalhistasContacto.Text = selectedretalho.Contacto.ToString();
 
+                LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa);
+
             }
         }
 
@@ -1975,6 +1984,9 @@ namespace AgroTrack
                 TransportesNome.Text = selectedtransporte.Nome;
                 TransportesMorada.Text = selectedtransporte.Morada;
                 TransportesContacto.Text = selectedtransporte.Contacto.ToString();
+
+                LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa);
+
             }
         }
 
@@ -2975,6 +2987,111 @@ namespace AgroTrack
         {
             SqlCommand cmd = new SqlCommand("AgroTrack.OrdenarAgricultores", cn) { CommandType = CommandType.StoredProcedure };
             cmd.Parameters.AddWithValue("@Order", order);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to add farmer to database: " + ex.Message);
+                }
+            }
+        }
+
+        private void PesquisaPorNomeCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void LoadEncomendasRealizadas(int Empresa_Id_Empresa)
+        {
+            string query = @"SELECT DISTINCT Empresa_Id_Empresa, Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa FROM AgroTrack.EncomendaRetalhista WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", Empresa_Id_Empresa);
+
+            HashSet<int> Encomendas_ids = new HashSet<int>(); // HashSet para armazenar IDs das quintas já adicionadas
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                EncomendasRealizadas.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    int Empresaid = (int)reader["Empresa_Id_Empresa"];
+                    // Verificar se o ID da quinta já foi adicionado
+                    if (!Encomendas_ids.Contains(Empresaid))
+                    {
+                        Encomendas_ids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
+                        EncomendaRRetalhista Order = new EncomendaRRetalhista
+                        {
+                            Codigo = (int)reader["Codigo"],
+                            PrazoEntrega = (int)reader["prazo_entrega"],
+                            MoradaEntrega = reader["Morada_entrega"].ToString(),
+                            Entrega = (DateTime)reader["Entrega"],
+                            RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
+                            NomeRetalhista = reader["Nome"].ToString()
+
+
+                        };
+
+                        EncomendasRealizadas.Items.Add(Order);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+
+
+        private void LoadEncomendasEntrega(int Empresa_Id_Empresa)
+        {
+            string query = @"SELECT DISTINCT Empresa_Id_Empresa, Nome,Morada,Contacto, Codigo, prazo_entrega,Morada_entrega, Entrega, Empresa_De_Transportes_Id_Empresa FROM AgroTrack.EncomendaTransportes WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", Empresa_Id_Empresa);
+
+            HashSet<int> Encomendasids = new HashSet<int>(); // HashSet para armazenar IDs das quintas já adicionadas
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                EncomendasEntrega.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    int Empresaid = (int)reader["Empresa_Id_Empresa"];
+                    // Verificar se o ID da quinta já foi adicionado
+                    if (!Encomendasids.Contains(Empresaid))
+                    {
+                        Encomendasids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
+                        EncomendaEmpresaTransporte Order = new EncomendaEmpresaTransporte
+                        {
+                            Codigo = (int)reader["Codigo"],
+                            PrazoEntrega = (int)reader["prazo_entrega"],
+                            MoradaEntrega = reader["Morada_entrega"].ToString(),
+                            Entrega = (DateTime)reader["Entrega"],
+                            TransporteEmpresaId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                            NomeEmpresa = reader["Nome"].ToString()
+
+
+                        };
+
+                        EncomendasEntrega.Items.Add(Order);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+        private void label59_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 
             try
             {
@@ -3001,4 +3118,5 @@ namespace AgroTrack
             }
         }
     }
+}
 }

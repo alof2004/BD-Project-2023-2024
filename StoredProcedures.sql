@@ -150,23 +150,18 @@ IF OBJECT_ID('AddProduto', 'P') IS NOT NULL
     DROP PROCEDURE AddProduto;
 GO
 CREATE PROCEDURE AddProduto
+    @Codigo INT,
     @NomeProduto VARCHAR(64),
     @Id_origem INT,
-    @Tipo_de_Produto INT,
+    @Tipo_de_Produto VARCHAR(64),
     @Preco FLOAT,
     @Taxa_de_iva FLOAT,
     @Unidade_medida VARCHAR(16)
 AS
 BEGIN
-    -- Declaração de variáveis
-    DECLARE @Codigo INT;
-
-    -- Determina o próximo código disponível para o novo produto
-    SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Produto;
-
     -- Insere o novo produto na tabela AgroTrack_Produto
-    INSERT INTO AgroTrack_Produto (Nome, Id_origem, Tipo_de_Produto, Codigo, Preco, Taxa_de_iva, Unidade_medida)
-    VALUES (@NomeProduto, @Id_origem, @Tipo_de_Produto, @Codigo, @Preco, @Taxa_de_iva, @Unidade_medida);
+    INSERT INTO AgroTrack_Produto (Codigo, Nome, Id_origem, Tipo_de_Produto, Preco, Taxa_de_iva, Unidade_medida)
+    VALUES (@Codigo, @NomeProduto, @Id_origem, @Tipo_de_Produto, @Preco, @Taxa_de_iva, @Unidade_medida);
 
     -- Mensagem de sucesso
     PRINT 'Novo produto adicionado com sucesso.';
@@ -546,17 +541,39 @@ BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Delete the product from the AgroTrack_Produto table
-        DELETE FROM AgroTrack_Produto
-        WHERE Codigo = @Codigo;
+        -- Debug: Print the Codigo to be deleted
+        PRINT 'Deleting Produto with Codigo = ' + CAST(@Codigo AS NVARCHAR(10));
 
-        -- Delete the product from the AgroTrack_Contem table
+        -- Delete from AgroTrack_Colhe table
+        DELETE FROM AgroTrack_Colhe
+        WHERE Produto_codigo = @Codigo;
+
+        -- Debug: Check if rows are deleted from AgroTrack_Colhe
+        DECLARE @ColheCount INT;
+        SELECT @ColheCount = COUNT(*) FROM AgroTrack_Colhe WHERE Produto_codigo = @Codigo;
+        PRINT 'Remaining rows in AgroTrack_Colhe for Produto_codigo = ' + CAST(@Codigo AS NVARCHAR(10)) + ': ' + CAST(@ColheCount AS NVARCHAR(10));
+
+        -- Delete from AgroTrack_Contem table
         DELETE FROM AgroTrack_Contem
         WHERE Produto_codigo = @Codigo;
 
-        -- Delete the product from the AgroTrack_Item table
+        -- Debug: Check if rows are deleted from AgroTrack_Contem
+        DECLARE @ContemCount INT;
+        SELECT @ContemCount = COUNT(*) FROM AgroTrack_Contem WHERE Produto_codigo = @Codigo;
+        PRINT 'Remaining rows in AgroTrack_Contem for Produto_codigo = ' + CAST(@Codigo AS NVARCHAR(10)) + ': ' + CAST(@ContemCount AS NVARCHAR(10));
+
+        -- Delete from AgroTrack_Item table
         DELETE FROM AgroTrack_Item
         WHERE ProdutoCodigo = @Codigo;
+
+        -- Debug: Check if rows are deleted from AgroTrack_Item
+        DECLARE @ItemCount INT;
+        SELECT @ItemCount = COUNT(*) FROM AgroTrack_Item WHERE ProdutoCodigo = @Codigo;
+        PRINT 'Remaining rows in AgroTrack_Item for ProdutoCodigo = ' + CAST(@Codigo AS NVARCHAR(10)) + ': ' + CAST(@ItemCount AS NVARCHAR(10));
+
+        -- Delete from AgroTrack_Produto table
+        DELETE FROM AgroTrack_Produto
+        WHERE Codigo = @Codigo;
 
         -- Commit the transaction
         COMMIT TRANSACTION;
@@ -576,6 +593,11 @@ BEGIN
             @ErrorMessage = ERROR_MESSAGE(),
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
+
+        -- Print the error details for debugging
+        PRINT 'Error: ' + @ErrorMessage;
+        PRINT 'Severity: ' + CAST(@ErrorSeverity AS NVARCHAR(10));
+        PRINT 'State: ' + CAST(@ErrorState AS NVARCHAR(10));
 
         -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
