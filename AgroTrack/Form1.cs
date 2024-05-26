@@ -3108,11 +3108,10 @@ namespace AgroTrack
             }
         }
 
-        }
-
-        private void button23_Click(object sender, EventArgs e)
-        {
-            PesquisaPorNomeCliente.Text = "";
+    private void button23_Click(object sender, EventArgs e)
+    {
+        PesquisaPorNomeCliente.Text = "";
+    }
         private void DataRetalhistasEncomenda_ValueChanged(object sender, EventArgs e)
         {
             if (ListaRetalhistas.SelectedItem is Retalhista selectedretalho)
@@ -3126,4 +3125,5 @@ namespace AgroTrack
             textBox18.Text = "";
         }
     }
+
 }
