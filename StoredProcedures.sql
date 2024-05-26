@@ -923,3 +923,97 @@ BEGIN
     EXEC sp_executesql @SqlQuery;
 END
 GO
+
+--AddEmpresaTransportes
+IF OBJECT_ID('AgroTrack.AddEmpresaTransportes', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddEmpresaTransportes;
+GO
+CREATE PROCEDURE AgroTrack.AddEmpresaTransportes
+    @Nome VARCHAR(64),
+    @Morada VARCHAR(64),
+    @Contacto INT
+AS
+BEGIN
+    -- Start a transaction
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Insert into AgroTrack_Empresa, excluindo a coluna Id_Empresa
+        INSERT INTO AgroTrack_Empresa (
+            Nome,
+            Morada,
+            Contacto,
+            Tipo_De_Empresa
+        )
+        VALUES (
+            @Nome,
+            @Morada,
+            @Contacto,
+            'Empresa de Transportes'
+        );
+
+        -- Commit the transaction
+        COMMIT TRANSACTION;
+
+        PRINT 'Empresa de Transportes added successfully.';
+    END TRY
+    BEGIN CATCH
+        -- Rollback the transaction in case of error
+        ROLLBACK TRANSACTION;
+
+        -- Get the error details
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Raise the error again to propagate it
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
+GO
+
+IF OBJECT_ID('AgroTrack.ApagarEmpresaTransportes', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarEmpresaTransportes;
+GO
+CREATE PROCEDURE AgroTrack.ApagarEmpresaTransportes
+    @Empresa_Id_Empresa INT
+AS
+
+BEGIN
+    -- Start a transaction
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Delete the Empresa from the AgroTrack_Empresa table
+        DELETE FROM AgroTrack_Empresa
+        WHERE Id_Empresa = @Empresa_Id_Empresa;
+
+        -- Commit the transaction
+        COMMIT TRANSACTION;
+
+        PRINT 'Empresa de Transportes deleted successfully.';
+    END TRY
+    BEGIN CATCH
+        -- Rollback the transaction in case of error
+        ROLLBACK TRANSACTION;
+
+        -- Get the error details
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Raise the error again to propagate it
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
+GO

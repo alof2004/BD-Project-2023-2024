@@ -37,6 +37,20 @@ namespace AgroTrack
             AddCompraQuinta.Hide();
             AddCompraQuintaLabel.Hide();
             SubmeterCompra.Hide();
+            ConfirmarEncomenda.Hide();
+            ConfirmarEmpresa.Hide();
+            PrazoEncomenda.Hide();
+            PrazoBox.Hide();
+            MoradaEncomenda.Hide();
+            MoradaBox.Hide();
+            EntregaEncomenda.Hide();
+            EntregaBox.Hide();
+            RetalhistaEncomenda.Hide();
+            RetalhistaBox.Hide();
+            TransportesEncomenda.Hide();
+            TransportesBox.Hide();
+            QuintaEncomenda.Hide();
+            QuintaBox.Hide();
 
 
             // botoes de adicionar agricultor que são escondidos no início 
@@ -86,6 +100,8 @@ namespace AgroTrack
             LoadTransportes();
             LoadFiltersProduto();
             OrdenarProdutos();
+            LoadFilterRetalhistas();
+            LoadFiltersTransportes();
 
             OrdenarPor.Dock = DockStyle.Fill;
         }
@@ -1936,7 +1952,7 @@ namespace AgroTrack
                         Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"],
                         Nome = reader["Nome"].ToString(),
                         Morada = reader["Morada"].ToString(),
-                        Contacto = (int)reader["Contacto"]
+                        Contacto = (int)reader["Contacto"],
 
                     };
 
@@ -3003,41 +3019,73 @@ namespace AgroTrack
             }
         }
 
+        private int EMPRESAID;
+
         private void LoadEncomendasRealizadas(int empresaId, DateTime dataLimite)
         {
-            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa,Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id FROM AgroTrack.EmpresaEncomenda WHERE Retalhista_Empresa_Id_Empresa = @Empresa_Id_Empresa AND Entrega <= @DataLimite;";
+            int? empresaDeTransportesId = null;
+            int? quintaId = null;
+            EMPRESAID = empresaId;
+
+            // Obtenha os valores selecionados nos filtros
+            if (FiltrarTransporteRetalhistas.SelectedItem is TransportesOnlyName selectedTransport)
+            {
+                empresaDeTransportesId = selectedTransport.Empresa_Id_Empresa;
+            }
+
+            if (QuintasRetalhistas.SelectedItem is QuintaOnlyName selectedQuinta)
+            {
+                quintaId = selectedQuinta.Id_Quinta;
+            }
+
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id 
+                     FROM AgroTrack.EmpresaEncomenda 
+                     WHERE Retalhista_Empresa_Id_Empresa = @Empresa_Id_Empresa 
+                     AND Entrega <= @DataLimite";
+
+            if (empresaDeTransportesId.HasValue)
+            {
+                query += " AND Empresa_De_Transportes_Id_Empresa = @EmpresaDeTransportesId";
+            }
+
+            if (quintaId.HasValue)
+            {
+                query += " AND Quinta_Empresa_Id = @QuintaId";
+            }
+
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", empresaId);
             cmd.Parameters.AddWithValue("@DataLimite", dataLimite);
 
-            HashSet<int> Encomendas_ids = new HashSet<int>();
+            if (empresaDeTransportesId.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@EmpresaDeTransportesId", empresaDeTransportesId.Value);
+            }
+
+            if (quintaId.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@QuintaId", quintaId.Value);
+            }
 
             try
             {
                 SqlDataReader reader = cmd.ExecuteReader();
                 EncomendasRealizadas.Items.Clear(); // Clear previous items
+
                 while (reader.Read())
                 {
-                    int Empresaid = (int)reader["Retalhista_Empresa_Id_Empresa"];
-                    // Verificar se o ID da quinta já foi adicionado
-                    if (!Encomendas_ids.Contains(Empresaid))
+                    Encomenda Order = new Encomenda
                     {
-                        Encomendas_ids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
-                        Encomenda Order = new Encomenda
-                        {
-                            Codigo = (int)reader["Codigo"],
-                            PrazoEntrega = (int)reader["prazo_entrega"],
-                            MoradaEntrega = reader["Morada_entrega"].ToString(),
-                            Entrega = DateTime.Parse(reader["Entrega"].ToString()),
-                            RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
-                            EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
-                            QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
+                        Codigo = (int)reader["Codigo"],
+                        PrazoEntrega = (int)reader["prazo_entrega"],
+                        MoradaEntrega = reader["Morada_entrega"].ToString(),
+                        Entrega = DateTime.Parse(reader["Entrega"].ToString()),
+                        RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
+                        EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
+                    };
 
-
-                        };
-
-                        EncomendasRealizadas.Items.Add(Order);
-                    }
+                    EncomendasRealizadas.Items.Add(Order);
                 }
                 reader.Close();
             }
@@ -3048,14 +3096,56 @@ namespace AgroTrack
         }
 
 
+
+
+        private int EMPRESAENTREGAID;
+
         private void LoadEncomendasEntrega(int empresaId, DateTime dataLimite)
         {
-            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa,Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id FROM AgroTrack.EmpresaEncomenda WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa AND Entrega <= @DataLimite;";
+            int? retalhistaId = null;
+            int? quintaId = null;
+            EMPRESAENTREGAID = empresaId;
+
+            // Obtenha o valor selecionado no filtro de retalhistas
+            if (FiltrarRetalhistaTransportes.SelectedItem is RetalhistasOnlyName selectedRetalhista)
+            {
+                retalhistaId = selectedRetalhista.Empresa_Id_Empresa;
+            }
+
+            // Obtenha o valor selecionado no filtro de quintas
+            if (QuintasTransportes.SelectedItem is QuintaOnlyName selectedQuinta)
+            {
+                quintaId = selectedQuinta.Id_Quinta;
+            }
+
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id 
+                     FROM AgroTrack.EmpresaEncomenda 
+                     WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa 
+                     AND Entrega <= @DataLimite";
+
+            if (retalhistaId.HasValue)
+            {
+                query += " AND Retalhista_Empresa_Id_Empresa = @RetalhistaId";
+            }
+
+            if (quintaId.HasValue)
+            {
+                query += " AND Quinta_Empresa_Id = @QuintaId";
+            }
+
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", empresaId);
             cmd.Parameters.AddWithValue("@DataLimite", dataLimite);
 
-            HashSet<int> Encomendas_ids = new HashSet<int>();
+            if (retalhistaId.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@RetalhistaId", retalhistaId.Value);
+            }
+
+            if (quintaId.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@QuintaId", quintaId.Value);
+            }
 
             try
             {
@@ -3063,26 +3153,18 @@ namespace AgroTrack
                 EncomendasEntrega.Items.Clear(); // Clear previous items
                 while (reader.Read())
                 {
-                    int Empresaid = (int)reader["Empresa_De_Transportes_Id_Empresa"];
-                    // Verificar se o ID da quinta já foi adicionado
-                    if (!Encomendas_ids.Contains(Empresaid))
+                    Encomenda Order = new Encomenda
                     {
-                        Encomendas_ids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
-                        Encomenda Order = new Encomenda
-                        {
-                            Codigo = (int)reader["Codigo"],
-                            PrazoEntrega = (int)reader["prazo_entrega"],
-                            MoradaEntrega = reader["Morada_entrega"].ToString(),
-                            Entrega = DateTime.Parse(reader["Entrega"].ToString()),
-                            RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
-                            EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
-                            QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
+                        Codigo = (int)reader["Codigo"],
+                        PrazoEntrega = (int)reader["prazo_entrega"],
+                        MoradaEntrega = reader["Morada_entrega"].ToString(),
+                        Entrega = DateTime.Parse(reader["Entrega"].ToString()),
+                        RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
+                        EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
+                    };
 
-
-                        };
-
-                        EncomendasEntrega.Items.Add(Order);
-                    }
+                    EncomendasEntrega.Items.Add(Order);
                 }
                 reader.Close();
             }
@@ -3091,6 +3173,8 @@ namespace AgroTrack
                 MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
             }
         }
+
+
 
 
         private void label59_Click(object sender, EventArgs e)
@@ -3106,10 +3190,10 @@ namespace AgroTrack
             }
         }
 
-    private void button23_Click(object sender, EventArgs e)
-    {
-        PesquisaPorNomeCliente.Text = "";
-    }
+        private void button23_Click(object sender, EventArgs e)
+        {
+            PesquisaPorNomeCliente.Text = "";
+        }
         private void DataRetalhistasEncomenda_ValueChanged(object sender, EventArgs e)
         {
             if (ListaRetalhistas.SelectedItem is Retalhista selectedretalho)
@@ -3117,6 +3201,369 @@ namespace AgroTrack
                 LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, DataRetalhistasEncomenda.Value);
             }
         }
+
+        //filtrar por retalhistas transportes
+        private void FiltrarRetalhistaTransportes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DateTime dataLimite = DateTime.Now; // ou qualquer outra lógica para determinar a data limite
+            LoadEncomendasEntrega(EMPRESAENTREGAID, dataLimite);
+        }
+
+        //filtrar por transpotes retalhistas
+        private void FiltrarTransporteRetalhistas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DateTime dataLimite = DateTime.Now; // ou qualquer outra lógica para determinar a data limite
+            LoadEncomendasRealizadas(EMPRESAID, dataLimite);
+        }
+
+        private void LoadFiltersTransportes()
+        {
+            string query = "SELECT Empresa_Id_Empresa, Nome, Morada,Contacto FROM AgroTrack.RetalhistasE;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                FiltrarRetalhistaTransportes.Items.Clear(); // Clear previous items              TipoAdicionarBox.Items.Clear();
+                FiltrarRetalhistaTransportes.Items.Add("Todas os retalhistas");
+                HashSet<string> addedTipos = new HashSet<string>();
+                while (reader.Read())
+                {
+                    RetalhistasOnlyName produto = new RetalhistasOnlyName
+                    {
+                        Nome = reader["Nome"].ToString(),
+                        Morada = reader["Morada"].ToString(),
+                        Contacto = (int)reader["Contacto"],
+                        Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"]
+                    };
+                    FiltrarRetalhistaTransportes.Items.Add(produto);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+
+            query = "SELECT Empresa_Id_Empresa, Nome FROM AgroTrack.Quinta;";
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                QuintasTransportes.Items.Clear(); // Clear previous items
+                QuintasTransportes.Items.Add("Todas as Quintas");
+                while (reader.Read())
+                {
+                    QuintaOnlyName Farm = new QuintaOnlyName
+                    {
+                        Id_Quinta = (int)reader["Empresa_Id_Empresa"],
+                        Nome = reader["Nome"].ToString(),
+                    };
+                    QuintasTransportes.Items.Add(Farm);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve plants from database: " + ex.Message);
+            }
+        }
+
+
+        private void LoadFilterRetalhistas()
+        {
+            string query = "SELECT Empresa_Id_Empresa, Nome, Morada,Contacto FROM AgroTrack.TransportesE;";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                FiltrarTransporteRetalhistas.Items.Clear(); // Clear previous items              TipoAdicionarBox.Items.Clear();
+                FiltrarTransporteRetalhistas.Items.Add("Todas os Transportes");
+                HashSet<string> addedTipos = new HashSet<string>();
+                while (reader.Read())
+                {
+                    TransportesOnlyName produto = new TransportesOnlyName
+                    {
+                        Nome = reader["Nome"].ToString(),
+                        Morada = reader["Morada"].ToString(),
+                        Contacto = (int)reader["Contacto"],
+                        Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"]
+                    };
+                    FiltrarTransporteRetalhistas.Items.Add(produto);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+            }
+
+            query = "SELECT Empresa_Id_Empresa, Nome FROM AgroTrack.Quinta;";
+            cmd = new SqlCommand(query, cn);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                QuintasRetalhistas.Items.Clear(); // Clear previous items
+                QuintasRetalhistas.Items.Add("Todas as Quintas");
+                while (reader.Read())
+                {
+                    QuintaOnlyName Farm = new QuintaOnlyName
+                    {
+                        Id_Quinta = (int)reader["Empresa_Id_Empresa"],
+                        Nome = reader["Nome"].ToString(),
+                    };
+                    QuintasRetalhistas.Items.Add(Farm);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve plants from database: " + ex.Message);
+            }
+        }
+
+
+        //filtrar por quinta retalhistas
+
+        private void QuintasRetalhistas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DateTime dataLimite = DateTime.Now; // ou qualquer outra lógica para determinar a data limite
+            LoadEncomendasRealizadas(EMPRESAID, dataLimite);
+        }
+
+        //filtrar por quinta transportes
+        private void QuintasTransportes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DateTime dataLimite = DateTime.Now; // ou qualquer outra lógica para determinar a data limite
+            LoadEncomendasEntrega(EMPRESAENTREGAID, dataLimite);
+        }
+
+        private void AdicionarEmpresa_Click(object sender, EventArgs e)
+        {
+            TransportesIdEmpresa.Hide();
+            TransportesTipo.Hide();
+            EncomendasEntrega.Hide();
+            FiltrarPorDataTransportes.Hide();
+            EmpresaRetalhista.Hide();
+            OrigemTransportes.Hide();
+            DataEncomendaTransportes.Hide();
+            FiltrarRetalhistaTransportes.Hide();
+            QuintasTransportes.Hide();
+            AdicionarEmpresa.Hide();
+            AdicionarEncomendaTransportes.Hide();
+            EliminarEmpresaTransportes.Hide();
+            CancelarEncoemndaTransportes.Hide();
+
+
+
+
+            // Enable input fields
+            TransportesNome.ReadOnly = false;
+            TransportesMorada.ReadOnly = false;
+            TransportesContacto.ReadOnly = false;
+
+            TransportesContacto.Text = "";
+            TransportesMorada.Text = "";
+            TransportesNome.Text = "";
+
+
+            ConfirmarEncomenda.Show();
+        }
+
+        private void ConfirmarEncomenda_Click(object sender, EventArgs e)
+        {
+            if (TransportesNome.Text == "" || TransportesMorada.Text == "" || TransportesContacto.Text == "")
+            {
+                MessageBox.Show("Por favor preencha todos TransportesContacto campos!");
+            }
+            else
+            {
+                try
+                {
+                    string nome = TransportesNome.Text;
+                    string morada = TransportesMorada.Text;
+                    int contacto = int.Parse(TransportesContacto.Text);
+                    AddEmpresaTransportes(nome, morada, contacto);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar produto: " + ex.Message);
+                }
+                finally
+                {
+
+                    ConfirmarEncomenda.Hide();
+                    TransportesNome.ReadOnly = true;
+                    TransportesMorada.ReadOnly = true;
+                    TransportesContacto.ReadOnly = true;
+                    TransportesContacto.Text = "";
+                    TransportesMorada.Text = "";
+                    TransportesNome.Text = "";
+                    TransportesIdEmpresa.Show();
+                    TransportesTipo.Show();
+                    EncomendasEntrega.Show();
+                    FiltrarPorDataTransportes.Show();
+                    EmpresaRetalhista.Show();
+                    OrigemTransportes.Show();
+                    DataEncomendaTransportes.Show();
+                    FiltrarRetalhistaTransportes.Show();
+                    QuintasTransportes.Show();
+                    AdicionarEmpresa.Show();
+                    AdicionarEncomendaTransportes.Show();
+                    EliminarEmpresaTransportes.Show();
+                    CancelarEncoemndaTransportes.Show();
+                    ListaTransportes.Items.Clear();
+                    LoadTransportes();
+                }
+            }
+        }
+
+
+        private void AddEmpresaTransportes(string nome, string morada, int contacto)
+        {
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddEmpresaTransportes", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Nome", nome));
+                command.Parameters.Add(new SqlParameter("@Morada", morada));
+                command.Parameters.Add(new SqlParameter("@Contacto", contacto));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Empresa de transportes adicionada com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to add empresa de transportes to database: " + ex.Message);
+                }
+            }
+        }
+
+        private void AdicionarEncomendaTransportes_Click(object sender, EventArgs e)
+        {
+            NomeTransportes.Hide();
+            TransportesIdEmpresa.Hide();
+            TransportesTipo.Hide();
+            EncomendasEntrega.Hide();
+            FiltrarPorDataTransportes.Hide();
+            EmpresaRetalhista.Hide();
+            OrigemTransportes.Hide();
+            DataEncomendaTransportes.Hide();
+            FiltrarRetalhistaTransportes.Hide();
+            QuintasTransportes.Hide();
+            AdicionarEmpresa.Hide();
+            AdicionarEncomendaTransportes.Hide();
+            EliminarEmpresaTransportes.Hide();
+            CancelarEncoemndaTransportes.Hide();
+            AdicionarEncomendaTransportes.Hide();
+            MoradaTransportes.Hide();
+            ContactoTransportes.Hide();
+            TransportesNome.Hide();
+            TransportesMorada.Hide();
+            TransportesContacto.Hide();
+
+
+
+
+            // Enable input fields
+            PrazoBox.ReadOnly = false;
+            MoradaBox.ReadOnly = false;
+            EntregaBox.ReadOnly = false;
+            RetalhistaBox.ReadOnly = false;
+            TransportesBox.ReadOnly = false;
+            QuintaBox.ReadOnly = false;
+
+            PrazoBox.Text = "";
+            MoradaBox.Text = "";
+            EntregaBox.Text = "";
+            RetalhistaBox.Text = "";
+            TransportesBox.Text = "";
+            QuintaBox.Text = "";
+
+
+            ConfirmarEmpresa.Show();
+            PrazoEncomenda.Show();
+            PrazoBox.Show();
+            MoradaEncomenda.Show();
+            MoradaBox.Show();
+            EntregaEncomenda.Show();
+            EntregaBox.Show();
+            RetalhistaEncomenda.Show();
+            RetalhistaBox.Show();
+            TransportesEncomenda.Show();
+            TransportesBox.Show();
+            QuintaEncomenda.Show();
+            QuintaBox.Show();
+
+
+        }
+
+        private void ConfirmarEmpresa_Click(object sender, EventArgs e)
+        {
+            if (PrazoBox.Text == "" || MoradaBox.Text == "" || EntregaBox.Text == "" || RetalhistaBox.Text == "" || TransportesBox.Text == "" || QuintaBox.Text == "")
+            {
+                MessageBox.Show("Por favor preencha todos os campos!");
+            }
+            else
+            {
+                try
+                {
+                    int prazo = int.Parse(PrazoBox.Text);
+                    string morada = MoradaBox.Text;
+                    DateTime entrega = DateTime.Parse(EntregaBox.Text);
+                    int retalhista = int.Parse(RetalhistaBox.Text);
+                    int transportes = int.Parse(TransportesBox.Text);
+                    int quinta = int.Parse(QuintaBox.Text);
+                    //AddEncomenda(prazo, morada, entrega, retalhista, transportes, quinta);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar encomenda: " + ex.Message);
+                }
+                finally
+                {
+
+                    ConfirmarEmpresa.Hide();
+                    PrazoBox.Hide();
+                    MoradaBox.Hide();
+                    EntregaBox.Hide();
+                    RetalhistaBox.Hide();
+                    TransportesBox.Hide();
+                    QuintaBox.Hide();
+                    PrazoEncomenda.Hide();
+                    MoradaEncomenda.Hide();
+                    EntregaEncomenda.Hide();
+                    RetalhistaEncomenda.Hide();
+                    TransportesEncomenda.Hide();
+                    QuintaEncomenda.Hide();
+                    NomeTransportes.Show();
+                    TransportesIdEmpresa.Show();
+                    TransportesTipo.Show();
+                    EncomendasEntrega.Show();
+                    FiltrarPorDataTransportes.Show();
+                    EmpresaRetalhista.Show();
+                    OrigemTransportes.Show();
+                    DataEncomendaTransportes.Show();
+                    FiltrarRetalhistaTransportes.Show();
+                    QuintasTransportes.Show();
+                    AdicionarEmpresa.Show();
+                    AdicionarEncomendaTransportes.Show();
+                    EliminarEmpresaTransportes.Show();
+                    CancelarEncoemndaTransportes.Show();
+                    AdicionarEncomendaTransportes.Show();
+                    MoradaTransportes.Show();
+                    ContactoTransportes.Show();
+                    TransportesNome.Show();
+                    TransportesMorada.Show();
+                    TransportesContacto.Show();
+                    ListaTransportes.Items.Clear();
+                    LoadTransportes();
+                }
+            }
+        }
+
+
+
 
         private void button14_Click(object sender, EventArgs e)
         {
