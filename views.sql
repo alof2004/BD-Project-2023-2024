@@ -187,3 +187,11 @@ create view AgroTrack.RetalhistaEmpresa as
 	select R.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto
 	from  (AgroTrack_Retalhistas as R join AgroTrack_Empresa as E on R.Empresa_Id_Empresa=E.Id_Empresa)
 go
+
+--Encomenda e Empresa de transportes
+drop view IF EXISTS AgroTrack.EncomendaTransportes
+go
+create view AgroTrack.EncomendaTransportes as
+	select T.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Empresa_De_Transportes_Id_Empresa
+	from  ((AgroTrack_Empresa_De_Transportes as T join AgroTrack_Empresa as E on T.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Encomenda as Enc on T.Empresa_Id_Empresa=Enc.Empresa_De_Transportes_Id_Empresa)
+go 

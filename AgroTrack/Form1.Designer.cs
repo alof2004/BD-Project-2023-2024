@@ -1158,16 +1158,16 @@
             // 
             // button26
             // 
-            button26.Location = new Point(1040, 475);
+            button26.Location = new Point(1037, 476);
             button26.Name = "button26";
-            button26.Size = new Size(43, 31);
+            button26.Size = new Size(46, 33);
             button26.TabIndex = 60;
             button26.Text = "Ir";
             button26.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(778, 475);
+            textBox1.Location = new Point(776, 477);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(263, 31);
             textBox1.TabIndex = 59;
@@ -1176,7 +1176,7 @@
             // 
             label30.AutoSize = true;
             label30.Font = new Font("Segoe UI", 9F);
-            label30.Location = new Point(778, 447);
+            label30.Location = new Point(776, 447);
             label30.Name = "label30";
             label30.Size = new Size(70, 25);
             label30.TabIndex = 58;
@@ -1186,7 +1186,7 @@
             // 
             comboBox7.FormattingEnabled = true;
             comboBox7.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
-            comboBox7.Location = new Point(778, 411);
+            comboBox7.Location = new Point(452, 477);
             comboBox7.Name = "comboBox7";
             comboBox7.Size = new Size(307, 33);
             comboBox7.TabIndex = 57;
@@ -1196,7 +1196,7 @@
             // 
             comboBox8.FormattingEnabled = true;
             comboBox8.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            comboBox8.Location = new Point(778, 347);
+            comboBox8.Location = new Point(776, 407);
             comboBox8.Name = "comboBox8";
             comboBox8.Size = new Size(307, 33);
             comboBox8.TabIndex = 56;
@@ -1206,7 +1206,7 @@
             // 
             label50.AutoSize = true;
             label50.Font = new Font("Segoe UI", 9F);
-            label50.Location = new Point(778, 383);
+            label50.Location = new Point(452, 447);
             label50.Name = "label50";
             label50.Size = new Size(77, 25);
             label50.TabIndex = 55;
@@ -1216,7 +1216,7 @@
             // 
             label51.AutoSize = true;
             label51.Font = new Font("Segoe UI", 9F);
-            label51.Location = new Point(778, 319);
+            label51.Location = new Point(776, 372);
             label51.Name = "label51";
             label51.Size = new Size(193, 25);
             label51.TabIndex = 54;
@@ -1224,7 +1224,7 @@
             // 
             // dateTimePicker2
             // 
-            dateTimePicker2.Location = new Point(778, 280);
+            dateTimePicker2.Location = new Point(452, 409);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.Size = new Size(305, 31);
             dateTimePicker2.TabIndex = 53;
@@ -1233,7 +1233,7 @@
             // 
             label52.AutoSize = true;
             label52.Font = new Font("Segoe UI", 9F);
-            label52.Location = new Point(778, 252);
+            label52.Location = new Point(452, 372);
             label52.Name = "label52";
             label52.Size = new Size(129, 25);
             label52.TabIndex = 52;
@@ -1243,9 +1243,9 @@
             // 
             EncomendasEntrega.FormattingEnabled = true;
             EncomendasEntrega.ItemHeight = 25;
-            EncomendasEntrega.Location = new Point(452, 252);
+            EncomendasEntrega.Location = new Point(452, 240);
             EncomendasEntrega.Name = "EncomendasEntrega";
-            EncomendasEntrega.Size = new Size(320, 254);
+            EncomendasEntrega.Size = new Size(629, 129);
             EncomendasEntrega.TabIndex = 51;
             // 
             // TransportesTipo
@@ -1428,7 +1428,7 @@
             // 
             // button33
             // 
-            button33.Location = new Point(1045, 472);
+            button33.Location = new Point(1070, 472);
             button33.Name = "button33";
             button33.Size = new Size(43, 31);
             button33.TabIndex = 60;
@@ -1437,7 +1437,7 @@
             // 
             // textBox16
             // 
-            textBox16.Location = new Point(783, 472);
+            textBox16.Location = new Point(806, 472);
             textBox16.Name = "textBox16";
             textBox16.Size = new Size(263, 31);
             textBox16.TabIndex = 59;
@@ -1446,7 +1446,7 @@
             // 
             label58.AutoSize = true;
             label58.Font = new Font("Segoe UI", 9F);
-            label58.Location = new Point(783, 444);
+            label58.Location = new Point(806, 446);
             label58.Name = "label58";
             label58.Size = new Size(70, 25);
             label58.TabIndex = 58;
@@ -1456,7 +1456,7 @@
             // 
             comboBox9.FormattingEnabled = true;
             comboBox9.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
-            comboBox9.Location = new Point(783, 408);
+            comboBox9.Location = new Point(452, 473);
             comboBox9.Name = "comboBox9";
             comboBox9.Size = new Size(307, 33);
             comboBox9.TabIndex = 57;
@@ -1466,7 +1466,7 @@
             // 
             comboBox10.FormattingEnabled = true;
             comboBox10.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            comboBox10.Location = new Point(783, 344);
+            comboBox10.Location = new Point(806, 410);
             comboBox10.Name = "comboBox10";
             comboBox10.Size = new Size(307, 33);
             comboBox10.TabIndex = 56;
@@ -1476,17 +1476,18 @@
             // 
             label59.AutoSize = true;
             label59.Font = new Font("Segoe UI", 9F);
-            label59.Location = new Point(783, 380);
+            label59.Location = new Point(450, 444);
             label59.Name = "label59";
             label59.Size = new Size(77, 25);
             label59.TabIndex = 55;
             label59.Text = "Origem ";
+            label59.Click += label59_Click;
             // 
             // label60
             // 
             label60.AutoSize = true;
             label60.Font = new Font("Segoe UI", 9F);
-            label60.Location = new Point(783, 316);
+            label60.Location = new Point(806, 380);
             label60.Name = "label60";
             label60.Size = new Size(193, 25);
             label60.TabIndex = 54;
@@ -1494,7 +1495,7 @@
             // 
             // dateTimePicker3
             // 
-            dateTimePicker3.Location = new Point(783, 277);
+            dateTimePicker3.Location = new Point(450, 410);
             dateTimePicker3.Name = "dateTimePicker3";
             dateTimePicker3.Size = new Size(305, 31);
             dateTimePicker3.TabIndex = 53;
@@ -1503,7 +1504,7 @@
             // 
             label61.AutoSize = true;
             label61.Font = new Font("Segoe UI", 9F);
-            label61.Location = new Point(783, 249);
+            label61.Location = new Point(450, 380);
             label61.Name = "label61";
             label61.Size = new Size(129, 25);
             label61.TabIndex = 52;
@@ -1513,9 +1514,9 @@
             // 
             EncomendasRealizadas.FormattingEnabled = true;
             EncomendasRealizadas.ItemHeight = 25;
-            EncomendasRealizadas.Location = new Point(452, 252);
+            EncomendasRealizadas.Location = new Point(450, 248);
             EncomendasRealizadas.Name = "EncomendasRealizadas";
-            EncomendasRealizadas.Size = new Size(325, 254);
+            EncomendasRealizadas.Size = new Size(638, 129);
             EncomendasRealizadas.TabIndex = 51;
             // 
             // RetalhistasTipo

@@ -40,8 +40,6 @@ namespace AgroTrack
             LoadTransportes();
             LoadFiltersProduto();
             OrdenarProdutos();
-            LoadEncomendasRealizadas();
-            LoadEncomendasParaEntrega();
 
             OrdenarPor.Dock = DockStyle.Fill;
         }
@@ -1870,6 +1868,8 @@ namespace AgroTrack
                 RetalhistasMorada.Text = selectedretalho.Morada;
                 RetalhistasContacto.Text = selectedretalho.Contacto.ToString();
 
+                LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa);
+
             }
         }
 
@@ -1885,6 +1885,9 @@ namespace AgroTrack
                 TransportesNome.Text = selectedtransporte.Nome;
                 TransportesMorada.Text = selectedtransporte.Morada;
                 TransportesContacto.Text = selectedtransporte.Contacto.ToString();
+
+                LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa);
+
             }
         }
 
@@ -2011,78 +2014,95 @@ namespace AgroTrack
         }
 
 
-        private void LoadEncomendasRealizadas()
+        private void LoadEncomendasRealizadas(int Empresa_Id_Empresa)
         {
-            EncomendasRealizadas.Items.Clear(); // Limpa a lista antes de carregar novos itens
-
-            // Query para selecionar as encomendas com detalhes do retalhista
-            string query = "SELECT Empresa_Id_Empresa, Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa FROM AgroTrack.EncomendaRetalhista";
-
+            string query = @"SELECT DISTINCT Empresa_Id_Empresa, Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa FROM AgroTrack.EncomendaRetalhista WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;";
             SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", Empresa_Id_Empresa);
+
+            HashSet<int> Encomendas_ids = new HashSet<int>(); // HashSet para armazenar IDs das quintas já adicionadas
 
             try
             {
                 SqlDataReader reader = cmd.ExecuteReader();
+                EncomendasRealizadas.Items.Clear(); // Clear previous items
                 while (reader.Read())
                 {
-                    // Cria um objeto EncomendaRRetalhista com os dados lidos do banco de dados
-                    EncomendaRRetalhista encomenda = new EncomendaRRetalhista
+                    int Empresaid = (int)reader["Empresa_Id_Empresa"];
+                    // Verificar se o ID da quinta já foi adicionado
+                    if (!Encomendas_ids.Contains(Empresaid))
                     {
-                        Codigo = (int)reader["Codigo"],
-                        PrazoEntrega = (int)reader["prazo_entrega"],
-                        MoradaEntrega = reader["Morada_entrega"].ToString(),
-                        Entrega = (DateTime)reader["Entrega"],
-                        RetalhistaEmpresaId = (int)reader["Empresa_Id_Empresa"],
-                        NomeRetalhista = reader["Nome"].ToString()
-                    };
+                        Encomendas_ids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
+                        EncomendaRRetalhista Order = new EncomendaRRetalhista
+                        {
+                            Codigo = (int)reader["Codigo"],
+                            PrazoEntrega = (int)reader["prazo_entrega"],
+                            MoradaEntrega = reader["Morada_entrega"].ToString(),
+                            Entrega = (DateTime)reader["Entrega"],
+                            RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
+                            NomeRetalhista = reader["Nome"].ToString()
 
-                    // Adiciona a encomenda à ListBox
-                    EncomendasRealizadas.Items.Add(encomenda.ToString());
+
+                        };
+
+                        EncomendasRealizadas.Items.Add(Order);
+                    }
                 }
                 reader.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Falha ao carregar encomendas realizadas: " + ex.Message);
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
             }
         }
 
 
 
-        private void LoadEncomendasParaEntrega()
+        private void LoadEncomendasEntrega(int Empresa_Id_Empresa)
         {
-            EncomendasEntrega.Items.Clear(); // Limpa a lista antes de carregar novos itens
-
-            // Query para selecionar as encomendas com detalhes do retalhista
-            string query = "SELECT Empresa_Id_Empresa, Nome,Morada,Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Empresa_De_Transportes_Id_Empresa FROM AgroTrack.EncomendaTransportes";
-
+            string query = @"SELECT DISTINCT Empresa_Id_Empresa, Nome,Morada,Contacto, Codigo, prazo_entrega,Morada_entrega, Entrega, Empresa_De_Transportes_Id_Empresa FROM AgroTrack.EncomendaTransportes WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;";
             SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", Empresa_Id_Empresa);
+
+            HashSet<int> Encomendasids = new HashSet<int>(); // HashSet para armazenar IDs das quintas já adicionadas
 
             try
             {
                 SqlDataReader reader = cmd.ExecuteReader();
+                EncomendasEntrega.Items.Clear(); // Clear previous items
                 while (reader.Read())
                 {
-                    // Cria um objeto EncomendaRRetalhista com os dados lidos do banco de dados
-                    EncomendaEmpresaTransporte encomenda = new EncomendaEmpresaTransporte
+                    int Empresaid = (int)reader["Empresa_Id_Empresa"];
+                    // Verificar se o ID da quinta já foi adicionado
+                    if (!Encomendasids.Contains(Empresaid))
                     {
-                        Codigo = (int)reader["Codigo"],
-                        PrazoEntrega = (int)reader["prazo_entrega"],
-                        MoradaEntrega = reader["Morada_entrega"].ToString(),
-                        Entrega = (DateTime)reader["Entrega"],
-                        TransporteEmpresaId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
-                        NomeEmpresa = reader["Nome"].ToString()
-                    };
+                        Encomendasids.Add(Empresaid); // Adicionar o ID da quinta ao HashSet
+                        EncomendaEmpresaTransporte Order = new EncomendaEmpresaTransporte
+                        {
+                            Codigo = (int)reader["Codigo"],
+                            PrazoEntrega = (int)reader["prazo_entrega"],
+                            MoradaEntrega = reader["Morada_entrega"].ToString(),
+                            Entrega = (DateTime)reader["Entrega"],
+                            TransporteEmpresaId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                            NomeEmpresa = reader["Nome"].ToString()
 
-                    // Adiciona a encomenda à ListBox
-                    EncomendasEntrega.Items.Add(encomenda.ToString());
+
+                        };
+
+                        EncomendasEntrega.Items.Add(Order);
+                    }
                 }
                 reader.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Falha ao carregar encomendas por entregar: " + ex.Message);
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
             }
+        }
+
+        private void label59_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
