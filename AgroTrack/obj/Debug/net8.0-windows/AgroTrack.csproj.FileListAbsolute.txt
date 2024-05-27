@@ -141,3 +141,6 @@ C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Npgsql.dll
+C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Afonso\OneDrive - Universidade de Aveiro\Desktop\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Npgsql.dll

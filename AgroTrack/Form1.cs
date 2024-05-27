@@ -67,6 +67,7 @@ namespace AgroTrack
             ConfirmarRetalhistaEncoemnda.Hide();
             SubmeterNovaQuinta.Hide();
             AddProdutoToQuintaSubmit.Hide();
+            EncomendaListaProdutos.Hide();
 
 
             // botoes de adicionar agricultor que são escondidos no início 
@@ -3567,7 +3568,7 @@ namespace AgroTrack
 
                     int compradorId = comprador.Empresa_Id_Empresa;
                     int empresaDeTransporteId = empresaDeTransporte.Empresa_Id_Empresa;
-                    int quintaId = quinta.Empresa_Id_Empresa;
+                    int quintaId = quinta.Id_Quinta;
 
                     AddEncomendaTransporte(prazo, morada, entrega, compradorId, empresaDeTransporteId, quintaId);
                 }
@@ -4021,6 +4022,7 @@ namespace AgroTrack
 
         private void AdicionarEncomendasRetalhista_Click(object sender, EventArgs e)
         {
+            EncomendaListaProdutos.Show();
             PrazoEncomendaRetalhista.Show();
             PrazoBoxRetalhista.Show();
             MoradaRetalhista.Show();
@@ -4039,6 +4041,7 @@ namespace AgroTrack
             RetalhistasMorada.Hide();
             RetalhistasContacto.Hide();
             TipoDeEmpresaRetalhista.Hide();
+            ItemsEncomenda.Hide();
 
 
             AdicionarRetalhistas.Hide();
@@ -4071,7 +4074,7 @@ namespace AgroTrack
 
         private void ConfirmarRetalhistaEncoemnda_Click(object sender, EventArgs e)
         {
-            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || CompradorEncoemndaRetalhistaBox.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "")
+            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || CompradorEncoemndaRetalhistaBox.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "" || EncomendaListaProdutos.Rows.Count == 0)
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -4093,7 +4096,7 @@ namespace AgroTrack
 
                     int compradorId = comprador.Empresa_Id_Empresa;
                     int empresaDeTransporteId = empresaDeTransporte.Empresa_Id_Empresa;
-                    int quintaId = quinta.Empresa_Id_Empresa;
+                    int quintaId = quinta.Id_Quinta;
 
                     AddEncomendaRetalhista(prazo, morada, data, compradorId, empresaDeTransporteId, quintaId);
                 }
@@ -4103,6 +4106,18 @@ namespace AgroTrack
                 }
                 finally
                 {
+                    RetalhistasTipo.Show();
+                    RetalhistasNome.Show();
+                    RetalhistasMorada.Show();
+                    RetalhistasContacto.Show();
+                    TipoDeEmpresaRetalhista.Show();
+
+
+                    AdicionarRetalhistas.Show();
+                    AdicionarEncomendasRetalhista.Show();
+                    EliminarRetalhista.Show();
+                    CancelarEncoemendRetalhistas.Show();
+
                     dataRetalhista.Show();
                     empresaretalhistas.Show();
                     QuintaRetalhistaSelecao.Show();
@@ -4114,7 +4129,9 @@ namespace AgroTrack
                     EliminarRetalhista.Show();
                     CancelarEncoemendRetalhistas.Show();
                     EncomendasRealizadas.Show();
+                    ItemsEncomenda.Show();
 
+                    EncomendaListaProdutos.Hide();
                     PrazoEncomendaRetalhista.Hide();
                     PrazoBoxRetalhista.Hide();
                     MoradaRetalhista.Hide();
@@ -4495,12 +4512,6 @@ namespace AgroTrack
                     command.Parameters.Add(new SqlParameter("@Empresa_De_Transportes_Id_Empresa", transportes));
                     command.Parameters.Add(new SqlParameter("@Quinta_Empresa_Id", quinta));
 
-                    // Verifica o estado da conexão e abre se necessário
-                    if (cn.State == ConnectionState.Closed)
-                    {
-                        cn.Open();
-                    }
-
                     // Executa o comando
                     command.ExecuteNonQuery();
 
@@ -4545,6 +4556,8 @@ namespace AgroTrack
                     command.ExecuteNonQuery();
 
                     // Exibe mensagem de sucesso
+                    int idEncomenda = getEncomendaID();
+                    SaveProductsToDatabase(idEncomenda);
                     MessageBox.Show("Encomenda adicionada com sucesso!");
                 }
             }
@@ -4561,6 +4574,112 @@ namespace AgroTrack
             }
         }
 
+        private int getEncomendaID()
+        {
+            using (SqlCommand command = new SqlCommand("SELECT MAX(Codigo) FROM AgroTrack.Encomenda", cn))
+            {
+                if (cn.State == ConnectionState.Closed)
+                {
+                    cn.Open();
+                }
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader.GetInt32(0);
+                    }
+                    else
+                    {
+                        throw new Exception("Failed to get encomenda ID.");
+                    }
+                }
+            }
+        }
+        private void SaveProductsToDatabase(int encomendaId)
+        {
+            foreach (DataGridViewRow row in EncomendaListaProdutos.Rows)
+            {
+                if (row.Cells["productColumn"].Value == null || row.Cells["quantityColumn"].Value == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    int productId = (int)row.Cells["productColumn"].Value;
+                    int quantidade = int.Parse(row.Cells["quantityColumn"].Value.ToString());
+                    AddProductToEncomenda(encomendaId, productId, quantidade);
+                }
+            }
+
+        }
+
+        private void AddProductToEncomenda(int encomendaId, int productId, int quantidade)
+        {
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddProductToEncomenda", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Produto_codigo", productId));
+                command.Parameters.Add(new SqlParameter("@Quantidade", quantidade));
+                command.Parameters.Add(new SqlParameter("@Codigo", encomendaId));
+                try
+                {
+                    if (cn.State != ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Produto adicionado à encomenda com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to add product to encomenda: " + ex.Message);
+                }
+            }
+        }
+
+        private void LoadTabelaProdutos(int empresaID)
+        {
+            string query = "SELECT Codigo, NomeProduto, Empresa_Id_Empresa FROM AgroTrack.QuintaProduto WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa";
+            List<ProdutosOnlyName> produtos = new List<ProdutosOnlyName>();
+
+            using (SqlCommand command = new SqlCommand(query, cn))
+            {
+                command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", empresaID));
+
+                if (cn.State != System.Data.ConnectionState.Open)
+                {
+                    cn.Open();
+                }
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ProdutosOnlyName produto = new ProdutosOnlyName
+                        {
+                            Id_Produto = reader.GetInt32(0),
+                            Produto = reader.GetString(1)
+                        };
+                        produtos.Add(produto);
+                    }
+                }
+            }
+
+            if (produtos.Count > 0)
+            {
+                DataGridViewComboBoxColumn productColumn = (DataGridViewComboBoxColumn)EncomendaListaProdutos.Columns["productColumn"];
+                productColumn.Items.Clear(); // Clear existing items
+                productColumn.Items.AddRange(produtos.ToArray()); // Add products
+
+                // Set the DisplayMember and ValueMember for better binding
+                productColumn.DisplayMember = "Produto";
+                productColumn.ValueMember = "Id_Produto";
+            }
+            else
+            {
+                MessageBox.Show("No products found for the given Empresa ID.");
+            }
+        }
 
         //eliminar encomenda trnsportes
         private void CancelarEncoemendRetalhistas_Click(object sender, EventArgs e)
@@ -4645,6 +4764,65 @@ namespace AgroTrack
                     LoadEncomendasEntrega(EMPRESAID, DataLimiteEncomendas);
                 }
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void QuintaEncoemndaRetalhistaBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EncomendaListaProdutos.Rows.Clear();
+            LoadTabelaProdutos((QuintaEncoemndaRetalhistaBox.SelectedItem as QuintaOnlyName).Id_Quinta);
+        }
+
+        private void EncomendasRealizadas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Encomenda encomenda = EncomendasRealizadas.SelectedItem as Encomenda;
+            LoadEncomendaItems(encomenda.Codigo);
+
+        }
+        private void LoadEncomendaItems(int encomendaId)
+        {
+            string query = "SELECT Encomenda_Codigo, ProdutoCodigo, Quantidade, NomeProduto FROM AgroTrack.EncomendaItems WHERE Encomenda_Codigo = @Codigo";
+            SqlCommand command = new SqlCommand(query, cn);
+            command.Parameters.Add(new SqlParameter("@Codigo", encomendaId));
+            ItemsEncomenda.Items.Clear();
+            ItemsEncomendaTransportes.Items.Clear();
+
+            try
+            {
+                if (cn.State != ConnectionState.Open)
+                {
+                    cn.Open();
+                }
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Item item = new Item
+                        {
+                            EncomendaCodigo = reader.GetInt32(0),
+                            ProdutoId = reader.GetInt32(1),
+                            Quantidade = reader.GetInt32(2),
+                            ProdutoNome = reader.GetString(3)
+                        };
+                        ItemsEncomenda.Items.Add(item);
+                        ItemsEncomendaTransportes.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load encomenda items: " + ex.Message);
+            }
+        }
+
+        private void EncomendasEntrega_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Encomenda encomenda = EncomendasEntrega.SelectedItem as Encomenda;
         }
     }
 

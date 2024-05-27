@@ -190,5 +190,9 @@ BEGIN
     FROM AgroTrack_Item
     WHERE ProdutoCodigo = @ProductId;
 
+    IF @TotalProductCountCompra IS NULL
+        SET @TotalProductCountCompra = 0;
+    IF @TotalProductCountEncomenda IS NULL
+        SET @TotalProductCountEncomenda = 0;
     RETURN @TotalProductCountCompra + @TotalProductCountEncomenda;
 END;

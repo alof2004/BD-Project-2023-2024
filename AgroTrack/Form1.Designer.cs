@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
             SubmeterCompra = new Button();
@@ -175,6 +177,7 @@
             Animais = new ListBox();
             ListaQuintas = new ListBox();
             Transportes = new TabPage();
+            ItemsEncomendaTransportes = new ListBox();
             QuintaBox = new ComboBox();
             TransportesBox = new ComboBox();
             RetalhistaBox = new ComboBox();
@@ -213,6 +216,10 @@
             PesquisarNomeTransporte = new TextBox();
             ListaTransportes = new ListBox();
             Retalhistas = new TabPage();
+            ItemsEncomenda = new ListBox();
+            EncomendaListaProdutos = new DataGridView();
+            productColumn = new DataGridViewComboBoxColumn();
+            quantityColumn = new DataGridViewTextBoxColumn();
             QuintaEncoemndaRetalhistaBox = new ComboBox();
             EmpresaDeTransporteEncoemndaRetalhistaBox = new ComboBox();
             DataRetalhistaEncoemndabOX = new ComboBox();
@@ -294,6 +301,7 @@
             OrdenarText = new Label();
             label14 = new Label();
             ListaProdutos = new ListBox();
+            produtosOnlyNameBindingSource = new BindingSource(components);
             OrdenarPor.SuspendLayout();
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AddCompraQuantidade).BeginInit();
@@ -306,8 +314,10 @@
             ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).BeginInit();
             Transportes.SuspendLayout();
             Retalhistas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)EncomendaListaProdutos).BeginInit();
             Produtos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)QuantidadeBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)produtosOnlyNameBindingSource).BeginInit();
             SuspendLayout();
             // 
             // OrdenarPor
@@ -1787,6 +1797,7 @@
             // 
             // Transportes
             // 
+            Transportes.Controls.Add(ItemsEncomendaTransportes);
             Transportes.Controls.Add(QuintaBox);
             Transportes.Controls.Add(TransportesBox);
             Transportes.Controls.Add(RetalhistaBox);
@@ -1830,6 +1841,15 @@
             Transportes.TabIndex = 5;
             Transportes.Text = "Transportes";
             Transportes.UseVisualStyleBackColor = true;
+            // 
+            // ItemsEncomendaTransportes
+            // 
+            ItemsEncomendaTransportes.FormattingEnabled = true;
+            ItemsEncomendaTransportes.ItemHeight = 25;
+            ItemsEncomendaTransportes.Location = new Point(452, 372);
+            ItemsEncomendaTransportes.Name = "ItemsEncomendaTransportes";
+            ItemsEncomendaTransportes.Size = new Size(654, 179);
+            ItemsEncomendaTransportes.TabIndex = 98;
             // 
             // QuintaBox
             // 
@@ -1958,9 +1978,9 @@
             // 
             // EliminarEmpresaTransportes
             // 
-            EliminarEmpresaTransportes.Location = new Point(579, 534);
+            EliminarEmpresaTransportes.Location = new Point(228, 512);
             EliminarEmpresaTransportes.Name = "EliminarEmpresaTransportes";
-            EliminarEmpresaTransportes.Size = new Size(264, 34);
+            EliminarEmpresaTransportes.Size = new Size(185, 34);
             EliminarEmpresaTransportes.TabIndex = 64;
             EliminarEmpresaTransportes.Text = "Eliminar Empresa";
             EliminarEmpresaTransportes.UseVisualStyleBackColor = true;
@@ -1968,9 +1988,9 @@
             // 
             // CancelarEncoemndaTransportes
             // 
-            CancelarEncoemndaTransportes.Location = new Point(849, 534);
+            CancelarEncoemndaTransportes.Location = new Point(228, 552);
             CancelarEncoemndaTransportes.Name = "CancelarEncoemndaTransportes";
-            CancelarEncoemndaTransportes.Size = new Size(264, 34);
+            CancelarEncoemndaTransportes.Size = new Size(185, 34);
             CancelarEncoemndaTransportes.TabIndex = 63;
             CancelarEncoemndaTransportes.Text = "Cancelar Encomenda";
             CancelarEncoemndaTransportes.UseVisualStyleBackColor = true;
@@ -1978,9 +1998,9 @@
             // 
             // AdicionarEncomendaTransportes
             // 
-            AdicionarEncomendaTransportes.Location = new Point(309, 534);
+            AdicionarEncomendaTransportes.Location = new Point(21, 552);
             AdicionarEncomendaTransportes.Name = "AdicionarEncomendaTransportes";
-            AdicionarEncomendaTransportes.Size = new Size(264, 34);
+            AdicionarEncomendaTransportes.Size = new Size(201, 34);
             AdicionarEncomendaTransportes.TabIndex = 62;
             AdicionarEncomendaTransportes.Text = "Adicionar Encomenda";
             AdicionarEncomendaTransportes.UseVisualStyleBackColor = true;
@@ -1988,9 +2008,9 @@
             // 
             // AdicionarEmpresa
             // 
-            AdicionarEmpresa.Location = new Point(39, 534);
+            AdicionarEmpresa.Location = new Point(21, 512);
             AdicionarEmpresa.Name = "AdicionarEmpresa";
-            AdicionarEmpresa.Size = new Size(264, 34);
+            AdicionarEmpresa.Size = new Size(201, 34);
             AdicionarEmpresa.TabIndex = 61;
             AdicionarEmpresa.Text = "Adicionar Empresa";
             AdicionarEmpresa.UseVisualStyleBackColor = true;
@@ -2064,6 +2084,7 @@
             EncomendasEntrega.Name = "EncomendasEntrega";
             EncomendasEntrega.Size = new Size(629, 129);
             EncomendasEntrega.TabIndex = 51;
+            EncomendasEntrega.SelectedIndexChanged += EncomendasEntrega_SelectedIndexChanged;
             // 
             // TransportesTipo
             // 
@@ -2165,14 +2186,16 @@
             // 
             ListaTransportes.FormattingEnabled = true;
             ListaTransportes.ItemHeight = 25;
-            ListaTransportes.Location = new Point(39, 127);
+            ListaTransportes.Location = new Point(21, 127);
             ListaTransportes.Name = "ListaTransportes";
-            ListaTransportes.Size = new Size(374, 379);
+            ListaTransportes.Size = new Size(392, 379);
             ListaTransportes.TabIndex = 38;
             ListaTransportes.SelectedIndexChanged += ListaTransportes_SelectedIndexChanged_1;
             // 
             // Retalhistas
             // 
+            Retalhistas.Controls.Add(ItemsEncomenda);
+            Retalhistas.Controls.Add(EncomendaListaProdutos);
             Retalhistas.Controls.Add(QuintaEncoemndaRetalhistaBox);
             Retalhistas.Controls.Add(EmpresaDeTransporteEncoemndaRetalhistaBox);
             Retalhistas.Controls.Add(DataRetalhistaEncoemndabOX);
@@ -2218,6 +2241,47 @@
             Retalhistas.UseVisualStyleBackColor = true;
             Retalhistas.Click += Retalhistas_Click;
             // 
+            // ItemsEncomenda
+            // 
+            ItemsEncomenda.FormattingEnabled = true;
+            ItemsEncomenda.ItemHeight = 25;
+            ItemsEncomenda.Location = new Point(452, 385);
+            ItemsEncomenda.Name = "ItemsEncomenda";
+            ItemsEncomenda.Size = new Size(654, 179);
+            ItemsEncomenda.TabIndex = 97;
+            // 
+            // EncomendaListaProdutos
+            // 
+            EncomendaListaProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            EncomendaListaProdutos.Columns.AddRange(new DataGridViewColumn[] { productColumn, quantityColumn });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle2;
+            EncomendaListaProdutos.Location = new Point(473, 335);
+            EncomendaListaProdutos.Name = "EncomendaListaProdutos";
+            EncomendaListaProdutos.RowHeadersWidth = 20;
+            EncomendaListaProdutos.Size = new Size(615, 209);
+            EncomendaListaProdutos.TabIndex = 96;
+            // 
+            // productColumn
+            // 
+            productColumn.HeaderText = "Produtos";
+            productColumn.MinimumWidth = 8;
+            productColumn.Name = "productColumn";
+            productColumn.Width = 300;
+            // 
+            // quantityColumn
+            // 
+            quantityColumn.HeaderText = "Quantidade";
+            quantityColumn.MinimumWidth = 8;
+            quantityColumn.Name = "quantityColumn";
+            quantityColumn.Width = 300;
+            // 
             // QuintaEncoemndaRetalhistaBox
             // 
             QuintaEncoemndaRetalhistaBox.FormattingEnabled = true;
@@ -2225,6 +2289,7 @@
             QuintaEncoemndaRetalhistaBox.Name = "QuintaEncoemndaRetalhistaBox";
             QuintaEncoemndaRetalhistaBox.Size = new Size(478, 33);
             QuintaEncoemndaRetalhistaBox.TabIndex = 95;
+            QuintaEncoemndaRetalhistaBox.SelectedIndexChanged += QuintaEncoemndaRetalhistaBox_SelectedIndexChanged;
             // 
             // EmpresaDeTransporteEncoemndaRetalhistaBox
             // 
@@ -2251,9 +2316,9 @@
             // 
             // ConfirmarRetalhistaEncoemnda
             // 
-            ConfirmarRetalhistaEncoemnda.Location = new Point(449, 324);
+            ConfirmarRetalhistaEncoemnda.Location = new Point(449, 520);
             ConfirmarRetalhistaEncoemnda.Name = "ConfirmarRetalhistaEncoemnda";
-            ConfirmarRetalhistaEncoemnda.Size = new Size(636, 34);
+            ConfirmarRetalhistaEncoemnda.Size = new Size(636, 69);
             ConfirmarRetalhistaEncoemnda.TabIndex = 91;
             ConfirmarRetalhistaEncoemnda.Text = "Confirmar";
             ConfirmarRetalhistaEncoemnda.UseVisualStyleBackColor = true;
@@ -2345,9 +2410,9 @@
             // 
             // EliminarRetalhista
             // 
-            EliminarRetalhista.Location = new Point(579, 534);
+            EliminarRetalhista.Location = new Point(236, 499);
             EliminarRetalhista.Name = "EliminarRetalhista";
-            EliminarRetalhista.Size = new Size(264, 34);
+            EliminarRetalhista.Size = new Size(204, 34);
             EliminarRetalhista.TabIndex = 64;
             EliminarRetalhista.Text = "Eliminar Empresa";
             EliminarRetalhista.UseVisualStyleBackColor = true;
@@ -2355,9 +2420,9 @@
             // 
             // CancelarEncoemendRetalhistas
             // 
-            CancelarEncoemendRetalhistas.Location = new Point(849, 534);
+            CancelarEncoemendRetalhistas.Location = new Point(236, 539);
             CancelarEncoemendRetalhistas.Name = "CancelarEncoemendRetalhistas";
-            CancelarEncoemendRetalhistas.Size = new Size(264, 34);
+            CancelarEncoemendRetalhistas.Size = new Size(204, 34);
             CancelarEncoemendRetalhistas.TabIndex = 63;
             CancelarEncoemendRetalhistas.Text = "Cancelar Encomenda";
             CancelarEncoemendRetalhistas.UseVisualStyleBackColor = true;
@@ -2365,9 +2430,9 @@
             // 
             // AdicionarEncomendasRetalhista
             // 
-            AdicionarEncomendasRetalhista.Location = new Point(309, 534);
+            AdicionarEncomendasRetalhista.Location = new Point(26, 539);
             AdicionarEncomendasRetalhista.Name = "AdicionarEncomendasRetalhista";
-            AdicionarEncomendasRetalhista.Size = new Size(264, 34);
+            AdicionarEncomendasRetalhista.Size = new Size(204, 34);
             AdicionarEncomendasRetalhista.TabIndex = 62;
             AdicionarEncomendasRetalhista.Text = "Adicionar Encomenda";
             AdicionarEncomendasRetalhista.UseVisualStyleBackColor = true;
@@ -2375,9 +2440,9 @@
             // 
             // AdicionarRetalhistas
             // 
-            AdicionarRetalhistas.Location = new Point(39, 534);
+            AdicionarRetalhistas.Location = new Point(26, 499);
             AdicionarRetalhistas.Name = "AdicionarRetalhistas";
-            AdicionarRetalhistas.Size = new Size(264, 34);
+            AdicionarRetalhistas.Size = new Size(204, 34);
             AdicionarRetalhistas.TabIndex = 61;
             AdicionarRetalhistas.Text = "Adicionar Retalhista";
             AdicionarRetalhistas.UseVisualStyleBackColor = true;
@@ -2387,9 +2452,9 @@
             // 
             QuintasRetalhistas.FormattingEnabled = true;
             QuintasRetalhistas.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
-            QuintasRetalhistas.Location = new Point(598, 478);
+            QuintasRetalhistas.Location = new Point(102, 460);
             QuintasRetalhistas.Name = "QuintasRetalhistas";
-            QuintasRetalhistas.Size = new Size(308, 33);
+            QuintasRetalhistas.Size = new Size(338, 33);
             QuintasRetalhistas.TabIndex = 57;
             QuintasRetalhistas.Text = "Seleciona uma quinta";
             QuintasRetalhistas.SelectedIndexChanged += QuintasRetalhistas_SelectedIndexChanged;
@@ -2397,9 +2462,9 @@
             // FiltrarTransporteRetalhistas
             // 
             FiltrarTransporteRetalhistas.FormattingEnabled = true;
-            FiltrarTransporteRetalhistas.Location = new Point(779, 410);
+            FiltrarTransporteRetalhistas.Location = new Point(219, 410);
             FiltrarTransporteRetalhistas.Name = "FiltrarTransporteRetalhistas";
-            FiltrarTransporteRetalhistas.Size = new Size(308, 33);
+            FiltrarTransporteRetalhistas.Size = new Size(221, 33);
             FiltrarTransporteRetalhistas.TabIndex = 56;
             FiltrarTransporteRetalhistas.Text = "Seleciona uma Empresa";
             FiltrarTransporteRetalhistas.SelectedIndexChanged += FiltrarTransporteRetalhistas_SelectedIndexChanged;
@@ -2408,7 +2473,7 @@
             // 
             QuintaRetalhistaSelecao.AutoSize = true;
             QuintaRetalhistaSelecao.Font = new Font("Segoe UI", 9F);
-            QuintaRetalhistaSelecao.Location = new Point(717, 450);
+            QuintaRetalhistaSelecao.Location = new Point(29, 463);
             QuintaRetalhistaSelecao.Name = "QuintaRetalhistaSelecao";
             QuintaRetalhistaSelecao.Size = new Size(77, 25);
             QuintaRetalhistaSelecao.TabIndex = 55;
@@ -2419,7 +2484,7 @@
             // 
             empresaretalhistas.AutoSize = true;
             empresaretalhistas.Font = new Font("Segoe UI", 9F);
-            empresaretalhistas.Location = new Point(779, 372);
+            empresaretalhistas.Location = new Point(29, 413);
             empresaretalhistas.Name = "empresaretalhistas";
             empresaretalhistas.Size = new Size(193, 25);
             empresaretalhistas.TabIndex = 54;
@@ -2427,16 +2492,16 @@
             // 
             // DataRetalhistasEncomenda
             // 
-            DataRetalhistasEncomenda.Location = new Point(451, 412);
+            DataRetalhistasEncomenda.Location = new Point(164, 366);
             DataRetalhistasEncomenda.Name = "DataRetalhistasEncomenda";
-            DataRetalhistasEncomenda.Size = new Size(306, 31);
+            DataRetalhistasEncomenda.Size = new Size(276, 31);
             DataRetalhistasEncomenda.TabIndex = 53;
             // 
             // dataRetalhista
             // 
             dataRetalhista.AutoSize = true;
             dataRetalhista.Font = new Font("Segoe UI", 9F);
-            dataRetalhista.Location = new Point(451, 372);
+            dataRetalhista.Location = new Point(29, 366);
             dataRetalhista.Name = "dataRetalhista";
             dataRetalhista.Size = new Size(129, 25);
             dataRetalhista.TabIndex = 52;
@@ -2450,6 +2515,7 @@
             EncomendasRealizadas.Name = "EncomendasRealizadas";
             EncomendasRealizadas.Size = new Size(639, 129);
             EncomendasRealizadas.TabIndex = 51;
+            EncomendasRealizadas.SelectedIndexChanged += EncomendasRealizadas_SelectedIndexChanged;
             // 
             // RetalhistasTipo
             // 
@@ -2554,7 +2620,7 @@
             ListaRetalhistas.ItemHeight = 25;
             ListaRetalhistas.Location = new Point(39, 127);
             ListaRetalhistas.Name = "ListaRetalhistas";
-            ListaRetalhistas.Size = new Size(374, 379);
+            ListaRetalhistas.Size = new Size(374, 229);
             ListaRetalhistas.TabIndex = 38;
             ListaRetalhistas.SelectedIndexChanged += ListaRetalhistas_SelectedIndexChanged_1;
             // 
@@ -2990,6 +3056,10 @@
             ListaProdutos.TabIndex = 4;
             ListaProdutos.SelectedIndexChanged += ListaProdutos_SelectedIndexChanged;
             // 
+            // produtosOnlyNameBindingSource
+            // 
+            produtosOnlyNameBindingSource.DataSource = typeof(ProdutosOnlyName);
+            // 
             // AgroTrack
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -3017,9 +3087,11 @@
             Transportes.PerformLayout();
             Retalhistas.ResumeLayout(false);
             Retalhistas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)EncomendaListaProdutos).EndInit();
             Produtos.ResumeLayout(false);
             Produtos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)QuantidadeBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)produtosOnlyNameBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -3305,5 +3377,11 @@
         private ComboBox QuintaBox;
         private ComboBox TransportesBox;
         private ComboBox RetalhistaBox;
+        private BindingSource produtosOnlyNameBindingSource;
+        private DataGridView EncomendaListaProdutos;
+        private ListBox ItemsEncomenda;
+        private ListBox ItemsEncomendaTransportes;
+        private DataGridViewComboBoxColumn productColumn;
+        private DataGridViewTextBoxColumn quantityColumn;
     }
 }

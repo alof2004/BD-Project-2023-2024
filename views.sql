@@ -91,8 +91,8 @@ go
 drop view IF EXISTS AgroTrack.EncomendaItems
 go
 create view AgroTrack.EncomendaItems as
-	select Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id
-	from  (AgroTrack_Encomenda as Enc join AgroTrack_Item as I on Enc.Codigo=I.Encomenda_Codigo)
+	select Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id, I.Quantidade, I.ProdutoCodigo, I.Encomenda_Codigo, P.Nome as NomeProduto
+	from (((AgroTrack_Encomenda as Enc join AgroTrack_Item as I on Enc.Codigo=I.Encomenda_Codigo) inner join AgroTrack_Produto as P on I.ProdutoCodigo=P.Codigo))
 go
 
 
@@ -146,9 +146,6 @@ create view AgroTrack.EmpresaEncomenda as
 	select E.Nome, E.Morada, E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id
 	from  (AgroTrack_Empresa as E join AgroTrack_Encomenda as Enc on E.Id_Empresa=Enc.Retalhista_Empresa_Id_Empresa)
 go	
-
-
-
 --Encomenda
 drop view IF EXISTS AgroTrack.Encomenda
 go
