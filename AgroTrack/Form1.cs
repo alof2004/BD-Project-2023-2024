@@ -3782,9 +3782,100 @@ namespace AgroTrack
 
                 }
             }
-           
+
 
         }
+
+        //botão eliminar Empresa de transportes
+        private void EliminarEmpresaTransportes_Click(object sender, EventArgs e)
+        {
+            sbyte index = (sbyte)ListaTransportes.SelectedIndex;
+            if (index == -1)
+            {
+                MessageBox.Show("Por favor selecione uma empresa de transportes para remover!");
+            }
+            else
+            {
+                try
+                {
+                    RemoverTransporte((ListaTransportes.SelectedItem as Transportes).Empresa_Id_Empresa);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao remover transporte: " + ex.Message);
+                }
+                finally
+                {
+                    ListaTransportes.Items.Clear();
+                    LoadTransportes();
+                }
+            }
+        }
+
+        //botão eliminar retalhista
+
+        private void EliminarRetalhista_Click(object sender, EventArgs e)
+        {
+            sbyte index = (sbyte)ListaRetalhistas.SelectedIndex;
+            if (index == -1)
+            {
+                MessageBox.Show("Por favor selecione um retalhista para remover!");
+            }
+            else
+            {
+                try
+                {
+                    RemoverRetalhista((ListaRetalhistas.SelectedItem as Retalhista).Empresa_Id_Empresa);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao remover retalhista: " + ex.Message);
+                }
+                finally
+                {
+                    ListaRetalhistas.Items.Clear();
+                    LoadRetalhistas();
+                }
+            }
+        }
+
+
+        private void RemoverTransporte(int TransporteID )   
+        {
+            using (SqlCommand command = new SqlCommand("ApagarTransporte", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", TransporteID));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Empresa removida com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to remove transport from database: " + ex.Message);
+                }
+            }
+        }
+
+        private void RemoverRetalhista(int RetalhistaID)
+        {
+            using (SqlCommand command = new SqlCommand("ApagarRetalhista", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", RetalhistaID));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Retalhista removida com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to remove product from database: " + ex.Message);
+                }
+            }
+        }
+
+
+
     }
 
 }

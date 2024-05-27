@@ -1632,6 +1632,7 @@
             EliminarEmpresaTransportes.TabIndex = 64;
             EliminarEmpresaTransportes.Text = "Eliminar Empresa";
             EliminarEmpresaTransportes.UseVisualStyleBackColor = true;
+            EliminarEmpresaTransportes.Click += EliminarEmpresaTransportes_Click;
             // 
             // CancelarEncoemndaTransportes
             // 
@@ -2014,6 +2015,7 @@
             EliminarRetalhista.TabIndex = 64;
             EliminarRetalhista.Text = "Eliminar Empresa";
             EliminarRetalhista.UseVisualStyleBackColor = true;
+            EliminarRetalhista.Click += EliminarRetalhista_Click;
             // 
             // CancelarEncoemendRetalhistas
             // 
