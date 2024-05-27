@@ -46,20 +46,12 @@ IF OBJECT_ID('AddAnimalToQuinta', 'P') IS NOT NULL
     DROP PROCEDURE AddAnimalToQuinta;
 GO
 CREATE PROCEDURE AddAnimalToQuinta
-    @Tipo_de_Animal VARCHAR(64),
+    @Id_Animal INT,
     @Idade INT,
     @Brinco VARCHAR(16),
-    @NomeQuinta VARCHAR(64)
+    @Quinta_Id VARCHAR(64)
 AS
 BEGIN
-    DECLARE @Quinta_Id INT;
-
-    -- Get the ID of the Quinta based on the Nome
-    SELECT @Quinta_Id = Empresa_Id_Empresa
-    FROM AgroTrack_Quinta, AgroTrack_Empresa
-    WHERE Nome = @NomeQuinta;
-
-    -- Check if the Quinta exists
     IF @Quinta_Id IS NULL
     BEGIN
         RAISERROR ('Quinta with the provided name does not exist', 16, 1);
@@ -68,8 +60,7 @@ BEGIN
 
     -- Insert the new animal into AgroTrack_Quinta_Animal
     INSERT INTO AgroTrack_Quinta_Animal (Empresa_Id_Empresa, Idade, Brinco, Id_Animal)
-    VALUES (@Quinta_Id, @Idade, @Brinco, (SELECT Id_Animal FROM AgroTrack_Animal WHERE Tipo_de_Animal = @Tipo_de_Animal));
-
+    VALUES (@Quinta_Id, @Idade, @Brinco, @Id_Animal);
     PRINT 'New animal added to the Quinta successfully.';
 END
 GO
@@ -77,19 +68,12 @@ IF OBJECT_ID('AddPlantaToQuinta', 'P') IS NOT NULL
     DROP PROCEDURE AddPlantaToQuinta;
 GO
 CREATE PROCEDURE AddPlantaToQuinta
-    @Tipo VARCHAR(32),
+    @IdPlanta int,
     @Estacao VARCHAR(32),
     @Lote VARCHAR(32),
-    @NomeQuinta VARCHAR(64)
+    @QuintaId INT
 AS
 BEGIN
-    DECLARE @QuintaId INT;
-
-    -- Obtém o ID da Quinta baseado no Nome
-    SELECT @QuintaId = Empresa_Id_Empresa
-    FROM AgroTrack_Quinta, AgroTrack_Empresa
-    WHERE Nome = @NomeQuinta;
-
     -- Verifica se a Quinta existe
     IF @QuintaId IS NULL
     BEGIN
@@ -99,7 +83,7 @@ BEGIN
 
     -- Insere a nova planta na tabela AgroTrack_Quinta_Planta
     INSERT INTO AgroTrack_Quinta_Planta (Empresa_Id_Empresa, Lote, Id_Planta)
-    VALUES (@QuintaId, @Lote, (SELECT Id_planta FROM AgroTrack_Planta WHERE Tipo = @Tipo AND Estacao = @Estacao));
+    VALUES (@QuintaId, @Lote, (SELECT Id_planta FROM AgroTrack_Planta WHERE Id_planta = @IdPlanta));
 
     PRINT 'Nova planta adicionada à Quinta com sucesso.';
 END
@@ -157,7 +141,6 @@ BEGIN
     PRINT 'Novo agricultor adicionado à Quinta com sucesso.';
 END
 GO
-
 IF OBJECT_ID('AddProduto', 'P') IS NOT NULL
     DROP PROCEDURE AddProduto;
 GO
@@ -179,8 +162,6 @@ BEGIN
     -- Insert the new product into the AgroTrack_Produto table
     INSERT INTO AgroTrack_Produto (Codigo, Nome, Id_origem, Tipo_de_Produto, Preco, Taxa_de_iva, Unidade_medida)
     VALUES (@Codigo, @NomeProduto, @Id_origem, @Tipo_de_Produto, @Preco, @Taxa_de_iva, @Unidade_medida);
-
-    -- Success message
     PRINT 'Novo produto adicionado com sucesso.';
 END
 GO
@@ -192,33 +173,12 @@ IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
     DROP PROCEDURE AddProdutoToQuinta;
 GO
 CREATE PROCEDURE AddProdutoToQuinta
-    @NomeProduto VARCHAR(64),
-    @NomeQuinta VARCHAR(64),
+    @ProdutoId VARCHAR(64),
+    @QuintaId VARCHAR(64),
     @Quantidade INT,
     @DataDeValidade DATE
 AS
 BEGIN
-    DECLARE @ProdutoId INT;
-    DECLARE @QuintaId INT;
-
-    -- Obtém o ID do Produto baseado no Nome
-    SELECT @ProdutoId = Codigo
-    FROM AgroTrack_Produto
-    WHERE Nome = @NomeProduto;
-
-    -- Verifica se o Produto existe
-    IF @ProdutoId IS NULL
-    BEGIN
-        RAISERROR ('O Produto com o nome fornecido não existe', 16, 1);
-        RETURN;
-    END
-
-    -- Obtém o ID da Quinta baseado no Nome
-    SELECT @QuintaId = Empresa_Id_Empresa
-    FROM AgroTrack_Quinta, AgroTrack_Empresa
-    WHERE Nome = @NomeQuinta;
-
-    -- Verifica se a Quinta existe
     IF @QuintaId IS NULL
     BEGIN
         RAISERROR ('A Quinta com o nome fornecido não existe', 16, 1);
@@ -226,6 +186,15 @@ BEGIN
     END
 
     -- Insere o produto na tabela AgroTrack_Contem
+    IF EXISTS (SELECT 1 FROM AgroTrack_Contem WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId)
+    BEGIN
+        -- Atualiza o registo existente com a nova quantidade
+        UPDATE AgroTrack_Contem
+        SET Quantidade = Quantidade + @Quantidade, 
+            Data_de_validade = @DataDeValidade
+        WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId;
+    END
+    ELSE
     INSERT INTO AgroTrack_Contem (Produto_Codigo, Quinta_Empresa_Id_Empresa, Quantidade, Data_de_validade)
     VALUES (@ProdutoId, @QuintaId, @Quantidade, @DataDeValidade);
 
@@ -1165,6 +1134,46 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
+GO
+IF OBJECT_ID('RemoveProdutoFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE RemoveProdutoFromQuinta;
+GO
+CREATE PROCEDURE RemoveProdutoFromQuinta
+    @ProdutoId INT,
+    @QuintaId INT
+AS
+BEGIN
+    -- Start a transaction
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Delete the product from the AgroTrack_Contem table
+        DELETE FROM AgroTrack_Contem
+        WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId;
+
+        -- Commit the transaction
+        COMMIT TRANSACTION;
+
+        PRINT 'Produto removido da Quinta com sucesso.';
+    END TRY
+    BEGIN CATCH
+        -- Rollback the transaction in case of error
+        ROLLBACK TRANSACTION;
+
+        -- Get the error details
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Raise the error again to propagate it
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
 
 --AddEncomendaTransportes
 IF OBJECT_ID('AgroTrack.AddEncomendaTransportes', 'P') IS NOT NULL
@@ -1274,4 +1283,48 @@ BEGIN
 
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
+END;
+
+IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE RemovePlantFromQuinta;
+GO
+CREATE PROCEDURE RemovePlantFromQuinta
+    @PlantaId INT,
+    @QuintaId INT,
+    @Lote varchar(32),
+AS
+BEGIN
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        DELETE FROM AgroTrack_Quinta_Planta
+        WHERE Planta_Codigo = @PlantaId AND Quinta_Empresa_Id_Empresa = @QuintaId AND Lote = @Lote;
+
+        COMMIT TRANSACTION;
+
+        PRINT 'Planta removida da Quinta com sucesso.';
+    END TRY
+
+END;
+
+IF OBJECT_ID('RemoveAnimalFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE RemoveAnimalFromQuinta;
+GO
+CREATE PROCEDURE RemoveAnimalFromQuinta
+    @AnimalId INT,
+    @QuintaId INT,
+    @Brinco varchar(32),
+AS
+BEGIN
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        DELETE FROM AgroTrack_Quinta_Animal
+        WHERE Animal_Codigo = @AnimalId AND Quinta_Empresa_Id_Empresa = @QuintaId AND Brinco = @Brinco;
+
+        COMMIT TRANSACTION;
+
+        PRINT 'Animal removido da Quinta com sucesso.';
+    END TRY
+
 END;
