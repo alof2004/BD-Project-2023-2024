@@ -1416,13 +1416,20 @@ namespace AgroTrack
                 ProdutoPreco.Text = selectedproduct.Preco.ToString();
                 ProdutoUnidade.Text = selectedproduct.Unidade_medida;
                 ProdutoDisponivel.Text = GetQuantidadeDisponivel(selectedproduct.Codigo).ToString();
+                QuantidadeVendidaBox.Text = GetQuantidadeVendida(selectedproduct.Codigo).ToString();
 
                 LoadQuintas(selectedproduct.Id_origem);
 
             }
 
         }
-
+        private int GetQuantidadeVendida(int produtoCodigo)
+        {
+            string query = @"SELECT AgroTrack.CalcularQuantidadeProdutoVendido(@ProductId) AS TotalProductCount";
+            SqlCommand sqlCommand = new SqlCommand(query, cn);
+            sqlCommand.Parameters.AddWithValue("@ProductId", produtoCodigo);
+            return (int)sqlCommand.ExecuteScalar();
+        }
         private void Retalhistas_Click(object sender, EventArgs e)
         {
 
@@ -1503,24 +1510,10 @@ namespace AgroTrack
 
         private int GetQuantidadeDisponivel(int produtoCodigo)
         {
-            string query = @"
-            SELECT COALESCE(SUM(C.Quantidade), 0) as QuantidadeDisponivel
-            FROM AgroTrack.Contem C
-            WHERE Produto_codigo = @ProdutoCodigo ;";
-            SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@ProdutoCodigo", produtoCodigo);
-
-            try
-            {
-                object result = cmd.ExecuteScalar();
-                return Convert.ToInt32(result);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to retrieve quantity available: " + ex.Message);
-                return 0;
-            }
-
+            string query = @"SELECT AgroTrack.GetTotalNumberOfProductInAllFarms(@ProductId) AS TotalProductCount";
+            SqlCommand sqlCommand = new SqlCommand(query, cn);
+            sqlCommand.Parameters.AddWithValue("@ProductId", produtoCodigo);
+            return (int)sqlCommand.ExecuteScalar();
         }
 
 
@@ -4455,6 +4448,11 @@ namespace AgroTrack
                     MessageBox.Show("Failed to remove planta from quinta: " + ex.Message);
                 }
             }
+        }
+
+        private void QuantidadeVendidaBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

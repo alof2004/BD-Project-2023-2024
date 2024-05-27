@@ -2708,6 +2708,7 @@
             QuantidadeVendidaBox.Name = "QuantidadeVendidaBox";
             QuantidadeVendidaBox.Size = new Size(129, 31);
             QuantidadeVendidaBox.TabIndex = 66;
+            QuantidadeVendidaBox.TextChanged += QuantidadeVendidaBox_TextChanged;
             // 
             // QuantidadeVendidaText
             // 
