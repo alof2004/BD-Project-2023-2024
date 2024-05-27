@@ -4494,7 +4494,8 @@ namespace AgroTrack
             {
                 using (SqlCommand command = new SqlCommand("AgroTrack.AddEncomendaTransportes", cn) { CommandType = CommandType.StoredProcedure })
                 {
-                    // Adiciona os parâmetros ao comando
+                    // Adiciona os parâmetros ao comandoº
+
                     command.Parameters.Add(new SqlParameter("@Prazo_entrega", prazo));
                     command.Parameters.Add(new SqlParameter("@Morada_entrega", morada));
                     command.Parameters.Add(new SqlParameter("@Entrega", entrega));

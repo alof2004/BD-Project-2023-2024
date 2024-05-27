@@ -1210,7 +1210,7 @@ BEGIN
 
     BEGIN TRY
         -- Verifica a existência dos IDs nas tabelas correspondentes
-        IF NOT EXISTS (SELECT 1 FROM AgroTrack_Retalhista WHERE Empresa_Id_Empresa = @Retalhista_Empresa_Id_Empresa)
+        IF NOT EXISTS (SELECT 1 FROM AgroTrack_Retalhistas WHERE Empresa_Id_Empresa = @Retalhista_Empresa_Id_Empresa)
         BEGIN
             RAISERROR('O ID do retalhista não existe.', 16, 1);
             RETURN;
