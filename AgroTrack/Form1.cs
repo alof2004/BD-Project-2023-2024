@@ -508,6 +508,7 @@ namespace AgroTrack
                     };
                     SelectQuintaAddAgricultor.Items.Add(planta);
                     TrabalhaQuinta.Items.Add(planta);
+                    QuintaBox.Items.Add(planta);    
                 }
                 reader.Close();
             }
@@ -3271,6 +3272,8 @@ namespace AgroTrack
                         Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"]
                     };
                     FiltrarRetalhistaTransportes.Items.Add(produto);
+                    DataRetalhistaEncoemndabOX.Items.Add(produto);
+                    RetalhistaBox.Items.Add(produto);
                 }
                 reader.Close();
             }
@@ -3325,6 +3328,8 @@ namespace AgroTrack
                         Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"]
                     };
                     FiltrarTransporteRetalhistas.Items.Add(produto);
+                    EmpresaDeTransporteEncoemndaRetalhistaBox.Items.Add(produto);
+                    TransportesBox.Items.Add(produto);
                 }
                 reader.Close();
             }
@@ -3348,6 +3353,7 @@ namespace AgroTrack
                         Nome = reader["Nome"].ToString(),
                     };
                     QuintasRetalhistas.Items.Add(Farm);
+                    QuintaEncoemndaRetalhistaBox.Items.Add(Farm);
                 }
                 reader.Close();
             }
@@ -3509,10 +3515,7 @@ namespace AgroTrack
             // Enable input fields
             PrazoBox.ReadOnly = false;
             MoradaBox.ReadOnly = false;
-            EntregaBox.ReadOnly = false;
-            RetalhistaBox.ReadOnly = false;
-            TransportesBox.ReadOnly = false;
-            QuintaBox.ReadOnly = false;
+
 
             PrazoBox.Text = "";
             MoradaBox.Text = "";
@@ -3552,10 +3555,20 @@ namespace AgroTrack
                     int prazo = int.Parse(PrazoBox.Text);
                     string morada = MoradaBox.Text;
                     DateTime entrega = DateTime.Parse(EntregaBox.Text);
-                    int retalhista = int.Parse(RetalhistaBox.Text);
-                    int transportes = int.Parse(TransportesBox.Text);
-                    int quinta = int.Parse(QuintaBox.Text);
-                    //AddEncomenda(prazo, morada, entrega, retalhista, transportes, quinta);
+                    RetalhistasOnlyName comprador = (RetalhistasOnlyName)RetalhistaBox.SelectedItem;
+                    TransportesOnlyName empresaDeTransporte = (TransportesOnlyName)TransportesBox.SelectedItem;
+                    QuintaOnlyName quinta = (QuintaOnlyName)QuintaBox.SelectedItem;
+                    if (comprador == null || empresaDeTransporte == null || quinta == null)
+                    {
+                        MessageBox.Show("Por favor selecione um comprador, uma empresa de transporte e uma quinta!");
+                        return;
+                    }
+
+                    int compradorId = comprador.Empresa_Id_Empresa;
+                    int empresaDeTransporteId = empresaDeTransporte.Empresa_Id_Empresa;
+                    int quintaId = quinta.Empresa_Id_Empresa;
+
+                    AddEncomendaTransporte(prazo, morada, entrega, compradorId, empresaDeTransporteId, quintaId);
                 }
                 catch (Exception ex)
                 {
@@ -4065,10 +4078,23 @@ namespace AgroTrack
             {
                 try
                 {
-                    string nome = TransportesNome.Text;
-                    string morada = TransportesMorada.Text;
-                    int contacto = int.Parse(TransportesContacto.Text);
-                    //AddRetalhista(nome, morada, contacto);
+                     int prazo = int.Parse(PrazoBoxRetalhista.Text);
+                    string morada = MoradaRetalhistaBox.Text;
+                    DateTime data = DateTime.Parse(CompradorEncoemndaRetalhistaBox.Text);
+                    RetalhistasOnlyName comprador = (RetalhistasOnlyName)DataRetalhistaEncoemndabOX.SelectedItem;
+                    TransportesOnlyName empresaDeTransporte = (TransportesOnlyName)EmpresaDeTransporteEncoemndaRetalhistaBox.SelectedItem;
+                    QuintaOnlyName quinta = (QuintaOnlyName)QuintaEncoemndaRetalhistaBox.SelectedItem;
+                    if (comprador == null || empresaDeTransporte == null || quinta == null)
+                    {
+                        MessageBox.Show("Por favor selecione um comprador, uma empresa de transporte e uma quinta!");
+                        return;
+                    }
+
+                    int compradorId = comprador.Empresa_Id_Empresa;
+                    int empresaDeTransporteId = empresaDeTransporte.Empresa_Id_Empresa;
+                    int quintaId = quinta.Empresa_Id_Empresa;
+
+                    AddEncomendaRetalhista(prazo, morada, data, compradorId, empresaDeTransporteId, quintaId);
                 }
                 catch (Exception ex)
                 {
@@ -4454,6 +4480,95 @@ namespace AgroTrack
         {
 
         }
+
+        private void EntregaBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //botão adicionar encomenda
+
+        private void AddEncomendaTransporte(int prazo, string morada, DateTime entrega, int retalhista, int transportes, int quinta)
+        {
+            try
+            {
+                using (SqlCommand command = new SqlCommand("AgroTrack.AddEncomendaTransportes", cn) { CommandType = CommandType.StoredProcedure })
+                {
+                    // Adiciona os parâmetros ao comandoº
+
+                    command.Parameters.Add(new SqlParameter("@Prazo_entrega", prazo));
+                    command.Parameters.Add(new SqlParameter("@Morada_entrega", morada));
+                    command.Parameters.Add(new SqlParameter("@Entrega", entrega));
+                    command.Parameters.Add(new SqlParameter("@Retalhista_Empresa_Id_Empresa", retalhista));
+                    command.Parameters.Add(new SqlParameter("@Empresa_De_Transportes_Id_Empresa", transportes));
+                    command.Parameters.Add(new SqlParameter("@Quinta_Empresa_Id", quinta));
+
+                    // Verifica o estado da conexão e abre se necessário
+                    if (cn.State == ConnectionState.Closed)
+                    {
+                        cn.Open();
+                    }
+
+                    // Executa o comando
+                    command.ExecuteNonQuery();
+
+                    // Exibe mensagem de sucesso
+                    MessageBox.Show("Encomenda adicionada com sucesso!");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Fecha a conexão se estiver aberta
+                if (cn.State == ConnectionState.Open)
+                {
+                    cn.Close();
+                }
+
+                // Lança a exceção
+                throw new Exception("Falha ao adicionar a encomenda: " + ex.Message);
+            }
+        }
+
+        private void AddEncomendaRetalhista(int prazo, string morada, DateTime entrega, int retalhista, int transportes, int quinta)
+        {
+            try
+            {
+                using (SqlCommand command = new SqlCommand("AgroTrack.AddEncomendaRetalhistas", cn) { CommandType = CommandType.StoredProcedure })
+                {
+                    // Adiciona os parâmetros ao comando
+                    command.Parameters.Add(new SqlParameter("@Prazo_entrega", prazo));
+                    command.Parameters.Add(new SqlParameter("@Morada_entrega", morada));
+                    command.Parameters.Add(new SqlParameter("@Entrega", entrega));
+                    command.Parameters.Add(new SqlParameter("@Retalhista_Empresa_Id_Empresa", retalhista));
+                    command.Parameters.Add(new SqlParameter("@Empresa_De_Transportes_Id_Empresa", transportes));
+                    command.Parameters.Add(new SqlParameter("@Quinta_Empresa_Id", quinta));
+
+                    // Verifica o estado da conexão e abre se necessário
+                    if (cn.State == ConnectionState.Closed)
+                    {
+                        cn.Open();
+                    }
+
+                    // Executa o comando
+                    command.ExecuteNonQuery();
+
+                    // Exibe mensagem de sucesso
+                    MessageBox.Show("Encomenda adicionada com sucesso!");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Fecha a conexão se estiver aberta
+                if (cn.State == ConnectionState.Open)
+                {
+                    cn.Close();
+                }
+
+                // Lança a exceção
+                throw new Exception("Falha ao adicionar a encomenda: " + ex.Message);
+            }
+        }
+
     }
 
 }

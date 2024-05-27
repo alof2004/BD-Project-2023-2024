@@ -1,3 +1,15 @@
+
+IF OBJECT_ID('AgroTrack.AddEncomendaTransportes', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddEncomendaTransportes;
+GO
+IF OBJECT_ID('AgroTrack.AddEncomendaRetalhistas', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddEncomendaRetalhistas;
+GO
+
+IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE RemovePlantFromQuinta;
+GO
+
 IF OBJECT_ID('AgroTrack.AddRetalhista', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddRetalhista;
 GO
@@ -990,6 +1002,13 @@ BEGIN
 
     BEGIN TRY
 
+        DELETE FROM AgroTrack_Item
+        WHERE Encomenda_Codigo IN (
+            SELECT Codigo
+            FROM AgroTrack_Encomenda
+            WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa
+        );
+        
         Delete From AgroTrack_Encomenda
         WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa;
 
@@ -1174,7 +1193,7 @@ BEGIN
     END CATCH;
 END;
 
---AddEncomendaTransportes
+-- AddEncomendaTransportes
 IF OBJECT_ID('AgroTrack.AddEncomendaTransportes', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddEncomendaTransportes;
 GO
@@ -1190,7 +1209,29 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        -- Insert the new Encomenda
+        -- Verifica a existência dos IDs nas tabelas correspondentes
+        IF NOT EXISTS (SELECT 1 FROM AgroTrack_Retalhistas WHERE Empresa_Id_Empresa = @Retalhista_Empresa_Id_Empresa)
+        BEGIN
+            RAISERROR('O ID do retalhista não existe.', 16, 1);
+            RETURN;
+        END
+
+        IF NOT EXISTS (SELECT 1 FROM AgroTrack_Empresa_De_Transportes WHERE Empresa_Id_Empresa = @Empresa_De_Transportes_Id_Empresa)
+        BEGIN
+            RAISERROR('O ID da empresa de transportes não existe.', 16, 1);
+            RETURN;
+        END
+
+        IF NOT EXISTS (SELECT 1 FROM AgroTrack_Quinta WHERE Empresa_Id_Empresa = @Quinta_Empresa_Id)
+        BEGIN
+            RAISERROR('O ID da quinta não existe.', 16, 1);
+            RETURN;
+        END
+
+        DECLARE @Codigo INT;
+        SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
+
+        -- Insere a nova Encomenda
         INSERT INTO AgroTrack_Encomenda (
             Codigo,
             prazo_entrega,
@@ -1209,13 +1250,11 @@ BEGIN
             @Empresa_De_Transportes_Id_Empresa,
             @Quinta_Empresa_Id
         );
-        Declare @Codigo INT;
-        SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
 
-        PRINT 'Encomenda added successfully.';
+        PRINT 'Encomenda adicionada com sucesso.';
     END TRY
     BEGIN CATCH
-        -- Handle errors
+        -- Trata erros
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -1229,7 +1268,8 @@ BEGIN
     END CATCH
 END;
 
---AddEncomendaRetalhistas
+
+-- AddEncomendaRetalhistas
 IF OBJECT_ID('AgroTrack.AddEncomendaRetalhistas', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddEncomendaRetalhistas;
 GO
@@ -1245,6 +1285,8 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
+        DECLARE @Codigo INT;
+        SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
         -- Insert the new Encomenda
         INSERT INTO AgroTrack_Encomenda (
             Codigo,
@@ -1264,8 +1306,6 @@ BEGIN
             @Empresa_De_Transportes_Id_Empresa,
             @Quinta_Empresa_Id
         );
-        Declare @Codigo INT;
-        SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
 
         PRINT 'Encomenda added successfully.';
     END TRY
