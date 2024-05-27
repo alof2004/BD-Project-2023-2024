@@ -1,3 +1,15 @@
+
+IF OBJECT_ID('AgroTrack.AddEncomendaTransportes', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddEncomendaTransportes;
+GO
+IF OBJECT_ID('AgroTrack.AddEncomendaRetalhistas', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddEncomendaRetalhistas;
+GO
+
+IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE RemovePlantFromQuinta;
+GO
+
 IF OBJECT_ID('AgroTrack.AddRetalhista', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddRetalhista;
 GO
@@ -990,6 +1002,13 @@ BEGIN
 
     BEGIN TRY
 
+        DELETE FROM AgroTrack_Item
+        WHERE Encomenda_Codigo IN (
+            SELECT Codigo
+            FROM AgroTrack_Encomenda
+            WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa
+        );
+        
         Delete From AgroTrack_Encomenda
         WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa;
 
@@ -1192,7 +1211,6 @@ BEGIN
     BEGIN TRY
         -- Insert the new Encomenda
         INSERT INTO AgroTrack_Encomenda (
-            Codigo,
             prazo_entrega,
             Morada_entrega,
             Entrega,
@@ -1201,7 +1219,6 @@ BEGIN
             Quinta_Empresa_Id
         )
         VALUES (
-            @Codigo,
             @Prazo_entrega,
             @Morada_entrega,
             @Entrega,
@@ -1247,7 +1264,6 @@ BEGIN
     BEGIN TRY
         -- Insert the new Encomenda
         INSERT INTO AgroTrack_Encomenda (
-            Codigo,
             prazo_entrega,
             Morada_entrega,
             Entrega,
@@ -1256,7 +1272,6 @@ BEGIN
             Quinta_Empresa_Id
         )
         VALUES (
-            @Codigo,
             @Prazo_entrega,
             @Morada_entrega,
             @Entrega,

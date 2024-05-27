@@ -138,3 +138,6 @@ C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
 C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Runtime.Caching.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\trmbr\Desktop\2Ano\2Semestre\BD\Teóricas\Projeto AGROTRACK\Bd-Project\AgroTrack\bin\Debug\net8.0-windows\Npgsql.dll
