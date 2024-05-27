@@ -3481,7 +3481,7 @@ namespace AgroTrack
             RetalhistasMorada.Hide();
             RetalhistasContacto.Hide();
 
-
+            LoadTransportes();
 
 
 
@@ -3602,6 +3602,7 @@ namespace AgroTrack
             RetalhistasContacto.ReadOnly = false;
 
 
+
             ConfirmarRetalhista.Show();
 
             dataRetalhista.Hide();
@@ -3615,7 +3616,8 @@ namespace AgroTrack
             EliminarRetalhista.Hide();
             CancelarEncoemendRetalhistas.Hide();
             EncomendasRealizadas.Hide();
-
+            TipoDeEmpresaRetalhista.Hide();
+            RetalhistasTipo.Hide();
 
 
 
@@ -3631,14 +3633,14 @@ namespace AgroTrack
             {
                 try
                 {
-                    string nome = TransportesNome.Text;
-                    string morada = TransportesMorada.Text;
-                    int contacto = int.Parse(TransportesContacto.Text);
-                    //AddRetalhista(nome, morada, contacto);
+                    string nome = RetalhistasNome.Text;
+                    string morada = RetalhistasMorada.Text;
+                    int contacto = int.Parse(RetalhistasContacto.Text);
+                    AddRetalhista(nome, morada, contacto);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao adicionar encomenda: " + ex.Message);
+                    MessageBox.Show("Erro ao adicionar retalhista: " + ex.Message);
                 }
                 finally
                 {
@@ -3649,16 +3651,19 @@ namespace AgroTrack
                     DataRetalhistasEncomenda.Show();
                     FiltrarTransporteRetalhistas.Show();
                     QuintasRetalhistas.Show();
-                    AdicionarRetalhistas.Hide();
                     AdicionarEncomendasRetalhista.Show();
                     EliminarRetalhista.Show();
                     CancelarEncoemendRetalhistas.Show();
                     EncomendasRealizadas.Show();
                     ConfirmarRetalhista.Hide();
+                    TipoDeEmpresaRetalhista.Show();
+                    AdicionarRetalhistas.Show();
+
 
                     RetalhistasNome.ReadOnly = true;
                     RetalhistasMorada.ReadOnly = true;
                     RetalhistasContacto.ReadOnly = true;
+                    RetalhistasTipo.ReadOnly = true;
 
                     RetalhistasNome.Text = "";
                     RetalhistasMorada.Text = "";
@@ -3840,7 +3845,7 @@ namespace AgroTrack
         }
 
 
-        private void RemoverTransporte(int TransporteID )   
+        private void RemoverTransporte(int TransporteID)
         {
             using (SqlCommand command = new SqlCommand("ApagarTransporte", cn) { CommandType = CommandType.StoredProcedure })
             {
@@ -3875,7 +3880,35 @@ namespace AgroTrack
         }
 
 
+        private void AddRetalhista(string nome, string morada, int contacto)
+        {
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddRetalhista", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Nome", nome));
+                command.Parameters.Add(new SqlParameter("@Morada", morada));
+                command.Parameters.Add(new SqlParameter("@Contacto", contacto));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Retalhista adicionado com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to add Retalhista to database: " + ex.Message);
+                }
+            }
+        }
 
+        //eliminar encomenda trnsportes
+        private void CancelarEncoemendRetalhistas_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void CancelarEncoemndaTransportes_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
 
 }
