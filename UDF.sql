@@ -126,6 +126,7 @@ RETURN
 );
 GO
 DROP FUNCTION IF EXISTS AgroTrack.FiltrarClientes;
+GO
 CREATE FUNCTION AgroTrack.FiltrarClientes
 (
     @ProdutoCodigo INT = NULL,
@@ -170,4 +171,24 @@ BEGIN
     FROM AgroTrack_Contem
     WHERE Produto_Codigo = @ProductId;
     RETURN @TotalProductCount;
+END;
+GO
+DROP FUNCTION IF EXISTS AgroTrack.CalcularQuantidadeProdutoVendido;
+GO
+CREATE FUNCTION AgroTrack.CalcularQuantidadeProdutoVendido(@ProductId INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TotalProductCountCompra INT;
+    DECLARE @TotalProductCountEncomenda INT;
+
+    SELECT @TotalProductCountCompra = SUM(Quantidade)
+    FROM AgroTrack_Compra
+    WHERE Produto_codigo = @ProductId;
+    
+    SELECT @TotalProductCountEncomenda = SUM(Quantidade)
+    FROM AgroTrack_Item
+    WHERE ProdutoCodigo = @ProductId;
+
+    RETURN @TotalProductCountCompra + @TotalProductCountEncomenda;
 END;

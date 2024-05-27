@@ -107,10 +107,7 @@ namespace AgroTrack
             ConfirmarOperacao.Hide();
             ProdutoIvaBox.Hide();
             UnidadeAdicionarBox.Hide();
-            ProdutoQuantidadeBox.Hide();
             TipoAdicionarBox.Hide();
-            LocalQuintaBox.Hide();
-            LocalQuinta.Hide();
             AddProdutoToQuintaData.Hide();
             AddProdutoToQuintaQuantidade.Hide();
             AddProdutoToQuintaProdutoID.Hide();
@@ -623,7 +620,6 @@ namespace AgroTrack
                         Produto product = new Produto
                         {
                             Nome = reader["Nome"].ToString(),
-                            Id_origem = (int)reader["Id_origem"],
                             Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                             Codigo = (int)reader["Codigo"],
                             Preco = (double)reader["Preco"],
@@ -1383,7 +1379,6 @@ namespace AgroTrack
                     Produto product = new Produto
                     {
                         Nome = reader["Nome"].ToString(),
-                        Id_origem = (int)reader["Id_origem"],
                         Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                         Codigo = (int)reader["Codigo"],
                         Preco = (double)reader["Preco"],
@@ -1421,13 +1416,20 @@ namespace AgroTrack
                 ProdutoPreco.Text = selectedproduct.Preco.ToString();
                 ProdutoUnidade.Text = selectedproduct.Unidade_medida;
                 ProdutoDisponivel.Text = GetQuantidadeDisponivel(selectedproduct.Codigo).ToString();
+                QuantidadeVendidaBox.Text = GetQuantidadeVendida(selectedproduct.Codigo).ToString();
 
                 LoadQuintas(selectedproduct.Id_origem);
 
             }
 
         }
-
+        private int GetQuantidadeVendida(int produtoCodigo)
+        {
+            string query = @"SELECT AgroTrack.CalcularQuantidadeProdutoVendido(@ProductId) AS TotalProductCount";
+            SqlCommand sqlCommand = new SqlCommand(query, cn);
+            sqlCommand.Parameters.AddWithValue("@ProductId", produtoCodigo);
+            return (int)sqlCommand.ExecuteScalar();
+        }
         private void Retalhistas_Click(object sender, EventArgs e)
         {
 
@@ -1508,24 +1510,10 @@ namespace AgroTrack
 
         private int GetQuantidadeDisponivel(int produtoCodigo)
         {
-            string query = @"
-            SELECT COALESCE(SUM(C.Quantidade), 0) as QuantidadeDisponivel
-            FROM AgroTrack.Contem C
-            WHERE Produto_codigo = @ProdutoCodigo ;";
-            SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@ProdutoCodigo", produtoCodigo);
-
-            try
-            {
-                object result = cmd.ExecuteScalar();
-                return Convert.ToInt32(result);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to retrieve quantity available: " + ex.Message);
-                return 0;
-            }
-
+            string query = @"SELECT AgroTrack.GetTotalNumberOfProductInAllFarms(@ProductId) AS TotalProductCount";
+            SqlCommand sqlCommand = new SqlCommand(query, cn);
+            sqlCommand.Parameters.AddWithValue("@ProductId", produtoCodigo);
+            return (int)sqlCommand.ExecuteScalar();
         }
 
 
@@ -1569,7 +1557,6 @@ namespace AgroTrack
             {
                 SqlDataReader reader = cmd.ExecuteReader();
                 FiltrarPorQuinta.Items.Clear(); // Clear previous items
-                LocalQuintaBox.Items.Clear();
                 FiltrarPorQuinta.Items.Add("Todas as Quintas");
                 while (reader.Read())
                 {
@@ -1579,7 +1566,6 @@ namespace AgroTrack
                         Nome = reader["Nome"].ToString(),
                     };
                     FiltrarPorQuinta.Items.Add(Farm);
-                    LocalQuintaBox.Items.Add(Farm);
                 }
                 reader.Close();
             }
@@ -1685,7 +1671,7 @@ namespace AgroTrack
         //ConfirmarOperacao
         private void ConfirmarOperacao_Click(object sender, EventArgs e)
         {
-            if (ProdutoAdicionarBox.Text == "" || UnidadeAdicionarBox.Text == "" || ProdutoQuantidadeBox.Text == "" || ProdutoIvaBox.Text == "" || TipoAdicionarBox.Text == "" || ProdutoPrecoBox.Text == "")
+            if (UnidadeAdicionarBox.Text == "" || ProdutoIvaBox.Text == "" || TipoAdicionarBox.Text == "" || ProdutoPrecoBox.Text == "")
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -1693,8 +1679,6 @@ namespace AgroTrack
             {
                 try
                 {
-                    int id_origem = (LocalQuintaBox.SelectedItem as QuintaOnlyName).Id_Quinta;
-                    int codigo = int.Parse(CodigoAdicionarBox.Text);
                     double preco = double.Parse(ProdutoPrecoBox.Text);
                     double iva = double.Parse(ProdutoIvaBox.Text);
                     AddProduto(ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, iva, TipoAdicionarBox.Text, preco);
@@ -1713,10 +1697,8 @@ namespace AgroTrack
                     ConfirmarOperacao.Hide();
                     ProdutoIvaBox.Hide();
                     UnidadeAdicionarBox.Hide();
-                    ProdutoQuantidadeBox.Hide();
                     LocaldeProducao.Hide();
                     TipoAdicionarBox.Hide();
-                    LocalQuintaBox.Hide();
 
                     Ordenar.Show();
                     OrdenarText.Show();
@@ -1823,12 +1805,14 @@ namespace AgroTrack
             ProdutoUnidade.Hide();
             ProdutoDisponivel.Hide();
             TipoAdicionarBox.Hide();
+            CodigoAdicionarBox.Hide();
+            CodigoAdicionarText.Hide();
+
 
 
             // Enable input fields
             CodigoAdicionarBox.ReadOnly = false;
             ProdutoAdicionarBox.ReadOnly = false;
-            ProdutoQuantidadeBox.ReadOnly = false;
             ProdutoPrecoBox.ReadOnly = false;
 
 
@@ -1836,21 +1820,14 @@ namespace AgroTrack
             CodigoAdicionarBox.Text = "";
             ProdutoAdicionarBox.Text = "";
             UnidadeAdicionarBox.Text = "";
-            ProdutoQuantidadeBox.Text = "";
             ProdutoIvaBox.Text = "";
             ProdutoPrecoBox.Text = "";
-            LocalQuintaBox.Text = "";
 
-            LocalQuinta.Show();
-            LocalQuintaBox.Show();
-            CodigoAdicionarText.Show();
             ProdutoPrecoBox.Show();
             ProdutoAdicionarBox.Show();
-            CodigoAdicionarBox.Show();
             ConfirmarOperacao.Show();
             ProdutoIvaBox.Show();
             UnidadeAdicionarBox.Show();
-            ProdutoQuantidadeBox.Show();
             TipoAdicionarBox.Show();
         }
 
@@ -4471,6 +4448,11 @@ namespace AgroTrack
                     MessageBox.Show("Failed to remove planta from quinta: " + ex.Message);
                 }
             }
+        }
+
+        private void QuantidadeVendidaBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

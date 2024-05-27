@@ -253,10 +253,7 @@
             Produtos = new TabPage();
             UnidadeAdicionarBox = new ComboBox();
             ProdutoIvaBox = new ComboBox();
-            LocalQuintaBox = new ComboBox();
-            LocalQuinta = new Label();
             TipoAdicionarBox = new ComboBox();
-            ProdutoQuantidadeBox = new TextBox();
             ProdutoPrecoBox = new TextBox();
             ProdutoAdicionarBox = new TextBox();
             ConfirmarOperacao = new Button();
@@ -2559,10 +2556,7 @@
             // 
             Produtos.Controls.Add(UnidadeAdicionarBox);
             Produtos.Controls.Add(ProdutoIvaBox);
-            Produtos.Controls.Add(LocalQuintaBox);
-            Produtos.Controls.Add(LocalQuinta);
             Produtos.Controls.Add(TipoAdicionarBox);
-            Produtos.Controls.Add(ProdutoQuantidadeBox);
             Produtos.Controls.Add(ProdutoPrecoBox);
             Produtos.Controls.Add(ProdutoAdicionarBox);
             Produtos.Controls.Add(ConfirmarOperacao);
@@ -2631,24 +2625,6 @@
             ProdutoIvaBox.TabIndex = 93;
             ProdutoIvaBox.Text = "Seleciona um valor do iva";
             // 
-            // LocalQuintaBox
-            // 
-            LocalQuintaBox.FormattingEnabled = true;
-            LocalQuintaBox.Location = new Point(733, 288);
-            LocalQuintaBox.Name = "LocalQuintaBox";
-            LocalQuintaBox.Size = new Size(408, 33);
-            LocalQuintaBox.TabIndex = 92;
-            LocalQuintaBox.Text = "Seleciona uma quinta";
-            // 
-            // LocalQuinta
-            // 
-            LocalQuinta.AutoSize = true;
-            LocalQuinta.Location = new Point(557, 291);
-            LocalQuinta.Name = "LocalQuinta";
-            LocalQuinta.Size = new Size(162, 25);
-            LocalQuinta.TabIndex = 90;
-            LocalQuinta.Text = "Local de Produção:";
-            // 
             // TipoAdicionarBox
             // 
             TipoAdicionarBox.FormattingEnabled = true;
@@ -2657,13 +2633,6 @@
             TipoAdicionarBox.Size = new Size(438, 33);
             TipoAdicionarBox.TabIndex = 89;
             TipoAdicionarBox.Text = "Seleciona um tipo";
-            // 
-            // ProdutoQuantidadeBox
-            // 
-            ProdutoQuantidadeBox.Location = new Point(748, 250);
-            ProdutoQuantidadeBox.Name = "ProdutoQuantidadeBox";
-            ProdutoQuantidadeBox.Size = new Size(393, 31);
-            ProdutoQuantidadeBox.TabIndex = 88;
             // 
             // ProdutoPrecoBox
             // 
@@ -2739,6 +2708,7 @@
             QuantidadeVendidaBox.Name = "QuantidadeVendidaBox";
             QuantidadeVendidaBox.Size = new Size(129, 31);
             QuantidadeVendidaBox.TabIndex = 66;
+            QuantidadeVendidaBox.TextChanged += QuantidadeVendidaBox_TextChanged;
             // 
             // QuantidadeVendidaText
             // 
@@ -3234,10 +3204,7 @@
         private TextBox ProdutoAdicionarInfo;
         private TextBox ProdutoAdicionarBox;
         private TextBox ProdutoPrecoBox;
-        private TextBox ProdutoQuantidadeBox;
         private ComboBox TipoAdicionarBox;
-        private Label LocalQuinta;
-        private ComboBox LocalQuintaBox;
         private ComboBox ProdutoIvaBox;
         private ComboBox UnidadeAdicionarBox;
         private Label label11;
