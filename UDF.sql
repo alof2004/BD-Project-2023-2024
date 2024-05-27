@@ -158,4 +158,16 @@ BEGIN
     RETURN;
 END;
 GO
+DROP FUNCTION IF EXISTS AgroTrack.GetTotalNumberOfProductInAllFarms;
+GO
+CREATE FUNCTION AgroTrack.GetTotalNumberOfProductInAllFarms(@ProductId INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TotalProductCount INT;
 
+    SELECT @TotalProductCount = SUM(Quantidade)
+    FROM AgroTrack_Contem
+    WHERE Produto_Codigo = @ProductId;
+    RETURN @TotalProductCount;
+END;

@@ -147,7 +147,6 @@ GO
 
 CREATE PROCEDURE AddProduto
     @NomeProduto VARCHAR(64),
-    @Id_origem INT,
     @Tipo_de_Produto VARCHAR(64),
     @Preco FLOAT,
     @Taxa_de_iva FLOAT,
@@ -160,8 +159,8 @@ BEGIN
     SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Produto;
     
     -- Insert the new product into the AgroTrack_Produto table
-    INSERT INTO AgroTrack_Produto (Codigo, Nome, Id_origem, Tipo_de_Produto, Preco, Taxa_de_iva, Unidade_medida)
-    VALUES (@Codigo, @NomeProduto, @Id_origem, @Tipo_de_Produto, @Preco, @Taxa_de_iva, @Unidade_medida);
+    INSERT INTO AgroTrack_Produto (Codigo, Nome, Tipo_de_Produto, Preco, Taxa_de_iva, Unidade_medida)
+    VALUES (@Codigo, @NomeProduto, @Tipo_de_Produto, @Preco, @Taxa_de_iva, @Unidade_medida);
     PRINT 'Novo produto adicionado com sucesso.';
 END
 GO
@@ -1174,27 +1173,34 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
+GO
 IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
     DROP PROCEDURE RemovePlantFromQuinta;
 GO
 CREATE PROCEDURE RemovePlantFromQuinta
     @PlantaId INT,
     @QuintaId INT,
-    @Lote varchar(32),
+    @Lote varchar(32)
 AS
 BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
         DELETE FROM AgroTrack_Quinta_Planta
-        WHERE Planta_Codigo = @PlantaId AND Quinta_Empresa_Id_Empresa = @QuintaId AND Lote = @Lote;
+        WHERE Id_Planta = @PlantaId AND Empresa_Id_Empresa = @QuintaId AND Lote = @Lote;
 
         COMMIT TRANSACTION;
 
         PRINT 'Planta removida da Quinta com sucesso.';
     END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
 
-END;
+        PRINT 'Ocorreu um erro ao remover a planta da Quinta.';
+        THROW;
+    END CATCH
+END
+GO
 
 IF OBJECT_ID('RemoveAnimalFromQuinta', 'P') IS NOT NULL
     DROP PROCEDURE RemoveAnimalFromQuinta;
@@ -1202,18 +1208,24 @@ GO
 CREATE PROCEDURE RemoveAnimalFromQuinta
     @AnimalId INT,
     @QuintaId INT,
-    @Brinco varchar(32),
+    @Brinco varchar(32)
 AS
 BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
         DELETE FROM AgroTrack_Quinta_Animal
-        WHERE Animal_Codigo = @AnimalId AND Quinta_Empresa_Id_Empresa = @QuintaId AND Brinco = @Brinco;
+        WHERE Id_Animal = @AnimalId AND Empresa_Id_Empresa = @QuintaId AND Brinco = @Brinco;
 
         COMMIT TRANSACTION;
 
         PRINT 'Animal removido da Quinta com sucesso.';
     END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
 
-END;
+        PRINT 'Ocorreu um erro ao remover o animal da Quinta.';
+        THROW;
+    END CATCH
+END
+GO

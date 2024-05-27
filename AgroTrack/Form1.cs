@@ -107,10 +107,7 @@ namespace AgroTrack
             ConfirmarOperacao.Hide();
             ProdutoIvaBox.Hide();
             UnidadeAdicionarBox.Hide();
-            ProdutoQuantidadeBox.Hide();
             TipoAdicionarBox.Hide();
-            LocalQuintaBox.Hide();
-            LocalQuinta.Hide();
             AddProdutoToQuintaData.Hide();
             AddProdutoToQuintaQuantidade.Hide();
             AddProdutoToQuintaProdutoID.Hide();
@@ -1383,7 +1380,6 @@ namespace AgroTrack
                     Produto product = new Produto
                     {
                         Nome = reader["Nome"].ToString(),
-                        Id_origem = (int)reader["Id_origem"],
                         Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                         Codigo = (int)reader["Codigo"],
                         Preco = (double)reader["Preco"],
@@ -1508,24 +1504,10 @@ namespace AgroTrack
 
         private int GetQuantidadeDisponivel(int produtoCodigo)
         {
-            string query = @"
-            SELECT COALESCE(SUM(C.Quantidade), 0) as QuantidadeDisponivel
-            FROM AgroTrack.Contem C
-            WHERE Produto_codigo = @ProdutoCodigo ;";
+            string query = @"SELECT AgroTrack.GetTotalNumberOfProductInAllFarms(@ProductId) AS TotalProductCount";
             SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@ProdutoCodigo", produtoCodigo);
-
-            try
-            {
-                object result = cmd.ExecuteScalar();
-                return Convert.ToInt32(result);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to retrieve quantity available: " + ex.Message);
-                return 0;
-            }
-
+            cmd.Parameters.AddWithValue("@ProductId", produtoCodigo);
+            return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
 
@@ -1569,7 +1551,6 @@ namespace AgroTrack
             {
                 SqlDataReader reader = cmd.ExecuteReader();
                 FiltrarPorQuinta.Items.Clear(); // Clear previous items
-                LocalQuintaBox.Items.Clear();
                 FiltrarPorQuinta.Items.Add("Todas as Quintas");
                 while (reader.Read())
                 {
@@ -1579,7 +1560,6 @@ namespace AgroTrack
                         Nome = reader["Nome"].ToString(),
                     };
                     FiltrarPorQuinta.Items.Add(Farm);
-                    LocalQuintaBox.Items.Add(Farm);
                 }
                 reader.Close();
             }
@@ -1685,7 +1665,7 @@ namespace AgroTrack
         //ConfirmarOperacao
         private void ConfirmarOperacao_Click(object sender, EventArgs e)
         {
-            if (ProdutoAdicionarBox.Text == "" || UnidadeAdicionarBox.Text == "" || ProdutoQuantidadeBox.Text == "" || ProdutoIvaBox.Text == "" || TipoAdicionarBox.Text == "" || ProdutoPrecoBox.Text == "")
+            if (ProdutoAdicionarBox.Text == "" || UnidadeAdicionarBox.Text == "" || ProdutoIvaBox.Text == "" || TipoAdicionarBox.Text == "" || ProdutoPrecoBox.Text == "")
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -1693,10 +1673,8 @@ namespace AgroTrack
             {
                 try
                 {
-                    int id_origem = (LocalQuintaBox.SelectedItem as QuintaOnlyName).Id_Quinta;
-                    int codigo = int.Parse(CodigoAdicionarBox.Text);
-                    double preco = double.Parse(ProdutoPrecoBox.Text);
-                    double iva = double.Parse(ProdutoIvaBox.Text);
+                    double preco = double.TryParse(ProdutoPrecoBox.Text, out preco) ? preco : 0;
+                    double iva = double.TryParse(ProdutoIvaBox.Text, out iva) ? iva : 0;
                     AddProduto(ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, iva, TipoAdicionarBox.Text, preco);
                 }
                 catch (Exception ex)
@@ -1713,10 +1691,8 @@ namespace AgroTrack
                     ConfirmarOperacao.Hide();
                     ProdutoIvaBox.Hide();
                     UnidadeAdicionarBox.Hide();
-                    ProdutoQuantidadeBox.Hide();
                     LocaldeProducao.Hide();
                     TipoAdicionarBox.Hide();
-                    LocalQuintaBox.Hide();
 
                     Ordenar.Show();
                     OrdenarText.Show();
@@ -1763,17 +1739,12 @@ namespace AgroTrack
                     command.Parameters.Add(new SqlParameter("@Taxa_de_iva", IvaValue));
                     command.Parameters.Add(new SqlParameter("@Unidade_medida", unidademedidaValue));
 
-                    // Verifica o estado da conexão e abre se necessário
-                    if (cn.State == ConnectionState.Closed)
-                    {
-                        cn.Open();
-                    }
-
                     // Executa o comando
                     command.ExecuteNonQuery();
 
                     // Exibe mensagem de sucesso
                     MessageBox.Show("Produto adicionado com sucesso!");
+                    LoadProdutos();
                 }
             }
             catch (Exception ex)
@@ -1823,34 +1794,25 @@ namespace AgroTrack
             ProdutoUnidade.Hide();
             ProdutoDisponivel.Hide();
             TipoAdicionarBox.Hide();
-
+            CodigoAdicionarBox.Hide();
 
             // Enable input fields
-            CodigoAdicionarBox.ReadOnly = false;
             ProdutoAdicionarBox.ReadOnly = false;
-            ProdutoQuantidadeBox.ReadOnly = false;
             ProdutoPrecoBox.ReadOnly = false;
 
 
             // Clear input fields
-            CodigoAdicionarBox.Text = "";
             ProdutoAdicionarBox.Text = "";
             UnidadeAdicionarBox.Text = "";
-            ProdutoQuantidadeBox.Text = "";
             ProdutoIvaBox.Text = "";
             ProdutoPrecoBox.Text = "";
-            LocalQuintaBox.Text = "";
 
-            LocalQuinta.Show();
-            LocalQuintaBox.Show();
-            CodigoAdicionarText.Show();
             ProdutoPrecoBox.Show();
             ProdutoAdicionarBox.Show();
             CodigoAdicionarBox.Show();
             ConfirmarOperacao.Show();
             ProdutoIvaBox.Show();
             UnidadeAdicionarBox.Show();
-            ProdutoQuantidadeBox.Show();
             TipoAdicionarBox.Show();
         }
 
