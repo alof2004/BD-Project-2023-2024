@@ -1204,6 +1204,7 @@ CREATE PROCEDURE AgroTrack.AddEncomendaTransportes
     @Retalhista_Empresa_Id_Empresa INT,
     @Empresa_De_Transportes_Id_Empresa INT,
     @Quinta_Empresa_Id INT
+
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -1379,3 +1380,85 @@ BEGIN
     END CATCH
 END
 GO
+
+--RemoveEncomenda TRANSPORTES
+IF OBJECT_ID('ApagarEncomendaTransportes', 'P') IS NOT NULL
+    DROP PROCEDURE ApagarEncomendaTransportes;
+GO
+CREATE PROCEDURE ApagarEncomendaTransportes
+    @Codigo INT
+AS
+BEGIN
+    -- Start a transaction
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Delete the Encomenda from the AgroTrack_Encomenda table
+        DELETE FROM AgroTrack_Encomenda
+        WHERE Codigo = @Codigo;
+
+        -- Commit the transaction
+        COMMIT TRANSACTION;
+
+        PRINT 'Encomenda deleted successfully.';
+    END TRY
+    BEGIN CATCH
+        -- Rollback the transaction in case of error
+        ROLLBACK TRANSACTION;
+
+        -- Get the error details
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Raise the error again to propagate it
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
+
+--RemoveEncomenda RETALHISTAS
+IF OBJECT_ID('ApagarEncomendaRetalhista', 'P') IS NOT NULL
+    DROP PROCEDURE ApagarEncomendaRetalhista;
+GO
+CREATE PROCEDURE ApagarEncomendaRetalhista
+    @Codigo INT
+AS
+BEGIN
+    -- Start a transaction
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Delete the Encomenda from the AgroTrack_Encomenda table
+        DELETE FROM AgroTrack_Encomenda
+        WHERE Codigo = @Codigo;
+
+        -- Commit the transaction
+        COMMIT TRANSACTION;
+
+        PRINT 'Encomenda deleted successfully.';
+    END TRY
+    BEGIN CATCH
+        -- Rollback the transaction in case of error
+        ROLLBACK TRANSACTION;
+
+        -- Get the error details
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Raise the error again to propagate it
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
+
+

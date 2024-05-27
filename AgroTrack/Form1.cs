@@ -508,7 +508,7 @@ namespace AgroTrack
                     };
                     SelectQuintaAddAgricultor.Items.Add(planta);
                     TrabalhaQuinta.Items.Add(planta);
-                    QuintaBox.Items.Add(planta);    
+                    QuintaBox.Items.Add(planta);
                 }
                 reader.Close();
             }
@@ -3055,6 +3055,7 @@ namespace AgroTrack
         }
 
         private int EMPRESAID;
+        private DateTime DataLimiteEncomendas = DateTime.Now;
 
         private void LoadEncomendasRealizadas(int empresaId, DateTime dataLimite)
         {
@@ -4078,7 +4079,7 @@ namespace AgroTrack
             {
                 try
                 {
-                     int prazo = int.Parse(PrazoBoxRetalhista.Text);
+                    int prazo = int.Parse(PrazoBoxRetalhista.Text);
                     string morada = MoradaRetalhistaBox.Text;
                     DateTime data = DateTime.Parse(CompradorEncoemndaRetalhistaBox.Text);
                     RetalhistasOnlyName comprador = (RetalhistasOnlyName)DataRetalhistaEncoemndabOX.SelectedItem;
@@ -4251,16 +4252,7 @@ namespace AgroTrack
             }
         }
 
-        //eliminar encomenda trnsportes
-        private void CancelarEncoemendRetalhistas_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void CancelarEncoemndaTransportes_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void AdicionarPlanta_Click(object sender, EventArgs e)
         {
@@ -4569,6 +4561,91 @@ namespace AgroTrack
             }
         }
 
+
+        //eliminar encomenda trnsportes
+        private void CancelarEncoemendRetalhistas_Click(object sender, EventArgs e)
+        {
+            sbyte index = (sbyte)EncomendasRealizadas.SelectedIndex;
+            if (index == -1)
+            {
+
+                MessageBox.Show("Por favor selecione um Encomenda para remover!");
+            }
+            else
+            {
+                try
+                {
+                    RemoverEncomendaRetalhista((EncomendasRealizadas.SelectedItem as Encomenda).Codigo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao remover Encomenda: " + ex.Message);
+                }
+                finally
+                {
+                    LoadEncomendasRealizadas(EMPRESAID, DataLimiteEncomendas);
+                }
+            }
+        }
+
+
+        private void RemoverEncomendaRetalhista(int EncomendaID)
+        {
+            using (SqlCommand command = new SqlCommand("ApagarEncomendaRetalhista", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Codigo", EncomendaID));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Encomenda removida com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to remove Encomenda from database: " + ex.Message);
+                }
+            }
+        }
+
+        private void RemoverEncomendaTransportes(int EncomendaID)
+        {
+            using (SqlCommand command = new SqlCommand("ApagarEncomendaTransportes", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Codigo", EncomendaID));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Encomenda removida com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to remove Encomenda from database: " + ex.Message);
+                }
+            }
+        }
+
+        private void CancelarEncoemndaTransportes_Click_1(object sender, EventArgs e)
+        {
+            sbyte index = (sbyte)EncomendasEntrega.SelectedIndex;
+            if (index == -1)
+            {
+                MessageBox.Show("Por favor selecione uma Encomenda para remover!");
+            }
+            else
+            {
+                try
+                {
+                    RemoverEncomendaTransportes((EncomendasEntrega.SelectedItem as Encomenda).Codigo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao remover Encomenda: " + ex.Message);
+                }
+                finally
+                {
+                    LoadEncomendasEntrega(EMPRESAID, DataLimiteEncomendas);
+                }
+            }
+        }
     }
 
 }

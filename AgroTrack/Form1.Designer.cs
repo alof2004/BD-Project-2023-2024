@@ -1974,7 +1974,7 @@
             CancelarEncoemndaTransportes.TabIndex = 63;
             CancelarEncoemndaTransportes.Text = "Cancelar Encomenda";
             CancelarEncoemndaTransportes.UseVisualStyleBackColor = true;
-            CancelarEncoemndaTransportes.Click += CancelarEncoemndaTransportes_Click;
+            CancelarEncoemndaTransportes.Click += CancelarEncoemndaTransportes_Click_1;
             // 
             // AdicionarEncomendaTransportes
             // 
