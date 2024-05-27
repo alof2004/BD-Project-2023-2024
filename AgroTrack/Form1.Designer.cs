@@ -146,10 +146,6 @@
             ListaQuintas = new ListBox();
             Transportes = new TabPage();
             MoradaBox = new TextBox();
-            EntregaBox = new TextBox();
-            RetalhistaBox = new TextBox();
-            TransportesBox = new TextBox();
-            QuintaBox = new TextBox();
             QuintaEncomenda = new Label();
             TransportesEncomenda = new Label();
             RetalhistaEncomenda = new Label();
@@ -267,6 +263,10 @@
             OrdenarText = new Label();
             label14 = new Label();
             ListaProdutos = new ListBox();
+            EntregaBox = new DateTimePicker();
+            RetalhistaBox = new ComboBox();
+            TransportesBox = new ComboBox();
+            QuintaBox = new ComboBox();
             OrdenarPor.SuspendLayout();
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AddCompraQuantidade).BeginInit();
@@ -1458,11 +1458,11 @@
             // 
             // Transportes
             // 
-            Transportes.Controls.Add(MoradaBox);
-            Transportes.Controls.Add(EntregaBox);
-            Transportes.Controls.Add(RetalhistaBox);
-            Transportes.Controls.Add(TransportesBox);
             Transportes.Controls.Add(QuintaBox);
+            Transportes.Controls.Add(TransportesBox);
+            Transportes.Controls.Add(RetalhistaBox);
+            Transportes.Controls.Add(EntregaBox);
+            Transportes.Controls.Add(MoradaBox);
             Transportes.Controls.Add(QuintaEncomenda);
             Transportes.Controls.Add(TransportesEncomenda);
             Transportes.Controls.Add(RetalhistaEncomenda);
@@ -1509,34 +1509,6 @@
             MoradaBox.Size = new Size(550, 31);
             MoradaBox.TabIndex = 78;
             // 
-            // EntregaBox
-            // 
-            EntregaBox.Location = new Point(594, 128);
-            EntregaBox.Name = "EntregaBox";
-            EntregaBox.Size = new Size(487, 31);
-            EntregaBox.TabIndex = 77;
-            // 
-            // RetalhistaBox
-            // 
-            RetalhistaBox.Location = new Point(551, 179);
-            RetalhistaBox.Name = "RetalhistaBox";
-            RetalhistaBox.Size = new Size(532, 31);
-            RetalhistaBox.TabIndex = 76;
-            // 
-            // TransportesBox
-            // 
-            TransportesBox.Location = new Point(645, 221);
-            TransportesBox.Name = "TransportesBox";
-            TransportesBox.Size = new Size(438, 31);
-            TransportesBox.TabIndex = 75;
-            // 
-            // QuintaBox
-            // 
-            QuintaBox.Location = new Point(598, 264);
-            QuintaBox.Name = "QuintaBox";
-            QuintaBox.Size = new Size(485, 31);
-            QuintaBox.TabIndex = 74;
-            // 
             // QuintaEncomenda
             // 
             QuintaEncomenda.AutoSize = true;
@@ -1563,9 +1535,9 @@
             RetalhistaEncomenda.Font = new Font("Segoe UI", 8.25F);
             RetalhistaEncomenda.Location = new Point(452, 184);
             RetalhistaEncomenda.Name = "RetalhistaEncomenda";
-            RetalhistaEncomenda.Size = new Size(101, 23);
+            RetalhistaEncomenda.Size = new Size(88, 23);
             RetalhistaEncomenda.TabIndex = 71;
-            RetalhistaEncomenda.Text = "Comprador:";
+            RetalhistaEncomenda.Text = "Retalhista:";
             // 
             // EntregaEncomenda
             // 
@@ -2682,6 +2654,37 @@
             ListaProdutos.TabIndex = 4;
             ListaProdutos.SelectedIndexChanged += ListaProdutos_SelectedIndexChanged;
             // 
+            // EntregaBox
+            // 
+            EntregaBox.Location = new Point(596, 126);
+            EntregaBox.Name = "EntregaBox";
+            EntregaBox.Size = new Size(487, 31);
+            EntregaBox.TabIndex = 79;
+            // 
+            // RetalhistaBox
+            // 
+            RetalhistaBox.FormattingEnabled = true;
+            RetalhistaBox.Location = new Point(546, 179);
+            RetalhistaBox.Name = "RetalhistaBox";
+            RetalhistaBox.Size = new Size(535, 33);
+            RetalhistaBox.TabIndex = 80;
+            // 
+            // TransportesBox
+            // 
+            TransportesBox.FormattingEnabled = true;
+            TransportesBox.Location = new Point(645, 221);
+            TransportesBox.Name = "TransportesBox";
+            TransportesBox.Size = new Size(436, 33);
+            TransportesBox.TabIndex = 81;
+            // 
+            // QuintaBox
+            // 
+            QuintaBox.FormattingEnabled = true;
+            QuintaBox.Location = new Point(606, 264);
+            QuintaBox.Name = "QuintaBox";
+            QuintaBox.Size = new Size(475, 33);
+            QuintaBox.TabIndex = 82;
+            // 
             // AgroTrack
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -2951,10 +2954,6 @@
         private Label QuintaEncomenda;
         private Label TransportesEncomenda;
         private TextBox MoradaBox;
-        private TextBox EntregaBox;
-        private TextBox RetalhistaBox;
-        private TextBox TransportesBox;
-        private TextBox QuintaBox;
         private Button ConfirmarRetalhista;
         private TextBox MoradaRetalhistaBox;
         private TextBox DataRetalhistaEncoemndabOX;
@@ -2969,5 +2968,9 @@
         private TextBox PrazoBoxRetalhista;
         private Label PrazoEncomendaRetalhista;
         private Button ConfirmarRetalhistaEncoemnda;
+        private ComboBox RetalhistaBox;
+        private DateTimePicker EntregaBox;
+        private ComboBox QuintaBox;
+        private ComboBox TransportesBox;
     }
 }

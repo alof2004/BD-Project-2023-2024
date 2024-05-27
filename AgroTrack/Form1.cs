@@ -1,9 +1,12 @@
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Security.Policy;
+using System.Web;
 using System.Windows.Forms;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -3251,6 +3254,7 @@ namespace AgroTrack
                         Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"]
                     };
                     FiltrarRetalhistaTransportes.Items.Add(produto);
+                    RetalhistaBox.Items.Add(produto);
                 }
                 reader.Close();
             }
@@ -3274,6 +3278,7 @@ namespace AgroTrack
                         Nome = reader["Nome"].ToString(),
                     };
                     QuintasTransportes.Items.Add(Farm);
+                    QuintaBox.Items.Add(Farm);
                 }
                 reader.Close();
             }
@@ -3305,6 +3310,7 @@ namespace AgroTrack
                         Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"]
                     };
                     FiltrarTransporteRetalhistas.Items.Add(produto);
+                    TransportesBox.Items.Add(produto);
                 }
                 reader.Close();
             }
@@ -3389,7 +3395,7 @@ namespace AgroTrack
         {
             if (TransportesNome.Text == "" || TransportesMorada.Text == "" || TransportesContacto.Text == "")
             {
-                MessageBox.Show("Por favor preencha todos TransportesContacto campos!");
+                MessageBox.Show("Por favor preencha todos campos!");
             }
             else
             {
@@ -3402,7 +3408,7 @@ namespace AgroTrack
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao adicionar produto: " + ex.Message);
+                    MessageBox.Show("Erro ao adicionar encomenda: " + ex.Message);
                 }
                 finally
                 {
@@ -3489,10 +3495,7 @@ namespace AgroTrack
             // Enable input fields
             PrazoBox.ReadOnly = false;
             MoradaBox.ReadOnly = false;
-            EntregaBox.ReadOnly = false;
-            RetalhistaBox.ReadOnly = false;
-            TransportesBox.ReadOnly = false;
-            QuintaBox.ReadOnly = false;
+
 
             PrazoBox.Text = "";
             MoradaBox.Text = "";
@@ -3532,10 +3535,10 @@ namespace AgroTrack
                     int prazo = int.Parse(PrazoBox.Text);
                     string morada = MoradaBox.Text;
                     DateTime entrega = DateTime.Parse(EntregaBox.Text);
-                    int retalhista = int.Parse(RetalhistaBox.Text);
-                    int transportes = int.Parse(TransportesBox.Text);
-                    int quinta = int.Parse(QuintaBox.Text);
-                    //AddEncomenda(prazo, morada, entrega, retalhista, transportes, quinta);
+                    int retalhista = GetSelectedId(RetalhistaBox);
+                    int quinta = GetSelectedId(QuintaBox);
+                    int transportes = GetSelectedId(TransportesBox);
+                    AddEncomendaTransportes(prazo, morada, entrega, retalhista, transportes, quinta);
                 }
                 catch (Exception ex)
                 {
@@ -3737,10 +3740,13 @@ namespace AgroTrack
             {
                 try
                 {
-                    string nome = TransportesNome.Text;
-                    string morada = TransportesMorada.Text;
-                    int contacto = int.Parse(TransportesContacto.Text);
-                    //AddRetalhista(nome, morada, contacto);
+                    int prazo = int.Parse(PrazoBox.Text);
+                    string morada = MoradaBox.Text;
+                    DateTime entrega = DateTime.Parse(EntregaBox.Text);
+                    int retalhista = GetSelectedId(RetalhistaBox);
+                    int quinta = GetSelectedId(QuintaBox);
+                    int transportes = GetSelectedId(TransportesBox);
+                    AddEncomendaRetalhistas(prazo, morada, entrega, retalhista, transportes, quinta);
                 }
                 catch (Exception ex)
                 {
@@ -3909,6 +3915,116 @@ namespace AgroTrack
         {
            
         }
+
+        private void AddEncomendaTransportes(int prazo, string morada,DateTime entrega, int retalhista, int transportes, int quinta)
+        {
+            try
+            {
+                using (SqlCommand command = new SqlCommand("AddEncomendaTransportes", cn) { CommandType = CommandType.StoredProcedure })
+                {
+                    // Adiciona os parâmetros ao comando
+                    command.Parameters.Add(new SqlParameter("@Prazo_entrega", prazo));
+                    command.Parameters.Add(new SqlParameter("@Morada_entrega", morada));
+                    command.Parameters.Add(new SqlParameter("@Entrega", entrega));
+                    command.Parameters.Add(new SqlParameter("@Retalhista_Empresa_Id_Empresa", retalhista));
+                    command.Parameters.Add(new SqlParameter("@Empresa_De_Transportes_Id_Empresa", transportes));
+                    command.Parameters.Add(new SqlParameter("@Quinta_Empresa_Id", quinta));
+
+                    // Verifica o estado da conexão e abre se necessário
+                    if (cn.State == ConnectionState.Closed)
+                    {
+                        cn.Open();
+                    }
+
+                    // Executa o comando
+                    command.ExecuteNonQuery();
+
+                    // Exibe mensagem de sucesso
+                    MessageBox.Show("Encomenda adicionado com sucesso!");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Fecha a conexão se estiver aberta
+                if (cn.State == ConnectionState.Open)
+                {
+                    cn.Close();
+                }
+
+                // Lança a exceção
+                throw new Exception("Falha ao adicionar a Encomenda: " + ex.Message);
+            }
+        }
+
+        private void AddEncomendaRetalhistas(int prazo, string morada, DateTime entrega, int retalhista, int transportes, int quinta)
+        {
+            try
+            {
+                using (SqlCommand command = new SqlCommand("AddEncomendaTransportes", cn) { CommandType = CommandType.StoredProcedure })
+                {
+                    // Adiciona os parâmetros ao comando
+                    command.Parameters.Add(new SqlParameter("@Prazo_entrega", prazo));
+                    command.Parameters.Add(new SqlParameter("@Morada_entrega", morada));
+                    command.Parameters.Add(new SqlParameter("@Entrega", entrega));
+                    command.Parameters.Add(new SqlParameter("@Retalhista_Empresa_Id_Empresa", retalhista));
+                    command.Parameters.Add(new SqlParameter("@Empresa_De_Transportes_Id_Empresa", transportes));
+                    command.Parameters.Add(new SqlParameter("@Quinta_Empresa_Id", quinta));
+
+                    // Verifica o estado da conexão e abre se necessário
+                    if (cn.State == ConnectionState.Closed)
+                    {
+                        cn.Open();
+                    }
+
+                    // Executa o comando
+                    command.ExecuteNonQuery();
+
+                    // Exibe mensagem de sucesso
+                    MessageBox.Show("Encomenda adicionado com sucesso!");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Fecha a conexão se estiver aberta
+                if (cn.State == ConnectionState.Open)
+                {
+                    cn.Close();
+                }
+
+                // Lança a exceção
+                throw new Exception("Falha ao adicionar a Encomenda: " + ex.Message);
+            }
+        }
+
+        private int GetSelectedId(System.Windows.Forms.ComboBox comboBox)
+        {
+            int id = -1; // Valor padrão para caso nenhum item seja selecionado
+
+            if (comboBox.SelectedItem != null)
+            {
+                // Verificar se o item selecionado é do tipo correto
+                if (comboBox.SelectedItem is RetalhistasOnlyName)
+                {
+                    id = ((RetalhistasOnlyName)comboBox.SelectedItem).Empresa_Id_Empresa;
+                }
+                else if (comboBox.SelectedItem is Quinta)
+                {
+                    id = ((Quinta)comboBox.SelectedItem).Empresa_Id_Empresa;
+                }
+                else if (comboBox.SelectedItem is Transportes)
+                {
+                    id = ((Transportes)comboBox.SelectedItem).Empresa_Id_Empresa;
+                }
+            }
+
+            return id;
+        }
+
+
+
     }
+
+
+
 
 }
