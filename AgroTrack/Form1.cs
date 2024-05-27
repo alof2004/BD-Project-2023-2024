@@ -4317,7 +4317,7 @@ namespace AgroTrack
             {
                 try
                 {
-                    int plantaId = (AddAnimalID.SelectedItem as Planta).Id;
+                    int plantaId = (AddPlantaIDPlanta.SelectedItem as Planta).Id;
                     string lote = AddPlantaLote.Text;
                     string estacao = AddPlantaEstacao.Text;
                     int quintaId = (AddAnimalQuinta.SelectedItem as Quinta).Id_Quinta;
@@ -4401,7 +4401,7 @@ namespace AgroTrack
             {
                 try
                 {
-                    RemoveAnimalFromQuinta((ListaQuintas.SelectedItem as Quinta).Id_Quinta, selectedAnimal.Id);
+                    RemoveAnimalFromQuinta((ListaQuintas.SelectedItem as Quinta).Id_Quinta, int.Parse(selectedAnimal.Id), selectedAnimal.Brinco);
                 }
                 catch (Exception ex)
                 {
@@ -4410,14 +4410,14 @@ namespace AgroTrack
                 finally
                 {
                     Animais.Items.Clear();
-                    LoadQuinta();
+                    LoadAnimals((ListaQuintas.SelectedItem as Quinta).Id_Quinta);
                 }
             }
             else if (Plantas.SelectedItem is Planta selectedPlanta)
             {
                 try
                 {
-                    RemovePlantaFromQuinta((ListaQuintas.SelectedItem as Quinta).Id_Quinta, selectedPlanta.Id);
+                    RemovePlantaFromQuinta((ListaQuintas.SelectedItem as Quinta).Id_Quinta, selectedPlanta.Id, selectedPlanta.Lote);
                 }
                 catch (Exception ex)
                 {
@@ -4426,7 +4426,7 @@ namespace AgroTrack
                 finally
                 {
                     Plantas.Items.Clear();
-                    LoadQuinta();
+                    LoadPlantas((ListaQuintas.SelectedItem as Quinta).Id_Quinta);
                 }
             }
             else
@@ -4435,12 +4435,13 @@ namespace AgroTrack
             }
         }
 
-        private void RemoveAnimalFromQuinta(int quintaId, int animalId)
+        private void RemoveAnimalFromQuinta(int quintaId, int animalId, string brinco)
         {
             using (SqlCommand command = new SqlCommand("RemoveAnimalFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
                 command.Parameters.Add(new SqlParameter("@AnimalId", animalId));
+                command.Parameters.Add(new SqlParameter("@Brinco", brinco));
                 try
                 {
                     command.ExecuteNonQuery();
@@ -4453,12 +4454,13 @@ namespace AgroTrack
             }
         }
 
-        private void RemovePlantaFromQuinta(int quintaId, int plantaId)
+        private void RemovePlantaFromQuinta(int quintaId, int plantaId, string lote)
         {
-            using (SqlCommand command = new SqlCommand("RemovePlantaFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("RemovePlantFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
                 command.Parameters.Add(new SqlParameter("@PlantaId", plantaId));
+                command.Parameters.Add(new SqlParameter("@Lote", lote));
                 try
                 {
                     command.ExecuteNonQuery();
