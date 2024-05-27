@@ -51,6 +51,8 @@ namespace AgroTrack
             TransportesBox.Hide();
             QuintaEncomenda.Hide();
             QuintaBox.Hide();
+            SubmeterNovaQuinta.Hide();
+            AddProdutoToQuintaSubmit.Hide();
 
 
             // botoes de adicionar agricultor que são escondidos no início 
@@ -95,6 +97,23 @@ namespace AgroTrack
             TipoAdicionarBox.Hide();
             LocalQuintaBox.Hide();
             LocalQuinta.Hide();
+            AddProdutoToQuintaData.Hide();
+            AddProdutoToQuintaQuantidade.Hide();
+            AddProdutoToQuintaProdutoID.Hide();
+            AddProdutoToQuintaDataLabel.Hide();
+            AddProdutoToQuintaQuantidadeLabel.Hide();
+            AddProdutoToQuintaProdutoIDLabel.Hide();
+            AddProdutoToQuintaID.Hide();
+            AddProdutoToQuintaIDLabel.Hide();
+            AddAnimalAnimal.Hide();
+            AddAnimalAnimalLabel.Hide();
+            AddAnimalBrinco.Hide();
+            AddAnimalBrincoLabel.Hide();
+            AddAnimalIdade.Hide();
+            AddAnimalIdadeLabel.Hide();
+            AddAnimalQuinta.Hide();
+            AddAnimalQuintaLabel.Hide();
+            AddAnimalSubmeter.Hide();
             LoadProdutos();
             LoadRetalhistas();
             LoadTransportes();
@@ -136,6 +155,9 @@ namespace AgroTrack
             try
             {
                 SqlDataReader reader = cmd.ExecuteReader();
+                AddProdutoToQuintaID.Items.Clear();
+                AddAnimalQuinta.Items.Clear();
+                ListaQuintas.Items.Clear();
                 while (reader.Read())
                 {
                     Quinta farm = new Quinta
@@ -148,6 +170,8 @@ namespace AgroTrack
                     };
 
                     ListaQuintas.Items.Add(farm);
+                    AddAnimalQuinta.Items.Add(farm);
+                    AddProdutoToQuintaID.Items.Add(farm);
                     FiltrarPorQuinta.Items.Add(farm);
                 }
                 reader.Close();
@@ -344,6 +368,7 @@ namespace AgroTrack
                 SqlDataReader reader = cmd.ExecuteReader();
                 FiltrarPorProdutoQuinta.Items.Clear(); // Clear previous items
                 FiltrarPorProdutoQuinta.Items.Add("Todos os produtos");
+                AddProdutoToQuintaProdutoID.Items.Clear();
                 AddColheitaProdutosLista.Items.Clear();
 
                 while (reader.Read())
@@ -354,6 +379,7 @@ namespace AgroTrack
                         Produto = reader["Nome"].ToString()
                     };
                     FiltrarPorProdutoQuinta.Items.Add(produto);
+                    AddProdutoToQuintaProdutoID.Items.Add(produto);
                     AddColheitaProdutosLista.Items.Add(produto);
                 }
                 reader.Close();
@@ -370,6 +396,7 @@ namespace AgroTrack
                 SqlDataReader reader = cmd.ExecuteReader();
                 FilterByPlantQuinta.Items.Clear(); // Clear previous items
                 FilterByPlantQuinta.Items.Add("Todas as plantas");
+
                 while (reader.Read())
                 {
                     Planta planta = new Planta
@@ -394,6 +421,7 @@ namespace AgroTrack
                 SqlDataReader reader = cmd.ExecuteReader();
                 FilterByAnimalQuinta.Items.Clear(); // Clear previous items
                 FilterByAnimalQuinta.Items.Add("Todos os animais");
+                AddAnimalAnimal.Items.Clear();
                 while (reader.Read())
                 {
                     AnimalOnlyName planta = new AnimalOnlyName
@@ -401,6 +429,7 @@ namespace AgroTrack
                         Id = (int)reader["Id_Animal"],
                         Tipo = reader["Tipo_de_Animal"].ToString(),
                     };
+                    AddAnimalAnimal.Items.Add(planta);
                     FilterByAnimalQuinta.Items.Add(planta);
                 }
                 reader.Close();
@@ -1411,6 +1440,7 @@ namespace AgroTrack
             {
                 SqlDataReader reader = cmd.ExecuteReader();
                 QuintasProdutos.Items.Clear(); // Clear previous items
+                AddProdutoToQuintaID.Items.Clear();
                 while (reader.Read())
                 {
                     int quintaId = (int)reader["Empresa_Id_Empresa"];
@@ -1428,6 +1458,7 @@ namespace AgroTrack
                         };
 
                         QuintasProdutos.Items.Add(farm);
+                        AddProdutoToQuintaID.Items.Add(farm);
                     }
                 }
                 reader.Close();
@@ -3568,6 +3599,314 @@ namespace AgroTrack
         private void button14_Click(object sender, EventArgs e)
         {
             textBox18.Text = "";
+        }
+
+        private void AdicionarProdutoQuinta_Click(object sender, EventArgs e)
+        {
+            QuantidadeAgricultores.Hide();
+            FiltrarPorProdutoQuinta.Hide();
+            FilterByPlantQuinta.Hide();
+            FilterByAnimalQuinta.Hide();
+            buttonLimparPesquisaQuinta.Hide();
+            label48.Hide();
+            label49.Hide();
+            label41.Hide();
+            label47.Hide();
+            label4.Hide();
+            PesquisarQuinta.Hide();
+            PesquisaPorNomeCliente.Hide();
+            Agricultores.Hide();
+            ProdutosQuinta.Hide();
+            Plantas.Hide();
+            button20.Hide();
+            RemoverQuinta.Hide();
+            Animais.Hide();
+            QuintaNome.Hide();
+            QuintaMorada.Hide();
+            QuintaContacto.Hide();
+            SubmeterNovaQuinta.Hide();
+            AdicionarProdutoQuinta.Hide();
+            AdicionarAnimalPlanta.Hide();
+            RemoverProdutoQuinta.Hide();
+            RemoverAnimalPlanta.Hide();
+            ListaQuintas.Hide();
+            label1.Hide();
+            label3.Hide();
+            label13.Hide();
+
+            // Mostrar campos de input
+            AddProdutoToQuintaData.Show();
+            AddProdutoToQuintaQuantidade.Show();
+            AddProdutoToQuintaProdutoID.Show();
+            AddProdutoToQuintaDataLabel.Show();
+            AddProdutoToQuintaQuantidadeLabel.Show();
+            AddProdutoToQuintaProdutoIDLabel.Show();
+            AddProdutoToQuintaID.Show();
+            AddProdutoToQuintaIDLabel.Show();
+            AddProdutoToQuintaSubmit.Show();
+
+        }
+
+        private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddProdutoToQuintaSubmit_Click(object sender, EventArgs e)
+        {
+            if (AddProdutoToQuintaProdutoID.SelectedIndex == -1 || AddProdutoToQuintaQuantidade.Text == "" || AddProdutoToQuintaData.Text == "" || AddProdutoToQuintaID.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor preencha todos os campos!");
+            }
+            else
+            {
+                try
+                {
+                    int produtoId = (AddProdutoToQuintaProdutoID.SelectedItem as ProdutosOnlyName).Id_Produto;
+                    int quantidade = int.Parse(AddProdutoToQuintaQuantidade.Text);
+                    DateTime data = AddProdutoToQuintaData.Value;
+                    int quintaId = (AddProdutoToQuintaID.SelectedItem as Quinta).Id_Quinta;
+                    AddProdutoToQuinta(quintaId, produtoId, quantidade, data);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar produto à quinta: " + ex.Message);
+                }
+                finally
+                {
+                    AddProdutoToQuintaData.Hide();
+                    AddProdutoToQuintaQuantidade.Hide();
+                    AddProdutoToQuintaProdutoID.Hide();
+                    AddProdutoToQuintaDataLabel.Hide();
+                    AddProdutoToQuintaQuantidadeLabel.Hide();
+                    AddProdutoToQuintaProdutoIDLabel.Hide();
+                    AddProdutoToQuintaID.Hide();
+                    AddProdutoToQuintaIDLabel.Hide();
+                    AddProdutoToQuintaSubmit.Hide();
+                    label48.Show();
+                    label49.Show();
+                    label41.Show();
+                    label47.Show();
+                    label4.Show();
+                    PesquisarQuinta.Show();
+                    PesquisaPorNomeCliente.Show();
+                    Agricultores.Show();
+                    ProdutosQuinta.Show();
+                    Plantas.Show();
+                    button20.Show();
+                    RemoverQuinta.Show();
+                    Animais.Show();
+                    QuintaNome.Show();
+                    QuintaMorada.Show();
+                    QuintaContacto.Show();
+                    AdicionarProdutoQuinta.Show();
+                    AdicionarAnimalPlanta.Show();
+                    RemoverProdutoQuinta.Show();
+                    RemoverAnimalPlanta.Show();
+                    ListaQuintas.Show();
+                    label1.Show();
+                    label3.Show();
+                    label13.Show();
+                    FilterByAnimalQuinta.Show();
+                    FilterByPlantQuinta.Show();
+                    FiltrarPorProdutoQuinta.Show();
+                    QuantidadeAgricultores.Show();
+                    ListaQuintas.Items.Clear();
+                    LoadQuinta();
+                    LoadFiltersQuinta();
+                }
+            }
+        }
+        private void AddProdutoToQuinta(int quintaId, int produtoId, int quantidade, DateTime data)
+        {
+            using (SqlCommand command = new SqlCommand("AddProdutoToQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
+                command.Parameters.Add(new SqlParameter("@ProdutoId", produtoId));
+                command.Parameters.Add(new SqlParameter("@Quantidade", quantidade));
+                command.Parameters.Add(new SqlParameter("@DataDeValidade", data));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Produto adicionado à quinta com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to add produto to quinta: " + ex.Message);
+                }
+            }
+        }
+
+        private void RemoverProdutoQuinta_Click(object sender, EventArgs e)
+        {
+            int quintaId = (ListaQuintas.SelectedItem as Quinta).Id_Quinta;
+            if (ProdutosQuinta.SelectedItem is Produto selectedProduto)
+            {
+                try
+                {
+                    RemoveProdutoFromQuinta(quintaId, selectedProduto.Codigo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao remover produto da quinta: " + ex.Message);
+                }
+                finally
+                {
+                    ProdutosQuinta.Items.Clear();
+                    LoadQuinta();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor selecione um produto para remover!");
+            }
+        }
+
+        private void RemoveProdutoFromQuinta(int quintaId, int produtoId)
+        {
+            using (SqlCommand command = new SqlCommand("RemoveProdutoFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
+                command.Parameters.Add(new SqlParameter("@ProdutoId", produtoId));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Produto removido da quinta com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to remove produto from quinta: " + ex.Message);
+                }
+            }
+        }
+
+        private void AdicionarAnimalPlanta_Click(object sender, EventArgs e)
+        {
+            QuantidadeAgricultores.Hide();
+            FiltrarPorProdutoQuinta.Hide();
+            FilterByPlantQuinta.Hide();
+            FilterByAnimalQuinta.Hide();
+            buttonLimparPesquisaQuinta.Hide();
+            label48.Hide();
+            label49.Hide();
+            label41.Hide();
+            label47.Hide();
+            label4.Hide();
+            PesquisarQuinta.Hide();
+            PesquisaPorNomeCliente.Hide();
+            Agricultores.Hide();
+            ProdutosQuinta.Hide();
+            Plantas.Hide();
+            button20.Hide();
+            RemoverQuinta.Hide();
+            Animais.Hide();
+            QuintaNome.Hide();
+            QuintaMorada.Hide();
+            QuintaContacto.Hide();
+            SubmeterNovaQuinta.Hide();
+            AdicionarProdutoQuinta.Hide();
+            AdicionarAnimalPlanta.Hide();
+            RemoverProdutoQuinta.Hide();
+            RemoverAnimalPlanta.Hide();
+            ListaQuintas.Hide();
+            label1.Hide();
+            label3.Hide();
+            label13.Hide();
+
+            AddAnimalAnimal.Show();
+            AddAnimalAnimalLabel.Show();
+            AddAnimalBrinco.Show();
+            AddAnimalBrincoLabel.Show();
+            AddAnimalIdade.Show();
+            AddAnimalIdadeLabel.Show();
+            AddAnimalQuinta.Show();
+            AddAnimalQuintaLabel.Show();
+            AddAnimalSubmeter.Show();
+        }
+
+        private void AddAnimalSubmeter_Click(object sender, EventArgs e)
+        {
+            if (AddAnimalAnimal.SelectedIndex == -1 || AddAnimalBrinco.Text == "" || AddAnimalIdade.Text == "" || AddAnimalQuinta.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor preencha todos os campos!");
+            }
+            else
+            {
+                try
+                {
+                    int animalId = (AddAnimalAnimal.SelectedItem as AnimalOnlyName).Id;
+                    string brinco = (AddAnimalBrinco.Text);
+                    int idade = int.Parse(AddAnimalIdade.Text);
+                    int quintaId = (AddAnimalQuinta.SelectedItem as Quinta).Id_Quinta;
+                    AddAnimalToQuinta(quintaId, animalId, brinco, idade);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar animal à quinta: " + ex.Message);
+                }
+                finally
+                {
+                    AddAnimalAnimal.Hide();
+                    AddAnimalAnimalLabel.Hide();
+                    AddAnimalBrinco.Hide();
+                    AddAnimalBrincoLabel.Hide();
+                    AddAnimalIdade.Hide();
+                    AddAnimalIdadeLabel.Hide();
+                    AddAnimalQuinta.Hide();
+                    AddAnimalQuintaLabel.Hide();
+                    AddAnimalSubmeter.Hide();
+                    label48.Show();
+                    label49.Show();
+                    label41.Show();
+                    label47.Show();
+                    label4.Show();
+                    PesquisarQuinta.Show();
+                    PesquisaPorNomeCliente.Show();
+                    Agricultores.Show();
+                    ProdutosQuinta.Show();
+                    Plantas.Show();
+                    button20.Show();
+                    RemoverQuinta.Show();
+                    Animais.Show();
+                    QuintaNome.Show();
+                    QuintaMorada.Show();
+                    QuintaContacto.Show();
+                    AdicionarProdutoQuinta.Show();
+                    AdicionarAnimalPlanta.Show();
+                    RemoverProdutoQuinta.Show();
+                    RemoverAnimalPlanta.Show();
+                    ListaQuintas.Show();
+                    label1.Show();
+                    label3.Show();
+                    label13.Show();
+                    FilterByAnimalQuinta.Show();
+                    FilterByPlantQuinta.Show();
+                    FiltrarPorProdutoQuinta.Show();
+                    QuantidadeAgricultores.Show();
+                    ListaQuintas.Items.Clear();
+                    LoadQuinta();
+                    LoadFiltersQuinta();
+                }
+            }
+        }
+        private void AddAnimalToQuinta(int quintaId, int animalId, string brinco, int idade)
+        {
+            using (SqlCommand command = new SqlCommand("AddAnimalToQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Quinta_Id", quintaId));
+                command.Parameters.Add(new SqlParameter("@Id_Animal", animalId));
+                command.Parameters.Add(new SqlParameter("@Brinco", brinco));
+                command.Parameters.Add(new SqlParameter("@Idade", idade));
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Animal adicionado à quinta com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to add animal to quinta: " + ex.Message);
+                }
+            }
         }
     }
 
