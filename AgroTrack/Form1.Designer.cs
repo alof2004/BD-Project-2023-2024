@@ -175,11 +175,11 @@
             Animais = new ListBox();
             ListaQuintas = new ListBox();
             Transportes = new TabPage();
+            QuintaBox = new ComboBox();
+            TransportesBox = new ComboBox();
+            RetalhistaBox = new ComboBox();
+            EntregaBox = new DateTimePicker();
             MoradaBox = new TextBox();
-            EntregaBox = new TextBox();
-            RetalhistaBox = new TextBox();
-            TransportesBox = new TextBox();
-            QuintaBox = new TextBox();
             QuintaEncomenda = new Label();
             TransportesEncomenda = new Label();
             RetalhistaEncomenda = new Label();
@@ -213,12 +213,12 @@
             PesquisarNomeTransporte = new TextBox();
             ListaTransportes = new ListBox();
             Retalhistas = new TabPage();
+            QuintaEncoemndaRetalhistaBox = new ComboBox();
+            EmpresaDeTransporteEncoemndaRetalhistaBox = new ComboBox();
+            DataRetalhistaEncoemndabOX = new ComboBox();
+            CompradorEncoemndaRetalhistaBox = new DateTimePicker();
             ConfirmarRetalhistaEncoemnda = new Button();
             MoradaRetalhistaBox = new TextBox();
-            DataRetalhistaEncoemndabOX = new TextBox();
-            CompradorEncoemndaRetalhistaBox = new TextBox();
-            EmpresaDeTransporteEncoemndaRetalhistaBox = new TextBox();
-            QuintaEncoemndaRetalhistaBox = new TextBox();
             QuintaEncoemndaRetalhista = new Label();
             EmpresaDeTransporteEncoemndaRetalhista = new Label();
             CompradorEncoemndaRetalhista = new Label();
@@ -1787,11 +1787,11 @@
             // 
             // Transportes
             // 
-            Transportes.Controls.Add(MoradaBox);
-            Transportes.Controls.Add(EntregaBox);
-            Transportes.Controls.Add(RetalhistaBox);
-            Transportes.Controls.Add(TransportesBox);
             Transportes.Controls.Add(QuintaBox);
+            Transportes.Controls.Add(TransportesBox);
+            Transportes.Controls.Add(RetalhistaBox);
+            Transportes.Controls.Add(EntregaBox);
+            Transportes.Controls.Add(MoradaBox);
             Transportes.Controls.Add(QuintaEncomenda);
             Transportes.Controls.Add(TransportesEncomenda);
             Transportes.Controls.Add(RetalhistaEncomenda);
@@ -1831,40 +1831,43 @@
             Transportes.Text = "Transportes";
             Transportes.UseVisualStyleBackColor = true;
             // 
+            // QuintaBox
+            // 
+            QuintaBox.FormattingEnabled = true;
+            QuintaBox.Location = new Point(606, 264);
+            QuintaBox.Name = "QuintaBox";
+            QuintaBox.Size = new Size(475, 33);
+            QuintaBox.TabIndex = 82;
+            // 
+            // TransportesBox
+            // 
+            TransportesBox.FormattingEnabled = true;
+            TransportesBox.Location = new Point(645, 221);
+            TransportesBox.Name = "TransportesBox";
+            TransportesBox.Size = new Size(436, 33);
+            TransportesBox.TabIndex = 81;
+            // 
+            // RetalhistaBox
+            // 
+            RetalhistaBox.FormattingEnabled = true;
+            RetalhistaBox.Location = new Point(559, 179);
+            RetalhistaBox.Name = "RetalhistaBox";
+            RetalhistaBox.Size = new Size(524, 33);
+            RetalhistaBox.TabIndex = 80;
+            // 
+            // EntregaBox
+            // 
+            EntregaBox.Location = new Point(596, 127);
+            EntregaBox.Name = "EntregaBox";
+            EntregaBox.Size = new Size(485, 31);
+            EntregaBox.TabIndex = 79;
+            // 
             // MoradaBox
             // 
             MoradaBox.Location = new Point(531, 76);
             MoradaBox.Name = "MoradaBox";
             MoradaBox.Size = new Size(550, 31);
             MoradaBox.TabIndex = 78;
-            // 
-            // EntregaBox
-            // 
-            EntregaBox.Location = new Point(594, 128);
-            EntregaBox.Name = "EntregaBox";
-            EntregaBox.Size = new Size(487, 31);
-            EntregaBox.TabIndex = 77;
-            // 
-            // RetalhistaBox
-            // 
-            RetalhistaBox.Location = new Point(551, 179);
-            RetalhistaBox.Name = "RetalhistaBox";
-            RetalhistaBox.Size = new Size(532, 31);
-            RetalhistaBox.TabIndex = 76;
-            // 
-            // TransportesBox
-            // 
-            TransportesBox.Location = new Point(645, 221);
-            TransportesBox.Name = "TransportesBox";
-            TransportesBox.Size = new Size(438, 31);
-            TransportesBox.TabIndex = 75;
-            // 
-            // QuintaBox
-            // 
-            QuintaBox.Location = new Point(598, 264);
-            QuintaBox.Name = "QuintaBox";
-            QuintaBox.Size = new Size(485, 31);
-            QuintaBox.TabIndex = 74;
             // 
             // QuintaEncomenda
             // 
@@ -1892,9 +1895,9 @@
             RetalhistaEncomenda.Font = new Font("Segoe UI", 8.25F);
             RetalhistaEncomenda.Location = new Point(452, 184);
             RetalhistaEncomenda.Name = "RetalhistaEncomenda";
-            RetalhistaEncomenda.Size = new Size(101, 23);
+            RetalhistaEncomenda.Size = new Size(84, 23);
             RetalhistaEncomenda.TabIndex = 71;
-            RetalhistaEncomenda.Text = "Comprador:";
+            RetalhistaEncomenda.Text = "Retalhista";
             // 
             // EntregaEncomenda
             // 
@@ -2170,12 +2173,12 @@
             // 
             // Retalhistas
             // 
-            Retalhistas.Controls.Add(ConfirmarRetalhistaEncoemnda);
-            Retalhistas.Controls.Add(MoradaRetalhistaBox);
+            Retalhistas.Controls.Add(QuintaEncoemndaRetalhistaBox);
+            Retalhistas.Controls.Add(EmpresaDeTransporteEncoemndaRetalhistaBox);
             Retalhistas.Controls.Add(DataRetalhistaEncoemndabOX);
             Retalhistas.Controls.Add(CompradorEncoemndaRetalhistaBox);
-            Retalhistas.Controls.Add(EmpresaDeTransporteEncoemndaRetalhistaBox);
-            Retalhistas.Controls.Add(QuintaEncoemndaRetalhistaBox);
+            Retalhistas.Controls.Add(ConfirmarRetalhistaEncoemnda);
+            Retalhistas.Controls.Add(MoradaRetalhistaBox);
             Retalhistas.Controls.Add(QuintaEncoemndaRetalhista);
             Retalhistas.Controls.Add(EmpresaDeTransporteEncoemndaRetalhista);
             Retalhistas.Controls.Add(CompradorEncoemndaRetalhista);
@@ -2215,6 +2218,37 @@
             Retalhistas.UseVisualStyleBackColor = true;
             Retalhistas.Click += Retalhistas_Click;
             // 
+            // QuintaEncoemndaRetalhistaBox
+            // 
+            QuintaEncoemndaRetalhistaBox.FormattingEnabled = true;
+            QuintaEncoemndaRetalhistaBox.Location = new Point(610, 280);
+            QuintaEncoemndaRetalhistaBox.Name = "QuintaEncoemndaRetalhistaBox";
+            QuintaEncoemndaRetalhistaBox.Size = new Size(478, 33);
+            QuintaEncoemndaRetalhistaBox.TabIndex = 95;
+            // 
+            // EmpresaDeTransporteEncoemndaRetalhistaBox
+            // 
+            EmpresaDeTransporteEncoemndaRetalhistaBox.FormattingEnabled = true;
+            EmpresaDeTransporteEncoemndaRetalhistaBox.Location = new Point(649, 232);
+            EmpresaDeTransporteEncoemndaRetalhistaBox.Name = "EmpresaDeTransporteEncoemndaRetalhistaBox";
+            EmpresaDeTransporteEncoemndaRetalhistaBox.Size = new Size(439, 33);
+            EmpresaDeTransporteEncoemndaRetalhistaBox.TabIndex = 94;
+            // 
+            // DataRetalhistaEncoemndabOX
+            // 
+            DataRetalhistaEncoemndabOX.FormattingEnabled = true;
+            DataRetalhistaEncoemndabOX.Location = new Point(550, 189);
+            DataRetalhistaEncoemndabOX.Name = "DataRetalhistaEncoemndabOX";
+            DataRetalhistaEncoemndabOX.Size = new Size(538, 33);
+            DataRetalhistaEncoemndabOX.TabIndex = 93;
+            // 
+            // CompradorEncoemndaRetalhistaBox
+            // 
+            CompradorEncoemndaRetalhistaBox.Location = new Point(598, 128);
+            CompradorEncoemndaRetalhistaBox.Name = "CompradorEncoemndaRetalhistaBox";
+            CompradorEncoemndaRetalhistaBox.Size = new Size(487, 31);
+            CompradorEncoemndaRetalhistaBox.TabIndex = 92;
+            // 
             // ConfirmarRetalhistaEncoemnda
             // 
             ConfirmarRetalhistaEncoemnda.Location = new Point(449, 324);
@@ -2232,34 +2266,6 @@
             MoradaRetalhistaBox.Size = new Size(550, 31);
             MoradaRetalhistaBox.TabIndex = 90;
             // 
-            // DataRetalhistaEncoemndabOX
-            // 
-            DataRetalhistaEncoemndabOX.Location = new Point(598, 181);
-            DataRetalhistaEncoemndabOX.Name = "DataRetalhistaEncoemndabOX";
-            DataRetalhistaEncoemndabOX.Size = new Size(487, 31);
-            DataRetalhistaEncoemndabOX.TabIndex = 89;
-            // 
-            // CompradorEncoemndaRetalhistaBox
-            // 
-            CompradorEncoemndaRetalhistaBox.Location = new Point(556, 127);
-            CompradorEncoemndaRetalhistaBox.Name = "CompradorEncoemndaRetalhistaBox";
-            CompradorEncoemndaRetalhistaBox.Size = new Size(532, 31);
-            CompradorEncoemndaRetalhistaBox.TabIndex = 88;
-            // 
-            // EmpresaDeTransporteEncoemndaRetalhistaBox
-            // 
-            EmpresaDeTransporteEncoemndaRetalhistaBox.Location = new Point(649, 232);
-            EmpresaDeTransporteEncoemndaRetalhistaBox.Name = "EmpresaDeTransporteEncoemndaRetalhistaBox";
-            EmpresaDeTransporteEncoemndaRetalhistaBox.Size = new Size(438, 31);
-            EmpresaDeTransporteEncoemndaRetalhistaBox.TabIndex = 87;
-            // 
-            // QuintaEncoemndaRetalhistaBox
-            // 
-            QuintaEncoemndaRetalhistaBox.Location = new Point(603, 280);
-            QuintaEncoemndaRetalhistaBox.Name = "QuintaEncoemndaRetalhistaBox";
-            QuintaEncoemndaRetalhistaBox.Size = new Size(482, 31);
-            QuintaEncoemndaRetalhistaBox.TabIndex = 86;
-            // 
             // QuintaEncoemndaRetalhista
             // 
             QuintaEncoemndaRetalhista.AutoSize = true;
@@ -2274,7 +2280,7 @@
             // 
             EmpresaDeTransporteEncoemndaRetalhista.AutoSize = true;
             EmpresaDeTransporteEncoemndaRetalhista.Font = new Font("Segoe UI", 8.25F);
-            EmpresaDeTransporteEncoemndaRetalhista.Location = new Point(456, 237);
+            EmpresaDeTransporteEncoemndaRetalhista.Location = new Point(456, 242);
             EmpresaDeTransporteEncoemndaRetalhista.Name = "EmpresaDeTransporteEncoemndaRetalhista";
             EmpresaDeTransporteEncoemndaRetalhista.Size = new Size(187, 23);
             EmpresaDeTransporteEncoemndaRetalhista.TabIndex = 84;
@@ -2284,11 +2290,11 @@
             // 
             CompradorEncoemndaRetalhista.AutoSize = true;
             CompradorEncoemndaRetalhista.Font = new Font("Segoe UI", 8.25F);
-            CompradorEncoemndaRetalhista.Location = new Point(456, 189);
+            CompradorEncoemndaRetalhista.Location = new Point(456, 192);
             CompradorEncoemndaRetalhista.Name = "CompradorEncoemndaRetalhista";
-            CompradorEncoemndaRetalhista.Size = new Size(101, 23);
+            CompradorEncoemndaRetalhista.Size = new Size(88, 23);
             CompradorEncoemndaRetalhista.TabIndex = 83;
-            CompradorEncoemndaRetalhista.Text = "Comprador:";
+            CompradorEncoemndaRetalhista.Text = "Retalhista:";
             // 
             // DataRetalhistaEncoemnda
             // 
@@ -2329,7 +2335,7 @@
             // 
             // ConfirmarRetalhista
             // 
-            ConfirmarRetalhista.Location = new Point(456, 184);
+            ConfirmarRetalhista.Location = new Point(456, 190);
             ConfirmarRetalhista.Name = "ConfirmarRetalhista";
             ConfirmarRetalhista.Size = new Size(636, 34);
             ConfirmarRetalhista.TabIndex = 65;
@@ -2447,7 +2453,7 @@
             // 
             // RetalhistasTipo
             // 
-            RetalhistasTipo.Location = new Point(565, 186);
+            RetalhistasTipo.Location = new Point(598, 192);
             RetalhistasTipo.Name = "RetalhistasTipo";
             RetalhistasTipo.Size = new Size(485, 31);
             RetalhistasTipo.TabIndex = 50;
@@ -3251,16 +3257,8 @@
         private Label QuintaEncomenda;
         private Label TransportesEncomenda;
         private TextBox MoradaBox;
-        private TextBox EntregaBox;
-        private TextBox RetalhistaBox;
-        private TextBox TransportesBox;
-        private TextBox QuintaBox;
         private Button ConfirmarRetalhista;
         private TextBox MoradaRetalhistaBox;
-        private TextBox DataRetalhistaEncoemndabOX;
-        private TextBox CompradorEncoemndaRetalhistaBox;
-        private TextBox EmpresaDeTransporteEncoemndaRetalhistaBox;
-        private TextBox QuintaEncoemndaRetalhistaBox;
         private Label QuintaEncoemndaRetalhista;
         private Label EmpresaDeTransporteEncoemndaRetalhista;
         private Label CompradorEncoemndaRetalhista;
@@ -3299,5 +3297,13 @@
         private Label AddPlantaLoteLabel;
         private Button AddPlantaSubmeter;
         private ComboBox AddPlantaIDPlanta;
+        private DateTimePicker CompradorEncoemndaRetalhistaBox;
+        private ComboBox QuintaEncoemndaRetalhistaBox;
+        private ComboBox EmpresaDeTransporteEncoemndaRetalhistaBox;
+        private ComboBox DataRetalhistaEncoemndabOX;
+        private DateTimePicker EntregaBox;
+        private ComboBox QuintaBox;
+        private ComboBox TransportesBox;
+        private ComboBox RetalhistaBox;
     }
 }

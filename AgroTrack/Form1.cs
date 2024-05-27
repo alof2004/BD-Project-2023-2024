@@ -508,6 +508,7 @@ namespace AgroTrack
                     };
                     SelectQuintaAddAgricultor.Items.Add(planta);
                     TrabalhaQuinta.Items.Add(planta);
+                    QuintaBox.Items.Add(planta);    
                 }
                 reader.Close();
             }
@@ -3271,6 +3272,8 @@ namespace AgroTrack
                         Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"]
                     };
                     FiltrarRetalhistaTransportes.Items.Add(produto);
+                    DataRetalhistaEncoemndabOX.Items.Add(produto);
+                    RetalhistaBox.Items.Add(produto);
                 }
                 reader.Close();
             }
@@ -3325,6 +3328,8 @@ namespace AgroTrack
                         Empresa_Id_Empresa = (int)reader["Empresa_Id_Empresa"]
                     };
                     FiltrarTransporteRetalhistas.Items.Add(produto);
+                    EmpresaDeTransporteEncoemndaRetalhistaBox.Items.Add(produto);
+                    TransportesBox.Items.Add(produto);
                 }
                 reader.Close();
             }
@@ -3348,6 +3353,7 @@ namespace AgroTrack
                         Nome = reader["Nome"].ToString(),
                     };
                     QuintasRetalhistas.Items.Add(Farm);
+                    QuintaEncoemndaRetalhistaBox.Items.Add(Farm);
                 }
                 reader.Close();
             }
@@ -3509,10 +3515,7 @@ namespace AgroTrack
             // Enable input fields
             PrazoBox.ReadOnly = false;
             MoradaBox.ReadOnly = false;
-            EntregaBox.ReadOnly = false;
-            RetalhistaBox.ReadOnly = false;
-            TransportesBox.ReadOnly = false;
-            QuintaBox.ReadOnly = false;
+
 
             PrazoBox.Text = "";
             MoradaBox.Text = "";
@@ -4065,9 +4068,9 @@ namespace AgroTrack
             {
                 try
                 {
-                    string nome = TransportesNome.Text;
-                    string morada = TransportesMorada.Text;
-                    int contacto = int.Parse(TransportesContacto.Text);
+                    int prazo = int.Parse(PrazoBoxRetalhista.Text);
+                    string morada = MoradaRetalhistaBox.Text;
+
                     //AddRetalhista(nome, morada, contacto);
                 }
                 catch (Exception ex)
@@ -4451,6 +4454,11 @@ namespace AgroTrack
         }
 
         private void QuantidadeVendidaBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EntregaBox_TextChanged(object sender, EventArgs e)
         {
 
         }
