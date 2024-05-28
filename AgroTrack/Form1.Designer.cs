@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
             SubmeterCompra = new Button();
@@ -513,7 +513,7 @@
             // 
             ComprouProduto.FormattingEnabled = true;
             ComprouProduto.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            ComprouProduto.Location = new Point(398, 359);
+            ComprouProduto.Location = new Point(398, 340);
             ComprouProduto.Name = "ComprouProduto";
             ComprouProduto.Size = new Size(207, 33);
             ComprouProduto.TabIndex = 76;
@@ -523,7 +523,7 @@
             // label37
             // 
             label37.AutoSize = true;
-            label37.Location = new Point(397, 331);
+            label37.Location = new Point(397, 312);
             label37.Name = "label37";
             label37.Size = new Size(162, 25);
             label37.TabIndex = 75;
@@ -561,7 +561,7 @@
             // 
             // NumeroComprasCliente
             // 
-            NumeroComprasCliente.Location = new Point(398, 539);
+            NumeroComprasCliente.Location = new Point(397, 533);
             NumeroComprasCliente.Name = "NumeroComprasCliente";
             NumeroComprasCliente.Size = new Size(207, 31);
             NumeroComprasCliente.TabIndex = 70;
@@ -570,7 +570,7 @@
             // label38
             // 
             label38.AutoSize = true;
-            label38.Location = new Point(398, 511);
+            label38.Location = new Point(397, 505);
             label38.Name = "label38";
             label38.Size = new Size(211, 25);
             label38.TabIndex = 69;
@@ -581,7 +581,7 @@
             // 
             ComprouQuinta.FormattingEnabled = true;
             ComprouQuinta.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            ComprouQuinta.Location = new Point(397, 453);
+            ComprouQuinta.Location = new Point(397, 434);
             ComprouQuinta.Name = "ComprouQuinta";
             ComprouQuinta.Size = new Size(207, 33);
             ComprouQuinta.TabIndex = 68;
@@ -591,7 +591,7 @@
             // label39
             // 
             label39.AutoSize = true;
-            label39.Location = new Point(398, 425);
+            label39.Location = new Point(398, 406);
             label39.Name = "label39";
             label39.Size = new Size(171, 25);
             label39.TabIndex = 67;
@@ -633,7 +633,7 @@
             // 
             CCclientes.Location = new Point(512, 174);
             CCclientes.Name = "CCclientes";
-            CCclientes.Size = new Size(629, 31);
+            CCclientes.Size = new Size(621, 31);
             CCclientes.TabIndex = 60;
             // 
             // ListaCompras
@@ -642,7 +642,7 @@
             ListaCompras.ItemHeight = 25;
             ListaCompras.Location = new Point(615, 262);
             ListaCompras.Name = "ListaCompras";
-            ListaCompras.Size = new Size(531, 254);
+            ListaCompras.Size = new Size(518, 254);
             ListaCompras.TabIndex = 59;
             // 
             // LabelContactoCliente
@@ -1848,7 +1848,7 @@
             ItemsEncomendaTransportes.ItemHeight = 25;
             ItemsEncomendaTransportes.Location = new Point(452, 372);
             ItemsEncomendaTransportes.Name = "ItemsEncomendaTransportes";
-            ItemsEncomendaTransportes.Size = new Size(654, 179);
+            ItemsEncomendaTransportes.Size = new Size(629, 179);
             ItemsEncomendaTransportes.TabIndex = 98;
             // 
             // QuintaBox
@@ -2247,21 +2247,21 @@
             ItemsEncomenda.ItemHeight = 25;
             ItemsEncomenda.Location = new Point(452, 385);
             ItemsEncomenda.Name = "ItemsEncomenda";
-            ItemsEncomenda.Size = new Size(654, 179);
+            ItemsEncomenda.Size = new Size(636, 179);
             ItemsEncomenda.TabIndex = 97;
             // 
             // EncomendaListaProdutos
             // 
             EncomendaListaProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             EncomendaListaProdutos.Columns.AddRange(new DataGridViewColumn[] { productColumn, quantityColumn });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
             EncomendaListaProdutos.Location = new Point(473, 335);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
