@@ -2123,7 +2123,9 @@ namespace AgroTrack
                 TransportesNome.Text = selectedtransporte.Nome;
                 TransportesMorada.Text = selectedtransporte.Morada;
                 TransportesContacto.Text = selectedtransporte.Contacto.ToString();
-                
+
+                DataEntregaInicio.Text = "";
+
 
                 LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa, DataEncomendaTransportes.Value);
 
@@ -4928,12 +4930,14 @@ namespace AgroTrack
         {
             Encomenda encomenda = EncomendasEntrega.SelectedItem as Encomenda;
             AlterarDataEncomenda.Show();
+            DataEntregaInicio.Text = "";
             if (EncomendasEntrega.SelectedItem != null)
             {
                 DataDeEntregaAtualBOX.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
                 DataEntregaInicio.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
 
             }
+           
             LoadEncomendaItems(encomenda.Codigo);
         }
 
