@@ -220,8 +220,6 @@
             Retalhistas = new TabPage();
             ItemsEncomenda = new ListBox();
             EncomendaListaProdutos = new DataGridView();
-            productColumn = new DataGridViewComboBoxColumn();
-            quantityColumn = new DataGridViewTextBoxColumn();
             QuintaEncoemndaRetalhistaBox = new ComboBox();
             EmpresaDeTransporteEncoemndaRetalhistaBox = new ComboBox();
             DataRetalhistaEncoemndabOX = new ComboBox();
@@ -304,6 +302,10 @@
             label14 = new Label();
             ListaProdutos = new ListBox();
             produtosOnlyNameBindingSource = new BindingSource(components);
+            productColumn = new DataGridViewComboBoxColumn();
+            quantityColumn = new DataGridViewTextBoxColumn();
+            QuantidadeBox = new NumericUpDown();
+            QuantidadeText = new Label();
             OrdenarPor.SuspendLayout();
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AddCompraQuantidade).BeginInit();
@@ -2257,7 +2259,7 @@
             // 
             ItemsEncomenda.FormattingEnabled = true;
             ItemsEncomenda.ItemHeight = 25;
-            ItemsEncomenda.Location = new Point(412, 385);
+            ItemsEncomenda.Location = new Point(409, 385);
             ItemsEncomenda.Name = "ItemsEncomenda";
             ItemsEncomenda.Size = new Size(712, 179);
             ItemsEncomenda.TabIndex = 97;
@@ -2274,25 +2276,12 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
-            EncomendaListaProdutos.Location = new Point(433, 335);
+            EncomendaListaProdutos.Location = new Point(236, 337);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
-            EncomendaListaProdutos.Size = new Size(618, 209);
+            EncomendaListaProdutos.Size = new Size(883, 209);
             EncomendaListaProdutos.TabIndex = 96;
-            // 
-            // productColumn
-            // 
-            productColumn.HeaderText = "Produtos";
-            productColumn.MinimumWidth = 8;
-            productColumn.Name = "productColumn";
-            productColumn.Width = 300;
-            // 
-            // quantityColumn
-            // 
-            quantityColumn.HeaderText = "Quantidade";
-            quantityColumn.MinimumWidth = 8;
-            quantityColumn.Name = "quantityColumn";
-            quantityColumn.Width = 300;
+            EncomendaListaProdutos.DataError += EncomendaListaProdutos_DataError;
             // 
             // QuintaEncoemndaRetalhistaBox
             // 
@@ -2328,9 +2317,9 @@
             // 
             // ConfirmarRetalhistaEncoemnda
             // 
-            ConfirmarRetalhistaEncoemnda.Location = new Point(449, 520);
+            ConfirmarRetalhistaEncoemnda.Location = new Point(449, 539);
             ConfirmarRetalhistaEncoemnda.Name = "ConfirmarRetalhistaEncoemnda";
-            ConfirmarRetalhistaEncoemnda.Size = new Size(636, 69);
+            ConfirmarRetalhistaEncoemnda.Size = new Size(636, 50);
             ConfirmarRetalhistaEncoemnda.TabIndex = 91;
             ConfirmarRetalhistaEncoemnda.Text = "Confirmar";
             ConfirmarRetalhistaEncoemnda.UseVisualStyleBackColor = true;
@@ -2464,7 +2453,7 @@
             // 
             QuintasRetalhistas.FormattingEnabled = true;
             QuintasRetalhistas.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
-            QuintasRetalhistas.Location = new Point(86, 460);
+            QuintasRetalhistas.Location = new Point(91, 449);
             QuintasRetalhistas.Name = "QuintasRetalhistas";
             QuintasRetalhistas.Size = new Size(295, 33);
             QuintasRetalhistas.TabIndex = 57;
@@ -2474,7 +2463,7 @@
             // FiltrarTransporteRetalhistas
             // 
             FiltrarTransporteRetalhistas.FormattingEnabled = true;
-            FiltrarTransporteRetalhistas.Location = new Point(214, 410);
+            FiltrarTransporteRetalhistas.Location = new Point(219, 399);
             FiltrarTransporteRetalhistas.Name = "FiltrarTransporteRetalhistas";
             FiltrarTransporteRetalhistas.Size = new Size(167, 33);
             FiltrarTransporteRetalhistas.TabIndex = 56;
@@ -2485,7 +2474,7 @@
             // 
             QuintaRetalhistaSelecao.AutoSize = true;
             QuintaRetalhistaSelecao.Font = new Font("Segoe UI", 9F);
-            QuintaRetalhistaSelecao.Location = new Point(15, 463);
+            QuintaRetalhistaSelecao.Location = new Point(20, 452);
             QuintaRetalhistaSelecao.Name = "QuintaRetalhistaSelecao";
             QuintaRetalhistaSelecao.Size = new Size(77, 25);
             QuintaRetalhistaSelecao.TabIndex = 55;
@@ -2496,7 +2485,7 @@
             // 
             empresaretalhistas.AutoSize = true;
             empresaretalhistas.Font = new Font("Segoe UI", 9F);
-            empresaretalhistas.Location = new Point(15, 413);
+            empresaretalhistas.Location = new Point(20, 402);
             empresaretalhistas.Name = "empresaretalhistas";
             empresaretalhistas.Size = new Size(193, 25);
             empresaretalhistas.TabIndex = 54;
@@ -2504,7 +2493,7 @@
             // 
             // DataRetalhistasEncomenda
             // 
-            DataRetalhistasEncomenda.Location = new Point(164, 366);
+            DataRetalhistasEncomenda.Location = new Point(169, 355);
             DataRetalhistasEncomenda.Name = "DataRetalhistasEncomenda";
             DataRetalhistasEncomenda.Size = new Size(222, 31);
             DataRetalhistasEncomenda.TabIndex = 53;
@@ -2513,7 +2502,7 @@
             // 
             dataRetalhista.AutoSize = true;
             dataRetalhista.Font = new Font("Segoe UI", 9F);
-            dataRetalhista.Location = new Point(29, 366);
+            dataRetalhista.Location = new Point(34, 355);
             dataRetalhista.Name = "dataRetalhista";
             dataRetalhista.Size = new Size(129, 25);
             dataRetalhista.TabIndex = 52;
@@ -2632,7 +2621,7 @@
             ListaRetalhistas.ItemHeight = 25;
             ListaRetalhistas.Location = new Point(26, 127);
             ListaRetalhistas.Name = "ListaRetalhistas";
-            ListaRetalhistas.Size = new Size(360, 229);
+            ListaRetalhistas.Size = new Size(360, 204);
             ListaRetalhistas.TabIndex = 38;
             ListaRetalhistas.SelectedIndexChanged += ListaRetalhistas_SelectedIndexChanged_1;
             // 
@@ -3072,6 +3061,37 @@
             // produtosOnlyNameBindingSource
             // 
             produtosOnlyNameBindingSource.DataSource = typeof(ProdutosOnlyName);
+            // 
+            // productColumn
+            // 
+            productColumn.HeaderText = "Produtos";
+            productColumn.MinimumWidth = 8;
+            productColumn.Name = "productColumn";
+            productColumn.Width = 580;
+            // 
+            // quantityColumn
+            // 
+            quantityColumn.HeaderText = "Quantidade";
+            quantityColumn.MinimumWidth = 8;
+            quantityColumn.Name = "quantityColumn";
+            quantityColumn.Width = 300;
+            // 
+            // QuantidadeBox
+            // 
+            QuantidadeBox.Location = new Point(251, 545);
+            QuantidadeBox.Name = "QuantidadeBox";
+            QuantidadeBox.Size = new Size(290, 31);
+            QuantidadeBox.TabIndex = 34;
+            QuantidadeBox.ValueChanged += numericUpDown1_ValueChanged;
+            // 
+            // QuantidadeText
+            // 
+            QuantidadeText.AutoSize = true;
+            QuantidadeText.Location = new Point(251, 515);
+            QuantidadeText.Name = "QuantidadeText";
+            QuantidadeText.Size = new Size(105, 25);
+            QuantidadeText.TabIndex = 33;
+            QuantidadeText.Text = "Quantidade";
             // 
             // AgroTrack
             // 

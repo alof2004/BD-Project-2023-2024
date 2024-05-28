@@ -1026,10 +1026,10 @@ namespace AgroTrack
                     string contractInfo = $"ID: {contrato.ID}\n" +
                       $"Id Trabalhador: {contrato.Id_Trabalhador}\n" +
                       $"Pessoa N Cartao Cidadao: {contrato.Pessoa_N_CartaoCidadao}\n" +
-                      $"Data de In�cio: {contrato.Date_str.ToShortDateString()}\n" +
-                      $"Data de T�rmino: {contrato.Date_end.ToShortDateString()}\n" +
-                      $"Sal�rio: {contrato.Salario}\n" +
-                      $"Descri��o: {contrato.Descricao}\n" +
+                      $"Data de Inicio: {contrato.Date_str.ToShortDateString()}\n" +
+                      $"Data de Termino: {contrato.Date_end.ToShortDateString()}\n" +
+                      $"Salario: {contrato.Salario}\n" +
+                      $"Descricao: {contrato.Descricao}\n" +
                       $"-----------------------------\n";
 
                     AgricultorContrato.AppendText(contractInfo);
@@ -3701,7 +3701,7 @@ namespace AgroTrack
             {
                 try
                 {
-                    int produtoId = (AddProdutoToQuintaProdutoID.SelectedItem as ProdutosOnlyName).Id_Produto;
+                    int produtoId = (AddProdutoToQuintaProdutoID.SelectedItem as ProdutosOnlyNameMedida).Id_Produto;
                     int quantidade = int.Parse(AddProdutoToQuintaQuantidade.Text);
                     DateTime data = AddProdutoToQuintaData.Value;
                     int quintaId = (AddProdutoToQuintaID.SelectedItem as Quinta).Id_Quinta;
@@ -4546,6 +4546,111 @@ namespace AgroTrack
             }
         }
 
+        private void LoadTabelaProdutos(int empresaID)
+        {
+            string query = "SELECT Codigo, NomeProduto, Empresa_Id_Empresa, Unidade_medida, Quantidade FROM AgroTrack.QuintaProduto WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa";
+            List<ProdutosOnlyNameMedida> produtos = new List<ProdutosOnlyNameMedida>();
+
+            using (SqlCommand command = new SqlCommand(query, cn))
+            {
+                command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", empresaID));
+
+                if (cn.State != ConnectionState.Open)
+                {
+                    cn.Open();
+                }
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ProdutosOnlyNameMedida produto = new ProdutosOnlyNameMedida(reader.GetInt32(0), reader.GetString(1), reader.GetString(3), reader.GetInt32(4));
+                        produtos.Add(produto);
+                    }
+                }
+            }
+
+            if (produtos.Count > 0)
+            {
+                DataGridViewComboBoxColumn productColumn = (DataGridViewComboBoxColumn)EncomendaListaProdutos.Columns["productColumn"];
+                productColumn.Items.Clear();
+
+                // Add items to the combo box column
+                foreach (var produto in produtos)
+                {
+                    productColumn.Items.Add(produto.ToString()); // Convert ToString() result to string explicitly
+                }
+
+                productColumn.ValueMember = "Id_Produto";
+                productColumn.DisplayMember = ""; // Leave empty to use ToString() method
+            }
+            else
+            {
+                MessageBox.Show("No products found for the given Empresa ID.");
+            }
+        }
+
+
+        private void EncomendaListaProdutos_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Log the error or display a message
+            MessageBox.Show("Error occurred in DataGridView: " + e.Exception.Message, "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            e.ThrowException = false; // Prevent the default error dialog
+        }
+
+        // Subscribe to the DataError event
+        private void SaveProductsToDatabase(int encomendaId)
+        {
+            foreach (DataGridViewRow row in EncomendaListaProdutos.Rows)
+            {
+                if (row.Cells["productColumn"].Value != null && row.Cells["quantityColumn"].Value != null)
+                {
+                    string selectedProductString = row.Cells["productColumn"].Value.ToString(); // Get the selected string
+                    int productId = GetProductIdFromComboBoxString(selectedProductString); // Extract the Id_Produto
+                    int quantidade = int.Parse(row.Cells["quantityColumn"].Value.ToString());
+                    AddProductToEncomenda(encomendaId, productId, quantidade);
+                }
+            }
+        }
+
+        private int GetProductIdFromComboBoxString(string selectedProductString)
+        {
+            // Assuming the selectedProductString format is "Id_Produto - Nome (Unidade_medida)"
+            string[] parts = selectedProductString.Split('-');
+            if (parts.Length > 0)
+            {
+                return int.Parse(parts[0].Trim()); // Extract and parse the Id_Produto
+            }
+            else
+            {
+                throw new ArgumentException("Invalid format for selected product string.");
+            }
+        }
+
+
+        private void AddProductToEncomenda(int encomendaId, int productId, int quantidade)
+        {
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddProductToEncomenda", cn) { CommandType = CommandType.StoredProcedure })
+            {
+                command.Parameters.Add(new SqlParameter("@Produto_codigo", productId));
+                command.Parameters.Add(new SqlParameter("@Quantidade", quantidade));
+                command.Parameters.Add(new SqlParameter("@Codigo", encomendaId));
+                try
+                {
+                    if (cn.State != ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Produto adicionado à encomenda com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to add product to encomenda: " + ex.Message);
+                }
+            }
+        }
+
         private void AddEncomendaRetalhista(int prazo, string morada, DateTime entrega, int retalhista, int transportes, int quinta)
         {
             try
@@ -4608,90 +4713,6 @@ namespace AgroTrack
                         throw new Exception("Failed to get encomenda ID.");
                     }
                 }
-            }
-        }
-        private void SaveProductsToDatabase(int encomendaId)
-        {
-            foreach (DataGridViewRow row in EncomendaListaProdutos.Rows)
-            {
-                if (row.Cells["productColumn"].Value == null || row.Cells["quantityColumn"].Value == null)
-                {
-                    continue;
-                }
-                else
-                {
-                    int productId = (int)row.Cells["productColumn"].Value;
-                    int quantidade = int.Parse(row.Cells["quantityColumn"].Value.ToString());
-                    AddProductToEncomenda(encomendaId, productId, quantidade);
-                }
-            }
-
-        }
-
-        private void AddProductToEncomenda(int encomendaId, int productId, int quantidade)
-        {
-            using (SqlCommand command = new SqlCommand("AgroTrack.AddProductToEncomenda", cn) { CommandType = CommandType.StoredProcedure })
-            {
-                command.Parameters.Add(new SqlParameter("@Produto_codigo", productId));
-                command.Parameters.Add(new SqlParameter("@Quantidade", quantidade));
-                command.Parameters.Add(new SqlParameter("@Codigo", encomendaId));
-                try
-                {
-                    if (cn.State != ConnectionState.Open)
-                    {
-                        cn.Open();
-                    }
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Produto adicionado à encomenda com sucesso!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to add product to encomenda: " + ex.Message);
-                }
-            }
-        }
-
-        private void LoadTabelaProdutos(int empresaID)
-        {
-            string query = "SELECT Codigo, NomeProduto, Empresa_Id_Empresa FROM AgroTrack.QuintaProduto WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa";
-            List<ProdutosOnlyName> produtos = new List<ProdutosOnlyName>();
-
-            using (SqlCommand command = new SqlCommand(query, cn))
-            {
-                command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", empresaID));
-
-                if (cn.State != System.Data.ConnectionState.Open)
-                {
-                    cn.Open();
-                }
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ProdutosOnlyName produto = new ProdutosOnlyName
-                        {
-                            Id_Produto = reader.GetInt32(0),
-                            Produto = reader.GetString(1)
-                        };
-                        produtos.Add(produto);
-                    }
-                }
-            }
-
-            if (produtos.Count > 0)
-            {
-                DataGridViewComboBoxColumn productColumn = (DataGridViewComboBoxColumn)EncomendaListaProdutos.Columns["productColumn"];
-                productColumn.Items.Clear(); // Clear existing items
-                productColumn.Items.AddRange(produtos.ToArray()); // Add products
-
-                // Set the DisplayMember and ValueMember for better binding
-                productColumn.DisplayMember = "Produto";
-                productColumn.ValueMember = "Id_Produto";
-            }
-            else
-            {
-                MessageBox.Show("No products found for the given Empresa ID.");
             }
         }
 

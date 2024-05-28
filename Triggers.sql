@@ -44,20 +44,76 @@ IF OBJECT_ID('CalculatePriceOfEncomendaWithItems', 'TR') IS NOT NULL
 GO
 
 -- Create the trigger on the correct schema
-CREATE TRIGGER CalculatePriceOfEncomendaWithItems
+create TRIGGER CalculatePriceOfEncomendaWithItems
 ON AgroTrack_Item
 AFTER INSERT
 AS
 BEGIN
-    -- Update the price of the Encomenda based on the inserted items
-    UPDATE E
-    SET PrecoTotal = PrecoTotal + (
-        SELECT SUM(P.Preco * I.Quantidade * (1 + P.Taxa_de_iva))
-        FROM AgroTrack_Item I
-        JOIN AgroTrack_Produto P ON I.ProdutoCodigo = P.Codigo
-        WHERE I.Encomenda_Codigo = E.Codigo
-    )
-    FROM AgroTrack_Encomenda E
-    JOIN inserted I ON E.Codigo = I.Encomenda_Codigo;
+    SET NOCOUNT ON;
+
+    DECLARE @EncomendaCodigo INT;
+    DECLARE @TotalPrice DECIMAL(10, 2);
+
+    -- Get the Encomenda_Codigo from the inserted rows
+    SELECT @EncomendaCodigo = Encomenda_Codigo
+    FROM inserted;
+
+    -- Calculate the total price for the Encomenda
+    SELECT @TotalPrice = SUM(Quantidade * Preco * (1 + Taxa_de_iva))
+    FROM inserted i
+    JOIN AgroTrack_Produto p ON i.ProdutoCodigo = p.Codigo
+    WHERE Encomenda_Codigo = @EncomendaCodigo;
+
+    -- Update the AgroTrack_Encomenda table with the total price
+    UPDATE AgroTrack_Encomenda
+    SET PrecoTotal = ISNULL(PrecoTotal, 0) + @TotalPrice
+    WHERE Codigo = @EncomendaCodigo;
 END;
 GO
+IF OBJECT_ID('check_product_quantity', 'TR') IS NOT NULL
+    DROP TRIGGER check_product_quantity;
+GO
+CREATE TRIGGER check_product_quantity
+ON AgroTrack_Item
+INSTEAD OF INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Declare variables
+    DECLARE @ProductCodigo INT;
+    DECLARE @EncomendaCodigo INT;
+    DECLARE @Quantidade INT;
+
+    -- Get data from inserted table
+    SELECT 
+        @ProductCodigo = i.ProdutoCodigo, 
+        @EncomendaCodigo = i.Encomenda_Codigo,
+        @Quantidade = i.Quantidade
+    FROM inserted i;
+
+    -- Check available quantity
+    DECLARE @AvailableQuantity INT;
+    SELECT @AvailableQuantity = Quantidade 
+    FROM AgroTrack_Contem 
+    WHERE Produto_codigo = @ProductCodigo;
+
+    -- Check if available quantity is sufficient
+    IF @AvailableQuantity < @Quantidade
+    BEGIN
+        RAISERROR ('Not enough quantity available in the farm for product %d. Available: %d, Requested: %d', 16, 1, @ProductCodigo, @AvailableQuantity, @Quantidade);
+        DELETE FROM AgroTrack_Encomenda WHERE Codigo = @EncomendaCodigo;
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END
+
+    -- Decrease the quantity in AgroTrack_Contem table
+    UPDATE AgroTrack_Contem
+    SET Quantidade = Quantidade - @Quantidade
+    WHERE Produto_codigo = @ProductCodigo;
+
+    -- Insert the item into AgroTrack_Item table
+    INSERT INTO AgroTrack_Item (ProdutoCodigo, Quantidade, Encomenda_Codigo)
+    SELECT ProdutoCodigo, Quantidade, Encomenda_Codigo
+    FROM inserted;
+END;
