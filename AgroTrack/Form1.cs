@@ -77,6 +77,7 @@ namespace AgroTrack
             DataDeEntregaAtualBOX.Hide();
             NovaDataDeEntrega.Hide();
             NovaDataDeEntregaBOX.Hide();
+            DataEncomendaTransportes.Value = DateTime.Now;
 
 
             // botoes de adicionar agricultor que são escondidos no início 
@@ -2104,7 +2105,18 @@ namespace AgroTrack
                 RetalhistasMorada.Text = selectedretalho.Morada;
                 RetalhistasContacto.Text = selectedretalho.Contacto.ToString();
 
-                LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, DataRetalhistasEncomenda.Value);
+                DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+                DateTime dataAtual = DateTime.Now.Date;
+
+                // Verifica se a data selecionada é diferente e maior que a data atual
+                if (dataSelecionada > dataAtual)
+                {
+                    LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, DataRetalhistasEncomenda.Value);
+                }
+                else
+                {
+                    LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa);
+                }
 
             }
         }
@@ -2126,8 +2138,18 @@ namespace AgroTrack
 
                 DataEntregaInicio.Text = "";
 
+                DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+                DateTime dataAtual = DateTime.Now.Date;
 
-                LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa, DataEncomendaTransportes.Value);
+                // Verifica se a data selecionada é diferente e maior que a data atual
+                if (dataSelecionada > dataAtual)
+                {
+                    LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa, dataSelecionada);
+                }
+                else
+                {
+                    LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa);
+                }
 
 
             }
@@ -3316,9 +3338,16 @@ namespace AgroTrack
 
         private void DataEncomendaTransportes_ValueChanged(object sender, EventArgs e)
         {
-            if (ListaTransportes.SelectedItem is Transportes selectedTransporte)
+            DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+            DateTime dataAtual = DateTime.Now.Date;
+
+            // Verifica se a data selecionada é diferente e maior que a data atual
+            if (dataSelecionada > dataAtual)
             {
-                LoadEncomendasEntrega(selectedTransporte.Empresa_Id_Empresa, DataEncomendaTransportes.Value);
+                if (ListaTransportes.SelectedItem is Transportes selectedTransporte)
+                {
+                    LoadEncomendasEntrega(selectedTransporte.Empresa_Id_Empresa, dataSelecionada);
+                }
             }
         }
 
@@ -3326,13 +3355,7 @@ namespace AgroTrack
         {
             PesquisaPorNomeCliente.Text = "";
         }
-        private void DataRetalhistasEncomenda_ValueChanged(object sender, EventArgs e)
-        {
-            if (ListaRetalhistas.SelectedItem is Retalhista selectedretalho)
-            {
-                LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, DataRetalhistasEncomenda.Value);
-            }
-        }
+
 
         //filtrar por retalhistas transportes
         private void FiltrarRetalhistaTransportes_SelectedIndexChanged(object sender, EventArgs e)
@@ -4937,7 +4960,7 @@ namespace AgroTrack
                 DataEntregaInicio.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
 
             }
-           
+
             LoadEncomendaItems(encomenda.Codigo);
         }
 
@@ -5064,7 +5087,7 @@ namespace AgroTrack
 
         private void ItemsEncomendaTransportes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void EncomendaListaProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -5161,9 +5184,173 @@ namespace AgroTrack
                         throw new Exception("Falha ao atualizar a data do produto: " + ex.Message);
                     }
                 }
+
+
+            }
+        }
+
+        private void LoadEncomendasRealizadas(int empresaId)
+        {
+            int? empresaDeTransportesId = null;
+            int? quintaId = null;
+            EMPRESAID = empresaId;
+
+            // Obtenha os valores selecionados nos filtros
+            if (FiltrarTransporteRetalhistas.SelectedItem is TransportesOnlyName selectedTransport)
+            {
+                empresaDeTransportesId = selectedTransport.Empresa_Id_Empresa;
+            }
+
+            if (QuintasRetalhistas.SelectedItem is QuintaOnlyName selectedQuinta)
+            {
+                quintaId = selectedQuinta.Id_Quinta;
+            }
+
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, PrecoTotal
+                     FROM AgroTrack.EmpresaEncomenda 
+                     WHERE Retalhista_Empresa_Id_Empresa = @Empresa_Id_Empresa";
+
+            if (empresaDeTransportesId.HasValue)
+            {
+                query += " AND Empresa_De_Transportes_Id_Empresa = @EmpresaDeTransportesId";
+            }
+
+            if (quintaId.HasValue)
+            {
+                query += " AND Quinta_Empresa_Id = @QuintaId";
+            }
+
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", empresaId);
+
+            if (empresaDeTransportesId.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@EmpresaDeTransportesId", empresaDeTransportesId.Value);
+            }
+
+            if (quintaId.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@QuintaId", quintaId.Value);
+            }
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                EncomendasRealizadas.Items.Clear(); // Clear previous items
+
+                while (reader.Read())
+                {
+                    Encomenda order = new Encomenda
+                    {
+                        Codigo = (int)reader["Codigo"],
+                        PrazoEntrega = (int)reader["prazo_entrega"],
+                        MoradaEntrega = reader["Morada_entrega"].ToString(),
+                        Entrega = DateTime.Parse(reader["Entrega"].ToString()),
+                        RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
+                        EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"],
+                        Preco = reader["PrecoTotal"] != DBNull.Value ? (double)reader["PrecoTotal"] : 0.0
+                    };
+
+                    EncomendasRealizadas.Items.Add(order);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+        private int EMPRESAENTREGAID2;
+
+        private void LoadEncomendasEntrega(int empresaId)
+        {
+            int? retalhistaId = null;
+            int? quintaId = null;
+            EMPRESAENTREGAID2 = empresaId;
+
+            // Obtenha o valor selecionado no filtro de retalhistas
+            if (FiltrarRetalhistaTransportes.SelectedItem is RetalhistasOnlyName selectedRetalhista)
+            {
+                retalhistaId = selectedRetalhista.Empresa_Id_Empresa;
+            }
+
+            // Obtenha o valor selecionado no filtro de quintas
+            if (QuintasTransportes.SelectedItem is QuintaOnlyName selectedQuinta)
+            {
+                quintaId = selectedQuinta.Id_Quinta;
+            }
+
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id 
+                     FROM AgroTrack.EmpresaEncomenda 
+                     WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa";
+
+            if (retalhistaId.HasValue)
+            {
+                query += " AND Retalhista_Empresa_Id_Empresa = @RetalhistaId";
+            }
+
+            if (quintaId.HasValue)
+            {
+                query += " AND Quinta_Empresa_Id = @QuintaId";
+            }
+
+            SqlCommand cmd = new SqlCommand(query, cn);
+            cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", empresaId);
+
+            if (retalhistaId.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@RetalhistaId", retalhistaId.Value);
+            }
+
+            if (quintaId.HasValue)
+            {
+                cmd.Parameters.AddWithValue("@QuintaId", quintaId.Value);
+            }
+
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                EncomendasEntrega.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    Encomenda order = new Encomenda
+                    {
+                        Codigo = (int)reader["Codigo"],
+                        PrazoEntrega = (int)reader["prazo_entrega"],
+                        MoradaEntrega = reader["Morada_entrega"].ToString(),
+                        Entrega = DateTime.Parse(reader["Entrega"].ToString()),
+                        RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
+                        EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
+                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
+                    };
+
+                    EncomendasEntrega.Items.Add(order);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+        }
+
+
+        private void DataRetalhistasEncomenda_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime dataSelecionada = DataRetalhistasEncomenda.Value.Date;
+            DateTime dataAtual = DateTime.Now.Date;
+
+            if (dataSelecionada > dataAtual)
+            {
+                if (ListaRetalhistas.SelectedItem is Retalhista selectedretalho)
+                {
+                    LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, dataSelecionada);
                 }
             }
 
+        }
     }
 
 }

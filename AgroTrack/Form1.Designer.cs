@@ -2363,7 +2363,7 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
-            EncomendaListaProdutos.Location = new Point(34, 337);
+            EncomendaListaProdutos.Location = new Point(39, 337);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
             EncomendaListaProdutos.Size = new Size(1085, 209);
@@ -2599,6 +2599,7 @@
             DataRetalhistasEncomenda.Name = "DataRetalhistasEncomenda";
             DataRetalhistasEncomenda.Size = new Size(222, 31);
             DataRetalhistasEncomenda.TabIndex = 53;
+            DataRetalhistasEncomenda.ValueChanged += DataRetalhistasEncomenda_ValueChanged;
             // 
             // dataRetalhista
             // 
