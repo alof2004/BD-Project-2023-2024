@@ -181,6 +181,14 @@
             Animais = new ListBox();
             ListaQuintas = new ListBox();
             Transportes = new TabPage();
+            DataEntregaInicio = new TextBox();
+            DataEntregaInicial = new Label();
+            NovaDataDeEntregaBOX = new DateTimePicker();
+            DataDeEntregaAtualBOX = new TextBox();
+            NovaDataDeEntrega = new Label();
+            DataDeEntregaAtual = new Label();
+            ConfirmarData = new Button();
+            AlterarDataEncomenda = new Button();
             ItemsEncomendaTransportes = new ListBox();
             QuintaBox = new ComboBox();
             TransportesBox = new ComboBox();
@@ -1830,6 +1838,14 @@
             // 
             // Transportes
             // 
+            Transportes.Controls.Add(DataEntregaInicio);
+            Transportes.Controls.Add(DataEntregaInicial);
+            Transportes.Controls.Add(NovaDataDeEntregaBOX);
+            Transportes.Controls.Add(DataDeEntregaAtualBOX);
+            Transportes.Controls.Add(NovaDataDeEntrega);
+            Transportes.Controls.Add(DataDeEntregaAtual);
+            Transportes.Controls.Add(ConfirmarData);
+            Transportes.Controls.Add(AlterarDataEncomenda);
             Transportes.Controls.Add(ItemsEncomendaTransportes);
             Transportes.Controls.Add(QuintaBox);
             Transportes.Controls.Add(TransportesBox);
@@ -1873,14 +1889,87 @@
             Transportes.Text = "Transportes";
             Transportes.UseVisualStyleBackColor = true;
             // 
+            // DataEntregaInicio
+            // 
+            DataEntregaInicio.Location = new Point(591, 241);
+            DataEntregaInicio.Name = "DataEntregaInicio";
+            DataEntregaInicio.Size = new Size(490, 31);
+            DataEntregaInicio.TabIndex = 106;
+            // 
+            // DataEntregaInicial
+            // 
+            DataEntregaInicial.AutoSize = true;
+            DataEntregaInicial.Font = new Font("Segoe UI", 8.25F);
+            DataEntregaInicial.Location = new Point(454, 246);
+            DataEntregaInicial.Name = "DataEntregaInicial";
+            DataEntregaInicial.Size = new Size(138, 23);
+            DataEntregaInicial.TabIndex = 105;
+            DataEntregaInicial.Text = "Data de entrega:";
+            // 
+            // NovaDataDeEntregaBOX
+            // 
+            NovaDataDeEntregaBOX.Location = new Point(645, 221);
+            NovaDataDeEntregaBOX.Name = "NovaDataDeEntregaBOX";
+            NovaDataDeEntregaBOX.Size = new Size(436, 31);
+            NovaDataDeEntregaBOX.TabIndex = 104;
+            NovaDataDeEntregaBOX.ValueChanged += NovaDataDeEntregaBOX_ValueChanged;
+            // 
+            // DataDeEntregaAtualBOX
+            // 
+            DataDeEntregaAtualBOX.Location = new Point(641, 179);
+            DataDeEntregaAtualBOX.Name = "DataDeEntregaAtualBOX";
+            DataDeEntregaAtualBOX.Size = new Size(442, 31);
+            DataDeEntregaAtualBOX.TabIndex = 103;
+            // 
+            // NovaDataDeEntrega
+            // 
+            NovaDataDeEntrega.AutoSize = true;
+            NovaDataDeEntrega.Font = new Font("Segoe UI", 8.25F);
+            NovaDataDeEntrega.Location = new Point(454, 226);
+            NovaDataDeEntrega.Name = "NovaDataDeEntrega";
+            NovaDataDeEntrega.Size = new Size(181, 23);
+            NovaDataDeEntrega.TabIndex = 102;
+            NovaDataDeEntrega.Text = "Nova data de entrega:";
+            // 
+            // DataDeEntregaAtual
+            // 
+            DataDeEntregaAtual.AutoSize = true;
+            DataDeEntregaAtual.Font = new Font("Segoe UI", 8.25F);
+            DataDeEntregaAtual.Location = new Point(454, 184);
+            DataDeEntregaAtual.Name = "DataDeEntregaAtual";
+            DataDeEntregaAtual.Size = new Size(181, 23);
+            DataDeEntregaAtual.TabIndex = 101;
+            DataDeEntregaAtual.Text = "Data de entrega atual:";
+            // 
+            // ConfirmarData
+            // 
+            ConfirmarData.Location = new Point(452, 551);
+            ConfirmarData.Name = "ConfirmarData";
+            ConfirmarData.Size = new Size(631, 34);
+            ConfirmarData.TabIndex = 100;
+            ConfirmarData.Text = "Confirmar data";
+            ConfirmarData.UseVisualStyleBackColor = true;
+            ConfirmarData.Click += ConfirmarData_Click;
+            // 
+            // AlterarDataEncomenda
+            // 
+            AlterarDataEncomenda.Location = new Point(21, 551);
+            AlterarDataEncomenda.Name = "AlterarDataEncomenda";
+            AlterarDataEncomenda.Size = new Size(392, 34);
+            AlterarDataEncomenda.TabIndex = 99;
+            AlterarDataEncomenda.Text = "Alterar data";
+            AlterarDataEncomenda.UseVisualStyleBackColor = true;
+            AlterarDataEncomenda.Click += AlterarDataEncomenda_Click;
+            // 
             // ItemsEncomendaTransportes
             // 
             ItemsEncomendaTransportes.FormattingEnabled = true;
             ItemsEncomendaTransportes.ItemHeight = 25;
-            ItemsEncomendaTransportes.Location = new Point(452, 363);
+            ItemsEncomendaTransportes.Location = new Point(452, 388);
             ItemsEncomendaTransportes.Name = "ItemsEncomendaTransportes";
-            ItemsEncomendaTransportes.Size = new Size(629, 104);
+            ItemsEncomendaTransportes.Size = new Size(629, 79);
             ItemsEncomendaTransportes.TabIndex = 98;
+            ItemsEncomendaTransportes.SelectedIndexChanged += ItemsEncomendaTransportes_SelectedIndexChanged;
             // 
             // QuintaBox
             // 
@@ -1954,7 +2043,7 @@
             // 
             EntregaEncomenda.AutoSize = true;
             EntregaEncomenda.Font = new Font("Segoe UI", 8.25F);
-            EntregaEncomenda.Location = new Point(452, 133);
+            EntregaEncomenda.Location = new Point(454, 133);
             EntregaEncomenda.Name = "EntregaEncomenda";
             EntregaEncomenda.Size = new Size(138, 23);
             EntregaEncomenda.TabIndex = 70;
@@ -1981,7 +2070,7 @@
             // 
             PrazoEncomenda.AutoSize = true;
             PrazoEncomenda.Font = new Font("Segoe UI", 8.25F);
-            PrazoEncomenda.Location = new Point(452, 29);
+            PrazoEncomenda.Location = new Point(454, 26);
             PrazoEncomenda.Name = "PrazoEncomenda";
             PrazoEncomenda.Size = new Size(200, 23);
             PrazoEncomenda.TabIndex = 67;
@@ -2081,19 +2170,19 @@
             // 
             FiltrarPorDataTransportes.AutoSize = true;
             FiltrarPorDataTransportes.Font = new Font("Segoe UI", 9F);
-            FiltrarPorDataTransportes.Location = new Point(453, 470);
+            FiltrarPorDataTransportes.Location = new Point(452, 470);
             FiltrarPorDataTransportes.Name = "FiltrarPorDataTransportes";
-            FiltrarPorDataTransportes.Size = new Size(129, 25);
+            FiltrarPorDataTransportes.Size = new Size(283, 25);
             FiltrarPorDataTransportes.TabIndex = 52;
-            FiltrarPorDataTransportes.Text = "Filtrar por data";
+            FiltrarPorDataTransportes.Text = "Encomendas entregues até á data:";
             // 
             // EncomendasEntrega
             // 
             EncomendasEntrega.FormattingEnabled = true;
             EncomendasEntrega.ItemHeight = 25;
-            EncomendasEntrega.Location = new Point(452, 240);
+            EncomendasEntrega.Location = new Point(452, 312);
             EncomendasEntrega.Name = "EncomendasEntrega";
-            EncomendasEntrega.Size = new Size(629, 129);
+            EncomendasEntrega.Size = new Size(629, 79);
             EncomendasEntrega.TabIndex = 51;
             EncomendasEntrega.SelectedIndexChanged += EncomendasEntrega_SelectedIndexChanged;
             // 
@@ -2271,11 +2360,12 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
-            EncomendaListaProdutos.Location = new Point(236, 337);
+            EncomendaListaProdutos.Location = new Point(34, 337);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
-            EncomendaListaProdutos.Size = new Size(883, 209);
+            EncomendaListaProdutos.Size = new Size(1085, 209);
             EncomendaListaProdutos.TabIndex = 96;
+            EncomendaListaProdutos.CellContentClick += EncomendaListaProdutos_CellContentClick;
             EncomendaListaProdutos.DataError += EncomendaListaProdutos_DataError;
             // 
             // productColumn
@@ -2290,7 +2380,7 @@
             quantityColumn.HeaderText = "Quantidade";
             quantityColumn.MinimumWidth = 8;
             quantityColumn.Name = "quantityColumn";
-            quantityColumn.Width = 300;
+            quantityColumn.Width = 580;
             // 
             // QuintaEncoemndaRetalhistaBox
             // 
@@ -2319,9 +2409,9 @@
             // 
             // ConfirmarRetalhistaEncoemnda
             // 
-            ConfirmarRetalhistaEncoemnda.Location = new Point(449, 539);
+            ConfirmarRetalhistaEncoemnda.Location = new Point(34, 552);
             ConfirmarRetalhistaEncoemnda.Name = "ConfirmarRetalhistaEncoemnda";
-            ConfirmarRetalhistaEncoemnda.Size = new Size(636, 50);
+            ConfirmarRetalhistaEncoemnda.Size = new Size(1051, 37);
             ConfirmarRetalhistaEncoemnda.TabIndex = 91;
             ConfirmarRetalhistaEncoemnda.Text = "Confirmar";
             ConfirmarRetalhistaEncoemnda.UseVisualStyleBackColor = true;
@@ -2612,9 +2702,9 @@
             // 
             ListaRetalhistas.FormattingEnabled = true;
             ListaRetalhistas.ItemHeight = 25;
-            ListaRetalhistas.Location = new Point(26, 127);
+            ListaRetalhistas.Location = new Point(39, 127);
             ListaRetalhistas.Name = "ListaRetalhistas";
-            ListaRetalhistas.Size = new Size(360, 204);
+            ListaRetalhistas.Size = new Size(347, 179);
             ListaRetalhistas.TabIndex = 38;
             ListaRetalhistas.SelectedIndexChanged += ListaRetalhistas_SelectedIndexChanged_1;
             // 
@@ -3373,12 +3463,20 @@
         private DataGridView EncomendaListaProdutos;
         private ListBox ItemsEncomenda;
         private ListBox ItemsEncomendaTransportes;
-        private DataGridViewComboBoxColumn productColumn;
-        private DataGridViewTextBoxColumn quantityColumn;
         private NumericUpDown QuantidadeBox;
         private Label QuantidadeText;
         private NumericUpDown AlterarNumero;
         private Button AlterarQuantidadeQuinta;
         private Button Confirmar;
+        private Button AlterarDataEncomenda;
+        private Button ConfirmarData;
+        private DataGridViewComboBoxColumn productColumn;
+        private DataGridViewTextBoxColumn quantityColumn;
+        private Label NovaDataDeEntrega;
+        private Label DataDeEntregaAtual;
+        private TextBox DataDeEntregaAtualBOX;
+        private DateTimePicker NovaDataDeEntregaBOX;
+        private Label DataEntregaInicial;
+        private TextBox DataEntregaInicio;
     }
 }

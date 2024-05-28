@@ -70,7 +70,13 @@ namespace AgroTrack
             EncomendaListaProdutos.Hide();
             AlterarQuantidadeQuinta.Hide();
             AlterarNumero.Hide();
+            AlterarDataEncomenda.Hide();
             Confirmar.Hide();
+            ConfirmarData.Hide();
+            DataDeEntregaAtual.Hide();
+            DataDeEntregaAtualBOX.Hide();
+            NovaDataDeEntrega.Hide();
+            NovaDataDeEntregaBOX.Hide();
 
 
             // botoes de adicionar agricultor que são escondidos no início 
@@ -2125,10 +2131,13 @@ namespace AgroTrack
                 TransportesNome.ReadOnly = true;
                 TransportesMorada.ReadOnly = true;
                 TransportesContacto.ReadOnly = true;
+                DataEntregaInicio.ReadOnly = true;
+                TransportesTipo.ReadOnly = true;
 
                 TransportesNome.Text = selectedtransporte.Nome;
                 TransportesMorada.Text = selectedtransporte.Morada;
                 TransportesContacto.Text = selectedtransporte.Contacto.ToString();
+                
 
                 LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa, DataEncomendaTransportes.Value);
 
@@ -3493,7 +3502,8 @@ namespace AgroTrack
             QuintasTransportes.Hide();
             AdicionarEmpresa.Hide();
             EliminarEmpresaTransportes.Hide();
-
+            DataEntregaInicial.Hide();
+            DataEntregaInicio.Hide();
 
 
 
@@ -3551,6 +3561,8 @@ namespace AgroTrack
                     AdicionarEmpresa.Show();
                     EliminarEmpresaTransportes.Show();
                     ListaTransportes.Items.Clear();
+                    DataEntregaInicial.Show();
+                    DataEntregaInicio.Show();
                     LoadTransportes();
                 }
             }
@@ -4740,16 +4752,13 @@ namespace AgroTrack
                     command.Parameters.Add(new SqlParameter("@Empresa_De_Transportes_Id_Empresa", transportes));
                     command.Parameters.Add(new SqlParameter("@Quinta_Empresa_Id", quinta));
 
-                    // Verifica o estado da conexão e abre se necessário
                     if (cn.State == ConnectionState.Closed)
                     {
                         cn.Open();
                     }
 
-                    // Executa o comando
                     command.ExecuteNonQuery();
 
-                    // Exibe mensagem de sucesso
                     int idEncomenda = getEncomendaID();
                     SaveProductsToDatabase(idEncomenda);
                     MessageBox.Show("Encomenda adicionada com sucesso!");
@@ -4933,6 +4942,13 @@ namespace AgroTrack
         private void EncomendasEntrega_SelectedIndexChanged(object sender, EventArgs e)
         {
             Encomenda encomenda = EncomendasEntrega.SelectedItem as Encomenda;
+            AlterarDataEncomenda.Show();
+            if (EncomendasEntrega.SelectedItem != null)
+            {
+                DataDeEntregaAtualBOX.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
+                DataEntregaInicio.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
+
+            }
             LoadEncomendaItems(encomenda.Codigo);
         }
 
@@ -4970,11 +4986,9 @@ namespace AgroTrack
         {
             if (ProdutosQuinta.SelectedItem != null)
             {
-                // Mostra o controle Numeric
                 AlterarNumero.Visible = true;
                 Confirmar.Visible = true;
 
-                // Define o valor inicial do Numeric baseado na quantidade do item selecionado
                 AlterarNumero.Value = ((ProdutosQuinta)ProdutosQuinta.SelectedItem).Quantidade;
             }
         }
@@ -4984,27 +4998,21 @@ namespace AgroTrack
         {
             if (ProdutosQuinta.SelectedItem != null)
             {
-                // Obtém o produto selecionado na ListBox
                 ProdutosQuinta produtoSelecionado = (ProdutosQuinta)ProdutosQuinta.SelectedItem;
 
-                // Obtém o novo valor do NumericUpDown
                 int novaQuantidade = (int)AlterarNumero.Value;
 
-                // Atualiza a quantidade do produto no banco de dados
                 AtualizarQuantidadeNoBancoDeDados(produtoSelecionado.Id_Produto, novaQuantidade);
 
-                // Atualiza a quantidade do produto na instância do objeto
+
                 produtoSelecionado.Quantidade = novaQuantidade;
 
-                // Oculta os controles NumericUpDown e o botão Confirmar após a confirmação
                 AlterarNumero.Visible = false;
                 Confirmar.Visible = false;
             }
-            // Recarrega a lista de produtos (presumivelmente, essa função atualiza a interface com os dados mais recentes)
             LoadQuinta();
         }
 
-        // O método AtualizarQuantidadeNoBancoDeDados atualiza a quantidade do produto no banco de dados
         private void AtualizarQuantidadeNoBancoDeDados(int idProduto, int novaQuantidade)
         {
             string query = "UPDATE AgroTrack.QuintaProduto SET Quantidade = @NovaQuantidade WHERE Codigo = @IdProduto";
@@ -5045,6 +5053,97 @@ namespace AgroTrack
             }
         }
 
+        private void ConfirmarData_Click(object sender, EventArgs e)
+        {
+            if (EncomendasEntrega.SelectedItem != null)
+            {
+                Encomenda encomendaSelecionada = (Encomenda)EncomendasEntrega.SelectedItem;
+
+                DateTime novaDataEntrega = NovaDataDeEntregaBOX.Value;
+
+                AtualizarDataEntregaNoBancoDeDados(encomendaSelecionada.Codigo, novaDataEntrega);
+
+                LoadEncomendasEntrega(EMPRESAENTREGAID, DateTime.Now);
+            }
+        }
+
+        private void NovaDataDeEntregaBOX_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void AtualizarDataEntregaNoBancoDeDados(int codigoEncomenda, DateTime novaDataEntrega)
+        {
+            {
+                string query = "UPDATE AgroTrack.EmpresaEncomenda SET Entrega = @NovaDataEntrega WHERE Codigo = @CodigoEncomenda";
+                // Abre uma nova conexão usando o bloco using para garantir que será fechada automaticamente
+                using (SqlCommand command = new SqlCommand(query, cn))
+                {
+                    // Adiciona os parâmetros ao comando
+                    try
+                    {
+                        command.Parameters.AddWithValue("@NovaDataEntrega", novaDataEntrega);
+                        command.Parameters.AddWithValue("@CodigoEncomenda", codigoEncomenda);
+
+                        // Abre a conexão se estiver fechada
+                        if (cn.State == ConnectionState.Closed)
+                        {
+                            cn.Open();
+                        }
+
+                        // Executa o comando
+                        command.ExecuteNonQuery();
+                        if (ListaQuintas_SelectedIndexChanged == null)
+                        {
+                            MessageBox.Show("Data atualizada com sucesso! Selecione a Quinta para ver a mudança");
+                        }
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Data atualizada com sucesso!");
+                        NomeTransportes.Show();
+                        TransportesIdEmpresa.Show();
+                        TransportesTipo.Show();
+                        EncomendasEntrega.Show();
+                        FiltrarPorDataTransportes.Show();
+                        EmpresaRetalhista.Show();
+                        OrigemTransportes.Show();
+                        DataEncomendaTransportes.Show();
+                        FiltrarRetalhistaTransportes.Show();
+                        QuintasTransportes.Show();
+                        AdicionarEmpresa.Show();
+                        EliminarEmpresaTransportes.Show();
+                        MoradaTransportes.Show();
+                        ContactoTransportes.Show();
+                        TransportesNome.Show();
+                        TransportesMorada.Show();
+                        TransportesContacto.Show();
+                        ConfirmarData.Hide();
+                        DataDeEntregaAtual.Hide();
+                        DataDeEntregaAtualBOX.Hide();
+                        NovaDataDeEntrega.Hide();
+                        NovaDataDeEntregaBOX.Hide();
+                        DataEntregaInicial.Show();
+                        DataEntregaInicio.Show();
+
+
+                        ListaTransportes.Items.Clear();
+                        LoadTransportes();
+                        ItemsEncomendaTransportes_SelectedIndexChanged(null, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Fecha a conexão se estiver aberta
+                        if (cn.State == ConnectionState.Open)
+                        {
+                            cn.Close();
+                        }
+
+                        // Lança a exceção
+                        throw new Exception("Falha ao atualizar a data do produto: " + ex.Message);
+                    }
+                }
+                }
+            }
         private void PrazoEncomendaRetalhista_Click(object sender, EventArgs e)
         {
 
