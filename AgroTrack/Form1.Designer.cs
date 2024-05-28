@@ -181,6 +181,8 @@
             Animais = new ListBox();
             ListaQuintas = new ListBox();
             Transportes = new TabPage();
+            DataEntregaInicio = new TextBox();
+            DataEntregaInicial = new Label();
             NovaDataDeEntregaBOX = new DateTimePicker();
             DataDeEntregaAtualBOX = new TextBox();
             NovaDataDeEntrega = new Label();
@@ -1837,6 +1839,8 @@
             // 
             // Transportes
             // 
+            Transportes.Controls.Add(DataEntregaInicio);
+            Transportes.Controls.Add(DataEntregaInicial);
             Transportes.Controls.Add(NovaDataDeEntregaBOX);
             Transportes.Controls.Add(DataDeEntregaAtualBOX);
             Transportes.Controls.Add(NovaDataDeEntrega);
@@ -1885,6 +1889,23 @@
             Transportes.TabIndex = 5;
             Transportes.Text = "Transportes";
             Transportes.UseVisualStyleBackColor = true;
+            // 
+            // DataEntregaInicio
+            // 
+            DataEntregaInicio.Location = new Point(591, 241);
+            DataEntregaInicio.Name = "DataEntregaInicio";
+            DataEntregaInicio.Size = new Size(490, 31);
+            DataEntregaInicio.TabIndex = 106;
+            // 
+            // DataEntregaInicial
+            // 
+            DataEntregaInicial.AutoSize = true;
+            DataEntregaInicial.Font = new Font("Segoe UI", 8.25F);
+            DataEntregaInicial.Location = new Point(454, 246);
+            DataEntregaInicial.Name = "DataEntregaInicial";
+            DataEntregaInicial.Size = new Size(138, 23);
+            DataEntregaInicial.TabIndex = 105;
+            DataEntregaInicial.Text = "Data de entrega:";
             // 
             // NovaDataDeEntregaBOX
             // 
@@ -2023,7 +2044,7 @@
             // 
             EntregaEncomenda.AutoSize = true;
             EntregaEncomenda.Font = new Font("Segoe UI", 8.25F);
-            EntregaEncomenda.Location = new Point(452, 133);
+            EntregaEncomenda.Location = new Point(454, 133);
             EntregaEncomenda.Name = "EntregaEncomenda";
             EntregaEncomenda.Size = new Size(138, 23);
             EntregaEncomenda.TabIndex = 70;
@@ -2160,9 +2181,9 @@
             // 
             EncomendasEntrega.FormattingEnabled = true;
             EncomendasEntrega.ItemHeight = 25;
-            EncomendasEntrega.Location = new Point(452, 269);
+            EncomendasEntrega.Location = new Point(452, 312);
             EncomendasEntrega.Name = "EncomendasEntrega";
-            EncomendasEntrega.Size = new Size(629, 129);
+            EncomendasEntrega.Size = new Size(629, 79);
             EncomendasEntrega.TabIndex = 51;
             EncomendasEntrega.SelectedIndexChanged += EncomendasEntrega_SelectedIndexChanged;
             // 
@@ -3476,5 +3497,7 @@
         private Label DataDeEntregaAtual;
         private TextBox DataDeEntregaAtualBOX;
         private DateTimePicker NovaDataDeEntregaBOX;
+        private Label DataEntregaInicial;
+        private TextBox DataEntregaInicio;
     }
 }

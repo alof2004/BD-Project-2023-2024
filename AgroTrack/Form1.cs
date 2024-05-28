@@ -2117,10 +2117,13 @@ namespace AgroTrack
                 TransportesNome.ReadOnly = true;
                 TransportesMorada.ReadOnly = true;
                 TransportesContacto.ReadOnly = true;
+                DataEntregaInicio.ReadOnly = true;
+                TransportesTipo.ReadOnly = true;
 
                 TransportesNome.Text = selectedtransporte.Nome;
                 TransportesMorada.Text = selectedtransporte.Morada;
                 TransportesContacto.Text = selectedtransporte.Contacto.ToString();
+                
 
                 LoadEncomendasEntrega(selectedtransporte.Empresa_Id_Empresa, DataEncomendaTransportes.Value);
 
@@ -3484,7 +3487,8 @@ namespace AgroTrack
             QuintasTransportes.Hide();
             AdicionarEmpresa.Hide();
             EliminarEmpresaTransportes.Hide();
-
+            DataEntregaInicial.Hide();
+            DataEntregaInicio.Hide();
 
 
 
@@ -3542,6 +3546,8 @@ namespace AgroTrack
                     AdicionarEmpresa.Show();
                     EliminarEmpresaTransportes.Show();
                     ListaTransportes.Items.Clear();
+                    DataEntregaInicial.Show();
+                    DataEntregaInicio.Show();
                     LoadTransportes();
                 }
             }
@@ -4731,16 +4737,13 @@ namespace AgroTrack
                     command.Parameters.Add(new SqlParameter("@Empresa_De_Transportes_Id_Empresa", transportes));
                     command.Parameters.Add(new SqlParameter("@Quinta_Empresa_Id", quinta));
 
-                    // Verifica o estado da conexão e abre se necessário
                     if (cn.State == ConnectionState.Closed)
                     {
                         cn.Open();
                     }
 
-                    // Executa o comando
                     command.ExecuteNonQuery();
 
-                    // Exibe mensagem de sucesso
                     int idEncomenda = getEncomendaID();
                     SaveProductsToDatabase(idEncomenda);
                     MessageBox.Show("Encomenda adicionada com sucesso!");
@@ -4924,12 +4927,14 @@ namespace AgroTrack
         private void EncomendasEntrega_SelectedIndexChanged(object sender, EventArgs e)
         {
             Encomenda encomenda = EncomendasEntrega.SelectedItem as Encomenda;
-            LoadEncomendaItems(encomenda.Codigo);
             AlterarDataEncomenda.Show();
             if (EncomendasEntrega.SelectedItem != null)
             {
                 DataDeEntregaAtualBOX.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
+                DataEntregaInicio.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
+
             }
+            LoadEncomendaItems(encomenda.Codigo);
         }
 
         private void AddCompraProduto_SelectedIndexChanged(object sender, EventArgs e)
@@ -4966,11 +4971,9 @@ namespace AgroTrack
         {
             if (ProdutosQuinta.SelectedItem != null)
             {
-                // Mostra o controle Numeric
                 AlterarNumero.Visible = true;
                 Confirmar.Visible = true;
 
-                // Define o valor inicial do Numeric baseado na quantidade do item selecionado
                 AlterarNumero.Value = ((ProdutosQuinta)ProdutosQuinta.SelectedItem).Quantidade;
             }
         }
@@ -4979,20 +4982,15 @@ namespace AgroTrack
         {
             if (ProdutosQuinta.SelectedItem != null)
             {
-                // Obtém o produto selecionado na ListBox
                 ProdutosQuinta produtoSelecionado = (ProdutosQuinta)ProdutosQuinta.SelectedItem;
 
-                // Obtém o novo valor do Numeric
                 int novaQuantidade = (int)AlterarNumero.Value;
 
-                // Atualiza a quantidade do produto no banco de dados
                 AtualizarQuantidadeNoBancoDeDados(produtoSelecionado.Id_Produto, novaQuantidade);
 
 
-                // Atualiza a quantidade do produto na instância do objeto
                 produtoSelecionado.Quantidade = novaQuantidade;
 
-                // Oculta os controles Numeric e o botão Confirmar após a confirmação
                 AlterarNumero.Visible = false;
                 Confirmar.Visible = false;
             }
@@ -5024,7 +5022,6 @@ namespace AgroTrack
             }
             finally
             {
-                // Certifique-se de fechar a conexão após o uso
                 if (cn.State == ConnectionState.Open)
                 {
                     cn.Close();
@@ -5042,6 +5039,8 @@ namespace AgroTrack
                 EmpresaRetalhista.Hide();
                 OrigemTransportes.Hide();
                 DataEncomendaTransportes.Hide();
+                DataEntregaInicial.Hide();
+                DataEntregaInicio.Hide();
                 FiltrarRetalhistaTransportes.Hide();
                 QuintasTransportes.Hide();
                 AdicionarEmpresa.Hide();
@@ -5061,7 +5060,7 @@ namespace AgroTrack
 
         private void ItemsEncomendaTransportes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void EncomendaListaProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -5138,6 +5137,8 @@ namespace AgroTrack
                         DataDeEntregaAtualBOX.Hide();
                         NovaDataDeEntrega.Hide();
                         NovaDataDeEntregaBOX.Hide();
+                        DataEntregaInicial.Show();
+                        DataEntregaInicio.Show();
 
 
                         ListaTransportes.Items.Clear();
