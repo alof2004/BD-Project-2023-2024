@@ -1405,7 +1405,6 @@ namespace AgroTrack
         {
             if (ListaProdutos.SelectedItem is Produto selectedproduct)
             {
-                LoadFiltersProduto
                 ProdutoAdicionarInfo.ReadOnly = true;
                 ProdutoTipo.ReadOnly = true;
                 ProdutoIva.ReadOnly = true;
