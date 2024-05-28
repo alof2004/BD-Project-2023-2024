@@ -543,32 +543,21 @@ BEGIN
         -- Debug: Print the Codigo to be deleted
         PRINT 'Deleting Produto with Codigo = ' + CAST(@Codigo AS NVARCHAR(10));
 
-        -- Delete from AgroTrack_Colhe table
-        DELETE FROM AgroTrack_Colhe
+        -- Delete from AgroTrack_Compra table
+        DELETE FROM AgroTrack_Compra
         WHERE Produto_codigo = @Codigo;
-
-        -- Debug: Check if rows are deleted from AgroTrack_Colhe
-        DECLARE @ColheCount INT;
-        SELECT @ColheCount = COUNT(*) FROM AgroTrack_Colhe WHERE Produto_codigo = @Codigo;
-        PRINT 'Remaining rows in AgroTrack_Colhe for Produto_codigo = ' + CAST(@Codigo AS NVARCHAR(10)) + ': ' + CAST(@ColheCount AS NVARCHAR(10));
-
-        -- Delete from AgroTrack_Contem table
-        DELETE FROM AgroTrack_Contem
-        WHERE Produto_codigo = @Codigo;
-
-        -- Debug: Check if rows are deleted from AgroTrack_Contem
-        DECLARE @ContemCount INT;
-        SELECT @ContemCount = COUNT(*) FROM AgroTrack_Contem WHERE Produto_codigo = @Codigo;
-        PRINT 'Remaining rows in AgroTrack_Contem for Produto_codigo = ' + CAST(@Codigo AS NVARCHAR(10)) + ': ' + CAST(@ContemCount AS NVARCHAR(10));
 
         -- Delete from AgroTrack_Item table
         DELETE FROM AgroTrack_Item
         WHERE ProdutoCodigo = @Codigo;
 
-        -- Debug: Check if rows are deleted from AgroTrack_Item
-        DECLARE @ItemCount INT;
-        SELECT @ItemCount = COUNT(*) FROM AgroTrack_Item WHERE ProdutoCodigo = @Codigo;
-        PRINT 'Remaining rows in AgroTrack_Item for ProdutoCodigo = ' + CAST(@Codigo AS NVARCHAR(10)) + ': ' + CAST(@ItemCount AS NVARCHAR(10));
+        -- Delete from AgroTrack_Colhe table
+        DELETE FROM AgroTrack_Colhe
+        WHERE Produto_codigo = @Codigo;
+
+        -- Delete from AgroTrack_Contem table
+        DELETE FROM AgroTrack_Contem
+        WHERE Produto_codigo = @Codigo;
 
         -- Delete from AgroTrack_Produto table
         DELETE FROM AgroTrack_Produto
@@ -602,6 +591,8 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
+GO
+
 GO
 IF OBJECT_ID('ApagarAgricultor', 'P') IS NOT NULL
     DROP PROCEDURE ApagarAgricultor;

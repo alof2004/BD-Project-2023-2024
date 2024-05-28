@@ -1346,7 +1346,8 @@ namespace AgroTrack
 
         private void LoadProdutos()
         {
-            string baseQuery = "SELECT Codigo, Nome, Id_origem, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto FROM AgroTrack.Produto";
+            string baseQuery = "SELECT Codigo, Nome, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade, Quinta_Empresa_Id_Empresa FROM AgroTrack.ProdutoContem";
+
             string whereClause = "";
 
             // Aplicar filtro por tipo de produto
@@ -1366,7 +1367,7 @@ namespace AgroTrack
                 {
                     whereClause += " WHERE";
                 }
-                whereClause += $" Id_origem = {(FiltrarPorQuinta.SelectedItem as QuintaOnlyName).Id_Quinta}";
+                whereClause += $" Quinta_Empresa_Id_Empresa = {(FiltrarPorQuinta.SelectedItem as QuintaOnlyName).Id_Quinta}";
             }
 
             string query = baseQuery + whereClause;
@@ -1404,6 +1405,7 @@ namespace AgroTrack
         {
             if (ListaProdutos.SelectedItem is Produto selectedproduct)
             {
+                LoadFiltersProduto
                 ProdutoAdicionarInfo.ReadOnly = true;
                 ProdutoTipo.ReadOnly = true;
                 ProdutoIva.ReadOnly = true;
@@ -1420,7 +1422,8 @@ namespace AgroTrack
                 ProdutoDisponivel.Text = GetQuantidadeDisponivel(selectedproduct.Codigo).ToString();
                 QuantidadeVendidaBox.Text = GetQuantidadeVendida(selectedproduct.Codigo).ToString();
 
-                LoadQuintas(selectedproduct.Id_origem);
+                LoadQuintas(selectedproduct.Codigo);
+
 
             }
 
@@ -1456,13 +1459,13 @@ namespace AgroTrack
         }
 
 
-        private void LoadQuintas(int Id_origem)
+        private void LoadQuintas(int Codigo)
         {
-            string query = @"SELECT DISTINCT Empresa_Id_Empresa, Nome, Morada, Contacto, Quantidade, NomeProduto, Tipo_de_Produto, Codigo, Unidade_medida, Preco, Taxa_de_iva 
-            FROM AgroTrack.QuintaProduto  
-            WHERE Empresa_Id_Empresa = @Id_origem;";
+            string query = @"SELECT DISTINCT Codigo,Nome,Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade, Quinta_Empresa_Id_Empresa, Morada,Contacto
+            FROM AgroTrack.ProdutoEmpresaQuinta  
+            WHERE Codigo = @Codigo;";
             SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@Id_origem", Id_origem);
+            cmd.Parameters.AddWithValue("@Codigo", Codigo);
 
             HashSet<int> quintaIds = new HashSet<int>(); // HashSet para armazenar IDs das quintas já adicionadas
 
@@ -1473,7 +1476,8 @@ namespace AgroTrack
                 AddProdutoToQuintaID.Items.Clear();
                 while (reader.Read())
                 {
-                    int quintaId = (int)reader["Empresa_Id_Empresa"];
+                    int quintaId = (int)reader["Quinta_Empresa_Id_Empresa"];
+
                     // Verificar se o ID da quinta já foi adicionado
                     if (!quintaIds.Contains(quintaId))
                     {
@@ -1682,7 +1686,7 @@ namespace AgroTrack
                 try
                 {
                     double preco = double.Parse(ProdutoPrecoBox.Text);
-                    double iva = double.Parse(ProdutoIvaBox.Text);
+                    double iva = double.Parse(ProdutoIvaBox.SelectedItem.ToString());
                     AddProduto(ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, iva, TipoAdicionarBox.Text, preco);
                 }
                 catch (Exception ex)
@@ -1809,6 +1813,7 @@ namespace AgroTrack
             TipoAdicionarBox.Hide();
             CodigoAdicionarBox.Hide();
             CodigoAdicionarText.Hide();
+            ProdutoQuantidade.Hide();
 
 
 
@@ -1824,6 +1829,8 @@ namespace AgroTrack
             UnidadeAdicionarBox.Text = "";
             ProdutoIvaBox.Text = "";
             ProdutoPrecoBox.Text = "";
+            TipoAdicionarBox.Text = "";
+
 
             ProdutoPrecoBox.Show();
             ProdutoAdicionarBox.Show();
@@ -2834,6 +2841,8 @@ namespace AgroTrack
             AddCompraQuantidadeLabel.Show();
             AddCompraMetodoLabel.Show();
             AddCompraDataLabel.Show();
+
+
         }
 
         private void SubmeterCompra_Click(object sender, EventArgs e)
@@ -4824,6 +4833,31 @@ namespace AgroTrack
         private void EncomendasEntrega_SelectedIndexChanged(object sender, EventArgs e)
         {
             Encomenda encomenda = EncomendasEntrega.SelectedItem as Encomenda;
+        }
+
+        private void AddCompraProduto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadFiltersClientes();
+        }
+
+        private void UnidadeAdicionarBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TipoAdicionarBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void QuintasProdutos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ProdutoTipo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
