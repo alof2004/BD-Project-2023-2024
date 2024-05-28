@@ -3015,3 +3015,35 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
+
+IF OBJECT _ID('AgroTrack.OrdenarProdutos', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.OrdenarProdutos;
+GO
+CREATE PROCEDURE AgroTrack.OrdenarProdutos
+    @Order VARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @SqlQuery NVARCHAR(MAX);
+
+    DECLARE @OrderByClause NVARCHAR(MAX) = 
+        CASE 
+            WHEN @Order = 'NomeCrescente' THEN 'Nome ASC'
+            WHEN @Order = 'NomeDecrescente' THEN 'Nome DESC'
+            WHEN @Order = 'CodigoCrescente' THEN 'Codigo ASC'
+            WHEN @Order = 'CodigoDecrescente' THEN 'Codigo DESC'
+            WHEN @Order = 'PrecoCrescente' THEN 'Preco ASC'
+            WHEN @Order = 'PrecoDecrescente' THEN 'Preco DESC'
+            WHEN @Order = 'IvaCrescente' THEN 'Taxa_de_iva ASC'
+            WHEN @Order = 'IvaDecrescente' THEN 'Taxa_de_iva DESC'
+            ELSE 'Codigo ASC' -- Default ordering by Name in ascending order
+        END;
+
+    SET @SqlQuery = '
+        SELECT Codigo, Nome, Preco, Tipo, Taxa_de_iva
+        FROM AgroTrack.Produto
+        ORDER BY ' + @OrderByClause;
+
+    EXEC sp_executesql @SqlQuery;
+END

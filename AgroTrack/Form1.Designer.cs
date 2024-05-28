@@ -3104,11 +3104,12 @@
             // Ordenar
             // 
             Ordenar.FormattingEnabled = true;
-            Ordenar.Items.AddRange(new object[] { "Nome", "Código (decrescente)", "Preço    (crescente)", "Preço    (decrescente)", "Taxa_de_Iva(crescente)", "Taxa_de_Iva(decrescente)" });
+            Ordenar.Items.AddRange(new object[] { "Nome (crescente)", "Nome (decrescente)", "Código (crescente)", "Código (decrescente)", "Preço    (crescente)", "Preço    (decrescente)", "Taxa_de_Iva(crescente)", "Taxa_de_Iva(decrescente)" });
             Ordenar.Location = new Point(20, 406);
             Ordenar.Name = "Ordenar";
             Ordenar.Size = new Size(225, 172);
             Ordenar.TabIndex = 7;
+            Ordenar.ItemCheck += OrdenarProdutos_ItemCheck;
             Ordenar.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
             // OrdenarText

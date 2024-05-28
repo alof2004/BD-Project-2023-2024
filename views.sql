@@ -127,7 +127,7 @@ go
 drop view IF EXISTS AgroTrack.QuintaProduto
 go
 create view AgroTrack.QuintaProduto as
-	select Q.Empresa_Id_Empresa, E.Nome, E.Morada, E.Contacto, C.Quantidade, P.Nome as NomeProduto, P.Tipo_de_Produto, P.Codigo, P.Unidade_medida, P.Preco, P.Taxa_de_iva, C.Quantidade
+	select Q.Empresa_Id_Empresa, E.Nome, E.Morada, E.Contacto, C.Quantidade, P.Nome as NomeProduto, P.Tipo_de_Produto, P.Codigo, P.Unidade_medida, P.Preco, P.Taxa_de_iva
 	from  (((AgroTrack_Quinta as Q join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Contem as C on Q.Empresa_Id_Empresa=C.Quinta_Empresa_Id_Empresa) inner join AgroTrack_Produto as P on C.Produto_codigo=P.Codigo)
 go
 
@@ -209,12 +209,36 @@ go
 
 
 --Produto e Contem
-drop view IF EXISTS AgroTrack.ProdutoContem
-go
-create view AgroTrack.ProdutoContem as
-	select P.Codigo, P.Nome, P.Preco, P.Taxa_de_iva, P.Unidade_medida, P.Tipo_de_Produto, C.Quantidade, C.Quinta_Empresa_Id_Empresa
-	from  ((AgroTrack_Produto as P join AgroTrack_Contem as C on P.Codigo=C.Produto_codigo) inner join AgroTrack_Quinta as Q on C.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
-go
+DROP VIEW IF EXISTS AgroTrack.ProdutoContem;
+GO
+CREATE VIEW AgroTrack.ProdutoContem AS
+WITH RankedProducts AS (
+    SELECT 
+        P.Codigo,
+        P.Nome,
+        P.Preco,
+        P.Taxa_de_iva,
+        P.Unidade_medida,
+        P.Tipo_de_Produto,
+        C.Quantidade,
+        C.Quinta_Empresa_Id_Empresa,
+        ROW_NUMBER() OVER (PARTITION BY P.Codigo ORDER BY P.Codigo) AS RowNum
+    FROM AgroTrack_Produto AS P
+    LEFT JOIN AgroTrack_Contem AS C ON P.Codigo = C.Produto_codigo
+    LEFT JOIN AgroTrack_Quinta AS Q ON C.Quinta_Empresa_Id_Empresa = Q.Empresa_Id_Empresa
+)
+SELECT 
+    Codigo,
+    Nome,
+    Preco,
+    Taxa_de_iva,
+    Unidade_medida,
+    Tipo_de_Produto,
+    Quantidade,
+    Quinta_Empresa_Id_Empresa
+FROM RankedProducts
+WHERE RowNum = 1;
+GO
 
 -- Produto Empresa e quinta produto
 drop view IF EXISTS AgroTrack.ProdutoEmpresaQuinta

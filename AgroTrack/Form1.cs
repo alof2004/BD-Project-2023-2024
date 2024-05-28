@@ -330,7 +330,7 @@ namespace AgroTrack
 
         private void loadProdutosQuinta(int empresaId)
         {
-            string query = "SELECT Codigo, Nome, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade, NomeProduto FROM AgroTrack.QuintaProduto WHERE Empresa_Id_Empresa = @EmpresaId;";
+            string query = "SELECT DISTINCT Codigo, Nome, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade, NomeProduto FROM AgroTrack.QuintaProduto WHERE Empresa_Id_Empresa = @EmpresaId;";
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@EmpresaId", empresaId);
 
@@ -1368,16 +1368,15 @@ namespace AgroTrack
         private void LoadProdutos()
         {
             string baseQuery = "SELECT Codigo, Nome, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade, Quinta_Empresa_Id_Empresa FROM AgroTrack.ProdutoContem";
-
             string whereClause = "";
 
-            // Aplicar filtro por tipo de produto
+            // Apply filter by product type
             if (FiltrarPorTipo.SelectedItem != null && FiltrarPorTipo.SelectedItem.ToString() != "Todas os tipos")
             {
                 whereClause += $" WHERE Tipo_de_Produto = '{FiltrarPorTipo.SelectedItem.ToString()}'";
             }
 
-            // Aplicar filtro por quinta
+            // Apply filter by farm
             if (FiltrarPorQuinta.SelectedItem != null && FiltrarPorQuinta.SelectedItem.ToString() != "Todas as Quintas")
             {
                 if (whereClause != "")
@@ -1398,27 +1397,40 @@ namespace AgroTrack
             {
                 SqlDataReader reader = cmd.ExecuteReader();
                 ListaProdutos.Items.Clear(); // Clear previous items
+
+                // Use a HashSet to track added products to avoid duplicates
+                HashSet<int> addedProductIds = new HashSet<int>();
+
+                int count = 0; // Debugging: Count the number of products read
                 while (reader.Read())
                 {
-                    Produto product = new Produto
+                    int codigo = (int)reader["Codigo"];
+                    if (!addedProductIds.Contains(codigo))
                     {
-                        Nome = reader["Nome"].ToString(),
-                        Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
-                        Codigo = (int)reader["Codigo"],
-                        Preco = (double)reader["Preco"],
-                        Taxa_de_iva = (double)reader["Taxa_de_iva"],
-                        Unidade_medida = reader["Unidade_medida"].ToString(),
-                    };
+                        Produto product = new Produto
+                        {
+                            Nome = reader["Nome"].ToString(),
+                            Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
+                            Codigo = codigo,
+                            Preco = (double)reader["Preco"],
+                            Taxa_de_iva = (double)reader["Taxa_de_iva"],
+                            Unidade_medida = reader["Unidade_medida"].ToString(),
+                        };
 
-                    ListaProdutos.Items.Add(product);
+                        ListaProdutos.Items.Add(product);
+                        addedProductIds.Add(codigo);
+                        count++; // Increment count for each product added
+                    }
                 }
                 reader.Close();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
             }
         }
+
 
 
         //produtos 
@@ -1620,6 +1632,81 @@ namespace AgroTrack
         {
         }
 
+        private void OrdenarProdutos_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            for (int i = 0; i < Ordenar.Items.Count; i++)
+            {
+                if (i != e.Index)
+                {
+                    Ordenar.SetItemChecked(i, false);
+                }
+            }
+
+            if (e.NewValue == CheckState.Checked)
+            {
+                switch (e.Index)
+                {
+                    case 0:
+                        OrdenarProdutosFunc("NomeCrescente");
+                        break;
+                    case 1:
+                        OrdenarProdutosFunc("NomeDecrescente");
+                        break;
+                    case 2:
+                        OrdenarProdutosFunc("IDCrescente");
+                        break;
+                    case 3:
+                        OrdenarProdutosFunc("IDDecrescente");
+                        break;
+                    case 4:
+                        OrdenarProdutosFunc("SalarioCrescente");
+                        break;
+                    case 5:
+                        OrdenarProdutosFunc("SalarioDecrescente");
+                        break;
+                    case 6:
+                        OrdenarProdutosFunc("IvaCrescente");
+                        break;
+                    case 7:
+                        OrdenarProdutosFunc("IvaDecrescente");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void OrdenarProdutosFunc(string order)
+        {
+            SqlCommand cmd = new SqlCommand("AgroTrack.OrdenarProdutos", cn) { CommandType = CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("@Order", order);
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                ListaProdutos.Items.Clear(); // Clear previous items
+                while (reader.Read())
+                {
+                    Produto product = new Produto
+                    {
+                        Nome = reader["Nome"].ToString(),
+                        Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
+                        Codigo = (int)reader["Codigo"],
+                        Preco = (double)reader["Preco"],
+                        Taxa_de_iva = (double)reader["Taxa_de_iva"],
+                        Unidade_medida = reader["Unidade_medida"].ToString(),
+                    };
+                    ListaProdutos.Items.Add(product);
+                }
+
+                reader.Close(); // Close the DataReader after reading its results
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+            }
+
+        }
+
         private void OrdenarProdutos()
         {
             // Verifica quais itens foram selecionados na CheckedListBox
@@ -1657,7 +1744,7 @@ namespace AgroTrack
             }
 
             // Constrói a consulta SQL com base na cláusula ORDER BY
-            string query = "SELECT Nome, Codigo, Preco, Taxa_de_iva FROM AgroTrack.Produto";
+            string query = "SELECT Nome, Codigo, Preco, Taxa_de_iva, Tipo_de_Produto, Unidade_medida FROM AgroTrack.Produto";
             if (!string.IsNullOrEmpty(orderByClause))
             {
                 query += " ORDER BY " + orderByClause;
@@ -1674,9 +1761,12 @@ namespace AgroTrack
                     Produto product = new Produto
                     {
                         Nome = reader["Nome"].ToString(),
+                        Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                         Codigo = (int)reader["Codigo"],
                         Preco = (double)reader["Preco"],
-                        Taxa_de_iva = (double)reader["Taxa_de_iva"]
+                        Taxa_de_iva = (double)reader["Taxa_de_iva"],
+                        Unidade_medida = reader["Unidade_medida"].ToString(),
+
                     };
                     ListaProdutos.Items.Add(product);
                 }
@@ -1749,7 +1839,6 @@ namespace AgroTrack
                     ProdutoAdicionarInfo.Show();
                     ProdutoPreco.Show();
                     ProdutoIva.Show();
-                    ProdutoIvaBox.Show();
                     ProdutoUnidade.Show();
                     ProdutoDisponivel.Show();
                     ListaProdutos.Items.Clear();
@@ -1860,35 +1949,6 @@ namespace AgroTrack
             TipoAdicionarBox.Show();
         }
 
-
-        private int GetQuintaIdByName(string nomeQuinta)
-        {
-            int quintaId = -1;
-            using (SqlCommand command = new SqlCommand("SELECT Empresa_Id_Empresa, Nome, Morada, Contacto FROM AgroTrack.Quinta WHERE Nome = @Nome", cn))
-            {
-                command.Parameters.Add(new SqlParameter("@Nome", nomeQuinta));
-                if (cn.State == ConnectionState.Closed)
-                {
-                    cn.Open();
-                }
-
-                var result = command.ExecuteScalar();
-
-                if (cn.State == ConnectionState.Open)
-                {
-                    cn.Close();
-                }
-
-                if (result != null && int.TryParse(result.ToString(), out quintaId))
-                {
-                    return quintaId;
-                }
-                else
-                {
-                    throw new Exception("Quinta não encontrada.");
-                }
-            }
-        }
 
         private void RemoveProduto(int produtoid)
         {
