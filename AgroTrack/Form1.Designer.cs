@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgroTrack));
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
             SubmeterCompra = new Button();
@@ -3067,6 +3068,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1150, 635);
             Controls.Add(OrdenarPor);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AgroTrack";
             Text = "AgroTrack";
             Load += Form1_Load;
