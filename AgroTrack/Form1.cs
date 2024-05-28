@@ -3359,7 +3359,9 @@ namespace AgroTrack
             {
                 if (ListaTransportes.SelectedItem is Transportes selectedTransporte)
                 {
+
                     LoadEncomendasEntrega(selectedTransporte.Empresa_Id_Empresa, dataSelecionada);
+                    ListaTransportes_SelectedIndexChanged_1(null, null);
                 }
             }
         }
@@ -5098,6 +5100,9 @@ namespace AgroTrack
                     {
                         cn.Close();
                     }
+                }
+            }
+        }
 
         private void AlterarDataEncomenda_Click(object sender, EventArgs e)
         {
@@ -5217,14 +5222,12 @@ namespace AgroTrack
                     }
                     catch (Exception ex)
                     {
-                        // Fecha a conexão se estiver aberta
+                        MessageBox.Show("Failed to update data: " + ex.Message);
                         if (cn.State == ConnectionState.Open)
                         {
                             cn.Close();
                         }
 
-                        // Lança a exceção
-                        throw new Exception("Falha ao atualizar a data do produto: " + ex.Message);
                     }
                 }
 
@@ -5394,8 +5397,10 @@ namespace AgroTrack
             }
 
         }
-    }
 
+        private void PrazoEncomendaRetalhista_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
