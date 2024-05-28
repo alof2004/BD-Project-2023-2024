@@ -170,6 +170,8 @@ BEGIN
     SELECT @TotalProductCount = SUM(Quantidade)
     FROM AgroTrack_Contem
     WHERE Produto_Codigo = @ProductId;
+    IF @TotalProductCount IS NULL
+        SET @TotalProductCount = 0;
     RETURN @TotalProductCount;
 END;
 GO

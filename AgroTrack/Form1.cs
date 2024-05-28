@@ -3075,7 +3075,7 @@ namespace AgroTrack
                 quintaId = selectedQuinta.Id_Quinta;
             }
 
-            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id 
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, PrecoTotal
                      FROM AgroTrack.EmpresaEncomenda 
                      WHERE Retalhista_Empresa_Id_Empresa = @Empresa_Id_Empresa 
                      AND Entrega <= @DataLimite";
@@ -3119,7 +3119,8 @@ namespace AgroTrack
                         Entrega = DateTime.Parse(reader["Entrega"].ToString()),
                         RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
                         EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
-                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
+                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"],
+                        Preco = reader["PrecoTotal"] != DBNull.Value ? (double)reader["PrecoTotal"] : 0.0
                     };
 
                     EncomendasRealizadas.Items.Add(Order);

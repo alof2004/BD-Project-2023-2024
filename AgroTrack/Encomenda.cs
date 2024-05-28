@@ -12,13 +12,15 @@ namespace AgroTrack
         public int EmpresaDeTransportesId { get; set; }
         public int QuintaEmpresaId { get; set; }
 
-    
+        public double Preco { get; set; }
+
+
 
         public Encomenda()
         {
         }
 
-        public Encomenda(int codigo, int prazoEntrega, string moradaEntrega, DateTime entrega, int retalhistaEmpresaId, int empresaDeTransportesId, int quintaEmpresaId)
+        public Encomenda(int codigo, int prazoEntrega, string moradaEntrega, DateTime entrega, int retalhistaEmpresaId, int empresaDeTransportesId, int quintaEmpresaId, double preco)
         {
             Codigo = codigo;
             PrazoEntrega = prazoEntrega;
@@ -27,13 +29,13 @@ namespace AgroTrack
             RetalhistaEmpresaId = retalhistaEmpresaId;
             EmpresaDeTransportesId = empresaDeTransportesId;
             QuintaEmpresaId = quintaEmpresaId;
-
-
+            Preco = preco;
         }
+
 
         public override string ToString()
         {
-            return $"ID: {Codigo}, Prazo de Entrega: {PrazoEntrega} dias, Morada de Entrega: {MoradaEntrega}";
+            return $"ID: {Codigo}, Prazo de Entrega: {PrazoEntrega} dias, Morada de Entrega: {MoradaEntrega}, Preço: {Preco}";
         }
     }
 }
