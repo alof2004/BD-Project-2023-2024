@@ -219,6 +219,8 @@
             Retalhistas = new TabPage();
             ItemsEncomenda = new ListBox();
             EncomendaListaProdutos = new DataGridView();
+            productColumn = new DataGridViewComboBoxColumn();
+            quantityColumn = new DataGridViewTextBoxColumn();
             QuintaEncoemndaRetalhistaBox = new ComboBox();
             EmpresaDeTransporteEncoemndaRetalhistaBox = new ComboBox();
             DataRetalhistaEncoemndabOX = new ComboBox();
@@ -289,6 +291,8 @@
             ProdutoInfo = new Label();
             EliminarProduto = new Button();
             AdicionarProdutoProduto = new Button();
+            QuantidadeBox = new NumericUpDown();
+            QuantidadeText = new Label();
             label18 = new Label();
             FiltrarPorQuinta = new ComboBox();
             QuintaText = new Label();
@@ -299,10 +303,6 @@
             label14 = new Label();
             ListaProdutos = new ListBox();
             produtosOnlyNameBindingSource = new BindingSource(components);
-            productColumn = new DataGridViewComboBoxColumn();
-            quantityColumn = new DataGridViewTextBoxColumn();
-            QuantidadeBox = new NumericUpDown();
-            QuantidadeText = new Label();
             OrdenarPor.SuspendLayout();
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AddCompraQuantidade).BeginInit();
@@ -317,8 +317,8 @@
             Retalhistas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EncomendaListaProdutos).BeginInit();
             Produtos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)produtosOnlyNameBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)QuantidadeBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)produtosOnlyNameBindingSource).BeginInit();
             SuspendLayout();
             // 
             // OrdenarPor
@@ -2271,6 +2271,20 @@
             EncomendaListaProdutos.TabIndex = 96;
             EncomendaListaProdutos.DataError += EncomendaListaProdutos_DataError;
             // 
+            // productColumn
+            // 
+            productColumn.HeaderText = "Produtos";
+            productColumn.MinimumWidth = 8;
+            productColumn.Name = "productColumn";
+            productColumn.Width = 580;
+            // 
+            // quantityColumn
+            // 
+            quantityColumn.HeaderText = "Quantidade";
+            quantityColumn.MinimumWidth = 8;
+            quantityColumn.Name = "quantityColumn";
+            quantityColumn.Width = 300;
+            // 
             // QuintaEncoemndaRetalhistaBox
             // 
             QuintaEncoemndaRetalhistaBox.FormattingEnabled = true;
@@ -2944,6 +2958,23 @@
             AdicionarProdutoProduto.UseVisualStyleBackColor = true;
             AdicionarProdutoProduto.Click += AdicionarProdutoProduto_Click_1;
             // 
+            // QuantidadeBox
+            // 
+            QuantidadeBox.Location = new Point(251, 545);
+            QuantidadeBox.Name = "QuantidadeBox";
+            QuantidadeBox.Size = new Size(290, 31);
+            QuantidadeBox.TabIndex = 34;
+            QuantidadeBox.ValueChanged += numericUpDown1_ValueChanged;
+            // 
+            // QuantidadeText
+            // 
+            QuantidadeText.AutoSize = true;
+            QuantidadeText.Location = new Point(251, 515);
+            QuantidadeText.Name = "QuantidadeText";
+            QuantidadeText.Size = new Size(105, 25);
+            QuantidadeText.TabIndex = 33;
+            QuantidadeText.Text = "Quantidade";
+            // 
             // label18
             // 
             label18.AutoSize = true;
@@ -2994,11 +3025,12 @@
             // Ordenar
             // 
             Ordenar.FormattingEnabled = true;
-            Ordenar.Items.AddRange(new object[] { "Nome", "Código (decrescente)", "Preço    (crescente)", "Preço    (decrescente)", "Taxa_de_Iva(crescente)", "Taxa_de_Iva(decrescente)" });
+            Ordenar.Items.AddRange(new object[] { "Nome (crescente)", "Nome (decrescente)", "Código (crescente)", "Código (decrescente)", "Preço    (crescente)", "Preço    (decrescente)", "Taxa_de_Iva(crescente)", "Taxa_de_Iva(decrescente)" });
             Ordenar.Location = new Point(20, 406);
             Ordenar.Name = "Ordenar";
             Ordenar.Size = new Size(225, 172);
             Ordenar.TabIndex = 7;
+            Ordenar.ItemCheck += OrdenarProdutos_ItemCheck;
             Ordenar.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
             // OrdenarText
@@ -3033,37 +3065,6 @@
             // 
             produtosOnlyNameBindingSource.DataSource = typeof(ProdutosOnlyName);
             // 
-            // productColumn
-            // 
-            productColumn.HeaderText = "Produtos";
-            productColumn.MinimumWidth = 8;
-            productColumn.Name = "productColumn";
-            productColumn.Width = 580;
-            // 
-            // quantityColumn
-            // 
-            quantityColumn.HeaderText = "Quantidade";
-            quantityColumn.MinimumWidth = 8;
-            quantityColumn.Name = "quantityColumn";
-            quantityColumn.Width = 300;
-            // 
-            // QuantidadeBox
-            // 
-            QuantidadeBox.Location = new Point(251, 545);
-            QuantidadeBox.Name = "QuantidadeBox";
-            QuantidadeBox.Size = new Size(290, 31);
-            QuantidadeBox.TabIndex = 34;
-            QuantidadeBox.ValueChanged += numericUpDown1_ValueChanged;
-            // 
-            // QuantidadeText
-            // 
-            QuantidadeText.AutoSize = true;
-            QuantidadeText.Location = new Point(251, 515);
-            QuantidadeText.Name = "QuantidadeText";
-            QuantidadeText.Size = new Size(105, 25);
-            QuantidadeText.TabIndex = 33;
-            QuantidadeText.Text = "Quantidade";
-            // 
             // AgroTrack
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -3095,8 +3096,8 @@
             ((System.ComponentModel.ISupportInitialize)EncomendaListaProdutos).EndInit();
             Produtos.ResumeLayout(false);
             Produtos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)produtosOnlyNameBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)QuantidadeBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)produtosOnlyNameBindingSource).EndInit();
             ResumeLayout(false);
         }
 
