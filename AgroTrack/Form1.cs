@@ -68,6 +68,9 @@ namespace AgroTrack
             SubmeterNovaQuinta.Hide();
             AddProdutoToQuintaSubmit.Hide();
             EncomendaListaProdutos.Hide();
+            AlterarQuantidadeQuinta.Hide();
+            AlterarNumero.Hide();
+            Confirmar.Hide();
 
 
             // botoes de adicionar agricultor que são escondidos no início 
@@ -253,6 +256,9 @@ namespace AgroTrack
                 loadAgricultores(selectedFarm.Empresa_Id_Empresa);
                 loadProdutosQuinta(selectedFarm.Empresa_Id_Empresa);
                 LoadPlantas(selectedFarm.Empresa_Id_Empresa);
+                AlterarQuantidadeQuinta.Visible = false;
+                AlterarNumero.Visible = false;
+                Confirmar.Visible = false;
 
             }
         }
@@ -1058,7 +1064,16 @@ namespace AgroTrack
 
         private void colheitasQuintas_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (ProdutosQuinta.SelectedItem != null)
+            {
+                // Mostra o botão AlterarQuantidadeQuinta
+                AlterarQuantidadeQuinta.Visible = true;
+            }
+            else
+            {
+                // Esconde o botão AlterarQuantidadeQuinta se nenhum item estiver selecionado
+                AlterarQuantidadeQuinta.Visible = false;
+            }
         }
 
         private void label48_Click(object sender, EventArgs e)
@@ -3462,9 +3477,7 @@ namespace AgroTrack
             FiltrarRetalhistaTransportes.Hide();
             QuintasTransportes.Hide();
             AdicionarEmpresa.Hide();
-            AdicionarEncomendaTransportes.Hide();
             EliminarEmpresaTransportes.Hide();
-            CancelarEncoemndaTransportes.Hide();
 
 
 
@@ -3521,9 +3534,7 @@ namespace AgroTrack
                     FiltrarRetalhistaTransportes.Show();
                     QuintasTransportes.Show();
                     AdicionarEmpresa.Show();
-                    AdicionarEncomendaTransportes.Show();
                     EliminarEmpresaTransportes.Show();
-                    CancelarEncoemndaTransportes.Show();
                     ListaTransportes.Items.Clear();
                     LoadTransportes();
                 }
@@ -3563,10 +3574,7 @@ namespace AgroTrack
             FiltrarRetalhistaTransportes.Hide();
             QuintasTransportes.Hide();
             AdicionarEmpresa.Hide();
-            AdicionarEncomendaTransportes.Hide();
             EliminarEmpresaTransportes.Hide();
-            CancelarEncoemndaTransportes.Hide();
-            AdicionarEncomendaTransportes.Hide();
             MoradaTransportes.Hide();
             ContactoTransportes.Hide();
             TransportesNome.Hide();
@@ -3672,10 +3680,7 @@ namespace AgroTrack
                     FiltrarRetalhistaTransportes.Show();
                     QuintasTransportes.Show();
                     AdicionarEmpresa.Show();
-                    AdicionarEncomendaTransportes.Show();
                     EliminarEmpresaTransportes.Show();
-                    CancelarEncoemndaTransportes.Show();
-                    AdicionarEncomendaTransportes.Show();
                     MoradaTransportes.Show();
                     ContactoTransportes.Show();
                     TransportesNome.Show();
@@ -4939,6 +4944,83 @@ namespace AgroTrack
         {
 
         }
+
+        private void AlterarQuantidade()
+        {
+
+        }
+
+        private void AlterarQuantidadeQuinta_Click(object sender, EventArgs e)
+        {
+            if (ProdutosQuinta.SelectedItem != null)
+            {
+                // Mostra o controle Numeric
+                AlterarNumero.Visible = true;
+                Confirmar.Visible = true;
+
+                // Define o valor inicial do Numeric baseado na quantidade do item selecionado
+                AlterarNumero.Value = ((ProdutosQuinta)ProdutosQuinta.SelectedItem).Quantidade;
+            }
+        }
+
+        private void Confirmar_Click(object sender, EventArgs e)
+        {
+            if (ProdutosQuinta.SelectedItem != null)
+            {
+                // Obtém o produto selecionado na ListBox
+                ProdutosQuinta produtoSelecionado = (ProdutosQuinta)ProdutosQuinta.SelectedItem;
+
+                // Obtém o novo valor do Numeric
+                int novaQuantidade = (int)AlterarNumero.Value;
+
+                // Atualiza a quantidade do produto no banco de dados
+                AtualizarQuantidadeNoBancoDeDados(produtoSelecionado.Id_Produto, novaQuantidade);
+
+
+                // Atualiza a quantidade do produto na instância do objeto
+                produtoSelecionado.Quantidade = novaQuantidade;
+
+                // Oculta os controles Numeric e o botão Confirmar após a confirmação
+                AlterarNumero.Visible = false;
+                Confirmar.Visible = false;
+            }
+            LoadQuinta();
+        }
+
+        private void AtualizarQuantidadeNoBancoDeDados(int idProduto, int novaQuantidade)
+        {
+            string query = "UPDATE AgroTrack.QuintaProduto SET Quantidade = @NovaQuantidade WHERE Codigo = @IdProduto";
+            try
+            {
+                using (SqlCommand command = new SqlCommand(query, cn))
+                {
+                    command.Parameters.Add(new SqlParameter("@NovaQuantidade", novaQuantidade));
+                    command.Parameters.Add(new SqlParameter("@IdProduto", idProduto));
+
+                    if (cn.State != ConnectionState.Open)
+                    {
+                        cn.Open();
+                    }
+
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Quantidade atualizada com sucesso!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to update quantity in database: " + ex.Message);
+            }
+            finally
+            {
+                // Certifique-se de fechar a conexão após o uso
+                if (cn.State == ConnectionState.Open)
+                {
+                    cn.Close();
+                }
+            }
+        }
+
+
     }
 
 }

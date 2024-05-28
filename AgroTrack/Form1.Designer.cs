@@ -121,6 +121,9 @@
             textBox18 = new TextBox();
             ListaAgricultores = new ListBox();
             Quintas = new TabPage();
+            Confirmar = new Button();
+            AlterarNumero = new NumericUpDown();
+            AlterarQuantidadeQuinta = new Button();
             AddPlantaIDPlanta = new ComboBox();
             AddPlantaSubmeter = new Button();
             AddPlantaLote = new TextBox();
@@ -194,8 +197,6 @@
             ConfirmarEncomenda = new Button();
             ConfirmarEmpresa = new Button();
             EliminarEmpresaTransportes = new Button();
-            CancelarEncoemndaTransportes = new Button();
-            AdicionarEncomendaTransportes = new Button();
             AdicionarEmpresa = new Button();
             QuintasTransportes = new ComboBox();
             FiltrarRetalhistaTransportes = new ComboBox();
@@ -310,6 +311,7 @@
             Agricultor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)QuantidadeColheitas).BeginInit();
             Quintas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)AlterarNumero).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AddAnimalIdade).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AddProdutoToQuintaQuantidade).BeginInit();
             ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).BeginInit();
@@ -1217,6 +1219,9 @@
             // 
             // Quintas
             // 
+            Quintas.Controls.Add(Confirmar);
+            Quintas.Controls.Add(AlterarNumero);
+            Quintas.Controls.Add(AlterarQuantidadeQuinta);
             Quintas.Controls.Add(AddPlantaIDPlanta);
             Quintas.Controls.Add(AddPlantaSubmeter);
             Quintas.Controls.Add(AddPlantaLote);
@@ -1281,6 +1286,33 @@
             Quintas.Text = "Quintas";
             Quintas.UseVisualStyleBackColor = true;
             Quintas.Click += Quintas_Click;
+            // 
+            // Confirmar
+            // 
+            Confirmar.Location = new Point(870, 238);
+            Confirmar.Name = "Confirmar";
+            Confirmar.Size = new Size(242, 34);
+            Confirmar.TabIndex = 78;
+            Confirmar.Text = "Confirmar";
+            Confirmar.UseVisualStyleBackColor = true;
+            Confirmar.Click += Confirmar_Click;
+            // 
+            // AlterarNumero
+            // 
+            AlterarNumero.Location = new Point(870, 271);
+            AlterarNumero.Name = "AlterarNumero";
+            AlterarNumero.Size = new Size(242, 31);
+            AlterarNumero.TabIndex = 77;
+            // 
+            // AlterarQuantidadeQuinta
+            // 
+            AlterarQuantidadeQuinta.Location = new Point(870, 301);
+            AlterarQuantidadeQuinta.Name = "AlterarQuantidadeQuinta";
+            AlterarQuantidadeQuinta.Size = new Size(242, 34);
+            AlterarQuantidadeQuinta.TabIndex = 76;
+            AlterarQuantidadeQuinta.Text = "Alterar Quantidade";
+            AlterarQuantidadeQuinta.UseVisualStyleBackColor = true;
+            AlterarQuantidadeQuinta.Click += AlterarQuantidadeQuinta_Click;
             // 
             // AddPlantaIDPlanta
             // 
@@ -1526,7 +1558,7 @@
             // 
             AdicionarAnimalPlanta.Location = new Point(385, 536);
             AdicionarAnimalPlanta.Name = "AdicionarAnimalPlanta";
-            AdicionarAnimalPlanta.Size = new Size(227, 34);
+            AdicionarAnimalPlanta.Size = new Size(209, 34);
             AdicionarAnimalPlanta.TabIndex = 47;
             AdicionarAnimalPlanta.Text = "Adicionar Animal";
             AdicionarAnimalPlanta.UseVisualStyleBackColor = true;
@@ -1566,7 +1598,7 @@
             // 
             button20.Location = new Point(385, 447);
             button20.Name = "button20";
-            button20.Size = new Size(198, 79);
+            button20.Size = new Size(209, 79);
             button20.TabIndex = 43;
             button20.Text = "Eliminar Produtos Fora da Validade";
             button20.UseVisualStyleBackColor = true;
@@ -1815,8 +1847,6 @@
             Transportes.Controls.Add(ConfirmarEncomenda);
             Transportes.Controls.Add(ConfirmarEmpresa);
             Transportes.Controls.Add(EliminarEmpresaTransportes);
-            Transportes.Controls.Add(CancelarEncoemndaTransportes);
-            Transportes.Controls.Add(AdicionarEncomendaTransportes);
             Transportes.Controls.Add(AdicionarEmpresa);
             Transportes.Controls.Add(QuintasTransportes);
             Transportes.Controls.Add(FiltrarRetalhistaTransportes);
@@ -1848,9 +1878,9 @@
             // 
             ItemsEncomendaTransportes.FormattingEnabled = true;
             ItemsEncomendaTransportes.ItemHeight = 25;
-            ItemsEncomendaTransportes.Location = new Point(452, 372);
+            ItemsEncomendaTransportes.Location = new Point(452, 363);
             ItemsEncomendaTransportes.Name = "ItemsEncomendaTransportes";
-            ItemsEncomendaTransportes.Size = new Size(629, 179);
+            ItemsEncomendaTransportes.Size = new Size(629, 104);
             ItemsEncomendaTransportes.TabIndex = 98;
             // 
             // QuintaBox
@@ -1988,26 +2018,6 @@
             EliminarEmpresaTransportes.UseVisualStyleBackColor = true;
             EliminarEmpresaTransportes.Click += EliminarEmpresaTransportes_Click;
             // 
-            // CancelarEncoemndaTransportes
-            // 
-            CancelarEncoemndaTransportes.Location = new Point(228, 552);
-            CancelarEncoemndaTransportes.Name = "CancelarEncoemndaTransportes";
-            CancelarEncoemndaTransportes.Size = new Size(185, 34);
-            CancelarEncoemndaTransportes.TabIndex = 63;
-            CancelarEncoemndaTransportes.Text = "Cancelar Encomenda";
-            CancelarEncoemndaTransportes.UseVisualStyleBackColor = true;
-            CancelarEncoemndaTransportes.Click += CancelarEncoemndaTransportes_Click_1;
-            // 
-            // AdicionarEncomendaTransportes
-            // 
-            AdicionarEncomendaTransportes.Location = new Point(21, 552);
-            AdicionarEncomendaTransportes.Name = "AdicionarEncomendaTransportes";
-            AdicionarEncomendaTransportes.Size = new Size(201, 34);
-            AdicionarEncomendaTransportes.TabIndex = 62;
-            AdicionarEncomendaTransportes.Text = "Adicionar Encomenda";
-            AdicionarEncomendaTransportes.UseVisualStyleBackColor = true;
-            AdicionarEncomendaTransportes.Click += AdicionarEncomendaTransportes_Click;
-            // 
             // AdicionarEmpresa
             // 
             AdicionarEmpresa.Location = new Point(21, 512);
@@ -2022,7 +2032,7 @@
             // 
             QuintasTransportes.FormattingEnabled = true;
             QuintasTransportes.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
-            QuintasTransportes.Location = new Point(614, 473);
+            QuintasTransportes.Location = new Point(626, 553);
             QuintasTransportes.Name = "QuintasTransportes";
             QuintasTransportes.Size = new Size(307, 33);
             QuintasTransportes.TabIndex = 57;
@@ -2032,9 +2042,9 @@
             // FiltrarRetalhistaTransportes
             // 
             FiltrarRetalhistaTransportes.FormattingEnabled = true;
-            FiltrarRetalhistaTransportes.Location = new Point(776, 407);
+            FiltrarRetalhistaTransportes.Location = new Point(809, 492);
             FiltrarRetalhistaTransportes.Name = "FiltrarRetalhistaTransportes";
-            FiltrarRetalhistaTransportes.Size = new Size(307, 33);
+            FiltrarRetalhistaTransportes.Size = new Size(274, 33);
             FiltrarRetalhistaTransportes.TabIndex = 56;
             FiltrarRetalhistaTransportes.Text = "Seleciona um Retalhista";
             FiltrarRetalhistaTransportes.SelectedIndexChanged += FiltrarRetalhistaTransportes_SelectedIndexChanged;
@@ -2043,7 +2053,7 @@
             // 
             OrigemTransportes.AutoSize = true;
             OrigemTransportes.Font = new Font("Segoe UI", 9F);
-            OrigemTransportes.Location = new Point(729, 443);
+            OrigemTransportes.Location = new Point(737, 525);
             OrigemTransportes.Name = "OrigemTransportes";
             OrigemTransportes.Size = new Size(77, 25);
             OrigemTransportes.TabIndex = 55;
@@ -2053,7 +2063,7 @@
             // 
             EmpresaRetalhista.AutoSize = true;
             EmpresaRetalhista.Font = new Font("Segoe UI", 9F);
-            EmpresaRetalhista.Location = new Point(776, 372);
+            EmpresaRetalhista.Location = new Point(809, 470);
             EmpresaRetalhista.Name = "EmpresaRetalhista";
             EmpresaRetalhista.Size = new Size(184, 25);
             EmpresaRetalhista.TabIndex = 54;
@@ -2061,7 +2071,7 @@
             // 
             // DataEncomendaTransportes
             // 
-            DataEncomendaTransportes.Location = new Point(452, 409);
+            DataEncomendaTransportes.Location = new Point(453, 494);
             DataEncomendaTransportes.Name = "DataEncomendaTransportes";
             DataEncomendaTransportes.Size = new Size(305, 31);
             DataEncomendaTransportes.TabIndex = 53;
@@ -2072,7 +2082,7 @@
             // 
             FiltrarPorDataTransportes.AutoSize = true;
             FiltrarPorDataTransportes.Font = new Font("Segoe UI", 9F);
-            FiltrarPorDataTransportes.Location = new Point(452, 372);
+            FiltrarPorDataTransportes.Location = new Point(453, 470);
             FiltrarPorDataTransportes.Name = "FiltrarPorDataTransportes";
             FiltrarPorDataTransportes.Size = new Size(129, 25);
             FiltrarPorDataTransportes.TabIndex = 52;
@@ -2249,7 +2259,7 @@
             ItemsEncomenda.ItemHeight = 25;
             ItemsEncomenda.Location = new Point(409, 385);
             ItemsEncomenda.Name = "ItemsEncomenda";
-            ItemsEncomenda.Size = new Size(694, 179);
+            ItemsEncomenda.Size = new Size(712, 179);
             ItemsEncomenda.TabIndex = 97;
             // 
             // EncomendaListaProdutos
@@ -2514,9 +2524,9 @@
             // 
             EncomendasRealizadas.FormattingEnabled = true;
             EncomendasRealizadas.ItemHeight = 25;
-            EncomendasRealizadas.Location = new Point(409, 239);
+            EncomendasRealizadas.Location = new Point(412, 239);
             EncomendasRealizadas.Name = "EncomendasRealizadas";
-            EncomendasRealizadas.Size = new Size(715, 129);
+            EncomendasRealizadas.Size = new Size(712, 129);
             EncomendasRealizadas.TabIndex = 51;
             EncomendasRealizadas.SelectedIndexChanged += EncomendasRealizadas_SelectedIndexChanged;
             // 
@@ -3086,6 +3096,7 @@
             ((System.ComponentModel.ISupportInitialize)QuantidadeColheitas).EndInit();
             Quintas.ResumeLayout(false);
             Quintas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)AlterarNumero).EndInit();
             ((System.ComponentModel.ISupportInitialize)AddAnimalIdade).EndInit();
             ((System.ComponentModel.ISupportInitialize)AddProdutoToQuintaQuantidade).EndInit();
             ((System.ComponentModel.ISupportInitialize)QuantidadeAgricultores).EndInit();
@@ -3229,8 +3240,6 @@
         private Label ContratoLabel;
         private TabPage Transportes;
         private Button EliminarEmpresaTransportes;
-        private Button CancelarEncoemndaTransportes;
-        private Button AdicionarEncomendaTransportes;
         private Button AdicionarEmpresa;
         private ComboBox QuintasTransportes;
         private ComboBox FiltrarRetalhistaTransportes;
@@ -3389,5 +3398,8 @@
         private DataGridViewTextBoxColumn quantityColumn;
         private NumericUpDown QuantidadeBox;
         private Label QuantidadeText;
+        private NumericUpDown AlterarNumero;
+        private Button AlterarQuantidadeQuinta;
+        private Button Confirmar;
     }
 }
