@@ -143,14 +143,14 @@ go
 drop view IF EXISTS AgroTrack.EmpresaEncomenda
 go
 create view AgroTrack.EmpresaEncomenda as
-	select E.Nome, E.Morada, E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id
+	select E.Nome, E.Morada, E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id, Enc.PrecoTotal
 	from  (AgroTrack_Empresa as E join AgroTrack_Encomenda as Enc on E.Id_Empresa=Enc.Retalhista_Empresa_Id_Empresa)
 go	
 --Encomenda
 drop view IF EXISTS AgroTrack.Encomenda
 go
 create view AgroTrack.Encomenda as
-	select Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id
+	select Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id, Enc.PrecoTotal
 	from  AgroTrack_Encomenda as Enc
 go
 
@@ -180,7 +180,7 @@ go
 drop view IF EXISTS AgroTrack.EncomendaRetalhista
 go
 create view AgroTrack.EncomendaRetalhista as
-	select R.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa
+	select R.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa, Enc.PrecoTotal
 	from  ((AgroTrack_Retalhistas as R join AgroTrack_Empresa as E on R.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Encomenda as Enc on R.Empresa_Id_Empresa=Enc.Retalhista_Empresa_Id_Empresa)
 go
 
@@ -196,7 +196,7 @@ go
 drop view IF EXISTS AgroTrack.EncomendaTransportes
 go
 create view AgroTrack.EncomendaTransportes as
-	select T.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Empresa_De_Transportes_Id_Empresa
+	select T.Empresa_Id_Empresa, E.Nome,E.Morada,E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Empresa_De_Transportes_Id_Empresa, Enc.PrecoTotal
 	from  ((AgroTrack_Empresa_De_Transportes as T join AgroTrack_Empresa as E on T.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Encomenda as Enc on T.Empresa_Id_Empresa=Enc.Empresa_De_Transportes_Id_Empresa)
 go 
 --Cliente

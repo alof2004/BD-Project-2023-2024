@@ -33,32 +33,31 @@ GO
 IF OBJECT_ID('AgroTrack_CalculatePriceEncomenda', 'TR') IS NOT NULL
     DROP TRIGGER AgroTrack_CalculatePriceEncomenda;
 GO
-CREATE TRIGGER AgroTrack_CalculatePriceEncomenda
-ON AgroTrack_Encomenda
-AFTER INSERT
-AS
-BEGIN
-    UPDATE e
-    SET PrecoTotal = (SELECT SUM(AgroTrack_Produto.Preco * AgroTrack_Item.Quantidade * AgroTrack_Produto.Taxa_de_iva)
-                      FROM AgroTrack_Item
-                      JOIN AgroTrack_Produto ON AgroTrack_Item.ProdutoCodigo = AgroTrack_Produto.Codigo
-                      WHERE AgroTrack_Item.Encomenda_Codigo = e.Codigo)
-END;
+-- Drop the trigger if it already exists
+IF OBJECT_ID('AgroTrack.CalculatePriceOfEncomendaWithItems', 'TR') IS NOT NULL
+    DROP TRIGGER AgroTrack.CalculatePriceOfEncomendaWithItems;
 GO
-IF OBJECT_ID('AgroTrack_AtualizarContemAposEncomenda', 'TR') IS NOT NULL
-    DROP TRIGGER AgroTrack_AtualizarContemAposEncomenda;
+
+-- Drop the trigger if it already exists
+IF OBJECT_ID('CalculatePriceOfEncomendaWithItems', 'TR') IS NOT NULL
+    DROP TRIGGER CalculatePriceOfEncomendaWithItems;
 GO
-CREATE TRIGGER AgroTrack_AtualizarContemAposEncomenda
+
+-- Create the trigger on the correct schema
+CREATE TRIGGER CalculatePriceOfEncomendaWithItems
 ON AgroTrack_Item
 AFTER INSERT
 AS
 BEGIN
-    -- Update the quantity in the AgroTrack_Contem table based on the inserted Encomenda
-    UPDATE C
-    SET C.Quantidade = C.Quantidade - I.Quantidade
-    FROM AgroTrack_Contem C
-    JOIN inserted I ON C.Produto_codigo = I.ProdutoCodigo
-    JOIN AgroTrack_Encomenda E ON I.Encomenda_Codigo = E.Codigo
+    -- Update the price of the Encomenda based on the inserted items
+    UPDATE E
+    SET PrecoTotal = PrecoTotal + (
+        SELECT SUM(P.Preco * I.Quantidade * (1 + P.Taxa_de_iva))
+        FROM AgroTrack_Item I
+        JOIN AgroTrack_Produto P ON I.ProdutoCodigo = P.Codigo
+        WHERE I.Encomenda_Codigo = E.Codigo
+    )
+    FROM AgroTrack_Encomenda E
+    JOIN inserted I ON E.Codigo = I.Encomenda_Codigo;
 END;
 GO
-

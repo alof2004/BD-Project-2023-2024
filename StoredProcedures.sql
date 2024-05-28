@@ -2944,9 +2944,13 @@ BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Delete the Encomenda from the AgroTrack_Encomenda table
+
+        DELETE FROM AgroTrack_Item
+        WHERE Encomenda_Codigo = @Codigo;
+        
         DELETE FROM AgroTrack_Encomenda
         WHERE Codigo = @Codigo;
+
 
         -- Commit the transaction
         COMMIT TRANSACTION;

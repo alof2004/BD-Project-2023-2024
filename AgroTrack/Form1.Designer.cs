@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgroTrack));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
             SubmeterCompra = new Button();
@@ -2246,9 +2246,9 @@
             // 
             ItemsEncomenda.FormattingEnabled = true;
             ItemsEncomenda.ItemHeight = 25;
-            ItemsEncomenda.Location = new Point(452, 385);
+            ItemsEncomenda.Location = new Point(412, 385);
             ItemsEncomenda.Name = "ItemsEncomenda";
-            ItemsEncomenda.Size = new Size(636, 179);
+            ItemsEncomenda.Size = new Size(694, 179);
             ItemsEncomenda.TabIndex = 97;
             // 
             // EncomendaListaProdutos
@@ -2263,10 +2263,10 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
-            EncomendaListaProdutos.Location = new Point(473, 335);
+            EncomendaListaProdutos.Location = new Point(433, 335);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
-            EncomendaListaProdutos.Size = new Size(615, 209);
+            EncomendaListaProdutos.Size = new Size(618, 209);
             EncomendaListaProdutos.TabIndex = 96;
             // 
             // productColumn
@@ -2288,7 +2288,7 @@
             QuintaEncoemndaRetalhistaBox.FormattingEnabled = true;
             QuintaEncoemndaRetalhistaBox.Location = new Point(610, 280);
             QuintaEncoemndaRetalhistaBox.Name = "QuintaEncoemndaRetalhistaBox";
-            QuintaEncoemndaRetalhistaBox.Size = new Size(478, 33);
+            QuintaEncoemndaRetalhistaBox.Size = new Size(514, 33);
             QuintaEncoemndaRetalhistaBox.TabIndex = 95;
             QuintaEncoemndaRetalhistaBox.SelectedIndexChanged += QuintaEncoemndaRetalhistaBox_SelectedIndexChanged;
             // 
@@ -2297,7 +2297,7 @@
             EmpresaDeTransporteEncoemndaRetalhistaBox.FormattingEnabled = true;
             EmpresaDeTransporteEncoemndaRetalhistaBox.Location = new Point(649, 232);
             EmpresaDeTransporteEncoemndaRetalhistaBox.Name = "EmpresaDeTransporteEncoemndaRetalhistaBox";
-            EmpresaDeTransporteEncoemndaRetalhistaBox.Size = new Size(439, 33);
+            EmpresaDeTransporteEncoemndaRetalhistaBox.Size = new Size(475, 33);
             EmpresaDeTransporteEncoemndaRetalhistaBox.TabIndex = 94;
             // 
             // DataRetalhistaEncoemndabOX
@@ -2305,14 +2305,14 @@
             DataRetalhistaEncoemndabOX.FormattingEnabled = true;
             DataRetalhistaEncoemndabOX.Location = new Point(550, 189);
             DataRetalhistaEncoemndabOX.Name = "DataRetalhistaEncoemndabOX";
-            DataRetalhistaEncoemndabOX.Size = new Size(538, 33);
+            DataRetalhistaEncoemndabOX.Size = new Size(574, 33);
             DataRetalhistaEncoemndabOX.TabIndex = 93;
             // 
             // CompradorEncoemndaRetalhistaBox
             // 
             CompradorEncoemndaRetalhistaBox.Location = new Point(598, 128);
             CompradorEncoemndaRetalhistaBox.Name = "CompradorEncoemndaRetalhistaBox";
-            CompradorEncoemndaRetalhistaBox.Size = new Size(487, 31);
+            CompradorEncoemndaRetalhistaBox.Size = new Size(523, 31);
             CompradorEncoemndaRetalhistaBox.TabIndex = 92;
             // 
             // ConfirmarRetalhistaEncoemnda
@@ -2329,7 +2329,7 @@
             // 
             MoradaRetalhistaBox.Location = new Point(535, 74);
             MoradaRetalhistaBox.Name = "MoradaRetalhistaBox";
-            MoradaRetalhistaBox.Size = new Size(550, 31);
+            MoradaRetalhistaBox.Size = new Size(586, 31);
             MoradaRetalhistaBox.TabIndex = 90;
             // 
             // QuintaEncoemndaRetalhista
@@ -2386,7 +2386,7 @@
             // 
             PrazoBoxRetalhista.Location = new Point(662, 22);
             PrazoBoxRetalhista.Name = "PrazoBoxRetalhista";
-            PrazoBoxRetalhista.Size = new Size(423, 31);
+            PrazoBoxRetalhista.Size = new Size(459, 31);
             PrazoBoxRetalhista.TabIndex = 80;
             // 
             // PrazoEncomendaRetalhista
@@ -2403,7 +2403,7 @@
             // 
             ConfirmarRetalhista.Location = new Point(456, 190);
             ConfirmarRetalhista.Name = "ConfirmarRetalhista";
-            ConfirmarRetalhista.Size = new Size(636, 34);
+            ConfirmarRetalhista.Size = new Size(672, 34);
             ConfirmarRetalhista.TabIndex = 65;
             ConfirmarRetalhista.Text = "Confirmar";
             ConfirmarRetalhista.UseVisualStyleBackColor = true;
@@ -2413,7 +2413,7 @@
             // 
             EliminarRetalhista.Location = new Point(236, 499);
             EliminarRetalhista.Name = "EliminarRetalhista";
-            EliminarRetalhista.Size = new Size(204, 34);
+            EliminarRetalhista.Size = new Size(150, 34);
             EliminarRetalhista.TabIndex = 64;
             EliminarRetalhista.Text = "Eliminar Empresa";
             EliminarRetalhista.UseVisualStyleBackColor = true;
@@ -2423,7 +2423,7 @@
             // 
             CancelarEncoemendRetalhistas.Location = new Point(236, 539);
             CancelarEncoemendRetalhistas.Name = "CancelarEncoemendRetalhistas";
-            CancelarEncoemendRetalhistas.Size = new Size(204, 34);
+            CancelarEncoemendRetalhistas.Size = new Size(150, 34);
             CancelarEncoemendRetalhistas.TabIndex = 63;
             CancelarEncoemendRetalhistas.Text = "Cancelar Encomenda";
             CancelarEncoemendRetalhistas.UseVisualStyleBackColor = true;
@@ -2431,7 +2431,7 @@
             // 
             // AdicionarEncomendasRetalhista
             // 
-            AdicionarEncomendasRetalhista.Location = new Point(26, 539);
+            AdicionarEncomendasRetalhista.Location = new Point(15, 539);
             AdicionarEncomendasRetalhista.Name = "AdicionarEncomendasRetalhista";
             AdicionarEncomendasRetalhista.Size = new Size(204, 34);
             AdicionarEncomendasRetalhista.TabIndex = 62;
@@ -2441,7 +2441,7 @@
             // 
             // AdicionarRetalhistas
             // 
-            AdicionarRetalhistas.Location = new Point(26, 499);
+            AdicionarRetalhistas.Location = new Point(15, 499);
             AdicionarRetalhistas.Name = "AdicionarRetalhistas";
             AdicionarRetalhistas.Size = new Size(204, 34);
             AdicionarRetalhistas.TabIndex = 61;
@@ -2453,9 +2453,9 @@
             // 
             QuintasRetalhistas.FormattingEnabled = true;
             QuintasRetalhistas.Items.AddRange(new object[] { "Quinta da Vinha Verde", "Quinta da Esperança", "Quinta da Boa Vista", "Quinta da Fonte Fresca", "Quinta das Oliveiras" });
-            QuintasRetalhistas.Location = new Point(102, 460);
+            QuintasRetalhistas.Location = new Point(86, 460);
             QuintasRetalhistas.Name = "QuintasRetalhistas";
-            QuintasRetalhistas.Size = new Size(338, 33);
+            QuintasRetalhistas.Size = new Size(295, 33);
             QuintasRetalhistas.TabIndex = 57;
             QuintasRetalhistas.Text = "Seleciona uma quinta";
             QuintasRetalhistas.SelectedIndexChanged += QuintasRetalhistas_SelectedIndexChanged;
@@ -2463,9 +2463,9 @@
             // FiltrarTransporteRetalhistas
             // 
             FiltrarTransporteRetalhistas.FormattingEnabled = true;
-            FiltrarTransporteRetalhistas.Location = new Point(219, 410);
+            FiltrarTransporteRetalhistas.Location = new Point(214, 410);
             FiltrarTransporteRetalhistas.Name = "FiltrarTransporteRetalhistas";
-            FiltrarTransporteRetalhistas.Size = new Size(221, 33);
+            FiltrarTransporteRetalhistas.Size = new Size(167, 33);
             FiltrarTransporteRetalhistas.TabIndex = 56;
             FiltrarTransporteRetalhistas.Text = "Seleciona uma Empresa";
             FiltrarTransporteRetalhistas.SelectedIndexChanged += FiltrarTransporteRetalhistas_SelectedIndexChanged;
@@ -2474,7 +2474,7 @@
             // 
             QuintaRetalhistaSelecao.AutoSize = true;
             QuintaRetalhistaSelecao.Font = new Font("Segoe UI", 9F);
-            QuintaRetalhistaSelecao.Location = new Point(29, 463);
+            QuintaRetalhistaSelecao.Location = new Point(15, 463);
             QuintaRetalhistaSelecao.Name = "QuintaRetalhistaSelecao";
             QuintaRetalhistaSelecao.Size = new Size(77, 25);
             QuintaRetalhistaSelecao.TabIndex = 55;
@@ -2485,7 +2485,7 @@
             // 
             empresaretalhistas.AutoSize = true;
             empresaretalhistas.Font = new Font("Segoe UI", 9F);
-            empresaretalhistas.Location = new Point(29, 413);
+            empresaretalhistas.Location = new Point(15, 413);
             empresaretalhistas.Name = "empresaretalhistas";
             empresaretalhistas.Size = new Size(193, 25);
             empresaretalhistas.TabIndex = 54;
@@ -2495,7 +2495,7 @@
             // 
             DataRetalhistasEncomenda.Location = new Point(164, 366);
             DataRetalhistasEncomenda.Name = "DataRetalhistasEncomenda";
-            DataRetalhistasEncomenda.Size = new Size(276, 31);
+            DataRetalhistasEncomenda.Size = new Size(222, 31);
             DataRetalhistasEncomenda.TabIndex = 53;
             // 
             // dataRetalhista
@@ -2512,9 +2512,9 @@
             // 
             EncomendasRealizadas.FormattingEnabled = true;
             EncomendasRealizadas.ItemHeight = 25;
-            EncomendasRealizadas.Location = new Point(449, 239);
+            EncomendasRealizadas.Location = new Point(409, 239);
             EncomendasRealizadas.Name = "EncomendasRealizadas";
-            EncomendasRealizadas.Size = new Size(639, 129);
+            EncomendasRealizadas.Size = new Size(715, 129);
             EncomendasRealizadas.TabIndex = 51;
             EncomendasRealizadas.SelectedIndexChanged += EncomendasRealizadas_SelectedIndexChanged;
             // 
@@ -2522,7 +2522,7 @@
             // 
             RetalhistasTipo.Location = new Point(598, 192);
             RetalhistasTipo.Name = "RetalhistasTipo";
-            RetalhistasTipo.Size = new Size(485, 31);
+            RetalhistasTipo.Size = new Size(521, 31);
             RetalhistasTipo.TabIndex = 50;
             RetalhistasTipo.Text = "Retalhistas";
             // 
@@ -2570,21 +2570,21 @@
             // 
             RetalhistasContacto.Location = new Point(551, 127);
             RetalhistasContacto.Name = "RetalhistasContacto";
-            RetalhistasContacto.Size = new Size(537, 31);
+            RetalhistasContacto.Size = new Size(573, 31);
             RetalhistasContacto.TabIndex = 45;
             // 
             // RetalhistasMorada
             // 
             RetalhistasMorada.Location = new Point(551, 73);
             RetalhistasMorada.Name = "RetalhistasMorada";
-            RetalhistasMorada.Size = new Size(537, 31);
+            RetalhistasMorada.Size = new Size(573, 31);
             RetalhistasMorada.TabIndex = 44;
             // 
             // RetalhistasNome
             // 
             RetalhistasNome.Location = new Point(551, 21);
             RetalhistasNome.Name = "RetalhistasNome";
-            RetalhistasNome.Size = new Size(537, 31);
+            RetalhistasNome.Size = new Size(573, 31);
             RetalhistasNome.TabIndex = 43;
             RetalhistasNome.TextChanged += RetalhistasNome_TextChanged;
             // 
@@ -2592,7 +2592,7 @@
             // 
             button35.Location = new Point(39, 86);
             button35.Name = "button35";
-            button35.Size = new Size(374, 34);
+            button35.Size = new Size(347, 34);
             button35.TabIndex = 41;
             button35.Text = "Limpar";
             button35.UseVisualStyleBackColor = true;
@@ -2611,7 +2611,7 @@
             // 
             PesquisarNomeRetalhistaBox.Location = new Point(39, 49);
             PesquisarNomeRetalhistaBox.Name = "PesquisarNomeRetalhistaBox";
-            PesquisarNomeRetalhistaBox.Size = new Size(374, 31);
+            PesquisarNomeRetalhistaBox.Size = new Size(347, 31);
             PesquisarNomeRetalhistaBox.TabIndex = 39;
             PesquisarNomeRetalhistaBox.TextChanged += PesquisarNomeRetalhistaBox_TextChanged;
             // 
@@ -2619,9 +2619,9 @@
             // 
             ListaRetalhistas.FormattingEnabled = true;
             ListaRetalhistas.ItemHeight = 25;
-            ListaRetalhistas.Location = new Point(39, 127);
+            ListaRetalhistas.Location = new Point(26, 127);
             ListaRetalhistas.Name = "ListaRetalhistas";
-            ListaRetalhistas.Size = new Size(374, 229);
+            ListaRetalhistas.Size = new Size(360, 229);
             ListaRetalhistas.TabIndex = 38;
             ListaRetalhistas.SelectedIndexChanged += ListaRetalhistas_SelectedIndexChanged_1;
             // 
