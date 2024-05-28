@@ -1384,6 +1384,19 @@ namespace AgroTrack
                 whereClause += $" Quinta_Empresa_Id_Empresa = {(FiltrarPorQuinta.SelectedItem as QuintaOnlyName).Id_Quinta}";
             }
 
+            if (QuantidadeBox.Value > 0)
+            {
+                if (whereClause != "")
+                {
+                    whereClause += " AND";
+                }
+                else
+                {
+                    whereClause += " WHERE";
+                }
+                whereClause += $" Quantidade >= {QuantidadeBox.Value}";
+            }
+
             string query = baseQuery + whereClause;
             SqlCommand cmd = new SqlCommand(query, cn);
 
@@ -1624,6 +1637,7 @@ namespace AgroTrack
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            LoadProdutos();
         }
 
         private void OrdenarProdutos_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -2915,6 +2929,7 @@ namespace AgroTrack
             AddCompraQuantidadeLabel.Show();
             AddCompraMetodoLabel.Show();
             AddCompraDataLabel.Show();
+            SubmeterCompra.Show();
 
 
         }
@@ -4918,6 +4933,7 @@ namespace AgroTrack
         private void EncomendasEntrega_SelectedIndexChanged(object sender, EventArgs e)
         {
             Encomenda encomenda = EncomendasEntrega.SelectedItem as Encomenda;
+            LoadEncomendaItems(encomenda.Codigo);
         }
 
         private void AddCompraProduto_SelectedIndexChanged(object sender, EventArgs e)
@@ -4963,6 +4979,7 @@ namespace AgroTrack
             }
         }
 
+        // O método Confirmar_Click é chamado quando o botão Confirmar é clicado
         private void Confirmar_Click(object sender, EventArgs e)
         {
             if (ProdutosQuinta.SelectedItem != null)
@@ -4970,57 +4987,67 @@ namespace AgroTrack
                 // Obtém o produto selecionado na ListBox
                 ProdutosQuinta produtoSelecionado = (ProdutosQuinta)ProdutosQuinta.SelectedItem;
 
-                // Obtém o novo valor do Numeric
+                // Obtém o novo valor do NumericUpDown
                 int novaQuantidade = (int)AlterarNumero.Value;
 
                 // Atualiza a quantidade do produto no banco de dados
                 AtualizarQuantidadeNoBancoDeDados(produtoSelecionado.Id_Produto, novaQuantidade);
 
-
                 // Atualiza a quantidade do produto na instância do objeto
                 produtoSelecionado.Quantidade = novaQuantidade;
 
-                // Oculta os controles Numeric e o botão Confirmar após a confirmação
+                // Oculta os controles NumericUpDown e o botão Confirmar após a confirmação
                 AlterarNumero.Visible = false;
                 Confirmar.Visible = false;
             }
+            // Recarrega a lista de produtos (presumivelmente, essa função atualiza a interface com os dados mais recentes)
             LoadQuinta();
         }
 
+        // O método AtualizarQuantidadeNoBancoDeDados atualiza a quantidade do produto no banco de dados
         private void AtualizarQuantidadeNoBancoDeDados(int idProduto, int novaQuantidade)
         {
             string query = "UPDATE AgroTrack.QuintaProduto SET Quantidade = @NovaQuantidade WHERE Codigo = @IdProduto";
-            try
+            // Abre uma nova conexão usando o bloco using para garantir que será fechada automaticamente
+            using (SqlCommand command = new SqlCommand(query, cn))
             {
-                using (SqlCommand command = new SqlCommand(query, cn))
+                // Adiciona os parâmetros ao comando
+                try
                 {
                     command.Parameters.Add(new SqlParameter("@NovaQuantidade", novaQuantidade));
                     command.Parameters.Add(new SqlParameter("@IdProduto", idProduto));
 
-                    if (cn.State != ConnectionState.Open)
+                    // Abre a conexão se estiver fechada
+                    if (cn.State == ConnectionState.Closed)
                     {
                         cn.Open();
                     }
 
+                    // Executa o comando
                     command.ExecuteNonQuery();
-                    MessageBox.Show("Quantidade atualizada com sucesso!");
+                    if (ListaQuintas_SelectedIndexChanged == null)
+                    {
+                        MessageBox.Show("Quantidade do produto atualizada com sucesso! Selecione a Quinta para ver a mudança");
+                    }
+                    ListaQuintas_SelectedIndexChanged(null, null);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to update quantity in database: " + ex.Message);
-            }
-            finally
-            {
-                // Certifique-se de fechar a conexão após o uso
-                if (cn.State == ConnectionState.Open)
+                catch (Exception ex)
                 {
-                    cn.Close();
+                    // Fecha a conexão se estiver aberta
+                    if (cn.State == ConnectionState.Open)
+                    {
+                        cn.Close();
+                    }
+
+                    // Lança a exceção
+                    throw new Exception("Falha ao atualizar a quantidade do produto: " + ex.Message);
                 }
             }
         }
 
+        private void PrazoEncomendaRetalhista_Click(object sender, EventArgs e)
+        {
 
+        }
     }
-
 }

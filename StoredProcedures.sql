@@ -281,7 +281,6 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        -- Insert the new Item
         INSERT INTO AgroTrack_Item (
             ProdutoCodigo,
             Quantidade,
@@ -3041,7 +3040,7 @@ BEGIN
         END;
 
     SET @SqlQuery = '
-        SELECT Codigo, Nome, Preco, Tipo, Taxa_de_iva
+        SELECT Codigo, Nome, Preco, Tipo_de_Produto, Taxa_de_iva, Unidade_medida
         FROM AgroTrack.Produto
         ORDER BY ' + @OrderByClause;
 

@@ -117,3 +117,17 @@ BEGIN
     SELECT ProdutoCodigo, Quantidade, Encomenda_Codigo
     FROM inserted;
 END;
+GO
+IF OBJECT_ID('AgroTrack_AddDataEntrega', 'TR') IS NOT NULL
+    DROP TRIGGER AgroTrack_AddDataEntrega;
+GO
+CREATE TRIGGER AgroTrack_AddDataEntrega
+ON AgroTrack_Encomenda
+AFTER INSERT
+AS
+BEGIN
+    UPDATE e
+    SET Entrega = DATEADD(DAY, prazo_entrega, GETDATE())
+    FROM AgroTrack_Encomenda e
+    JOIN inserted i ON e.Codigo = i.Codigo;
+END;
