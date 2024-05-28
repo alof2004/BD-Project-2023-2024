@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgroTrack));
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
             SubmeterCompra = new Button();
@@ -288,8 +289,6 @@
             ProdutoInfo = new Label();
             EliminarProduto = new Button();
             AdicionarProdutoProduto = new Button();
-            QuantidadeBox = new NumericUpDown();
-            QuantidadeText = new Label();
             label18 = new Label();
             FiltrarPorQuinta = new ComboBox();
             QuintaText = new Label();
@@ -302,6 +301,8 @@
             produtosOnlyNameBindingSource = new BindingSource(components);
             productColumn = new DataGridViewComboBoxColumn();
             quantityColumn = new DataGridViewTextBoxColumn();
+            QuantidadeBox = new NumericUpDown();
+            QuantidadeText = new Label();
             OrdenarPor.SuspendLayout();
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AddCompraQuantidade).BeginInit();
@@ -316,8 +317,8 @@
             Retalhistas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EncomendaListaProdutos).BeginInit();
             Produtos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)QuantidadeBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)produtosOnlyNameBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeBox).BeginInit();
             SuspendLayout();
             // 
             // OrdenarPor
@@ -498,6 +499,7 @@
             AddCompraProduto.Size = new Size(257, 33);
             AddCompraProduto.TabIndex = 78;
             AddCompraProduto.Text = "Seleciona um produto";
+            AddCompraProduto.SelectedIndexChanged += AddCompraProduto_SelectedIndexChanged;
             // 
             // SubmeterCliente
             // 
@@ -2750,6 +2752,7 @@
             QuintasProdutos.Name = "QuintasProdutos";
             QuintasProdutos.Size = new Size(273, 204);
             QuintasProdutos.TabIndex = 68;
+            QuintasProdutos.SelectedIndexChanged += QuintasProdutos_SelectedIndexChanged;
             // 
             // InformaçoesProduto
             // 
@@ -2941,23 +2944,6 @@
             AdicionarProdutoProduto.UseVisualStyleBackColor = true;
             AdicionarProdutoProduto.Click += AdicionarProdutoProduto_Click_1;
             // 
-            // QuantidadeBox
-            // 
-            QuantidadeBox.Location = new Point(251, 545);
-            QuantidadeBox.Name = "QuantidadeBox";
-            QuantidadeBox.Size = new Size(290, 31);
-            QuantidadeBox.TabIndex = 34;
-            QuantidadeBox.ValueChanged += numericUpDown1_ValueChanged;
-            // 
-            // QuantidadeText
-            // 
-            QuantidadeText.AutoSize = true;
-            QuantidadeText.Location = new Point(251, 515);
-            QuantidadeText.Name = "QuantidadeText";
-            QuantidadeText.Size = new Size(105, 25);
-            QuantidadeText.TabIndex = 33;
-            QuantidadeText.Text = "Quantidade";
-            // 
             // label18
             // 
             label18.AutoSize = true;
@@ -3061,6 +3047,23 @@
             quantityColumn.Name = "quantityColumn";
             quantityColumn.Width = 300;
             // 
+            // QuantidadeBox
+            // 
+            QuantidadeBox.Location = new Point(251, 545);
+            QuantidadeBox.Name = "QuantidadeBox";
+            QuantidadeBox.Size = new Size(290, 31);
+            QuantidadeBox.TabIndex = 34;
+            QuantidadeBox.ValueChanged += numericUpDown1_ValueChanged;
+            // 
+            // QuantidadeText
+            // 
+            QuantidadeText.AutoSize = true;
+            QuantidadeText.Location = new Point(251, 515);
+            QuantidadeText.Name = "QuantidadeText";
+            QuantidadeText.Size = new Size(105, 25);
+            QuantidadeText.TabIndex = 33;
+            QuantidadeText.Text = "Quantidade";
+            // 
             // AgroTrack
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -3068,6 +3071,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1150, 635);
             Controls.Add(OrdenarPor);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AgroTrack";
             Text = "AgroTrack";
             Load += Form1_Load;
@@ -3091,8 +3095,8 @@
             ((System.ComponentModel.ISupportInitialize)EncomendaListaProdutos).EndInit();
             Produtos.ResumeLayout(false);
             Produtos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)QuantidadeBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)produtosOnlyNameBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)QuantidadeBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -3147,10 +3151,8 @@
         private Label TipoText;
         private Label QuintaText;
         private ComboBox FiltrarPorTipo;
-        private Label QuantidadeText;
         private Label label18;
         private ComboBox FiltrarPorQuinta;
-        private NumericUpDown QuantidadeBox;
         private Label LocaldeProducao;
         private Label label21;
         private Label ProdutoInfo;
@@ -3384,5 +3386,7 @@
         private ListBox ItemsEncomendaTransportes;
         private DataGridViewComboBoxColumn productColumn;
         private DataGridViewTextBoxColumn quantityColumn;
+        private NumericUpDown QuantidadeBox;
+        private Label QuantidadeText;
     }
 }

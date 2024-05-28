@@ -109,7 +109,7 @@ go
 drop view IF EXISTS AgroTrack.Produto
 go
 create view AgroTrack.Produto as
-	select Pro.Codigo,Pro.Nome, Pro.Id_origem, Pro.Preco,Pro.Taxa_de_iva,Pro.Unidade_medida,Pro.Tipo_de_Produto
+	select Pro.Codigo,Pro.Nome, Pro.Preco,Pro.Taxa_de_iva,Pro.Unidade_medida,Pro.Tipo_de_Produto
 	from  AgroTrack_Produto as Pro 
 go
 
@@ -207,3 +207,19 @@ create view AgroTrack.Cliente as
 	from  (AgroTrack_Cliente as Cliente join AgroTrack_Pessoa as Pessoa on Cliente.Pessoa_N_CartaoCidadao=Pessoa.N_CartaoCidadao)
 go
 
+
+--Produto e Contem
+drop view IF EXISTS AgroTrack.ProdutoContem
+go
+create view AgroTrack.ProdutoContem as
+	select P.Codigo, P.Nome, P.Preco, P.Taxa_de_iva, P.Unidade_medida, P.Tipo_de_Produto, C.Quantidade, C.Quinta_Empresa_Id_Empresa
+	from  ((AgroTrack_Produto as P join AgroTrack_Contem as C on P.Codigo=C.Produto_codigo) inner join AgroTrack_Quinta as Q on C.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
+go
+
+-- Produto Empresa e quinta produto
+drop view IF EXISTS AgroTrack.ProdutoEmpresaQuinta
+go
+create view AgroTrack.ProdutoEmpresaQuinta as
+	select P.Codigo, E.Nome, P.Preco, P.Taxa_de_iva, P.Unidade_medida, P.Tipo_de_Produto, C.Quantidade, C.Quinta_Empresa_Id_Empresa, E.Morada, E.Contacto
+	from  ((((AgroTrack_Produto as P join AgroTrack_Contem as C on P.Codigo=C.Produto_codigo) inner join AgroTrack_Empresa as E on C.Quinta_Empresa_Id_Empresa=E.Id_Empresa)) inner join AgroTrack_Quinta as Q on C.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
+go

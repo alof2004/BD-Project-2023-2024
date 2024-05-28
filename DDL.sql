@@ -119,7 +119,6 @@ create table AgroTrack_Agricultor (
 
 create table AgroTrack_Produto(
 	Nome				varchar(64)			not null,
-	Id_origem			int					not null,		
 	Tipo_de_Produto		varchar(64)			not null,
 	Codigo				int					not null, 
 	Preco				float               not null        check(Preco > 0),	
