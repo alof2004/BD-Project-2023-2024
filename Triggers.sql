@@ -127,7 +127,22 @@ AFTER INSERT
 AS
 BEGIN
     UPDATE e
-    SET Entrega = DATEADD(DAY, prazo_entrega, GETDATE())
+    SET Entrega = DATEADD(DAY, e.prazo_entrega, GETDATE())
     FROM AgroTrack_Encomenda e
     JOIN inserted i ON e.Codigo = i.Codigo;
+END;
+GO
+IF OBJECT_ID('AgroTrack_PreventIncorrectEncomendaData', 'TR') IS NOT NULL
+    DROP TRIGGER AgroTrack_PreventIncorrectEncomendaData;
+GO
+CREATE TRIGGER AgroTrack_PreventIncorrectEncomendaData
+ON AgroTrack_Encomenda
+BEFORE INSERT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted WHERE Entrega < GETDATE())
+    BEGIN
+        RAISERROR ('Delivery date cannot be in the past', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
 END;

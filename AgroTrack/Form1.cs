@@ -56,10 +56,8 @@ namespace AgroTrack
             PrazoBoxRetalhista.Hide();
             MoradaRetalhista.Hide();
             MoradaRetalhistaBox.Hide();
-            DataRetalhistaEncoemnda.Hide();
             DataRetalhistaEncoemndabOX.Hide();
             CompradorEncoemndaRetalhista.Hide();
-            CompradorEncoemndaRetalhistaBox.Hide();
             EmpresaDeTransporteEncoemndaRetalhista.Hide();
             EmpresaDeTransporteEncoemndaRetalhistaBox.Hide();
             QuintaEncoemndaRetalhista.Hide();
@@ -4128,10 +4126,8 @@ namespace AgroTrack
             PrazoBoxRetalhista.Show();
             MoradaRetalhista.Show();
             MoradaRetalhistaBox.Show();
-            DataRetalhistaEncoemnda.Show();
             DataRetalhistaEncoemndabOX.Show();
             CompradorEncoemndaRetalhista.Show();
-            CompradorEncoemndaRetalhistaBox.Show();
             EmpresaDeTransporteEncoemndaRetalhista.Show();
             EmpresaDeTransporteEncoemndaRetalhistaBox.Show();
             QuintaEncoemndaRetalhista.Show();
@@ -4165,7 +4161,6 @@ namespace AgroTrack
             PrazoBoxRetalhista.Text = "";
             MoradaRetalhistaBox.Text = "";
             DataRetalhistaEncoemndabOX.Text = "";
-            CompradorEncoemndaRetalhistaBox.Text = "";
             EmpresaDeTransporteEncoemndaRetalhistaBox.Text = "";
             QuintaEncoemndaRetalhistaBox.Text = "";
 
@@ -4175,7 +4170,7 @@ namespace AgroTrack
 
         private void ConfirmarRetalhistaEncoemnda_Click(object sender, EventArgs e)
         {
-            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || CompradorEncoemndaRetalhistaBox.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "" || EncomendaListaProdutos.Rows.Count == 0)
+            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "" || EncomendaListaProdutos.Rows.Count == 0)
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -4185,7 +4180,6 @@ namespace AgroTrack
                 {
                     int prazo = int.Parse(PrazoBoxRetalhista.Text);
                     string morada = MoradaRetalhistaBox.Text;
-                    DateTime data = DateTime.Parse(CompradorEncoemndaRetalhistaBox.Text);
                     RetalhistasOnlyName comprador = (RetalhistasOnlyName)DataRetalhistaEncoemndabOX.SelectedItem;
                     TransportesOnlyName empresaDeTransporte = (TransportesOnlyName)EmpresaDeTransporteEncoemndaRetalhistaBox.SelectedItem;
                     QuintaOnlyName quinta = (QuintaOnlyName)QuintaEncoemndaRetalhistaBox.SelectedItem;
@@ -4199,7 +4193,7 @@ namespace AgroTrack
                     int empresaDeTransporteId = empresaDeTransporte.Empresa_Id_Empresa;
                     int quintaId = quinta.Id_Quinta;
 
-                    AddEncomendaRetalhista(prazo, morada, data, compradorId, empresaDeTransporteId, quintaId);
+                    AddEncomendaRetalhista(prazo, morada, compradorId, empresaDeTransporteId, quintaId);
                 }
                 catch (Exception ex)
                 {
@@ -4237,10 +4231,8 @@ namespace AgroTrack
                     PrazoBoxRetalhista.Hide();
                     MoradaRetalhista.Hide();
                     MoradaRetalhistaBox.Hide();
-                    DataRetalhistaEncoemnda.Hide();
                     DataRetalhistaEncoemndabOX.Hide();
                     CompradorEncoemndaRetalhista.Hide();
-                    CompradorEncoemndaRetalhistaBox.Hide();
                     EmpresaDeTransporteEncoemndaRetalhista.Hide();
                     EmpresaDeTransporteEncoemndaRetalhistaBox.Hide();
                     QuintaEncoemndaRetalhista.Hide();
@@ -4250,7 +4242,6 @@ namespace AgroTrack
                     PrazoBoxRetalhista.Text = "";
                     MoradaRetalhistaBox.Text = "";
                     DataRetalhistaEncoemndabOX.Text = "";
-                    CompradorEncoemndaRetalhistaBox.Text = "";
                     EmpresaDeTransporteEncoemndaRetalhistaBox.Text = "";
                     QuintaEncoemndaRetalhistaBox.Text = "";
 
@@ -4738,7 +4729,7 @@ namespace AgroTrack
             }
         }
 
-        private void AddEncomendaRetalhista(int prazo, string morada, DateTime entrega, int retalhista, int transportes, int quinta)
+        private void AddEncomendaRetalhista(int prazo, string morada, int retalhista, int transportes, int quinta)
         {
             try
             {
@@ -4747,7 +4738,6 @@ namespace AgroTrack
                     // Adiciona os parâmetros ao comando
                     command.Parameters.Add(new SqlParameter("@Prazo_entrega", prazo));
                     command.Parameters.Add(new SqlParameter("@Morada_entrega", morada));
-                    command.Parameters.Add(new SqlParameter("@Entrega", entrega));
                     command.Parameters.Add(new SqlParameter("@Retalhista_Empresa_Id_Empresa", retalhista));
                     command.Parameters.Add(new SqlParameter("@Empresa_De_Transportes_Id_Empresa", transportes));
                     command.Parameters.Add(new SqlParameter("@Quinta_Empresa_Id", quinta));
@@ -4899,10 +4889,46 @@ namespace AgroTrack
         private void EncomendasRealizadas_SelectedIndexChanged(object sender, EventArgs e)
         {
             Encomenda encomenda = EncomendasRealizadas.SelectedItem as Encomenda;
-            LoadEncomendaItems(encomenda.Codigo);
+            LoadEncomendaItemsRetalhistas(encomenda.Codigo);
 
         }
-        private void LoadEncomendaItems(int encomendaId)
+        private void LoadEncomendaItemsTransportes(int encomendaId)
+        {
+            string query = "SELECT Encomenda_Codigo, ProdutoCodigo, Quantidade, NomeProduto FROM AgroTrack.EncomendaItems WHERE Encomenda_Codigo = @Codigo";
+            SqlCommand command = new SqlCommand(query, cn);
+            command.Parameters.Add(new SqlParameter("@Codigo", encomendaId));
+            ItemsEncomenda.Items.Clear();
+            ItemsEncomendaTransportes.Items.Clear();
+
+            try
+            {
+                if (cn.State != ConnectionState.Open)
+                {
+                    cn.Open();
+                }
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Item item = new Item
+                        {
+                            EncomendaCodigo = reader.GetInt32(0),
+                            ProdutoId = reader.GetInt32(1),
+                            Quantidade = reader.GetInt32(2),
+                            ProdutoNome = reader.GetString(3)
+                        };
+                        ItemsEncomendaTransportes.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load encomenda items: " + ex.Message);
+            }
+        }
+
+        private void LoadEncomendaItemsRetalhistas(int encomendaId)
         {
             string query = "SELECT Encomenda_Codigo, ProdutoCodigo, Quantidade, NomeProduto FROM AgroTrack.EncomendaItems WHERE Encomenda_Codigo = @Codigo";
             SqlCommand command = new SqlCommand(query, cn);
@@ -4929,7 +4955,6 @@ namespace AgroTrack
                             ProdutoNome = reader.GetString(3)
                         };
                         ItemsEncomenda.Items.Add(item);
-                        ItemsEncomendaTransportes.Items.Add(item);
                     }
                 }
             }
@@ -4938,6 +4963,7 @@ namespace AgroTrack
                 MessageBox.Show("Failed to load encomenda items: " + ex.Message);
             }
         }
+
 
         private void EncomendasEntrega_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -4949,7 +4975,7 @@ namespace AgroTrack
                 DataEntregaInicio.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
 
             }
-            LoadEncomendaItems(encomenda.Codigo);
+            LoadEncomendaItemsTransportes(encomenda.Codigo);
         }
 
         private void AddCompraProduto_SelectedIndexChanged(object sender, EventArgs e)
@@ -5144,9 +5170,52 @@ namespace AgroTrack
                 }
                 }
             }
+        private void AlterarDataEncomenda_Click(object sender, EventArgs e)
+        {
+            if (EncomendasEntrega.SelectedItem != null)
+            {
+                TransportesIdEmpresa.Hide();
+                TransportesTipo.Hide();
+                FiltrarPorDataTransportes.Hide();
+                EmpresaRetalhista.Hide();
+                OrigemTransportes.Hide();
+                DataEncomendaTransportes.Hide();
+                DataEntregaInicial.Hide();
+                DataEntregaInicio.Hide();
+                FiltrarRetalhistaTransportes.Hide();
+                QuintasTransportes.Hide();
+                AdicionarEmpresa.Hide();
+                EliminarEmpresaTransportes.Hide();
+                AlterarDataEncomenda.Show();
+                ConfirmarData.Show();
+                DataDeEntregaAtual.Show();
+                DataDeEntregaAtualBOX.Show();
+                NovaDataDeEntrega.Show();
+                NovaDataDeEntregaBOX.Show();
+
+
+                DataDeEntregaAtualBOX.ReadOnly = true;
+
+            }
+        }
+        private void ItemsEncomendaTransportes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Item item = ItemsEncomendaTransportes.SelectedItem as Item;
+            if (item != null)
+            {
+
+            }
+        }
         private void PrazoEncomendaRetalhista_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void EncomendaListaProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
     }
 }

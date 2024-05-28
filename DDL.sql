@@ -188,8 +188,6 @@ create table AgroTrack_Encomenda(
 	Empresa_De_Transportes_Id_Empresa	int,
 	Quinta_Empresa_Id	int,
 	PrecoTotal		    float,
-
-
 	PRIMARY KEY (Codigo)
 );
 

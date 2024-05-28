@@ -1260,60 +1260,7 @@ BEGIN
 END;
 
 
--- AddEncomendaRetalhistas
-IF OBJECT_ID('AgroTrack.AddEncomendaRetalhistas', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AddEncomendaRetalhistas;
 GO
-CREATE PROCEDURE AgroTrack.AddEncomendaRetalhistas
-    @Prazo_entrega INT,
-    @Morada_entrega VARCHAR(64),
-    @Entrega DATE,
-    @Retalhista_Empresa_Id_Empresa INT,
-    @Empresa_De_Transportes_Id_Empresa INT,
-    @Quinta_Empresa_Id INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    BEGIN TRY
-        DECLARE @Codigo INT;
-        SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
-        -- Insert the new Encomenda
-        INSERT INTO AgroTrack_Encomenda (
-            Codigo,
-            prazo_entrega,
-            Morada_entrega,
-            Entrega,
-            Retalhista_Empresa_Id_Empresa,
-            Empresa_De_Transportes_Id_Empresa,
-            Quinta_Empresa_Id
-        )
-        VALUES (
-            @Codigo,
-            @Prazo_entrega,
-            @Morada_entrega,
-            @Entrega,
-            @Retalhista_Empresa_Id_Empresa,
-            @Empresa_De_Transportes_Id_Empresa,
-            @Quinta_Empresa_Id
-        );
-
-        PRINT 'Encomenda added successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Handle errors
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH
-END;
 
 IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
     DROP PROCEDURE RemovePlantFromQuinta;
@@ -1677,9 +1624,6 @@ BEGIN
     PRINT 'Novo produto adicionado com sucesso.';
 END
 GO
-
-
-
 
 IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
     DROP PROCEDURE AddProdutoToQuinta;
@@ -2778,7 +2722,6 @@ GO
 CREATE PROCEDURE AgroTrack.AddEncomendaRetalhistas
     @Prazo_entrega INT,
     @Morada_entrega VARCHAR(64),
-    @Entrega DATE,
     @Retalhista_Empresa_Id_Empresa INT,
     @Empresa_De_Transportes_Id_Empresa INT,
     @Quinta_Empresa_Id INT
@@ -2794,7 +2737,6 @@ BEGIN
             Codigo,
             prazo_entrega,
             Morada_entrega,
-            Entrega,
             Retalhista_Empresa_Id_Empresa,
             Empresa_De_Transportes_Id_Empresa,
             Quinta_Empresa_Id
@@ -2803,7 +2745,6 @@ BEGIN
             @Codigo,
             @Prazo_entrega,
             @Morada_entrega,
-            @Entrega,
             @Retalhista_Empresa_Id_Empresa,
             @Empresa_De_Transportes_Id_Empresa,
             @Quinta_Empresa_Id
@@ -3014,8 +2955,8 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
-
-IF OBJECT _ID('AgroTrack.OrdenarProdutos', 'P') IS NOT NULL
+go
+IF OBJECT_ID('AgroTrack.OrdenarProdutos', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.OrdenarProdutos;
 GO
 CREATE PROCEDURE AgroTrack.OrdenarProdutos
