@@ -229,6 +229,8 @@
             Retalhistas = new TabPage();
             ItemsEncomenda = new ListBox();
             EncomendaListaProdutos = new DataGridView();
+            productColumn = new DataGridViewComboBoxColumn();
+            quantityColumn = new DataGridViewTextBoxColumn();
             QuintaEncoemndaRetalhistaBox = new ComboBox();
             EmpresaDeTransporteEncoemndaRetalhistaBox = new ComboBox();
             DataRetalhistaEncoemndabOX = new ComboBox();
@@ -308,8 +310,6 @@
             label14 = new Label();
             ListaProdutos = new ListBox();
             produtosOnlyNameBindingSource = new BindingSource(components);
-            productColumn = new DataGridViewComboBoxColumn();
-            quantityColumn = new DataGridViewTextBoxColumn();
             OrdenarPor.SuspendLayout();
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AddCompraQuantidade).BeginInit();
@@ -942,9 +942,9 @@
             // 
             SelectQuintaAddAgricultor.DropDownStyle = ComboBoxStyle.DropDownList;
             SelectQuintaAddAgricultor.FormattingEnabled = true;
-            SelectQuintaAddAgricultor.Location = new Point(487, 204);
+            SelectQuintaAddAgricultor.Location = new Point(457, 204);
             SelectQuintaAddAgricultor.Name = "SelectQuintaAddAgricultor";
-            SelectQuintaAddAgricultor.Size = new Size(309, 33);
+            SelectQuintaAddAgricultor.Size = new Size(339, 33);
             SelectQuintaAddAgricultor.TabIndex = 55;
             // 
             // label8
@@ -992,16 +992,16 @@
             // 
             ColheuProduto.DropDownStyle = ComboBoxStyle.DropDownList;
             ColheuProduto.FormattingEnabled = true;
-            ColheuProduto.Location = new Point(406, 305);
+            ColheuProduto.Location = new Point(376, 305);
             ColheuProduto.Name = "ColheuProduto";
-            ColheuProduto.Size = new Size(207, 33);
+            ColheuProduto.Size = new Size(237, 33);
             ColheuProduto.TabIndex = 47;
             ColheuProduto.SelectedIndexChanged += ColheuProduto_SelectedIndexChanged_1;
             // 
             // label36
             // 
             label36.AutoSize = true;
-            label36.Location = new Point(406, 277);
+            label36.Location = new Point(376, 274);
             label36.Name = "label36";
             label36.Size = new Size(141, 25);
             label36.TabIndex = 46;
@@ -1115,7 +1115,7 @@
             // QuintaDoAgricultor
             // 
             QuintaDoAgricultor.AutoSize = true;
-            QuintaDoAgricultor.Location = new Point(406, 207);
+            QuintaDoAgricultor.Location = new Point(393, 207);
             QuintaDoAgricultor.Name = "QuintaDoAgricultor";
             QuintaDoAgricultor.Size = new Size(69, 25);
             QuintaDoAgricultor.TabIndex = 33;
@@ -1131,7 +1131,7 @@
             // label32
             // 
             label32.AutoSize = true;
-            label32.Location = new Point(406, 153);
+            label32.Location = new Point(393, 153);
             label32.Name = "label32";
             label32.Size = new Size(108, 25);
             label32.TabIndex = 31;
@@ -1140,9 +1140,9 @@
             // 
             // AgricultorNumeroCC
             // 
-            AgricultorNumeroCC.Location = new Point(515, 150);
+            AgricultorNumeroCC.Location = new Point(501, 150);
             AgricultorNumeroCC.Name = "AgricultorNumeroCC";
-            AgricultorNumeroCC.Size = new Size(281, 31);
+            AgricultorNumeroCC.Size = new Size(295, 31);
             AgricultorNumeroCC.TabIndex = 30;
             // 
             // ListaColheitas
@@ -1152,7 +1152,7 @@
             ListaColheitas.ItemHeight = 14;
             ListaColheitas.Location = new Point(650, 263);
             ListaColheitas.Name = "ListaColheitas";
-            ListaColheitas.Size = new Size(475, 242);
+            ListaColheitas.Size = new Size(491, 242);
             ListaColheitas.TabIndex = 29;
             ListaColheitas.SelectedIndexChanged += ListaColheitas_SelectedIndexChanged;
             // 
@@ -1195,9 +1195,9 @@
             // 
             // AgricultorContacto
             // 
-            AgricultorContacto.Location = new Point(487, 92);
+            AgricultorContacto.Location = new Point(474, 92);
             AgricultorContacto.Name = "AgricultorContacto";
-            AgricultorContacto.Size = new Size(309, 31);
+            AgricultorContacto.Size = new Size(322, 31);
             AgricultorContacto.TabIndex = 21;
             // 
             // AgricultorNome
@@ -1228,7 +1228,6 @@
             // Quintas
             // 
             Quintas.Controls.Add(QuintaNumeroProdutosLabel);
-            Quintas.Controls.Add(QuintaNumeroProdutos);
             Quintas.Controls.Add(Confirmar);
             Quintas.Controls.Add(AlterarNumero);
             Quintas.Controls.Add(AlterarQuantidadeQuinta);
@@ -2373,13 +2372,27 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
-            EncomendaListaProdutos.Location = new Point(43, 337);
+            EncomendaListaProdutos.Location = new Point(39, 384);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
             EncomendaListaProdutos.Size = new Size(1085, 209);
             EncomendaListaProdutos.TabIndex = 96;
             EncomendaListaProdutos.CellContentClick += EncomendaListaProdutos_CellContentClick;
             EncomendaListaProdutos.DataError += EncomendaListaProdutos_DataError;
+            // 
+            // productColumn
+            // 
+            productColumn.HeaderText = "Produtos";
+            productColumn.MinimumWidth = 8;
+            productColumn.Name = "productColumn";
+            productColumn.Width = 800;
+            // 
+            // quantityColumn
+            // 
+            quantityColumn.HeaderText = "Quantidade";
+            quantityColumn.MinimumWidth = 8;
+            quantityColumn.Name = "quantityColumn";
+            quantityColumn.Width = 300;
             // 
             // QuintaEncoemndaRetalhistaBox
             // 
@@ -2493,7 +2506,7 @@
             // 
             // EliminarRetalhista
             // 
-            EliminarRetalhista.Location = new Point(225, 499);
+            EliminarRetalhista.Location = new Point(217, 499);
             EliminarRetalhista.Name = "EliminarRetalhista";
             EliminarRetalhista.Size = new Size(186, 34);
             EliminarRetalhista.TabIndex = 64;
@@ -2503,7 +2516,7 @@
             // 
             // CancelarEncoemendRetalhistas
             // 
-            CancelarEncoemendRetalhistas.Location = new Point(225, 539);
+            CancelarEncoemendRetalhistas.Location = new Point(217, 539);
             CancelarEncoemendRetalhistas.Name = "CancelarEncoemendRetalhistas";
             CancelarEncoemendRetalhistas.Size = new Size(186, 34);
             CancelarEncoemendRetalhistas.TabIndex = 63;
@@ -2513,7 +2526,7 @@
             // 
             // AdicionarEncomendasRetalhista
             // 
-            AdicionarEncomendasRetalhista.Location = new Point(15, 539);
+            AdicionarEncomendasRetalhista.Location = new Point(9, 539);
             AdicionarEncomendasRetalhista.Name = "AdicionarEncomendasRetalhista";
             AdicionarEncomendasRetalhista.Size = new Size(204, 34);
             AdicionarEncomendasRetalhista.TabIndex = 62;
@@ -2523,7 +2536,7 @@
             // 
             // AdicionarRetalhistas
             // 
-            AdicionarRetalhistas.Location = new Point(15, 499);
+            AdicionarRetalhistas.Location = new Point(9, 499);
             AdicionarRetalhistas.Name = "AdicionarRetalhistas";
             AdicionarRetalhistas.Size = new Size(204, 34);
             AdicionarRetalhistas.TabIndex = 61;
@@ -3135,20 +3148,6 @@
             // produtosOnlyNameBindingSource
             // 
             produtosOnlyNameBindingSource.DataSource = typeof(ProdutosOnlyName);
-            // 
-            // productColumn
-            // 
-            productColumn.HeaderText = "Produtos";
-            productColumn.MinimumWidth = 8;
-            productColumn.Name = "productColumn";
-            productColumn.Width = 800;
-            // 
-            // quantityColumn
-            // 
-            quantityColumn.HeaderText = "Quantidade";
-            quantityColumn.MinimumWidth = 8;
-            quantityColumn.Name = "quantityColumn";
-            quantityColumn.Width = 300;
             // 
             // AgroTrack
             // 
