@@ -213,15 +213,18 @@ BEGIN
     
     IF EXISTS (SELECT 1 FROM AgroTrack_Contem WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId)
     BEGIN
-        -- Atualiza o registo existente com a nova quantidade
         UPDATE AgroTrack_Contem
         SET Quantidade = Quantidade + @Quantidade, 
             Data_de_validade = @DataDeValidade
         WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId;
     END
     ELSE
-    INSERT INTO AgroTrack_Contem (Produto_Codigo, Quinta_Empresa_Id_Empresa, Quantidade, Data_de_validade)
-    VALUES (@ProdutoId, @QuintaId, @Quantidade, @DataDeValidade);
+    BEGIN
+        INSERT INTO AgroTrack_Contem (Produto_Codigo, Quinta_Empresa_Id_Empresa, Quantidade, Data_de_validade)
+        VALUES (@ProdutoId, @QuintaId, @Quantidade, @DataDeValidade);
+    END
+
+    COMMIT TRANSACTION;
 
     PRINT 'Novo produto adicionado à Quinta com sucesso.';
 END;
