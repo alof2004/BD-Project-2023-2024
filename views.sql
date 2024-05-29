@@ -112,6 +112,18 @@ create view AgroTrack.ClienteCompra as
 	inner join AgroTrack_Produto as Pro on Com.Produto_codigo=Pro.Codigo)
 go
 
+--clientes e compra e produtos e quinta e empresa
+drop view IF EXISTS AgroTrack.ClienteCompraQuinta
+go
+create view AgroTrack.ClienteCompraQuinta as
+	select Cli.Pessoa_N_CartaoCidadao, Com.ID_Quinta, Com.Produto_codigo, Com.Quantidade, Com.Preco, Com.Metodo_de_pagamento,Pro.Nome, Pro.Tipo_de_Produto, Com.DataCompra, Q.Empresa_Id_Empresa, E.Nome as QuintaN, E.Morada, E.Contacto
+	from  (((AgroTrack_Cliente as Cli
+	join AgroTrack_Compra as Com on Cli.Pessoa_N_CartaoCidadao=Com.Cliente_Pessoa_N_CartaoCidadao)
+	inner join AgroTrack_Produto as Pro on Com.Produto_codigo=Pro.Codigo)
+	inner join AgroTrack_Quinta as Q on Com.ID_Quinta=Q.Empresa_Id_Empresa)
+	inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa
+go
+
 --Produto
 drop view IF EXISTS AgroTrack.Produto
 go

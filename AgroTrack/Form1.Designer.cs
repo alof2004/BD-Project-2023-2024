@@ -653,6 +653,7 @@
             ListaCompras.Name = "ListaCompras";
             ListaCompras.Size = new Size(548, 254);
             ListaCompras.TabIndex = 59;
+            ListaCompras.SelectedIndexChanged += ListaCompras_SelectedIndexChanged;
             // 
             // LabelContactoCliente
             // 

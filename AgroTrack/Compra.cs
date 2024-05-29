@@ -14,13 +14,14 @@ public class Compra
     public string Metodo_de_pagamento { get; set; }
 
     public string Nome { get; set; }
+    public string QuintaNome { get; set; }
 
 
-    public Compra(){
+        public Compra(){
 
     }
 
-    public Compra(int codigo, DateTime dataCompra, int quantidade, double preco, int pessoa_N_CartaoCidadao, string tipo_de_Produto, int iD_Quinta, int produto_codigo, string metodo_de_pagamento, string nome)
+    public Compra(int codigo, DateTime dataCompra, int quantidade, double preco, int pessoa_N_CartaoCidadao, string tipo_de_Produto, int iD_Quinta, int produto_codigo, string metodo_de_pagamento, string nome, string quintaNome)
         {
             Codigo = codigo;
             DataCompra = dataCompra;
@@ -32,11 +33,12 @@ public class Compra
             Produto_codigo = produto_codigo;
             Metodo_de_pagamento = metodo_de_pagamento;
             Nome = nome;
+            QuintaNome = quintaNome;
         }
 
         public override string ToString()
         {
-            return Quantidade + " "  + Nome + " - " + DataCompra.Day +"/" + DataCompra.Month +"/" + DataCompra.Year + " - " + Preco + "€ - QuintaID " + ID_Quinta + " - Pagamento - " + Metodo_de_pagamento;
+            return Quantidade + " "  + Nome + " - " + DataCompra.Day +"/" + DataCompra.Month +"/" + DataCompra.Year + " - " + Preco + "€ - " + QuintaNome + " - Pagamento - " + Metodo_de_pagamento;
         }
 
 
