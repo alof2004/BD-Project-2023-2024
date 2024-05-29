@@ -2613,7 +2613,7 @@ namespace AgroTrack
         }
         private void LoadCompras(int cartaoCC)
         {
-            string query = "SELECT Pessoa_N_CartaoCidadao, DataCompra, ID_Quinta, Produto_codigo, Quantidade, Preco, Metodo_de_pagamento, Nome, Tipo_de_Produto FROM AgroTrack.ClienteCompra WHERE Pessoa_N_CartaoCidadao = @CartaoCC;";
+            string query = "SELECT Pessoa_N_CartaoCidadao, ID_Quinta, Produto_codigo, Quantidade, Preco, Metodo_de_pagamento,Nome, Tipo_de_Produto, DataCompra, Empresa_Id_Empresa,QuintaN, Morada, Contacto FROM AgroTrack.ClienteCompraQuinta WHERE Pessoa_N_CartaoCidadao = @CartaoCC;";
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@CartaoCC", cartaoCC);
 
@@ -2630,10 +2630,11 @@ namespace AgroTrack
                         DataCompra = (DateTime)reader["DataCompra"],
                         Produto_codigo = (int)reader["Produto_codigo"],
                         Quantidade = (int)reader["Quantidade"],
-                        Preco = (double)reader["Preco"],
+                        Preco = Math.Round((double)reader["Preco"], 2),
                         Metodo_de_pagamento = reader["Metodo_de_pagamento"].ToString(),
                         Nome = reader["Nome"].ToString(),
-                        Tipo_de_Produto = reader["Tipo_de_Produto"].ToString()
+                        Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
+                        QuintaNome = reader["QuintaN"].ToString(),
                     };
                     ListaCompras.Items.Add(compra);
                 }
@@ -5523,6 +5524,11 @@ namespace AgroTrack
         }
 
         private void AddPlantaLote_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListaCompras_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
