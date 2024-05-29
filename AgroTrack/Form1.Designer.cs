@@ -1944,7 +1944,7 @@
             // 
             // ConfirmarData
             // 
-            ConfirmarData.Location = new Point(452, 551);
+            ConfirmarData.Location = new Point(450, 551);
             ConfirmarData.Name = "ConfirmarData";
             ConfirmarData.Size = new Size(631, 34);
             ConfirmarData.TabIndex = 100;
@@ -2363,7 +2363,7 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
-            EncomendaListaProdutos.Location = new Point(39, 337);
+            EncomendaListaProdutos.Location = new Point(56, 111);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
             EncomendaListaProdutos.Size = new Size(1085, 209);
