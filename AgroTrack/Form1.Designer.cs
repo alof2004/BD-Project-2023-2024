@@ -1147,12 +1147,11 @@
             // 
             // ListaColheitas
             // 
-            ListaColheitas.Font = new Font("Segoe Fluent Icons", 7F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ListaColheitas.Font = new Font("Segoe Fluent Icons", 12F);
             ListaColheitas.FormattingEnabled = true;
-            ListaColheitas.ItemHeight = 14;
             ListaColheitas.Location = new Point(650, 263);
             ListaColheitas.Name = "ListaColheitas";
-            ListaColheitas.Size = new Size(491, 242);
+            ListaColheitas.Size = new Size(491, 220);
             ListaColheitas.TabIndex = 29;
             ListaColheitas.SelectedIndexChanged += ListaColheitas_SelectedIndexChanged;
             // 
