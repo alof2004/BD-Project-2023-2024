@@ -3810,6 +3810,8 @@ namespace AgroTrack
             FiltrarPorProdutoQuinta.Hide();
             FilterByPlantQuinta.Hide();
             FilterByAnimalQuinta.Hide();
+            AdicionarQuinta.Hide();
+            AdicionarPlanta.Hide();
             buttonLimparPesquisaQuinta.Hide();
             label48.Hide();
             label49.Hide();
@@ -3892,6 +3894,8 @@ namespace AgroTrack
                     AddProdutoToQuintaIDLabel.Hide();
                     AddProdutoToQuintaSubmit.Hide();
                     label48.Show();
+                    AdicionarQuinta.Show();
+                    AdicionarPlanta.Show();
                     label49.Show();
                     label41.Show();
                     label47.Show();
@@ -3939,6 +3943,7 @@ namespace AgroTrack
                 {
                     command.ExecuteNonQuery();
                     MessageBox.Show("Produto adicionado à quinta com sucesso!");
+                    loadProdutosQuinta(quintaId);
                 }
                 catch (Exception ex)
                 {
