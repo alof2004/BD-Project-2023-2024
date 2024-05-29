@@ -230,8 +230,6 @@ BEGIN
 END;
 GO
 
-
-
 IF OBJECT_ID('AgroTrack.AddEncomenda', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddEncomenda;
 GO

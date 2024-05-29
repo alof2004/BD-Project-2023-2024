@@ -2,7 +2,6 @@
 use p8g3;
 
 drop index IF EXISTS searchEmpresaNome on AgroTrack_Empresa;
-drop index IF EXISTS searchEmpresaMorada on AgroTrack_Empresa;
 drop index IF EXISTS searchEmpresa_Id_Empresa on AgroTrack_Empresa;
 drop index IF EXISTS searchCliente on AgroTrack_Cliente;
 drop index IF EXISTS searchAgricultorId on AgroTrack_Agricultor;
@@ -16,6 +15,7 @@ drop index IF EXISTS seacrhContractStartDate on AgroTrack_Contrato;
 drop index IF EXISTS searchContractEndDate on AgroTrack_Contrato;
 drop index IF EXISTS searchContractSalary on AgroTrack_Contrato;
 drop index IF EXISTS searchEncomendaCodigo on AgroTrack_Encomenda;
+drop index IF EXISTS searchEncomendaData on AgroTrack_Encomenda;
 
 -- Criacao de indexes na tabela AgroTrack_Empresa
 create index searchEmpresa_Id_Empresa on AgroTrack_Empresa (Id_Empresa);

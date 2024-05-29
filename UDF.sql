@@ -29,7 +29,6 @@ RETURN
 );
 GO
 
-
 DROP FUNCTION IF EXISTS AgroTrack.FilterFarmByProduct;
 GO
 CREATE FUNCTION AgroTrack.FilterFarmByProduct(@ProductId INT)
