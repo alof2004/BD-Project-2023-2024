@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgroTrack));
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
@@ -396,7 +396,7 @@
             // 
             SubmeterCompra.Location = new Point(6, 345);
             SubmeterCompra.Name = "SubmeterCompra";
-            SubmeterCompra.Size = new Size(357, 47);
+            SubmeterCompra.Size = new Size(500, 47);
             SubmeterCompra.TabIndex = 90;
             SubmeterCompra.Text = "Submeter Compra";
             SubmeterCompra.UseVisualStyleBackColor = true;
@@ -406,7 +406,7 @@
             // 
             AddCompraData.Location = new Point(172, 303);
             AddCompraData.Name = "AddCompraData";
-            AddCompraData.Size = new Size(191, 31);
+            AddCompraData.Size = new Size(334, 31);
             AddCompraData.TabIndex = 89;
             // 
             // AddCompraDataLabel
@@ -429,19 +429,19 @@
             // 
             // AddCompraMetodo
             // 
+            AddCompraMetodo.DropDownStyle = ComboBoxStyle.DropDownList;
             AddCompraMetodo.FormattingEnabled = true;
             AddCompraMetodo.Items.AddRange(new object[] { "MBWay", "Dinheiro", "Cartão de crédito" });
             AddCompraMetodo.Location = new Point(225, 263);
             AddCompraMetodo.Name = "AddCompraMetodo";
-            AddCompraMetodo.Size = new Size(138, 33);
+            AddCompraMetodo.Size = new Size(281, 33);
             AddCompraMetodo.TabIndex = 86;
-            AddCompraMetodo.Text = "Método:";
             // 
             // AddCompraQuantidade
             // 
             AddCompraQuantidade.Location = new Point(134, 226);
             AddCompraQuantidade.Name = "AddCompraQuantidade";
-            AddCompraQuantidade.Size = new Size(229, 31);
+            AddCompraQuantidade.Size = new Size(372, 31);
             AddCompraQuantidade.TabIndex = 85;
             // 
             // AddCompraQuantidadeLabel
@@ -455,13 +455,13 @@
             // 
             // AddCompraCliente
             // 
+            AddCompraCliente.DropDownStyle = ComboBoxStyle.DropDownList;
             AddCompraCliente.FormattingEnabled = true;
             AddCompraCliente.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
             AddCompraCliente.Location = new Point(94, 96);
             AddCompraCliente.Name = "AddCompraCliente";
-            AddCompraCliente.Size = new Size(269, 33);
+            AddCompraCliente.Size = new Size(412, 33);
             AddCompraCliente.TabIndex = 83;
-            AddCompraCliente.Text = "Seleciona um cliente:";
             // 
             // AddCompraClienteLabel
             // 
@@ -475,7 +475,7 @@
             // AddCompraQuintaLabel
             // 
             AddCompraQuintaLabel.AutoSize = true;
-            AddCompraQuintaLabel.Location = new Point(19, 186);
+            AddCompraQuintaLabel.Location = new Point(19, 150);
             AddCompraQuintaLabel.Name = "AddCompraQuintaLabel";
             AddCompraQuintaLabel.Size = new Size(69, 25);
             AddCompraQuintaLabel.TabIndex = 81;
@@ -483,18 +483,19 @@
             // 
             // AddCompraQuinta
             // 
+            AddCompraQuinta.DropDownStyle = ComboBoxStyle.DropDownList;
             AddCompraQuinta.FormattingEnabled = true;
             AddCompraQuinta.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            AddCompraQuinta.Location = new Point(94, 183);
+            AddCompraQuinta.Location = new Point(94, 148);
             AddCompraQuinta.Name = "AddCompraQuinta";
-            AddCompraQuinta.Size = new Size(269, 33);
+            AddCompraQuinta.Size = new Size(412, 33);
             AddCompraQuinta.TabIndex = 80;
-            AddCompraQuinta.Text = "Seleciona uma quinta:";
+            AddCompraQuinta.SelectedIndexChanged += AddCompraQuinta_SelectedIndexChanged;
             // 
             // AddCompraProdutoLabel
             // 
             AddCompraProdutoLabel.AutoSize = true;
-            AddCompraProdutoLabel.Location = new Point(19, 147);
+            AddCompraProdutoLabel.Location = new Point(19, 190);
             AddCompraProdutoLabel.Name = "AddCompraProdutoLabel";
             AddCompraProdutoLabel.Size = new Size(81, 25);
             AddCompraProdutoLabel.TabIndex = 79;
@@ -502,13 +503,13 @@
             // 
             // AddCompraProduto
             // 
+            AddCompraProduto.DropDownStyle = ComboBoxStyle.DropDownList;
             AddCompraProduto.FormattingEnabled = true;
             AddCompraProduto.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            AddCompraProduto.Location = new Point(106, 144);
+            AddCompraProduto.Location = new Point(106, 187);
             AddCompraProduto.Name = "AddCompraProduto";
-            AddCompraProduto.Size = new Size(257, 33);
+            AddCompraProduto.Size = new Size(400, 33);
             AddCompraProduto.TabIndex = 78;
-            AddCompraProduto.Text = "Seleciona um produto";
             AddCompraProduto.SelectedIndexChanged += AddCompraProduto_SelectedIndexChanged;
             // 
             // SubmeterCliente
@@ -523,19 +524,19 @@
             // 
             // ComprouProduto
             // 
+            ComprouProduto.DropDownStyle = ComboBoxStyle.DropDownList;
             ComprouProduto.FormattingEnabled = true;
             ComprouProduto.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            ComprouProduto.Location = new Point(398, 340);
+            ComprouProduto.Location = new Point(385, 337);
             ComprouProduto.Name = "ComprouProduto";
             ComprouProduto.Size = new Size(207, 33);
             ComprouProduto.TabIndex = 76;
-            ComprouProduto.Text = "Seleciona um produto";
             ComprouProduto.SelectedIndexChanged += ComprouProduto_SelectedIndexChanged;
             // 
             // label37
             // 
             label37.AutoSize = true;
-            label37.Location = new Point(397, 312);
+            label37.Location = new Point(384, 309);
             label37.Name = "label37";
             label37.Size = new Size(162, 25);
             label37.TabIndex = 75;
@@ -573,7 +574,7 @@
             // 
             // NumeroComprasCliente
             // 
-            NumeroComprasCliente.Location = new Point(397, 533);
+            NumeroComprasCliente.Location = new Point(384, 530);
             NumeroComprasCliente.Name = "NumeroComprasCliente";
             NumeroComprasCliente.Size = new Size(207, 31);
             NumeroComprasCliente.TabIndex = 70;
@@ -582,7 +583,7 @@
             // label38
             // 
             label38.AutoSize = true;
-            label38.Location = new Point(397, 505);
+            label38.Location = new Point(384, 502);
             label38.Name = "label38";
             label38.Size = new Size(211, 25);
             label38.TabIndex = 69;
@@ -593,7 +594,7 @@
             // 
             ComprouQuinta.FormattingEnabled = true;
             ComprouQuinta.Items.AddRange(new object[] { "DHL", "CTT", "GLS", "DPD", "PAACH" });
-            ComprouQuinta.Location = new Point(397, 434);
+            ComprouQuinta.Location = new Point(384, 431);
             ComprouQuinta.Name = "ComprouQuinta";
             ComprouQuinta.Size = new Size(207, 33);
             ComprouQuinta.TabIndex = 68;
@@ -603,7 +604,7 @@
             // label39
             // 
             label39.AutoSize = true;
-            label39.Location = new Point(398, 406);
+            label39.Location = new Point(385, 403);
             label39.Name = "label39";
             label39.Size = new Size(171, 25);
             label39.TabIndex = 67;
@@ -652,9 +653,9 @@
             // 
             ListaCompras.FormattingEnabled = true;
             ListaCompras.ItemHeight = 25;
-            ListaCompras.Location = new Point(615, 262);
+            ListaCompras.Location = new Point(597, 263);
             ListaCompras.Name = "ListaCompras";
-            ListaCompras.Size = new Size(518, 254);
+            ListaCompras.Size = new Size(548, 254);
             ListaCompras.TabIndex = 59;
             // 
             // LabelContactoCliente
@@ -832,12 +833,12 @@
             // 
             // AddColheitaProdutosLista
             // 
+            AddColheitaProdutosLista.DropDownStyle = ComboBoxStyle.DropDownList;
             AddColheitaProdutosLista.FormattingEnabled = true;
             AddColheitaProdutosLista.Location = new Point(129, 145);
             AddColheitaProdutosLista.Name = "AddColheitaProdutosLista";
             AddColheitaProdutosLista.Size = new Size(322, 33);
             AddColheitaProdutosLista.TabIndex = 69;
-            AddColheitaProdutosLista.Text = "Seleciona um produto:";
             AddColheitaProdutosLista.SelectedIndexChanged += AddColheitaProdutosLista_SelectedIndexChanged;
             // 
             // AddColheitaProduto
@@ -883,12 +884,12 @@
             // 
             // AddColheitaListaAgricultores
             // 
+            AddColheitaListaAgricultores.DropDownStyle = ComboBoxStyle.DropDownList;
             AddColheitaListaAgricultores.FormattingEnabled = true;
             AddColheitaListaAgricultores.Location = new Point(142, 56);
             AddColheitaListaAgricultores.Name = "AddColheitaListaAgricultores";
             AddColheitaListaAgricultores.Size = new Size(309, 33);
             AddColheitaListaAgricultores.TabIndex = 63;
-            AddColheitaListaAgricultores.Text = "Seleciona um agricultor:";
             // 
             // AddColheitaAgricultor
             // 
@@ -943,12 +944,12 @@
             // 
             // SelectQuintaAddAgricultor
             // 
+            SelectQuintaAddAgricultor.DropDownStyle = ComboBoxStyle.DropDownList;
             SelectQuintaAddAgricultor.FormattingEnabled = true;
             SelectQuintaAddAgricultor.Location = new Point(487, 204);
             SelectQuintaAddAgricultor.Name = "SelectQuintaAddAgricultor";
             SelectQuintaAddAgricultor.Size = new Size(309, 33);
             SelectQuintaAddAgricultor.TabIndex = 55;
-            SelectQuintaAddAgricultor.Text = "Seleciona uma quinta";
             // 
             // label8
             // 
@@ -993,12 +994,13 @@
             // 
             // ColheuProduto
             // 
+            ColheuProduto.DropDownStyle = ComboBoxStyle.DropDownList;
             ColheuProduto.FormattingEnabled = true;
             ColheuProduto.Location = new Point(406, 305);
             ColheuProduto.Name = "ColheuProduto";
             ColheuProduto.Size = new Size(207, 33);
             ColheuProduto.TabIndex = 47;
-            ColheuProduto.Text = "Seleciona um produto";
+            ColheuProduto.SelectedIndexChanged += ColheuProduto_SelectedIndexChanged_1;
             // 
             // label36
             // 
@@ -1068,12 +1070,13 @@
             // 
             // TrabalhaQuinta
             // 
+            TrabalhaQuinta.DropDownStyle = ComboBoxStyle.DropDownList;
             TrabalhaQuinta.FormattingEnabled = true;
             TrabalhaQuinta.Location = new Point(376, 407);
             TrabalhaQuinta.Name = "TrabalhaQuinta";
             TrabalhaQuinta.Size = new Size(237, 33);
             TrabalhaQuinta.TabIndex = 38;
-            TrabalhaQuinta.Text = "Seleciona uma quinta";
+            TrabalhaQuinta.SelectedIndexChanged += TrabalhaQuinta_SelectedIndexChanged_1;
             // 
             // label34
             // 
@@ -1090,7 +1093,7 @@
             OrdenarAgricultores.Items.AddRange(new object[] { "Nome (crescente)", "Nome (decrescente)", "ID (crescente)", "ID (decrescente)", "Salário (crescente)", "Salário (decrescente)" });
             OrdenarAgricultores.Location = new Point(27, 397);
             OrdenarAgricultores.Name = "OrdenarAgricultores";
-            OrdenarAgricultores.Size = new Size(332, 172);
+            OrdenarAgricultores.Size = new Size(343, 172);
             OrdenarAgricultores.TabIndex = 36;
             OrdenarAgricultores.ItemCheck += OrdenarAgricultores_ItemCheck;
             OrdenarAgricultores.SelectedIndexChanged += OrdenarAgricultores_SelectedIndexChanged;
@@ -1148,11 +1151,12 @@
             // 
             // ListaColheitas
             // 
+            ListaColheitas.Font = new Font("Segoe Fluent Icons", 7F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ListaColheitas.FormattingEnabled = true;
-            ListaColheitas.ItemHeight = 25;
+            ListaColheitas.ItemHeight = 14;
             ListaColheitas.Location = new Point(650, 263);
             ListaColheitas.Name = "ListaColheitas";
-            ListaColheitas.Size = new Size(475, 254);
+            ListaColheitas.Size = new Size(475, 242);
             ListaColheitas.TabIndex = 29;
             ListaColheitas.SelectedIndexChanged += ListaColheitas_SelectedIndexChanged;
             // 
@@ -1169,7 +1173,7 @@
             // 
             button14.Location = new Point(27, 72);
             button14.Name = "button14";
-            button14.Size = new Size(359, 34);
+            button14.Size = new Size(343, 34);
             button14.TabIndex = 25;
             button14.Text = "Limpar";
             button14.UseVisualStyleBackColor = true;
@@ -1211,7 +1215,7 @@
             // 
             textBox18.Location = new Point(27, 35);
             textBox18.Name = "textBox18";
-            textBox18.Size = new Size(359, 31);
+            textBox18.Size = new Size(343, 31);
             textBox18.TabIndex = 19;
             textBox18.TextChanged += textBox18_TextChanged;
             // 
@@ -1221,7 +1225,7 @@
             ListaAgricultores.ItemHeight = 25;
             ListaAgricultores.Location = new Point(27, 112);
             ListaAgricultores.Name = "ListaAgricultores";
-            ListaAgricultores.Size = new Size(359, 254);
+            ListaAgricultores.Size = new Size(343, 254);
             ListaAgricultores.TabIndex = 16;
             ListaAgricultores.SelectedIndexChanged += ListaAgricultores_SelectedIndexChanged;
             // 
@@ -1527,12 +1531,12 @@
             // 
             // AddProdutoToQuintaID
             // 
+            AddProdutoToQuintaID.DropDownStyle = ComboBoxStyle.DropDownList;
             AddProdutoToQuintaID.FormattingEnabled = true;
             AddProdutoToQuintaID.Location = new Point(98, 99);
             AddProdutoToQuintaID.Name = "AddProdutoToQuintaID";
             AddProdutoToQuintaID.Size = new Size(281, 33);
             AddProdutoToQuintaID.TabIndex = 54;
-            AddProdutoToQuintaID.Text = "Seleciona uma quinta";
             // 
             // AdicionarPlanta
             // 
@@ -1555,12 +1559,12 @@
             // 
             // AddProdutoToQuintaProdutoID
             // 
+            AddProdutoToQuintaProdutoID.DropDownStyle = ComboBoxStyle.DropDownList;
             AddProdutoToQuintaProdutoID.FormattingEnabled = true;
             AddProdutoToQuintaProdutoID.Location = new Point(117, 60);
             AddProdutoToQuintaProdutoID.Name = "AddProdutoToQuintaProdutoID";
             AddProdutoToQuintaProdutoID.Size = new Size(262, 33);
             AddProdutoToQuintaProdutoID.TabIndex = 50;
-            AddProdutoToQuintaProdutoID.Text = "Selecione um produto";
             // 
             // AddProdutoToQuintaProdutoIDLabel
             // 
@@ -1633,13 +1637,13 @@
             // 
             // FilterByPlantQuinta
             // 
+            FilterByPlantQuinta.DropDownStyle = ComboBoxStyle.DropDownList;
             FilterByPlantQuinta.FormattingEnabled = true;
             FilterByPlantQuinta.Items.AddRange(new object[] { "" });
             FilterByPlantQuinta.Location = new Point(385, 291);
             FilterByPlantQuinta.Name = "FilterByPlantQuinta";
             FilterByPlantQuinta.Size = new Size(209, 33);
             FilterByPlantQuinta.TabIndex = 42;
-            FilterByPlantQuinta.Text = "Selecione uma planta";
             FilterByPlantQuinta.SelectedIndexChanged += FilterByPlantQuinta_SelectedIndexChanged;
             // 
             // label49
@@ -1670,12 +1674,12 @@
             // 
             // FilterByAnimalQuinta
             // 
+            FilterByAnimalQuinta.DropDownStyle = ComboBoxStyle.DropDownList;
             FilterByAnimalQuinta.FormattingEnabled = true;
             FilterByAnimalQuinta.Location = new Point(385, 365);
             FilterByAnimalQuinta.Name = "FilterByAnimalQuinta";
             FilterByAnimalQuinta.Size = new Size(209, 33);
             FilterByAnimalQuinta.TabIndex = 38;
-            FilterByAnimalQuinta.Text = "Selecione um animal:";
             FilterByAnimalQuinta.SelectedIndexChanged += FilterByAnimalQuinta_SelectedIndexChanged;
             // 
             // label47
@@ -1694,7 +1698,6 @@
             FiltrarPorProdutoQuinta.Name = "FiltrarPorProdutoQuinta";
             FiltrarPorProdutoQuinta.Size = new Size(209, 33);
             FiltrarPorProdutoQuinta.TabIndex = 36;
-            FiltrarPorProdutoQuinta.Text = "Selecione um produto";
             FiltrarPorProdutoQuinta.SelectedIndexChanged += FiltrarPorProdutoQuinta_SelectedIndexChanged;
             // 
             // label48
@@ -2372,14 +2375,14 @@
             // 
             EncomendaListaProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             EncomendaListaProdutos.Columns.AddRange(new DataGridViewColumn[] { productColumn, quantityColumn });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
             EncomendaListaProdutos.Location = new Point(39, 337);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
