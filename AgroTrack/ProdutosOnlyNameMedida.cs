@@ -16,6 +16,6 @@
     // Override ToString() to return a string representation containing all relevant information
     public override string ToString()
     {
-        return $"{Id_Produto} - {Produto} - Quantidade:({Quantidade} - Unidade:{Unidade_medida})"; // Example: "Product Name (10 kg)"
+        return $"{Id_Produto} - {Produto} - Quantidade Disponível: {Quantidade} - Unidade de medida: {Unidade_medida})"; // Example: "Product Name (10 kg)"
     }
 }

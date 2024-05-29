@@ -48,7 +48,6 @@ create table AgroTrack_Pessoa (
 	PRIMARY KEY(N_CartaoCidadao)
 );
 
-
 create table AgroTrack_Empresa (
 	Id_Empresa			int					not null,
 	Nome				varchar(64)			not null,
@@ -70,9 +69,7 @@ create table AgroTrack_Animal(
 	Tipo_de_Animal		varchar(64)			not null,	
 
 	PRIMARY KEY (Id_Animal)
-
 );
-
 create table AgroTrack_Quinta_Animal(
 	Empresa_Id_Empresa	int,
 	Idade				int					not null,
@@ -82,31 +79,25 @@ create table AgroTrack_Quinta_Animal(
 	PRIMARY KEY (Id_Animal,Empresa_Id_Empresa,Brinco)
 
 );
-
 create table AgroTrack_Planta(
 	Id_planta			int					not null,
 	Tipo				varchar(32)			not null,
     Estacao VARCHAR(32) NOT NULL CHECK (Estacao IN ('Primavera', 'Verão', 'Outono', 'Inverno', 'Todas')),
-
 	PRIMARY KEY (Id_planta)
 
 );
+
 create table AgroTrack_Quinta_Planta(
 	Empresa_Id_Empresa	int,
 	Lote				varchar(32)		    not null,
 	Id_Planta			int					not null,
-
 	PRIMARY KEY (Id_Planta,Empresa_Id_Empresa,Lote)
-
 );
-
-
 
 create table AgroTrack_Cliente (
 	Pessoa_N_CartaoCidadao int
 
 	PRIMARY KEY(Pessoa_N_CartaoCidadao)
-
 );
 
 create table AgroTrack_Agricultor (
@@ -188,8 +179,6 @@ create table AgroTrack_Encomenda(
 	Empresa_De_Transportes_Id_Empresa	int,
 	Quinta_Empresa_Id	int,
 	PrecoTotal		    float,
-
-
 	PRIMARY KEY (Codigo)
 );
 

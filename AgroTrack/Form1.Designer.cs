@@ -233,13 +233,11 @@
             QuintaEncoemndaRetalhistaBox = new ComboBox();
             EmpresaDeTransporteEncoemndaRetalhistaBox = new ComboBox();
             DataRetalhistaEncoemndabOX = new ComboBox();
-            CompradorEncoemndaRetalhistaBox = new DateTimePicker();
             ConfirmarRetalhistaEncoemnda = new Button();
             MoradaRetalhistaBox = new TextBox();
             QuintaEncoemndaRetalhista = new Label();
             EmpresaDeTransporteEncoemndaRetalhista = new Label();
             CompradorEncoemndaRetalhista = new Label();
-            DataRetalhistaEncoemnda = new Label();
             MoradaRetalhista = new Label();
             PrazoBoxRetalhista = new TextBox();
             PrazoEncomendaRetalhista = new Label();
@@ -1308,6 +1306,7 @@
             // AlterarNumero
             // 
             AlterarNumero.Location = new Point(870, 271);
+            AlterarNumero.Maximum = new decimal(new int[] { -1486618624, 232830643, 0, 0 });
             AlterarNumero.Name = "AlterarNumero";
             AlterarNumero.Size = new Size(242, 31);
             AlterarNumero.TabIndex = 77;
@@ -2300,13 +2299,11 @@
             Retalhistas.Controls.Add(QuintaEncoemndaRetalhistaBox);
             Retalhistas.Controls.Add(EmpresaDeTransporteEncoemndaRetalhistaBox);
             Retalhistas.Controls.Add(DataRetalhistaEncoemndabOX);
-            Retalhistas.Controls.Add(CompradorEncoemndaRetalhistaBox);
             Retalhistas.Controls.Add(ConfirmarRetalhistaEncoemnda);
             Retalhistas.Controls.Add(MoradaRetalhistaBox);
             Retalhistas.Controls.Add(QuintaEncoemndaRetalhista);
             Retalhistas.Controls.Add(EmpresaDeTransporteEncoemndaRetalhista);
             Retalhistas.Controls.Add(CompradorEncoemndaRetalhista);
-            Retalhistas.Controls.Add(DataRetalhistaEncoemnda);
             Retalhistas.Controls.Add(MoradaRetalhista);
             Retalhistas.Controls.Add(PrazoBoxRetalhista);
             Retalhistas.Controls.Add(PrazoEncomendaRetalhista);
@@ -2410,13 +2407,6 @@
             DataRetalhistaEncoemndabOX.Size = new Size(574, 33);
             DataRetalhistaEncoemndabOX.TabIndex = 93;
             // 
-            // CompradorEncoemndaRetalhistaBox
-            // 
-            CompradorEncoemndaRetalhistaBox.Location = new Point(598, 128);
-            CompradorEncoemndaRetalhistaBox.Name = "CompradorEncoemndaRetalhistaBox";
-            CompradorEncoemndaRetalhistaBox.Size = new Size(523, 31);
-            CompradorEncoemndaRetalhistaBox.TabIndex = 92;
-            // 
             // ConfirmarRetalhistaEncoemnda
             // 
             ConfirmarRetalhistaEncoemnda.Location = new Point(34, 552);
@@ -2464,16 +2454,6 @@
             CompradorEncoemndaRetalhista.TabIndex = 83;
             CompradorEncoemndaRetalhista.Text = "Retalhista:";
             // 
-            // DataRetalhistaEncoemnda
-            // 
-            DataRetalhistaEncoemnda.AutoSize = true;
-            DataRetalhistaEncoemnda.Font = new Font("Segoe UI", 8.25F);
-            DataRetalhistaEncoemnda.Location = new Point(456, 131);
-            DataRetalhistaEncoemnda.Name = "DataRetalhistaEncoemnda";
-            DataRetalhistaEncoemnda.Size = new Size(138, 23);
-            DataRetalhistaEncoemnda.TabIndex = 82;
-            DataRetalhistaEncoemnda.Text = "Data de entrega:";
-            // 
             // MoradaRetalhista
             // 
             MoradaRetalhista.AutoSize = true;
@@ -2497,9 +2477,10 @@
             PrazoEncomendaRetalhista.Font = new Font("Segoe UI", 8.25F);
             PrazoEncomendaRetalhista.Location = new Point(456, 27);
             PrazoEncomendaRetalhista.Name = "PrazoEncomendaRetalhista";
-            PrazoEncomendaRetalhista.Size = new Size(200, 23);
+            PrazoEncomendaRetalhista.Size = new Size(205, 23);
             PrazoEncomendaRetalhista.TabIndex = 79;
-            PrazoEncomendaRetalhista.Text = "Prazo para entrega(dias):";
+            PrazoEncomendaRetalhista.Text = "Prazo para entrega (dias):";
+            PrazoEncomendaRetalhista.Click += PrazoEncomendaRetalhista_Click;
             // 
             // ConfirmarRetalhista
             // 
@@ -3438,7 +3419,6 @@
         private Label QuintaEncoemndaRetalhista;
         private Label EmpresaDeTransporteEncoemndaRetalhista;
         private Label CompradorEncoemndaRetalhista;
-        private Label DataRetalhistaEncoemnda;
         private Label MoradaRetalhista;
         private TextBox PrazoBoxRetalhista;
         private Label PrazoEncomendaRetalhista;
@@ -3473,7 +3453,6 @@
         private Label AddPlantaLoteLabel;
         private Button AddPlantaSubmeter;
         private ComboBox AddPlantaIDPlanta;
-        private DateTimePicker CompradorEncoemndaRetalhistaBox;
         private ComboBox QuintaEncoemndaRetalhistaBox;
         private ComboBox EmpresaDeTransporteEncoemndaRetalhistaBox;
         private ComboBox DataRetalhistaEncoemndabOX;
