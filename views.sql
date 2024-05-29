@@ -2,14 +2,12 @@
 use p8g3;
 
 --Quintas 
-
 drop view IF EXISTS AgroTrack.Quinta
 go
 create view AgroTrack.Quinta as
 	select Q.Empresa_Id_Empresa, E.Nome,E.Morada, E.Contacto
 	from  (AgroTrack_Quinta as Q join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
 go
-
 
 --Empresa
 drop view IF EXISTS AgroTrack.Empresa
@@ -19,16 +17,13 @@ create view AgroTrack.Empresa as
 	from  AgroTrack_Empresa as E
 go
 
---Agricultores e quintas
--- info dos agricultores e a que quintas pertecem 
-
+--Agricultores e quintas - info dos agricultores e a que quintas pertecem 
 drop view IF EXISTS AgroTrack.AgriculQuinta
 go
 create view  AgroTrack.AgriculQuinta as
 	select A.Id_Trabalhador,Pes.Nome, Pes.Contacto,A.Pessoa_N_CartaoCidadao,A.Quinta_Empresa_Id_Empresa, Q.Empresa_Id_Empresa,E.Nome as NomeQuinta
 	from ((AgroTrack_Agricultor as A join AgroTrack_Pessoa as Pes on A.Pessoa_N_CartaoCidadao=Pes.N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
 go
-
 
 --Animais e Quinta e tipo de animal
 drop view IF EXISTS AgroTrack.AnimaisQuinta
@@ -104,7 +99,6 @@ create view AgroTrack.ClienteCompra as
 	from  ((AgroTrack_Cliente as Cli join AgroTrack_Compra as Com on Cli.Pessoa_N_CartaoCidadao=Com.Cliente_Pessoa_N_CartaoCidadao) inner join AgroTrack_Produto as Pro on Com.Produto_codigo=Pro.Codigo)
 go
 
-
 --Produto
 drop view IF EXISTS AgroTrack.Produto
 go
@@ -120,8 +114,6 @@ create view AgroTrack.ProdutoItem as
 	select Pro.Codigo, Pro.Nome, I.Quantidade, I.Encomenda_Codigo
 	from  (AgroTrack_Produto as Pro join AgroTrack_Item as I on Pro.Codigo=I.ProdutoCodigo)
 go
-
-
 
 --Produto e  Quinta e contem e Empresa
 drop view IF EXISTS AgroTrack.QuintaProduto
@@ -207,35 +199,17 @@ create view AgroTrack.Cliente as
 	from  (AgroTrack_Cliente as Cliente join AgroTrack_Pessoa as Pessoa on Cliente.Pessoa_N_CartaoCidadao=Pessoa.N_CartaoCidadao)
 go
 
-
---Produto e Contem
+--Produto e Info de produtos na quinta
 DROP VIEW IF EXISTS AgroTrack.ProdutoContem;
 GO
 CREATE VIEW AgroTrack.ProdutoContem AS
 WITH RankedProducts AS (
-    SELECT 
-        P.Codigo,
-        P.Nome,
-        P.Preco,
-        P.Taxa_de_iva,
-        P.Unidade_medida,
-        P.Tipo_de_Produto,
-        C.Quantidade,
-        C.Quinta_Empresa_Id_Empresa,
-        ROW_NUMBER() OVER (PARTITION BY P.Codigo ORDER BY P.Codigo) AS RowNum
+    SELECT P.Codigo, P.Nome, P.Preco, P.Taxa_de_iva, P.Unidade_medida, P.Tipo_de_Produto, C.Quantidade, C.Quinta_Empresa_Id_Empresa, ROW_NUMBER() OVER (PARTITION BY P.Codigo ORDER BY P.Codigo) AS RowNum
     FROM AgroTrack_Produto AS P
     LEFT JOIN AgroTrack_Contem AS C ON P.Codigo = C.Produto_codigo
     LEFT JOIN AgroTrack_Quinta AS Q ON C.Quinta_Empresa_Id_Empresa = Q.Empresa_Id_Empresa
 )
-SELECT 
-    Codigo,
-    Nome,
-    Preco,
-    Taxa_de_iva,
-    Unidade_medida,
-    Tipo_de_Produto,
-    Quantidade,
-    Quinta_Empresa_Id_Empresa
+SELECT Codigo, Nome, Preco, Taxa_de_iva, Unidade_medida, Tipo_de_Produto, Quantidade, Quinta_Empresa_Id_Empresa
 FROM RankedProducts
 WHERE RowNum = 1;
 GO

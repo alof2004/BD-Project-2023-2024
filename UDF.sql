@@ -7,7 +7,7 @@ AS
 BEGIN
     DECLARE @TotalProductCount INT;
 
-    SELECT @TotalProductCount = SUM(Quantidade) -- vamos somar a quantidade de produtos que a quinta tem
+    SELECT @TotalProductCount = SUM(Quantidade) -- vamos somar a quantidade de produtos que cada quinta contem
     FROM AgroTrack_Contem
     WHERE Quinta_Empresa_Id_Empresa = @FarmId;
     RETURN @TotalProductCount;
