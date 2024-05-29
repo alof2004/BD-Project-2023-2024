@@ -311,7 +311,7 @@ IF OBJECT_ID('AgroTrack.AddColheita', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddColheita;
 GO
 
-CREATE PROCEDURE AddColheita
+CREATE PROCEDURE AgroTrack.AddColheita
     @Agricultor_Pessoa_N_CartaoCidadao INT,
     @Duracao_colheita FLOAT,
     @Quantidade INT,
@@ -867,6 +867,7 @@ BEGIN
         SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
         FROM AgroTrack.Cliente
         ORDER BY Contacto DESC;
+    END
     ELSE
     BEGIN
         SELECT NULL AS Pessoa_N_CartaoCidadao, NULL AS Nome, NULL AS Contacto
@@ -1028,10 +1029,10 @@ BEGIN
     END CATCH;
 END;
 
-IF OBJECT_ID('ApagarRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarRetalhista;
+IF OBJECT_ID('AgroTrack.ApagarRetalhista', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarRetalhista;
 GO
-CREATE PROCEDURE ApagarRetalhista
+CREATE PROCEDURE AgroTrack.ApagarRetalhista
     @Empresa_Id_Empresa INT
 AS
 BEGIN
