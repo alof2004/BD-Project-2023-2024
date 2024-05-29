@@ -56,8 +56,8 @@ BEGIN
     WHERE Codigo = @EncomendaCodigo;
 END;
 GO
-IF OBJECT_ID('check_product_quantity', 'TR') IS NOT NULL
-    DROP TRIGGER check_product_quantity;
+IF OBJECT_ID('AgroTrack_CheckProductQuantityEncomenda', 'TR') IS NOT NULL
+    DROP TRIGGER AgroTrack_CheckProductQuantityEncomenda;
 GO
 CREATE TRIGGER AgroTrack_CheckProductQuantityEncomenda
 ON AgroTrack_Item

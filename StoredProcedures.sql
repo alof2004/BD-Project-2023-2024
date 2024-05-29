@@ -209,7 +209,8 @@ BEGIN
         RETURN;
     END
 
-    -- Insere o produto na tabela AgroTrack_Contem
+    BEGIN TRANSACTION;
+    
     IF EXISTS (SELECT 1 FROM AgroTrack_Contem WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId)
     BEGIN
         -- Atualiza o registo existente com a nova quantidade
@@ -590,11 +591,14 @@ BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        DELETE FROM AgroTrack_Agricultor
-        WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
+        DELETE FROM AgroTrack_Colhe
+        WHERE Agricultor_Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
 
         DELETE FROM AgroTrack_Contrato
         WHERE Agricultor_Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
+
+        DELETE FROM AgroTrack_Agricultor
+        WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
 
         COMMIT TRANSACTION;
 
@@ -1411,11 +1415,9 @@ CREATE PROCEDURE AgroTrack.AddProductToEncomenda
     @Quantidade INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Insert into AgroTrack_Item
         INSERT INTO AgroTrack_Item (
             Encomenda_Codigo,
             ProdutoCodigo,
@@ -1427,16 +1429,13 @@ BEGIN
             @Quantidade
         );
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Produto added to Encomenda successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -1446,7 +1445,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -1472,7 +1470,7 @@ BEGIN
             WHEN @Order = 'PrecoDecrescente' THEN 'Preco DESC'
             WHEN @Order = 'IvaCrescente' THEN 'Taxa_de_iva ASC'
             WHEN @Order = 'IvaDecrescente' THEN 'Taxa_de_iva DESC'
-            ELSE 'Codigo ASC' -- Default ordering by Name in ascending order
+            ELSE 'Codigo ASC'
         END;
 
     SET @SqlQuery = '

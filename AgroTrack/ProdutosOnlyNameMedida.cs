@@ -13,6 +13,9 @@
         Unidade_medida = unidade_medida;
         Quantidade = quantidade;
     }
+    public ProdutosOnlyNameMedida()
+    {
+    }
     // Override ToString() to return a string representation containing all relevant information
     public override string ToString()
     {
