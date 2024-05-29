@@ -1963,7 +1963,7 @@
             // 
             // ConfirmarData
             // 
-            ConfirmarData.Location = new Point(452, 551);
+            ConfirmarData.Location = new Point(450, 551);
             ConfirmarData.Name = "ConfirmarData";
             ConfirmarData.Size = new Size(631, 34);
             ConfirmarData.TabIndex = 100;

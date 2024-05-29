@@ -3376,13 +3376,17 @@ namespace AgroTrack
             DateTime dataAtual = DateTime.Now.Date;
 
             // Verifica se a data selecionada é diferente e maior que a data atual
-            if (dataSelecionada > dataAtual)
+            if (ListaTransportes.SelectedItem is Transportes selectedTransporte)
             {
-                if (ListaTransportes.SelectedItem is Transportes selectedTransporte)
+                if (dataSelecionada > dataAtual)
                 {
-
                     LoadEncomendasEntrega(selectedTransporte.Empresa_Id_Empresa, dataSelecionada);
-                    ListaTransportes_SelectedIndexChanged_1(null, null);
+
+                }
+                else
+                {
+                    LoadEncomendasEntrega(selectedTransporte.Empresa_Id_Empresa);
+
                 }
             }
         }
@@ -3396,15 +3400,45 @@ namespace AgroTrack
         //filtrar por retalhistas transportes
         private void FiltrarRetalhistaTransportes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DateTime dataLimite = DateTime.Now; // ou qualquer outra lógica para determinar a data limite
-            LoadEncomendasEntrega(EMPRESAENTREGAID, dataLimite);
+            DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+            DateTime dataAtual = DateTime.Now.Date;
+
+            // Verifica se a data selecionada é diferente e maior que a data atual
+            if (ListaTransportes.SelectedItem is Transportes selectedTransporte)
+            {
+                if (dataSelecionada > dataAtual)
+                {
+                    LoadEncomendasEntrega(selectedTransporte.Empresa_Id_Empresa, dataSelecionada);
+
+                }
+                else
+                {
+                    LoadEncomendasEntrega(selectedTransporte.Empresa_Id_Empresa);
+                }
+            }
         }
 
         //filtrar por transpotes retalhistas
         private void FiltrarTransporteRetalhistas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DateTime dataLimite = DateTime.Now; // ou qualquer outra lógica para determinar a data limite
-            LoadEncomendasRealizadas(EMPRESAID, dataLimite);
+            DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+            DateTime dataAtual = DateTime.Now.Date;
+
+            // Verifica se a data selecionada é diferente e maior que a data atual
+            if (ListaRetalhistas.SelectedItem is Retalhista selectedRetalhista)
+            {
+                if (dataSelecionada > dataAtual)
+                {
+                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa, dataSelecionada);
+
+                }
+                else
+                {
+                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa);
+                }
+            }
+
+
         }
 
         private void LoadFiltersTransportes()
@@ -3435,7 +3469,7 @@ namespace AgroTrack
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
+                MessageBox.Show("Failed to retrieve transport from database: " + ex.Message);
             }
 
             query = "SELECT Empresa_Id_Empresa, Nome FROM AgroTrack.Quinta;";
@@ -3458,7 +3492,7 @@ namespace AgroTrack
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to retrieve plants from database: " + ex.Message);
+                MessageBox.Show("Failed to retrieve Farms from database: " + ex.Message);
             }
         }
 
@@ -3524,15 +3558,42 @@ namespace AgroTrack
 
         private void QuintasRetalhistas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DateTime dataLimite = DateTime.Now; // ou qualquer outra lógica para determinar a data limite
-            LoadEncomendasRealizadas(EMPRESAID, dataLimite);
+            DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+            DateTime dataAtual = DateTime.Now.Date;
+
+            // Verifica se a data selecionada é diferente e maior que a data atual
+            if (ListaRetalhistas.SelectedItem is Retalhista selectedRetalhista)
+            {
+                if (dataSelecionada > dataAtual)
+                {
+                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa, dataSelecionada);
+
+                }
+                else
+                {
+                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa);
+                }
+            }
         }
 
         //filtrar por quinta transportes
         private void QuintasTransportes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DateTime dataLimite = DateTime.Now; // ou qualquer outra lógica para determinar a data limite
-            LoadEncomendasEntrega(EMPRESAENTREGAID, dataLimite);
+            DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+            DateTime dataAtual = DateTime.Now.Date;
+
+            // Verifica se a data selecionada é diferente e maior que a data atual
+            if (ListaTransportes.SelectedItem is Transportes selectedTransporte)
+            {
+                if (dataSelecionada > dataAtual)
+                {
+                    LoadEncomendasEntrega(EMPRESAENTREGAID, dataSelecionada);
+                }
+                else
+                {
+                    LoadEncomendasEntrega(EMPRESAENTREGAID);
+                }
+            }
         }
 
         private void AdicionarEmpresa_Click(object sender, EventArgs e)
@@ -5352,21 +5413,16 @@ namespace AgroTrack
             }
         }
 
-        private int EMPRESAENTREGAID2;
-
         private void LoadEncomendasEntrega(int empresaId)
         {
             int? retalhistaId = null;
             int? quintaId = null;
-            EMPRESAENTREGAID2 = empresaId;
 
-            // Obtenha o valor selecionado no filtro de retalhistas
             if (FiltrarRetalhistaTransportes.SelectedItem is RetalhistasOnlyName selectedRetalhista)
             {
                 retalhistaId = selectedRetalhista.Empresa_Id_Empresa;
             }
 
-            // Obtenha o valor selecionado no filtro de quintas
             if (QuintasTransportes.SelectedItem is QuintaOnlyName selectedQuinta)
             {
                 quintaId = selectedQuinta.Id_Quinta;
@@ -5427,16 +5483,24 @@ namespace AgroTrack
         }
 
 
+
+
         private void DataRetalhistasEncomenda_ValueChanged(object sender, EventArgs e)
         {
-            DateTime dataSelecionada = DataRetalhistasEncomenda.Value.Date;
+            DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
             DateTime dataAtual = DateTime.Now.Date;
 
-            if (dataSelecionada > dataAtual)
+            // Verifica se a data selecionada é diferente e maior que a data atual
+            if (ListaRetalhistas.SelectedItem is Retalhista selectedRetalhista)
             {
-                if (ListaRetalhistas.SelectedItem is Retalhista selectedretalho)
+                if (dataSelecionada > dataAtual)
                 {
-                    LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, dataSelecionada);
+                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa, dataSelecionada);
+
+                }
+                else
+                {
+                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa);
                 }
             }
 
