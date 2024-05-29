@@ -264,11 +264,11 @@ namespace AgroTrack
                 SqlCommand cmd = new SqlCommand(query, cn);
                 try
                 {
-                using (cmd)
-                {
-                    cmd.Parameters.AddWithValue("@FarmId", selectedFarm.Empresa_Id_Empresa);
-                    QuintaNumeroProdutos.Text = cmd.ExecuteScalar().ToString();
-                }
+                    using (cmd)
+                    {
+                        cmd.Parameters.AddWithValue("@FarmId", selectedFarm.Empresa_Id_Empresa);
+                        QuintaNumeroProdutos.Text = cmd.ExecuteScalar().ToString();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -342,6 +342,33 @@ namespace AgroTrack
             {
                 MessageBox.Show("Failed to retrieve animals from database: " + ex.Message);
             }
+        }
+
+        private void loadProdutosCompra()
+        {
+            string query = "SELECT Codigo, NomeProduto, Empresa_Id_Empresa, Unidade_medida, Quantidade FROM AgroTrack.QuintaProduto WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            using (cmd)
+            {
+                int empresaId = (AddCompraQuinta.SelectedItem as QuintaOnlyName)?.Id_Quinta ?? -1;
+                cmd.Parameters.AddWithValue("@Empresa_Id_Empresa", empresaId);
+                try
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    AddCompraProduto.Items.Clear(); // Clear previous items
+                    while (reader.Read())
+                    {
+                        ProdutosOnlyNameMedida produto = new ProdutosOnlyNameMedida(reader.GetInt32(0), reader.GetString(1), reader.GetString(3), reader.GetInt32(4));
+                        AddCompraProduto.Items.Add(produto);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to retrieve products from database: " + ex.Message);
+                }
+            }
+
         }
 
         private void loadProdutosQuinta(int empresaId)
@@ -1032,6 +1059,7 @@ namespace AgroTrack
             {
                 SqlDataReader reader = cmd.ExecuteReader();
                 AgricultorContrato.Text = "";
+                AgricultorContrato.ReadOnly = true;
                 while (reader.Read())
                 {
                     Contrato contrato = new Contrato
@@ -1051,9 +1079,7 @@ namespace AgroTrack
                       $"Data de Inicio: {contrato.Date_str.ToShortDateString()}\n" +
                       $"Data de Termino: {contrato.Date_end.ToShortDateString()}\n" +
                       $"Salario: {contrato.Salario}\n" +
-                      $"Descricao: {contrato.Descricao}\n" +
-                      $"-----------------------------\n";
-
+                      $"Descricao: {contrato.Descricao}\n";
                     AgricultorContrato.AppendText(contractInfo);
                 }
                 reader.Close();
@@ -1225,7 +1251,7 @@ namespace AgroTrack
 
         private void AddQuinta(string nome, string morada, int contacto)
         {
-            using (SqlCommand command = new SqlCommand("AddQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Nome", nome));
                 command.Parameters.Add(new SqlParameter("@Morada", morada));
@@ -1328,7 +1354,7 @@ namespace AgroTrack
         }
         private void RemoveFarm(int farmId)
         {
-            using (SqlCommand command = new SqlCommand("ApagarQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", farmId));
                 try
@@ -1364,7 +1390,7 @@ namespace AgroTrack
         }
         private void RemoveProdutosForaDeValidadeFromQuinta(int farmId)
         {
-            using (SqlCommand command = new SqlCommand("RemoveProdutosForaDeValidadeFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.RemoveProdutosForaDeValidadeFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", farmId));
                 try
@@ -1885,7 +1911,7 @@ namespace AgroTrack
         {
             try
             {
-                using (SqlCommand command = new SqlCommand("AddProduto", cn) { CommandType = CommandType.StoredProcedure })
+                using (SqlCommand command = new SqlCommand("AgroTrack.AddProduto", cn) { CommandType = CommandType.StoredProcedure })
                 {
                     // Adiciona os parâmetros ao comando
                     command.Parameters.Add(new SqlParameter("@NomeProduto", ProdutoNome));
@@ -1986,7 +2012,7 @@ namespace AgroTrack
 
         private void RemoveProduto(int produtoid)
         {
-            using (SqlCommand command = new SqlCommand("ApagarProduto", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarProduto", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Codigo", produtoid));
                 try
@@ -2260,7 +2286,7 @@ namespace AgroTrack
         }
         private void AddAgricultor(string nome, int numeroCC, QuintaOnlyName quinta, int contacto, string descricao, double salario, DateTime inicio, DateTime fim)
         {
-            using (SqlCommand command = new SqlCommand("AddAgricultor", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddAgricultor", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Nome", nome));
                 command.Parameters.Add(new SqlParameter("@N_CartaoCidadao", numeroCC));
@@ -2374,7 +2400,7 @@ namespace AgroTrack
         }
         private void RemoveAgricultor(int numeroCC)
         {
-            using (SqlCommand command = new SqlCommand("ApagarAgricultor", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarAgricultor", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Pessoa_N_CartaoCidadao", numeroCC));
                 try
@@ -2446,7 +2472,9 @@ namespace AgroTrack
 
             AddColheitaAgricultor.Show();
             AddColheitaListaAgricultores.Show();
+            AddColheitaListaAgricultores.SelectedIndex = -1;
             AddColheitaProdutosLista.Show();
+            AddColheitaProdutosLista.SelectedIndex = -1;
             AddColheitaProduto.Show();
             AddColheitaQuantidade.Show();
             AddColheitaQuantidadeLabel.Show();
@@ -2531,7 +2559,7 @@ namespace AgroTrack
         }
         private void AdicionarColheita(int agricultor, int produto, int quantidade, int duracao, DateTime data, DateTime validade)
         {
-            using (SqlCommand command = new SqlCommand("AddColheita", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddColheita", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Agricultor_Pessoa_N_CartaoCidadao", agricultor));
                 command.Parameters.Add(new SqlParameter("@Produto_codigo", produto));
@@ -2577,7 +2605,7 @@ namespace AgroTrack
         }
         private void RemoveColheita(int codigo, int cartaoCC, DateTime date)
         {
-            using (SqlCommand command = new SqlCommand("ApagarColheita", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarColheita", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Produto_codigo", codigo));
                 command.Parameters.Add(new SqlParameter("@Agricultor_Pessoa_N_CartaoCidadao", cartaoCC));
@@ -2691,7 +2719,6 @@ namespace AgroTrack
             try
             {
                 SqlDataReader reader = cmd.ExecuteReader();
-                AddCompraProduto.Items.Clear(); // Clear previous items
                 ComprouProduto.Items.Clear(); // Clear previous items
 
                 while (reader.Read())
@@ -2701,7 +2728,6 @@ namespace AgroTrack
                         Id_Produto = (int)reader["Codigo"],
                         Produto = reader["Nome"].ToString()
                     };
-                    AddCompraProduto.Items.Add(produto);
                     ComprouProduto.Items.Add(produto);
                 }
                 reader.Close();
@@ -2776,36 +2802,40 @@ namespace AgroTrack
 
         private void ApplyCombinedFiltersClientes()
         {
-            var productId = (ComprouProduto.SelectedItem as ProdutosOnlyName)?.Id_Produto ?? null;
-            var quintaId = (ComprouQuinta.SelectedItem as QuintaOnlyName)?.Id_Quinta ?? null;
+            var productId = (ComprouProduto.SelectedItem as ProdutosOnlyName)?.Id_Produto;
+            var quintaId = (ComprouQuinta.SelectedItem as QuintaOnlyName)?.Id_Quinta;
             var quantidade = (int)NumeroComprasCliente.Value;
+            MessageBox.Show(quantidade.ToString());
 
             string query = "SELECT N_CartaoCidadao, Nome, Contacto FROM AgroTrack.FiltrarClientes(@ProdutoCodigo, @QuintaId, @NumeroCompras);";
             SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@ProdutoCodigo", productId ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@QuintaId", quintaId ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@NumeroCompras", quantidade == 0 ? (object)DBNull.Value : quantidade);
-            cmd.ExecuteNonQuery();
+            using (cmd)
+            {
+                cmd.Parameters.AddWithValue("@ProdutoCodigo", (object)productId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@QuintaId", (object)quintaId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@NumeroCompras", quantidade > 0 ? (object)quantidade : DBNull.Value);
+                cmd.ExecuteNonQuery();
 
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
-                ListaClientes.Items.Clear(); // Clear previous items
-                while (reader.Read())
+                try
                 {
-                    Cliente cliente = new Cliente
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    ListaClientes.Items.Clear(); // Clear previous items
+                    while (reader.Read())
                     {
-                        Pessoa_N_CartaoCidadao = (int)reader["N_CartaoCidadao"],
-                        Nome = reader["Nome"].ToString(),
-                        Contacto = (int)reader["Contacto"]
-                    };
-                    ListaClientes.Items.Add(cliente);
+                        Cliente cliente = new Cliente
+                        {
+                            Pessoa_N_CartaoCidadao = (int)reader["N_CartaoCidadao"],
+                            Nome = reader["Nome"].ToString(),
+                            Contacto = (int)reader["Contacto"]
+                        };
+                        ListaClientes.Items.Add(cliente);
+                    }
+                    reader.Close();
                 }
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+                }
             }
 
         }
@@ -2970,9 +3000,13 @@ namespace AgroTrack
             LabelContactoCliente.Hide();
             LabelClienteCC.Hide();
             AddCompraCliente.Show();
+            AddCompraCliente.Text = "";
             AddCompraProduto.Show();
+            AddCompraProduto.SelectedIndex = -1;
             AddCompraQuinta.Show();
+            AddCompraQuinta.SelectedIndex = -1;
             AddCompraQuantidade.Show();
+            AddCompraQuantidade.Text = "0";
             AddCompraMetodo.Show();
             AddCompraData.Show();
             AddCompraClienteLabel.Show();
@@ -2981,6 +3015,7 @@ namespace AgroTrack
             AddCompraQuantidadeLabel.Show();
             AddCompraMetodoLabel.Show();
             AddCompraDataLabel.Show();
+            AdicionarCliente.Hide();
             SubmeterCompra.Show();
 
 
@@ -2996,7 +3031,7 @@ namespace AgroTrack
             {
                 try
                 {
-                    AddCompra((AddCompraCliente.SelectedItem as Cliente).Pessoa_N_CartaoCidadao, (AddCompraProduto.SelectedItem as ProdutosOnlyName).Id_Produto, (AddCompraQuinta.SelectedItem as QuintaOnlyName).Id_Quinta, int.Parse(AddCompraQuantidade.Text), AddCompraMetodo.Text, AddCompraData.Value);
+                    AddCompra((AddCompraCliente.SelectedItem as Cliente).Pessoa_N_CartaoCidadao, (AddCompraProduto.SelectedItem as ProdutosOnlyNameMedida).Id_Produto, (AddCompraQuinta.SelectedItem as QuintaOnlyName).Id_Quinta, int.Parse(AddCompraQuantidade.Text), AddCompraMetodo.Text, AddCompraData.Value);
                 }
                 catch (Exception ex)
                 {
@@ -3039,6 +3074,7 @@ namespace AgroTrack
                     LabelContactoCliente.Show();
                     LabelClienteCC.Show();
                     ListaCompras.Items.Clear();
+                    AdicionarCliente.Show();
                     LoadClientes();
                 }
             }
@@ -3872,11 +3908,14 @@ namespace AgroTrack
             // Mostrar campos de input
             AddProdutoToQuintaData.Show();
             AddProdutoToQuintaQuantidade.Show();
+            AddProdutoToQuintaQuantidade.Value = 0;
             AddProdutoToQuintaProdutoID.Show();
+            AddProdutoToQuintaProdutoID.SelectedIndex = -1;
             AddProdutoToQuintaDataLabel.Show();
             AddProdutoToQuintaQuantidadeLabel.Show();
             AddProdutoToQuintaProdutoIDLabel.Show();
             AddProdutoToQuintaID.Show();
+            AddProdutoToQuintaID.SelectedIndex = -1;
             AddProdutoToQuintaIDLabel.Show();
             AddProdutoToQuintaSubmit.Show();
 
@@ -3956,7 +3995,7 @@ namespace AgroTrack
         }
         private void AddProdutoToQuinta(int quintaId, int produtoId, int quantidade, DateTime data)
         {
-            using (SqlCommand command = new SqlCommand("AddProdutoToQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddProdutoToQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
                 command.Parameters.Add(new SqlParameter("@ProdutoId", produtoId));
@@ -4001,7 +4040,7 @@ namespace AgroTrack
 
         private void RemoveProdutoFromQuinta(int quintaId, int produtoId)
         {
-            using (SqlCommand command = new SqlCommand("RemoveProdutoFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.RemoveProdutoFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
                 command.Parameters.Add(new SqlParameter("@ProdutoId", produtoId));
@@ -4021,8 +4060,10 @@ namespace AgroTrack
         {
             QuantidadeAgricultores.Hide();
             FiltrarPorProdutoQuinta.Hide();
+            AddPlantaEstacaoLabel.Hide();
             FilterByPlantQuinta.Hide();
             FilterByAnimalQuinta.Hide();
+            AdicionarPlanta.Hide();
             buttonLimparPesquisaQuinta.Hide();
             QuintaNumeroProdutos.Hide();
             QuintaNumeroProdutosLabel.Hide();
@@ -4053,12 +4094,16 @@ namespace AgroTrack
             label13.Hide();
 
             AddAnimalID.Show();
+            AddAnimalID.SelectedIndex = -1;
             AddAnimalAnimalLabel.Show();
             AddAnimalBrinco.Show();
+            AddAnimalBrinco.Text = "";
             AddAnimalBrincoLabel.Show();
             AddAnimalIdade.Show();
+            AddAnimalIdade.Value = 0;
             AddAnimalIdadeLabel.Show();
             AddAnimalQuinta.Show();
+            AddAnimalQuinta.SelectedIndex = -1;
             AddAnimalQuintaLabel.Show();
             AddAnimalSubmeter.Show();
         }
@@ -4100,6 +4145,7 @@ namespace AgroTrack
                     label47.Show();
                     label4.Show();
                     PesquisarQuinta.Show();
+                    AdicionarPlanta.Show();
                     PesquisaPorNomeCliente.Show();
                     Agricultores.Show();
                     ProdutosQuinta.Show();
@@ -4132,7 +4178,7 @@ namespace AgroTrack
         }
         private void AddAnimalToQuinta(int quintaId, int animalId, string brinco, int idade)
         {
-            using (SqlCommand command = new SqlCommand("AddAnimalToQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddAnimalToQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Quinta_Id", quintaId));
                 command.Parameters.Add(new SqlParameter("@Id_Animal", animalId));
@@ -4241,6 +4287,7 @@ namespace AgroTrack
             EncomendaListaProdutos.Show();
             PrazoEncomendaRetalhista.Show();
             PrazoBoxRetalhista.Show();
+            label63.Hide();
             MoradaRetalhista.Show();
             MoradaRetalhistaBox.Show();
             DataRetalhistaEncoemndabOX.Show();
@@ -4287,7 +4334,7 @@ namespace AgroTrack
 
         private void ConfirmarRetalhistaEncoemnda_Click(object sender, EventArgs e)
         {
-            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "" || EncomendaListaProdutos.Rows.Count == 0)
+            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "" || EncomendaListaProdutos.Rows.Count == 1)
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -4342,6 +4389,7 @@ namespace AgroTrack
                     CancelarEncoemendRetalhistas.Show();
                     EncomendasRealizadas.Show();
                     ItemsEncomenda.Show();
+                    label63.Show();
 
                     EncomendaListaProdutos.Hide();
                     PrazoEncomendaRetalhista.Hide();
@@ -4426,7 +4474,7 @@ namespace AgroTrack
 
         private void RemoverTransporte(int TransporteID)
         {
-            using (SqlCommand command = new SqlCommand("ApagarTransporte", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarTransporte", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", TransporteID));
                 try
@@ -4443,7 +4491,7 @@ namespace AgroTrack
 
         private void RemoverRetalhista(int RetalhistaID)
         {
-            using (SqlCommand command = new SqlCommand("ApagarRetalhista", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarRetalhista", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", RetalhistaID));
                 try
@@ -4487,7 +4535,7 @@ namespace AgroTrack
             FilterByPlantQuinta.Hide();
             FilterByAnimalQuinta.Hide();
             buttonLimparPesquisaQuinta.Hide();
-
+            AdicionarQuinta.Hide();
             label48.Hide();
             label49.Hide();
             QuintaNumeroProdutos.Hide();
@@ -4518,15 +4566,21 @@ namespace AgroTrack
             AdicionarQuinta.Hide();
 
             AddPlantaLote.Show();
+            AddPlantaLote.Text = "";
             AddPlantaIDPlanta.Show();
+            AddPlantaIDPlanta.SelectedIndex = -1;
             AddPlantaLoteLabel.Show();
             AddPlantaEstacao.Show();
+            AddPlantaEstacao.SelectedIndex = -1;
             AddPlantaEstacaoLabel.Show();
             AddPlantaSubmeter.Show();
             AddAnimalQuinta.Show();
+            AddAnimalQuinta.SelectedIndex = -1;
             AddAnimalQuintaLabel.Show();
             AddPlantaIDLabel.Show();
             AddPlantaIDPlanta.Show();
+            AddPlantaIDPlanta.SelectedIndex = -1;
+
 
         }
 
@@ -4577,6 +4631,7 @@ namespace AgroTrack
                     Animais.Show();
                     QuintaNome.Show();
                     QuintaMorada.Show();
+                    AdicionarQuinta.Show();
                     QuintaContacto.Show();
                     AdicionarProdutoQuinta.Show();
                     AdicionarAnimal.Show();
@@ -4602,7 +4657,7 @@ namespace AgroTrack
 
         private void AddPlantaToQuinta(int quintaId, int plantaId, string lote, string estacao)
         {
-            using (SqlCommand command = new SqlCommand("AddPlantaToQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.AddPlantaToQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
                 command.Parameters.Add(new SqlParameter("@IdPlanta", plantaId));
@@ -4662,7 +4717,7 @@ namespace AgroTrack
 
         private void RemoveAnimalFromQuinta(int quintaId, int animalId, string brinco)
         {
-            using (SqlCommand command = new SqlCommand("RemoveAnimalFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.RemoveAnimalFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
                 command.Parameters.Add(new SqlParameter("@AnimalId", animalId));
@@ -4681,7 +4736,7 @@ namespace AgroTrack
 
         private void RemovePlantaFromQuinta(int quintaId, int plantaId, string lote)
         {
-            using (SqlCommand command = new SqlCommand("RemovePlantFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.RemovePlantFromQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
                 command.Parameters.Add(new SqlParameter("@PlantaId", plantaId));
@@ -4841,7 +4896,6 @@ namespace AgroTrack
                         cn.Open();
                     }
                     command.ExecuteNonQuery();
-                    MessageBox.Show("Produto adicionado à encomenda com sucesso!");
                 }
                 catch (Exception ex)
                 {
@@ -4940,7 +4994,7 @@ namespace AgroTrack
 
         private void RemoverEncomendaRetalhista(int EncomendaID)
         {
-            using (SqlCommand command = new SqlCommand("ApagarEncomendaRetalhista", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarEncomendaRetalhista", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Codigo", EncomendaID));
                 try
@@ -4957,7 +5011,7 @@ namespace AgroTrack
 
         private void RemoverEncomendaTransportes(int EncomendaID)
         {
-            using (SqlCommand command = new SqlCommand("ApagarEncomendaTransportes", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarEncomendaTransportes", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Codigo", EncomendaID));
                 try
@@ -5102,7 +5156,7 @@ namespace AgroTrack
 
         private void AddCompraProduto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadFiltersClientes();
+
         }
 
         private void UnidadeAdicionarBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -5507,6 +5561,26 @@ namespace AgroTrack
         }
 
         private void PrazoEncomendaRetalhista_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddCompraQuinta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadProdutosCompra();
+        }
+
+        private void TrabalhaQuinta_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            ApplyCombinedFiltersAgricultores();
+        }
+
+        private void ColheuProduto_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            ApplyCombinedFiltersAgricultores();
+        }
+
+        private void AddPlantaLote_TextChanged(object sender, EventArgs e)
         {
 
         }

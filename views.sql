@@ -22,7 +22,9 @@ drop view IF EXISTS AgroTrack.AgriculQuinta
 go
 create view  AgroTrack.AgriculQuinta as
 	select A.Id_Trabalhador,Pes.Nome, Pes.Contacto,A.Pessoa_N_CartaoCidadao,A.Quinta_Empresa_Id_Empresa, Q.Empresa_Id_Empresa,E.Nome as NomeQuinta
-	from ((AgroTrack_Agricultor as A join AgroTrack_Pessoa as Pes on A.Pessoa_N_CartaoCidadao=Pes.N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
+	from ((AgroTrack_Agricultor as A join AgroTrack_Pessoa as Pes on A.Pessoa_N_CartaoCidadao=Pes.N_CartaoCidadao)
+	inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa 
+	inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
 go
 
 --Animais e Quinta e tipo de animal
@@ -30,7 +32,8 @@ drop view IF EXISTS AgroTrack.AnimaisQuinta
 go
 create view AgroTrack.AnimaisQuinta as
 	select Ani.Id_Animal, Ani.Tipo_de_Animal, QA.Idade, QA.Brinco, QA.Empresa_Id_Empresa
-	from  ((AgroTrack_Animal as Ani join AgroTrack_Quinta_Animal as QA on Ani.Id_Animal=QA.Id_Animal) inner join AgroTrack_Quinta as Q on QA.Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
+	from  ((AgroTrack_Animal as Ani join AgroTrack_Quinta_Animal as QA on Ani.Id_Animal=QA.Id_Animal)
+	inner join AgroTrack_Quinta as Q on QA.Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
 go
 
 --Plantas e Quinta e tipo de planta
@@ -38,7 +41,8 @@ drop view IF EXISTS AgroTrack.PlantasQuinta
 go
 create view AgroTrack.PlantasQuinta as
 	select PL.Id_planta, PL.Tipo,PL.Estacao, QP.Empresa_Id_Empresa, QP.Lote
-	from  ((AgroTrack_Planta as PL join AgroTrack_Quinta_Planta as QP on PL.Id_planta=QP.Id_planta) inner join AgroTrack_Quinta as Q on QP.Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
+	from  ((AgroTrack_Planta as PL join AgroTrack_Quinta_Planta as QP on PL.Id_planta=QP.Id_planta)
+	inner join AgroTrack_Quinta as Q on QP.Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
 go
 
 --Animais e plantas de cada Quinta
@@ -46,7 +50,8 @@ drop view IF EXISTS AgroTrack.PlantasAnimaisQuinta
 go
 create view  AgroTrack.PlantasAnimaisQuinta as
 	select PL.Id_planta, PL.Tipo,PL.Estacao, Ani.Id_Animal, Ani.Tipo_de_Animal, Q.Empresa_Id_Empresa
-	from  ((((AgroTrack_Planta as PL join AgroTrack_Quinta_Planta as QP on PL.Id_planta=QP.Id_planta) inner join AgroTrack_Quinta_Animal as QA on QP.Empresa_Id_Empresa=QA.Empresa_Id_Empresa) inner join AgroTrack_Animal as Ani
+	from  ((((AgroTrack_Planta as PL join AgroTrack_Quinta_Planta as QP on PL.Id_planta=QP.Id_planta)
+	inner join AgroTrack_Quinta_Animal as QA on QP.Empresa_Id_Empresa=QA.Empresa_Id_Empresa) inner join AgroTrack_Animal as Ani
 	on  Ani.Id_Animal=QA.Id_Animal) inner join AgroTrack_Quinta as Q on QA.Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
 go
 
@@ -55,7 +60,8 @@ drop view IF EXISTS AgroTrack.AgriculConquinta
 go
 create view AgroTrack.AgriculConquinta as
 	select C.ID, A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao, C.[Date_str], C.[Date_end], Salario, C.Descricao
-	from  ((AgroTrack_Agricultor as A join AgroTrack_Contrato as C on A.Pessoa_N_CartaoCidadao=C.Agricultor_Pessoa_N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
+	from  ((AgroTrack_Agricultor as A join AgroTrack_Contrato as C on A.Pessoa_N_CartaoCidadao=C.Agricultor_Pessoa_N_CartaoCidadao)
+	inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
 go
 
 --Agricultor e Quinta e contrato
@@ -63,7 +69,10 @@ drop view IF EXISTS AgroTrack.AgriculQuintaContrato
 go
 create view AgroTrack.AgriculQuintaContrato as
 	select C.ID, A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao, C.[Date_str], C.[Date_end], Salario, C.Descricao, Q.Empresa_Id_Empresa, E.Nome as NomeQuinta, P.Nome, P.Contacto
-	from  (((AgroTrack_Agricultor as A join AgroTrack_Contrato as C on A.Pessoa_N_CartaoCidadao=C.Agricultor_Pessoa_N_CartaoCidadao) inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa) inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa) inner join AgroTrack_Pessoa as P on A.Pessoa_N_CartaoCidadao=P.N_CartaoCidadao
+	from  (((AgroTrack_Agricultor as A join AgroTrack_Contrato as C on A.Pessoa_N_CartaoCidadao=C.Agricultor_Pessoa_N_CartaoCidadao)
+	inner join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
+	inner join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
+	inner join AgroTrack_Pessoa as P on A.Pessoa_N_CartaoCidadao=P.N_CartaoCidadao
 go
 --retalhistas e Empresa
 drop view IF EXISTS AgroTrack.RetalhistasE
@@ -87,7 +96,9 @@ drop view IF EXISTS AgroTrack.EncomendaItems
 go
 create view AgroTrack.EncomendaItems as
 	select Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id, I.Quantidade, I.ProdutoCodigo, I.Encomenda_Codigo, P.Nome as NomeProduto
-	from (((AgroTrack_Encomenda as Enc join AgroTrack_Item as I on Enc.Codigo=I.Encomenda_Codigo) inner join AgroTrack_Produto as P on I.ProdutoCodigo=P.Codigo))
+	from (((AgroTrack_Encomenda as Enc
+	join AgroTrack_Item as I on Enc.Codigo=I.Encomenda_Codigo)
+	inner join AgroTrack_Produto as P on I.ProdutoCodigo=P.Codigo))
 go
 
 
@@ -96,7 +107,9 @@ drop view IF EXISTS AgroTrack.ClienteCompra
 go
 create view AgroTrack.ClienteCompra as
 	select Cli.Pessoa_N_CartaoCidadao, Com.ID_Quinta, Com.Produto_codigo, Com.Quantidade, Com.Preco, Com.Metodo_de_pagamento,Pro.Nome, Pro.Tipo_de_Produto, Com.DataCompra
-	from  ((AgroTrack_Cliente as Cli join AgroTrack_Compra as Com on Cli.Pessoa_N_CartaoCidadao=Com.Cliente_Pessoa_N_CartaoCidadao) inner join AgroTrack_Produto as Pro on Com.Produto_codigo=Pro.Codigo)
+	from  ((AgroTrack_Cliente as Cli
+	join AgroTrack_Compra as Com on Cli.Pessoa_N_CartaoCidadao=Com.Cliente_Pessoa_N_CartaoCidadao)
+	inner join AgroTrack_Produto as Pro on Com.Produto_codigo=Pro.Codigo)
 go
 
 --Produto

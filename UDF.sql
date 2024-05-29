@@ -25,9 +25,10 @@ RETURN
     FROM AgroTrack_Agricultor a
     JOIN AgroTrack_Colhe c ON a.Pessoa_N_CartaoCidadao = c.Agricultor_Pessoa_N_CartaoCidadao
     GROUP BY a.Pessoa_N_CartaoCidadao
-    HAVING COUNT(*) >= @MinColheitas
+    HAVING COUNT(*) >= CASE WHEN @MinColheitas IS NULL OR @MinColheitas = 0 THEN 0 ELSE @MinColheitas END
 );
 GO
+
 
 DROP FUNCTION IF EXISTS AgroTrack.FilterFarmByProduct;
 GO
@@ -141,20 +142,13 @@ RETURNS @Result TABLE
 )
 AS
 BEGIN
-    -- Inserir os resultados na tabela retornada
     INSERT INTO @Result
     SELECT DISTINCT p.N_CartaoCidadao, p.Nome, p.Contacto
     FROM AgroTrack_Pessoa p
     INNER JOIN AgroTrack_Cliente c ON p.N_CartaoCidadao = c.Pessoa_N_CartaoCidadao
-    INNER JOIN AgroTrack_Compra ac ON c.Pessoa_N_CartaoCidadao = ac.Cliente_Pessoa_N_CartaoCidadao
-    WHERE (@ProdutoCodigo IS NULL OR ac.Produto_codigo = @ProdutoCodigo)
-    AND (@QuintaId IS NULL OR ac.ID_Quinta = @QuintaId)
-    AND c.Pessoa_N_CartaoCidadao IN (
-        SELECT Cliente_Pessoa_N_CartaoCidadao
-        FROM AgroTrack_Compra
-        GROUP BY Cliente_Pessoa_N_CartaoCidadao
-        HAVING COUNT(Cliente_Pessoa_N_CartaoCidadao) >= ISNULL(@NumeroCompras, 0)
-    );
+    WHERE (@ProdutoCodigo IS NULL OR EXISTS (SELECT 1 FROM AgroTrack_Compra ac WHERE ac.Cliente_Pessoa_N_CartaoCidadao = c.Pessoa_N_CartaoCidadao AND ac.Produto_codigo = @ProdutoCodigo))
+    AND (@QuintaId IS NULL OR EXISTS (SELECT 1 FROM AgroTrack_Compra ac WHERE ac.Cliente_Pessoa_N_CartaoCidadao = c.Pessoa_N_CartaoCidadao AND ac.ID_Quinta = @QuintaId))
+    AND ((@NumeroCompras IS NULL OR @NumeroCompras = 0) OR (@NumeroCompras > 0 AND EXISTS (SELECT 1 FROM AgroTrack_Compra ac WHERE ac.Cliente_Pessoa_N_CartaoCidadao = c.Pessoa_N_CartaoCidadao GROUP BY ac.Cliente_Pessoa_N_CartaoCidadao HAVING COUNT(*) >= @NumeroCompras)));
 
     RETURN;
 END;

@@ -1,4 +1,3 @@
-
 IF OBJECT_ID('AgroTrack.AddEncomendaTransportes', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddEncomendaTransportes;
 GO
@@ -6,35 +5,35 @@ IF OBJECT_ID('AgroTrack.AddEncomendaRetalhistas', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddEncomendaRetalhistas;
 GO
 
-IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemovePlantFromQuinta;
+IF OBJECT_ID('AgroTrack.RemovePlantFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.RemovePlantFromQuinta;
 GO
 
 IF OBJECT_ID('AgroTrack.AddRetalhista', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddRetalhista;
 GO
 
-IF OBJECT_ID('ApagarTransporte', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarTransporte;
+IF OBJECT_ID('AgroTrack.ApagarTransporte', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarTransporte;
 GO
 
-IF OBJECT_ID('ApagarRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarRetalhista;
+IF OBJECT_ID('AgroTrack.ApagarRetalhista', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarRetalhista;
 GO
 
 
-IF OBJECT_ID('ApagarProduto', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarProduto;
+IF OBJECT_ID('AgroTrack.ApagarProduto', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarProduto;
 GO
 
-IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddProdutoToQuinta;
+IF OBJECT_ID('AgroTrack.AddProdutoToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddProdutoToQuinta;
 GO
 
-IF OBJECT_ID('AddQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddQuinta;
+IF OBJECT_ID('AgroTrack.AddQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddQuinta;
 GO
-CREATE PROCEDURE AddQuinta
+CREATE PROCEDURE AgroTrack.AddQuinta
     @Nome VARCHAR(64),
     @Morada VARCHAR(64),
     @Contacto INT
@@ -54,10 +53,10 @@ BEGIN
     PRINT 'New Quinta added successfully.';
 END
 GO
-IF OBJECT_ID('AddAnimalToQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddAnimalToQuinta;
+IF OBJECT_ID('AgroTrack.AddAnimalToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddAnimalToQuinta;
 GO
-CREATE PROCEDURE AddAnimalToQuinta
+CREATE PROCEDURE AgroTrack.AddAnimalToQuinta
     @Id_Animal INT,
     @Idade INT,
     @Brinco VARCHAR(16),
@@ -76,10 +75,10 @@ BEGIN
     PRINT 'New animal added to the Quinta successfully.';
 END
 GO
-IF OBJECT_ID('AddPlantaToQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddPlantaToQuinta;
+IF OBJECT_ID('AgroTrack.AddPlantaToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddPlantaToQuinta;
 GO
-CREATE PROCEDURE AddPlantaToQuinta
+CREATE PROCEDURE AgroTrack.AddPlantaToQuinta
     @IdPlanta int,
     @Estacao VARCHAR(32),
     @Lote VARCHAR(32),
@@ -100,10 +99,10 @@ BEGIN
     PRINT 'Nova planta adicionada à Quinta com sucesso.';
 END
 GO
-IF OBJECT_ID('AddAgricultor', 'P') IS NOT NULL
-    DROP PROCEDURE AddAgricultor;
+IF OBJECT_ID('AgroTrack.AddAgricultor', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddAgricultor;
 GO
-CREATE PROCEDURE AddAgricultor
+CREATE PROCEDURE AgroTrack.AddAgricultor
     @Nome VARCHAR(64),
     @N_CartaoCidadao INT,
     @Salario FLOAT,
@@ -153,11 +152,11 @@ BEGIN
     PRINT 'Novo agricultor adicionado à Quinta com sucesso.';
 END
 GO
-IF OBJECT_ID('AddProduto', 'P') IS NOT NULL
-    DROP PROCEDURE AddProduto;
+IF OBJECT_ID('AgroTrack.AddProduto', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddProduto;
 GO
 
-CREATE PROCEDURE AddProduto
+CREATE PROCEDURE AgroTrack.AddProduto
     @NomeProduto VARCHAR(64),
     @Tipo_de_Produto VARCHAR(64),
     @Preco FLOAT,
@@ -177,13 +176,10 @@ BEGIN
 END
 GO
 
-
-
-
-IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddProdutoToQuinta;
+IF OBJECT_ID('AgroTrack.AddProdutoToQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddProdutoToQuinta;
 GO
-CREATE PROCEDURE AddProdutoToQuinta
+CREATE PROCEDURE AgroTrack.AddProdutoToQuinta
     @ProdutoId VARCHAR(64),
     @QuintaId VARCHAR(64),
     @Quantidade INT,
@@ -215,10 +211,10 @@ GO
 
 
 
-IF OBJECT_ID('AddEncomenda', 'P') IS NOT NULL
-    DROP PROCEDURE AddEncomenda;
+IF OBJECT_ID('AgroTrack.AddEncomenda', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddEncomenda;
 GO
-CREATE PROCEDURE AddEncomenda
+CREATE PROCEDURE AgroTrack.AddEncomenda
     @Codigo INT,
     @Prazo_entrega INT,
     @Morada_entrega VARCHAR(64),
@@ -269,1455 +265,10 @@ BEGIN
 END;
 GO
 
-IF OBJECT_ID('AddItemToEncomenda', 'P') IS NOT NULL
-    DROP PROCEDURE AddItemToEncomenda;
+IF OBJECT_ID('AgroTrack.AddItemToEncomenda', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddItemToEncomenda;
 GO
-CREATE PROCEDURE AddItemToEncomenda
-    @ProdutoCodigo INT,
-    @Quantidade INT,
-    @EncomendaCodigo INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    BEGIN TRY
-        INSERT INTO AgroTrack_Item (
-            ProdutoCodigo,
-            Quantidade,
-            Encomenda_Codigo
-        )
-        VALUES (
-            @ProdutoCodigo,
-            @Quantidade,
-            @EncomendaCodigo
-        );
-
-        PRINT 'Item added to Encomenda successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Handle errors
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH
-END;
-GO
-
-IF OBJECT_ID('AddColheita', 'P') IS NOT NULL
-    DROP PROCEDURE AddColheita;
-GO
-
-CREATE PROCEDURE AddColheita
-    @Agricultor_Pessoa_N_CartaoCidadao INT,
-    @Duracao_colheita FLOAT,
-    @Quantidade INT,
-    @Produto_codigo INT,
-    @DataColheita DATE,
-    @Data_de_validade DATE
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Insert into AgroTrack_Colhe
-        INSERT INTO AgroTrack_Colhe (
-            Agricultor_Pessoa_N_CartaoCidadao,
-            Duracao_colheita,
-            Quantidade,
-            Produto_codigo,
-            DataColheita
-        )
-        VALUES (
-            @Agricultor_Pessoa_N_CartaoCidadao,
-            @Duracao_colheita,
-            @Quantidade,
-            @Produto_codigo,
-            @DataColheita
-        );
-
-        -- Declare the variable
-        DECLARE @Quinta_Empresa_Id_Empresa INT;
-
-        -- Assign value to the variable
-        SELECT @Quinta_Empresa_Id_Empresa = Quinta_Empresa_Id_Empresa 
-        FROM AgroTrack_Agricultor 
-        WHERE Pessoa_N_CartaoCidadao = @Agricultor_Pessoa_N_CartaoCidadao;
-
-        -- Check if the product already exists in the AgroTrack_Contem table for the specified farm
-        IF EXISTS (SELECT 1 FROM AgroTrack_Contem WHERE Produto_codigo = @Produto_codigo AND Quinta_Empresa_Id_Empresa = @Quinta_Empresa_Id_Empresa)
-        BEGIN
-            -- Update the existing record with the new quantity
-            UPDATE AgroTrack_Contem
-            SET Quantidade = Quantidade + @Quantidade, 
-                Data_de_validade = @Data_de_validade
-            WHERE Produto_codigo = @Produto_codigo AND Quinta_Empresa_Id_Empresa = @Quinta_Empresa_Id_Empresa;
-        END
-        ELSE
-        BEGIN
-            -- Insert a new record into AgroTrack_Contem
-            INSERT INTO AgroTrack_Contem (
-                Produto_codigo,
-                Quinta_Empresa_Id_Empresa,
-                Data_de_validade,
-                Quantidade
-            )
-            VALUES (
-                @Produto_codigo,
-                @Quinta_Empresa_Id_Empresa,
-                @Data_de_validade,
-                @Quantidade
-            );
-        END
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Colheita and product addition completed successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-
-IF OBJECT_ID('RemoveProdutosForaDeValidadeFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemoveProdutosForaDeValidadeFromQuinta;
-GO
-CREATE PROCEDURE RemoveProdutosForaDeValidadeFromQuinta @QuintaId INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete the products that are past their expiration date
-        DELETE FROM AgroTrack_Contem
-        WHERE Quinta_Empresa_Id_Empresa = @QuintaId AND [Data_de_validade] < GETDATE();
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Produtos fora de validade removidos com sucesso.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-IF OBJECT_ID('AgroTrack.PesquisarPorNomeEmpresa', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.PesquisarPorNomeEmpresa;
-GO
-CREATE PROCEDURE AgroTrack.PesquisarPorNomeEmpresa
-    @Nome VARCHAR(64),
-    @esquema VARCHAR(50),
-    @tabela VARCHAR(50)
-as
-	begin
-		declare @query nvarchar(MAX);
-
-		set @query = 'select * from ' + QUOTENAME(@esquema) + '.' + QUOTENAME(@tabela) + ' where [Nome] like ''%' + REPLACE(@Nome, '''', '''''') + '%''';
-
-		execute sp_executesql @query;
-	end;
-GO
-IF OBJECT_ID('AgroTrack.PesquisarPorNome', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.PesquisarPorNome;
-GO
-CREATE PROCEDURE AgroTrack.PesquisarPorNome
-    @Nome VARCHAR(64),
-    @esquema VARCHAR(50),
-    @tabela VARCHAR(50)
-AS
-	begin
-		declare @query nvarchar(MAX);
-
-		set @query = 'select * from ' + QUOTENAME(@esquema) + '.' + QUOTENAME(@tabela) + ' where [Nome] like ''%' + REPLACE(@Nome, '''', '''''') + '%''';
-
-		execute sp_executesql @query;
-	end;
-GO
-
-IF OBJECT_ID('ApagarQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarQuinta;
-GO
-CREATE PROCEDURE ApagarQuinta
-    @Empresa_Id_Empresa INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete the Quinta from the AgroTrack_Quinta table
-        DELETE FROM AgroTrack_Quinta
-        WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
-
-        -- Delete the Empresa from the AgroTrack_Empresa table
-        DELETE FROM AgroTrack_Empresa
-        WHERE Id_Empresa = @Empresa_Id_Empresa;
-
-        DELETE FROM AgroTrack_Agricultor
-        WHERE Quinta_Empresa_Id_Empresa = @Empresa_Id_Empresa;
-
-        DELETE FROM AgroTrack_Quinta_Animal
-        WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
-
-        DELETE FROM AgroTrack_Quinta_Planta
-        WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
-
-        DELETE FROM AgroTrack_Contem
-        WHERE Quinta_Empresa_Id_Empresa = @Empresa_Id_Empresa;
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Quinta deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-
-IF OBJECT_ID('ApagarProduto', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarProduto;
-GO
-CREATE PROCEDURE ApagarProduto
-    @Codigo INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Debug: Print the Codigo to be deleted
-        PRINT 'Deleting Produto with Codigo = ' + CAST(@Codigo AS NVARCHAR(10));
-
-        -- Delete from AgroTrack_Compra table
-        DELETE FROM AgroTrack_Compra
-        WHERE Produto_codigo = @Codigo;
-
-        -- Delete from AgroTrack_Item table
-        DELETE FROM AgroTrack_Item
-        WHERE ProdutoCodigo = @Codigo;
-
-        -- Delete from AgroTrack_Colhe table
-        DELETE FROM AgroTrack_Colhe
-        WHERE Produto_codigo = @Codigo;
-
-        -- Delete from AgroTrack_Contem table
-        DELETE FROM AgroTrack_Contem
-        WHERE Produto_codigo = @Codigo;
-
-        -- Delete from AgroTrack_Produto table
-        DELETE FROM AgroTrack_Produto
-        WHERE Codigo = @Codigo;
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Produto deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Print the error details for debugging
-        PRINT 'Error: ' + @ErrorMessage;
-        PRINT 'Severity: ' + CAST(@ErrorSeverity AS NVARCHAR(10));
-        PRINT 'State: ' + CAST(@ErrorState AS NVARCHAR(10));
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-
-GO
-IF OBJECT_ID('ApagarAgricultor', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarAgricultor;
-GO
-CREATE PROCEDURE ApagarAgricultor
-    @Pessoa_N_CartaoCidadao INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete the Agricultor from the AgroTrack_Agricultor table
-        DELETE FROM AgroTrack_Agricultor
-        WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
-
-        -- Delete the Agricultor from the AgroTrack_Contrato table
-        DELETE FROM AgroTrack_Contrato
-        WHERE Agricultor_Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Agricultor deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-IF OBJECT_ID('ApagarColheita', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarColheita;
-GO
-CREATE PROCEDURE ApagarColheita
-    @Agricultor_Pessoa_N_CartaoCidadao INT,
-    @Produto_codigo INT,
-    @DataColheita DATE
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete the Colheita from the AgroTrack_Colhe table
-        DELETE FROM AgroTrack_Colhe
-        WHERE Agricultor_Pessoa_N_CartaoCidadao = @Agricultor_Pessoa_N_CartaoCidadao
-        AND Produto_codigo = @Produto_codigo
-        AND DataColheita = @DataColheita;
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Colheita deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-
-IF OBJECT_ID('AgroTrack.AdicionarCliente', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AdicionarCliente;
-GO
-CREATE PROCEDURE AgroTrack.AdicionarCliente
-    @Nome VARCHAR(64),
-    @N_CartaoCidadao INT,
-    @Contacto INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        INSERT INTO AgroTrack_Pessoa (
-            Nome,
-            N_CartaoCidadao,
-            Contacto
-        )
-        VALUES (
-            @Nome,
-            @N_CartaoCidadao,
-            @Contacto
-        );
-        INSERT INTO AgroTrack_Cliente (
-            Pessoa_N_CartaoCidadao
-        )
-        VALUES (
-            @N_CartaoCidadao
-        );
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Cliente added successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-IF OBJECT_ID('AgroTrack.ApagarCliente', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.ApagarCliente;
-GO
-CREATE PROCEDURE AgroTrack.ApagarCliente
-    @Pessoa_N_CartaoCidadao INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete the Cliente from the AgroTrack_Cliente table
-        DELETE FROM AgroTrack_Cliente
-        WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
-
-        -- Delete the Cliente from the AgroTrack_Compra table
-        DELETE FROM AgroTrack_Compra
-        WHERE Cliente_Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
-
-        -- Delete the Cliente from the AgroTrack_Pessoa table
-        DELETE FROM AgroTrack_Pessoa
-        WHERE N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Cliente deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-IF OBJECT_ID('AgroTrack.AdicionarCompra', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AdicionarCompra;
-GO
-CREATE PROCEDURE AgroTrack.AdicionarCompra
-    @Cliente_Pessoa_N_CartaoCidadao INT,
-    @Produto_codigo INT,
-    @ID_Quinta INT,
-    @Quantidade INT,
-    @Data DATE,
-    @Metodo_de_pagamento VARCHAR(32)
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Insert into AgroTrack_Compra
-        INSERT INTO AgroTrack_Compra (
-            Cliente_Pessoa_N_CartaoCidadao,
-            Produto_codigo,
-            ID_Quinta,
-            Quantidade,
-            DataCompra,
-            Metodo_de_pagamento
-        )
-        VALUES (
-            @Cliente_Pessoa_N_CartaoCidadao,
-            @Produto_codigo,
-            @ID_Quinta,
-            @Quantidade,
-            @Data,
-            @Metodo_de_pagamento
-        );
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Compra added successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-if OBJECT_ID('AgroTrack.OrdenarClientes', 'P') is not null
-    drop procedure AgroTrack.OrdenarClientes;
-GO
-CREATE PROCEDURE AgroTrack.OrdenarClientes
-    @Order VARCHAR(50)
-AS
-BEGIN
-    IF @Order = 'NomeCrescente'
-    BEGIN
-        SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
-        FROM AgroTrack.Cliente
-        ORDER BY Nome ASC; -- Order by Nome (Name) in ascending order
-    END
-    ELSE IF @Order = 'NomeDecrescente'
-    BEGIN
-        SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
-        FROM AgroTrack.Cliente
-        ORDER BY Nome DESC; -- Order by Nome (Name) in descending order
-    END
-    ELSE IF @Order = 'TelefoneCrescente'
-    BEGIN
-        SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
-        FROM AgroTrack.Cliente
-        ORDER BY Contacto ASC; -- Order by Contacto (Telephone) in ascending order
-    END
-    ELSE IF @Order = 'TelefoneDecrescente'
-    BEGIN
-        SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
-        FROM AgroTrack.Cliente
-        ORDER BY Contacto DESC; -- Order by Contacto (Telephone) in descending order
-    END
-    ELSE
-    BEGIN
-        -- Invalid order parameter, return an empty result set
-        SELECT NULL AS Pessoa_N_CartaoCidadao, NULL AS Nome, NULL AS Contacto
-        WHERE 1 = 0; -- Returns no rows
-    END
-END;
-GO
-IF OBJECT_ID('AgroTrack.OrdenarAgricultores', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.OrdenarAgricultores;
-GO
-CREATE PROCEDURE AgroTrack.OrdenarAgricultores
-    @Order VARCHAR(50)
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE @SqlQuery NVARCHAR(MAX);
-
-    -- Determine the ORDER BY clause based on the @Order parameter
-    DECLARE @OrderByClause NVARCHAR(MAX) = 
-        CASE 
-            WHEN @Order = 'NomeCrescente' THEN 'Nome ASC'
-            WHEN @Order = 'NomeDecrescente' THEN 'Nome DESC'
-            WHEN @Order = 'IDCrescente' THEN 'Pessoa_N_CartaoCidadao ASC'
-            WHEN @Order = 'IDDecrescente' THEN 'Pessoa_N_CartaoCidadao DESC'
-            WHEN @Order = 'SalarioCrescente' THEN 'Salario ASC'
-            WHEN @Order = 'SalarioDecrescente' THEN 'Salario DESC'
-            ELSE 'Nome ASC' -- Default ordering by Name in ascending order
-        END;
-
-    -- Construct the dynamic SQL query
-    SET @SqlQuery = '
-        SELECT Pessoa_N_CartaoCidadao, Nome, Contacto, Empresa_Id_Empresa, Salario, NomeQuinta, Id_Trabalhador
-        FROM AgroTrack.AgriculQuintaContrato
-        ORDER BY ' + @OrderByClause;
-
-    -- Execute the dynamic SQL query
-    EXEC sp_executesql @SqlQuery;
-END
-GO
-
--- Calculate the new Id_Empresa value
-DECLARE @Id_Empresa INT;
-SELECT @Id_Empresa = ISNULL(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
-
--- AddEmpresaTransportes
-IF OBJECT_ID('AgroTrack.AddEmpresaTransportes', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AddEmpresaTransportes;
-GO
-CREATE PROCEDURE AgroTrack.AddEmpresaTransportes
-    @Nome VARCHAR(64),
-    @Morada VARCHAR(64),
-    @Contacto INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-    
-    -- Calculate the new Id_Empresa value
-    DECLARE @Id_Empresa INT;
-    SELECT @Id_Empresa = ISNULL(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
-        -- Insert into AgroTrack_Empresa
-        INSERT INTO AgroTrack_Empresa (
-            Id_Empresa,
-            Nome,
-            Morada,
-            Contacto,
-            Tipo_De_Empresa
-        )
-        VALUES (
-            @Id_Empresa,
-            @Nome,
-            @Morada,
-            @Contacto,
-            'Empresa de Transportes'
-        );
-        Insert into AgroTrack_Empresa_De_Transportes (Empresa_Id_Empresa,Nome)
-        VALUES (@Id_Empresa,@Nome);
-
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Empresa de Transportes added successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-
-
-
-
-IF OBJECT_ID('ApagarTransporte', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarTransporte;
-GO
-CREATE PROCEDURE ApagarTransporte
-    @Empresa_Id_Empresa INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-
-        DELETE FROM AgroTrack_Item
-        WHERE Encomenda_Codigo IN (
-            SELECT Codigo
-            FROM AgroTrack_Encomenda
-            WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa
-        );
-        
-        Delete From AgroTrack_Encomenda
-        WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa;
-
-        DELETE FROM AgroTrack_Empresa_De_Transportes
-        WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
-
-        -- Delete the Empresa from the AgroTrack_Empresa table
-        DELETE FROM AgroTrack_Empresa
-        WHERE Id_Empresa = @Empresa_Id_Empresa;
-
-        
-        
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Empresa deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-
-IF OBJECT_ID('ApagarRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarRetalhista;
-GO
-CREATE PROCEDURE ApagarRetalhista
-    @Empresa_Id_Empresa INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-
-        DELETE FROM AgroTrack_Retalhistas
-        WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
-
-        -- Delete the Empresa from the AgroTrack_Empresa table
-        DELETE FROM AgroTrack_Empresa
-        WHERE Id_Empresa = @Empresa_Id_Empresa;
-
-        
-        
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Empresa deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-
-
-
--- AddRetalhista
-IF OBJECT_ID('AgroTrack.AddRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AddRetalhista;
-GO
-CREATE PROCEDURE AgroTrack.AddRetalhista
-    @Nome VARCHAR(64),
-    @Morada VARCHAR(64),
-    @Contacto INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-    
-    -- Calculate the new Id_Empresa value
-    DECLARE @Id_Empresa INT;
-    SELECT @Id_Empresa = ISNULL(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
-        -- Insert into AgroTrack_Empresa
-        INSERT INTO AgroTrack_Empresa (
-            Id_Empresa,
-            Nome,
-            Morada,
-            Contacto,
-            Tipo_De_Empresa
-        )
-        VALUES (
-            @Id_Empresa,
-            @Nome,
-            @Morada,
-            @Contacto,
-            'Retalhista'
-        );
-        INSERT INTO AgroTrack_Retalhistas (Empresa_Id_Empresa)
-        VALUES (@Id_Empresa);
-        
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Retalhista added successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-IF OBJECT_ID('RemoveProdutoFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemoveProdutoFromQuinta;
-GO
-CREATE PROCEDURE RemoveProdutoFromQuinta
-    @ProdutoId INT,
-    @QuintaId INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete the product from the AgroTrack_Contem table
-        DELETE FROM AgroTrack_Contem
-        WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId;
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Produto removido da Quinta com sucesso.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-
--- AddEncomendaTransportes
-IF OBJECT_ID('AgroTrack.AddEncomendaTransportes', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AddEncomendaTransportes;
-GO
-CREATE PROCEDURE AgroTrack.AddEncomendaTransportes
-    @Prazo_entrega INT,
-    @Morada_entrega VARCHAR(64),
-    @Entrega DATE,
-    @Retalhista_Empresa_Id_Empresa INT,
-    @Empresa_De_Transportes_Id_Empresa INT,
-    @Quinta_Empresa_Id INT
-
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    BEGIN TRY
-        -- Verifica a existência dos IDs nas tabelas correspondentes
-        IF NOT EXISTS (SELECT 1 FROM AgroTrack_Retalhistas WHERE Empresa_Id_Empresa = @Retalhista_Empresa_Id_Empresa)
-        BEGIN
-            RAISERROR('O ID do retalhista não existe.', 16, 1);
-            RETURN;
-        END
-
-        IF NOT EXISTS (SELECT 1 FROM AgroTrack_Empresa_De_Transportes WHERE Empresa_Id_Empresa = @Empresa_De_Transportes_Id_Empresa)
-        BEGIN
-            RAISERROR('O ID da empresa de transportes não existe.', 16, 1);
-            RETURN;
-        END
-
-        IF NOT EXISTS (SELECT 1 FROM AgroTrack_Quinta WHERE Empresa_Id_Empresa = @Quinta_Empresa_Id)
-        BEGIN
-            RAISERROR('O ID da quinta não existe.', 16, 1);
-            RETURN;
-        END
-
-        DECLARE @Codigo INT;
-        SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
-
-        -- Insere a nova Encomenda
-        INSERT INTO AgroTrack_Encomenda (
-            Codigo,
-            prazo_entrega,
-            Morada_entrega,
-            Entrega,
-            Retalhista_Empresa_Id_Empresa,
-            Empresa_De_Transportes_Id_Empresa,
-            Quinta_Empresa_Id
-        )
-        VALUES (
-            @Codigo,
-            @Prazo_entrega,
-            @Morada_entrega,
-            @Entrega,
-            @Retalhista_Empresa_Id_Empresa,
-            @Empresa_De_Transportes_Id_Empresa,
-            @Quinta_Empresa_Id
-        );
-
-        PRINT 'Encomenda adicionada com sucesso.';
-    END TRY
-    BEGIN CATCH
-        -- Trata erros
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH
-END;
-
-
-GO
-
-IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemovePlantFromQuinta;
-GO
-CREATE PROCEDURE RemovePlantFromQuinta
-    @PlantaId INT,
-    @QuintaId INT,
-    @Lote varchar(32)
-AS
-BEGIN
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        DELETE FROM AgroTrack_Quinta_Planta
-        WHERE Id_Planta = @PlantaId AND Empresa_Id_Empresa = @QuintaId AND Lote = @Lote;
-
-        COMMIT TRANSACTION;
-
-        PRINT 'Planta removida da Quinta com sucesso.';
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-
-        PRINT 'Ocorreu um erro ao remover a planta da Quinta.';
-        THROW;
-    END CATCH
-END
-GO
-
-IF OBJECT_ID('RemoveAnimalFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemoveAnimalFromQuinta;
-GO
-CREATE PROCEDURE RemoveAnimalFromQuinta
-    @AnimalId INT,
-    @QuintaId INT,
-    @Brinco varchar(32)
-AS
-BEGIN
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        DELETE FROM AgroTrack_Quinta_Animal
-        WHERE Id_Animal = @AnimalId AND Empresa_Id_Empresa = @QuintaId AND Brinco = @Brinco;
-
-        COMMIT TRANSACTION;
-
-        PRINT 'Animal removido da Quinta com sucesso.';
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-
-        PRINT 'Ocorreu um erro ao remover o animal da Quinta.';
-        THROW;
-    END CATCH
-END
-GO
-
---RemoveEncomenda TRANSPORTES
-IF OBJECT_ID('ApagarEncomendaTransportes', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarEncomendaTransportes;
-GO
-CREATE PROCEDURE ApagarEncomendaTransportes
-    @Codigo INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete the Encomenda from the AgroTrack_Encomenda table
-        DELETE FROM AgroTrack_Encomenda
-        WHERE Codigo = @Codigo;
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Encomenda deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
---RemoveEncomenda RETALHISTAS
-IF OBJECT_ID('ApagarEncomendaRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarEncomendaRetalhista;
-GO
-CREATE PROCEDURE ApagarEncomendaRetalhista
-    @Codigo INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete the Encomenda from the AgroTrack_Encomenda table
-        DELETE FROM AgroTrack_Encomenda
-        WHERE Codigo = @Codigo;
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Encomenda deleted successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-IF OBJECT_ID('AgroTrack.AddProdutoToEncomenda', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AddProdutoToEncomenda;
-GO
-CREATE PROCEDURE AgroTrack.AddProdutoToEncomenda
-    @Codigo INT,
-    @Produto_codigo INT,
-    @Quantidade INT
-AS
-BEGIN
-    -- Start a transaction
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Insert into AgroTrack_Item
-        INSERT INTO AgroTrack_Item (
-            Encomenda_Codigo,
-            ProdutoCodigo,
-            Quantidade
-        )
-        VALUES (
-            @Codigo,
-            @Produto_codigo,
-            @Quantidade
-        );
-
-        -- Commit the transaction
-        COMMIT TRANSACTION;
-
-        PRINT 'Produto added to Encomenda successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of error
-        ROLLBACK TRANSACTION;
-
-        -- Get the error details
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        -- Raise the error again to propagate it
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH;
-END;
-GO
-IF OBJECT_ID('AgroTrack.AddEncomendaTransportes', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AddEncomendaTransportes;
-GO
-IF OBJECT_ID('AgroTrack.AddEncomendaRetalhistas', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AddEncomendaRetalhistas;
-GO
-
-IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemovePlantFromQuinta;
-GO
-
-IF OBJECT_ID('AgroTrack.AddRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.AddRetalhista;
-GO
-
-IF OBJECT_ID('ApagarTransporte', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarTransporte;
-GO
-
-IF OBJECT_ID('ApagarRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarRetalhista;
-GO
-
-
-IF OBJECT_ID('ApagarProduto', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarProduto;
-GO
-
-IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddProdutoToQuinta;
-GO
-
-IF OBJECT_ID('AddQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddQuinta;
-GO
-CREATE PROCEDURE AddQuinta
-    @Nome VARCHAR(64),
-    @Morada VARCHAR(64),
-    @Contacto INT
-AS
-BEGIN
-	DECLARE @NEXTCodigoEmpresa  INT;
-
-    -- Find the maximum ID currently in the AgroTrack_Empresa table
-    SELECT @NextCodigoEmpresa = COALESCE(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
-
-    INSERT INTO AgroTrack_Empresa (Id_Empresa, Nome, Morada, Contacto, Tipo_De_Empresa)
-    VALUES (@NextCodigoEmpresa, @Nome, @Morada, @Contacto, 'Quinta');
-    -- Insert the new Quinta using the next available ID
-    INSERT INTO AgroTrack_Quinta (Empresa_Id_Empresa)
-    VALUES (@NextCodigoEmpresa); -- Assuming Empresa_Id_Empresa is the same as 
-
-    PRINT 'New Quinta added successfully.';
-END
-GO
-IF OBJECT_ID('AddAnimalToQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddAnimalToQuinta;
-GO
-CREATE PROCEDURE AddAnimalToQuinta
-    @Id_Animal INT,
-    @Idade INT,
-    @Brinco VARCHAR(16),
-    @Quinta_Id VARCHAR(64)
-AS
-BEGIN
-    IF @Quinta_Id IS NULL
-    BEGIN
-        RAISERROR ('Quinta with the provided name does not exist', 16, 1);
-        RETURN;
-    END
-
-    -- Insert the new animal into AgroTrack_Quinta_Animal
-    INSERT INTO AgroTrack_Quinta_Animal (Empresa_Id_Empresa, Idade, Brinco, Id_Animal)
-    VALUES (@Quinta_Id, @Idade, @Brinco, @Id_Animal);
-    PRINT 'New animal added to the Quinta successfully.';
-END
-GO
-IF OBJECT_ID('AddPlantaToQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddPlantaToQuinta;
-GO
-CREATE PROCEDURE AddPlantaToQuinta
-    @IdPlanta int,
-    @Estacao VARCHAR(32),
-    @Lote VARCHAR(32),
-    @QuintaId INT
-AS
-BEGIN
-    -- Verifica se a Quinta existe
-    IF @QuintaId IS NULL
-    BEGIN
-        RAISERROR ('A Quinta com o nome fornecido não existe', 16, 1);
-        RETURN;
-    END
-
-    -- Insere a nova planta na tabela AgroTrack_Quinta_Planta
-    INSERT INTO AgroTrack_Quinta_Planta (Empresa_Id_Empresa, Lote, Id_Planta)
-    VALUES (@QuintaId, @Lote, (SELECT Id_planta FROM AgroTrack_Planta WHERE Id_planta = @IdPlanta));
-
-    PRINT 'Nova planta adicionada à Quinta com sucesso.';
-END
-GO
-IF OBJECT_ID('AddAgricultor', 'P') IS NOT NULL
-    DROP PROCEDURE AddAgricultor;
-GO
-CREATE PROCEDURE AddAgricultor
-    @Nome VARCHAR(64),
-    @N_CartaoCidadao INT,
-    @Salario FLOAT,
-    @DescricaoContrato VARCHAR(64),
-    @QuintaId INT,
-    @Contacto INT,
-    @ContractStartDate DATE,
-    @ContractEndDate DATE
-AS
-BEGIN
-    DECLARE @PessoaId INT;
-    DECLARE @ContratoId INT;
-    DECLARE @IDAgricultor INT;
-
-    -- Verifica se a pessoa já é um agricultor
-    IF EXISTS (SELECT 1 FROM AgroTrack_Agricultor WHERE Pessoa_N_CartaoCidadao = @N_CartaoCidadao)
-    BEGIN
-        RAISERROR ('Esta pessoa já está registada como agricultor', 16, 1);
-        RETURN;
-    END
-
-    -- Verifica se a Quinta existe
-    IF @QuintaId IS NULL
-    BEGIN
-        RAISERROR ('A Quinta com o nome fornecido não existe', 16, 1);
-        RETURN;
-    END
-
-    IF NOT EXISTS (SELECT 1 FROM AgroTrack_Pessoa WHERE N_CartaoCidadao = @N_CartaoCidadao)
-    BEGIN
-        INSERT INTO AgroTrack_Pessoa (Nome, N_CartaoCidadao, Contacto)
-        VALUES (@Nome, @N_CartaoCidadao, @Contacto);
-    END
-
-    SELECT @PessoaId = N_CartaoCidadao FROM AgroTrack_Pessoa WHERE N_CartaoCidadao = @N_CartaoCidadao;
-
-    -- Insere o contrato na tabela AgroTrack_Contrato
-    SELECT @ContratoID = ISNULL(MAX(ID), 0) + 1 FROM AgroTrack_Contrato;
-    INSERT INTO AgroTrack_Contrato ([Date_str], [Date_end], Descricao, Salario, ID, Agricultor_Pessoa_N_CartaoCidadao)
-    VALUES (@ContractStartDate, @ContractEndDate, @DescricaoContrato, @Salario, @ContratoID, @PessoaId);
-
-    -- Insere o agricultor na quinta
-    SELECT @IDAgricultor = ISNULL(MAX(Id_Trabalhador), 0) + 1 FROM AgroTrack_Agricultor WHERE Quinta_Empresa_Id_Empresa = @QuintaId;
-    INSERT INTO AgroTrack_Agricultor (Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa)
-    VALUES (@IDAgricultor, @PessoaId, @QuintaId);
-
-    PRINT 'Novo agricultor adicionado à Quinta com sucesso.';
-END
-GO
-IF OBJECT_ID('AddProduto', 'P') IS NOT NULL
-    DROP PROCEDURE AddProduto;
-GO
-
-CREATE PROCEDURE AddProduto
-    @NomeProduto VARCHAR(64),
-    @Tipo_de_Produto VARCHAR(64),
-    @Preco FLOAT,
-    @Taxa_de_iva FLOAT,
-    @Unidade_medida VARCHAR(16)
-AS
-BEGIN
-    DECLARE @Codigo INT;
-    
-    -- Calculate the new Codigo value
-    SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Produto;
-    
-    -- Insert the new product into the AgroTrack_Produto table
-    INSERT INTO AgroTrack_Produto (Codigo, Nome, Tipo_de_Produto, Preco, Taxa_de_iva, Unidade_medida)
-    VALUES (@Codigo, @NomeProduto, @Tipo_de_Produto, @Preco, @Taxa_de_iva, @Unidade_medida);
-    PRINT 'Novo produto adicionado com sucesso.';
-END
-GO
-
-IF OBJECT_ID('AddProdutoToQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE AddProdutoToQuinta;
-GO
-CREATE PROCEDURE AddProdutoToQuinta
-    @ProdutoId VARCHAR(64),
-    @QuintaId VARCHAR(64),
-    @Quantidade INT,
-    @DataDeValidade DATE
-AS
-BEGIN
-    IF @QuintaId IS NULL
-    BEGIN
-        RAISERROR ('A Quinta com o nome fornecido não existe', 16, 1);
-        RETURN;
-    END
-
-    -- Insere o produto na tabela AgroTrack_Contem
-    IF EXISTS (SELECT 1 FROM AgroTrack_Contem WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId)
-    BEGIN
-        -- Atualiza o registo existente com a nova quantidade
-        UPDATE AgroTrack_Contem
-        SET Quantidade = Quantidade + @Quantidade, 
-            Data_de_validade = @DataDeValidade
-        WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId;
-    END
-    ELSE
-    INSERT INTO AgroTrack_Contem (Produto_Codigo, Quinta_Empresa_Id_Empresa, Quantidade, Data_de_validade)
-    VALUES (@ProdutoId, @QuintaId, @Quantidade, @DataDeValidade);
-
-    PRINT 'Novo produto adicionado à Quinta com sucesso.';
-END;
-GO
-
-
-
-IF OBJECT_ID('AddEncomenda', 'P') IS NOT NULL
-    DROP PROCEDURE AddEncomenda;
-GO
-CREATE PROCEDURE AddEncomenda
-    @Codigo INT,
-    @Prazo_entrega INT,
-    @Morada_entrega VARCHAR(64),
-    @Entrega DATE,
-    @Retalhista_Empresa_Id_Empresa INT,
-    @Empresa_De_Transportes_Id_Empresa INT,
-    @Quinta_Empresa_Id INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    BEGIN TRY
-        -- Insert the new Encomenda
-        INSERT INTO AgroTrack_Encomenda (
-            Codigo,
-            prazo_entrega,
-            Morada_entrega,
-            Entrega,
-            Retalhista_Empresa_Id_Empresa,
-            Empresa_De_Transportes_Id_Empresa,
-            Quinta_Empresa_Id
-        )
-        VALUES (
-            @Codigo,
-            @Prazo_entrega,
-            @Morada_entrega,
-            @Entrega,
-            @Retalhista_Empresa_Id_Empresa,
-            @Empresa_De_Transportes_Id_Empresa,
-            @Quinta_Empresa_Id
-        );
-
-        PRINT 'Encomenda added successfully.';
-    END TRY
-    BEGIN CATCH
-        -- Handle errors
-        DECLARE @ErrorMessage NVARCHAR(4000);
-        DECLARE @ErrorSeverity INT;
-        DECLARE @ErrorState INT;
-
-        SELECT 
-            @ErrorMessage = ERROR_MESSAGE(),
-            @ErrorSeverity = ERROR_SEVERITY(),
-            @ErrorState = ERROR_STATE();
-
-        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-    END CATCH
-END;
-GO
-
-IF OBJECT_ID('AddItemToEncomenda', 'P') IS NOT NULL
-    DROP PROCEDURE AddItemToEncomenda;
-GO
-CREATE PROCEDURE AddItemToEncomenda
+CREATE PROCEDURE AgroTrack.AddItemToEncomenda
     @ProdutoCodigo INT,
     @Quantidade INT,
     @EncomendaCodigo INT
@@ -1756,11 +307,11 @@ BEGIN
 END;
 GO
 
-IF OBJECT_ID('AddColheita', 'P') IS NOT NULL
-    DROP PROCEDURE AddColheita;
+IF OBJECT_ID('AgroTrack.AddColheita', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AddColheita;
 GO
 
-CREATE PROCEDURE AddColheita
+CREATE PROCEDURE AgroTrack.AddColheita
     @Agricultor_Pessoa_N_CartaoCidadao INT,
     @Duracao_colheita FLOAT,
     @Quantidade INT,
@@ -1848,10 +399,10 @@ BEGIN
 END;
 GO
 
-IF OBJECT_ID('RemoveProdutosForaDeValidadeFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemoveProdutosForaDeValidadeFromQuinta;
+IF OBJECT_ID('AgroTrack.RemoveProdutosForaDeValidadeFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.RemoveProdutosForaDeValidadeFromQuinta;
 GO
-CREATE PROCEDURE RemoveProdutosForaDeValidadeFromQuinta @QuintaId INT
+CREATE PROCEDURE AgroTrack.RemoveProdutosForaDeValidadeFromQuinta @QuintaId INT
 AS
 BEGIN
     -- Start a transaction
@@ -1919,10 +470,10 @@ AS
 	end;
 GO
 
-IF OBJECT_ID('ApagarQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarQuinta;
+IF OBJECT_ID('AgroTrack.ApagarQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarQuinta;
 GO
-CREATE PROCEDURE ApagarQuinta
+CREATE PROCEDURE AgroTrack.ApagarQuinta
     @Empresa_Id_Empresa INT
 AS
 BEGIN
@@ -1974,10 +525,10 @@ BEGIN
     END CATCH;
 END;
 
-IF OBJECT_ID('ApagarProduto', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarProduto;
+IF OBJECT_ID('AgroTrack.ApagarProduto', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarProduto;
 GO
-CREATE PROCEDURE ApagarProduto
+CREATE PROCEDURE AgroTrack.ApagarProduto
     @Codigo INT
 AS
 BEGIN
@@ -2048,10 +599,10 @@ BEGIN
     END CATCH;
 END;
 GO
-IF OBJECT_ID('ApagarAgricultor', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarAgricultor;
+IF OBJECT_ID('AgroTrack.ApagarAgricultor', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarAgricultor;
 GO
-CREATE PROCEDURE ApagarAgricultor
+CREATE PROCEDURE AgroTrack.ApagarAgricultor
     @Pessoa_N_CartaoCidadao INT
 AS
 BEGIN
@@ -2091,10 +642,10 @@ BEGIN
     END CATCH;
 END;
 GO
-IF OBJECT_ID('ApagarColheita', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarColheita;
+IF OBJECT_ID('AgroTrack.ApagarColheita', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarColheita;
 GO
-CREATE PROCEDURE ApagarColheita
+CREATE PROCEDURE AgroTrack.ApagarColheita
     @Agricultor_Pessoa_N_CartaoCidadao INT,
     @Produto_codigo INT,
     @DataColheita DATE
@@ -2221,7 +772,6 @@ BEGIN
         -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -2231,7 +781,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -2248,11 +797,9 @@ CREATE PROCEDURE AgroTrack.AdicionarCompra
     @Metodo_de_pagamento VARCHAR(32)
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Insert into AgroTrack_Compra
         INSERT INTO AgroTrack_Compra (
             Cliente_Pessoa_N_CartaoCidadao,
             Produto_codigo,
@@ -2270,16 +817,13 @@ BEGIN
             @Metodo_de_pagamento
         );
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Compra added successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -2289,7 +833,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -2305,31 +848,30 @@ BEGIN
     BEGIN
         SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
         FROM AgroTrack.Cliente
-        ORDER BY Nome ASC; -- Order by Nome (Name) in ascending order
+        ORDER BY Nome ASC; 
     END
     ELSE IF @Order = 'NomeDecrescente'
     BEGIN
         SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
         FROM AgroTrack.Cliente
-        ORDER BY Nome DESC; -- Order by Nome (Name) in descending order
+        ORDER BY Nome DESC;
     END
     ELSE IF @Order = 'TelefoneCrescente'
     BEGIN
         SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
         FROM AgroTrack.Cliente
-        ORDER BY Contacto ASC; -- Order by Contacto (Telephone) in ascending order
+        ORDER BY Contacto ASC;
     END
     ELSE IF @Order = 'TelefoneDecrescente'
     BEGIN
         SELECT Pessoa_N_CartaoCidadao, Nome, Contacto
         FROM AgroTrack.Cliente
-        ORDER BY Contacto DESC; -- Order by Contacto (Telephone) in descending order
+        ORDER BY Contacto DESC;
     END
     ELSE
     BEGIN
-        -- Invalid order parameter, return an empty result set
         SELECT NULL AS Pessoa_N_CartaoCidadao, NULL AS Nome, NULL AS Contacto
-        WHERE 1 = 0; -- Returns no rows
+        WHERE 1 = 0;
     END
 END;
 GO
@@ -2344,7 +886,6 @@ BEGIN
 
     DECLARE @SqlQuery NVARCHAR(MAX);
 
-    -- Determine the ORDER BY clause based on the @Order parameter
     DECLARE @OrderByClause NVARCHAR(MAX) = 
         CASE 
             WHEN @Order = 'NomeCrescente' THEN 'Nome ASC'
@@ -2353,16 +894,14 @@ BEGIN
             WHEN @Order = 'IDDecrescente' THEN 'Pessoa_N_CartaoCidadao DESC'
             WHEN @Order = 'SalarioCrescente' THEN 'Salario ASC'
             WHEN @Order = 'SalarioDecrescente' THEN 'Salario DESC'
-            ELSE 'Nome ASC' -- Default ordering by Name in ascending order
+            ELSE 'Nome ASC' -- por default iremos ordenar por nome
         END;
 
-    -- Construct the dynamic SQL query
     SET @SqlQuery = '
         SELECT Pessoa_N_CartaoCidadao, Nome, Contacto, Empresa_Id_Empresa, Salario, NomeQuinta, Id_Trabalhador
         FROM AgroTrack.AgriculQuintaContrato
         ORDER BY ' + @OrderByClause;
 
-    -- Execute the dynamic SQL query
     EXEC sp_executesql @SqlQuery;
 END
 GO
@@ -2435,10 +974,10 @@ END;
 
 
 
-IF OBJECT_ID('ApagarTransporte', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarTransporte;
+IF OBJECT_ID('AgroTrack.ApagarTransporte', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarTransporte;
 GO
-CREATE PROCEDURE ApagarTransporte
+CREATE PROCEDURE AgroTrack.ApagarTransporte
     @Empresa_Id_Empresa INT
 AS
 BEGIN
@@ -2490,10 +1029,10 @@ BEGIN
     END CATCH;
 END;
 
-IF OBJECT_ID('ApagarRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarRetalhista;
+IF OBJECT_ID('AgroTrack.ApagarRetalhista', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarRetalhista;
 GO
-CREATE PROCEDURE ApagarRetalhista
+CREATE PROCEDURE AgroTrack.ApagarRetalhista
     @Empresa_Id_Empresa INT
 AS
 BEGIN
@@ -2598,32 +1137,27 @@ BEGIN
     END CATCH;
 END;
 GO
-IF OBJECT_ID('RemoveProdutoFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemoveProdutoFromQuinta;
+IF OBJECT_ID('AgroTrack.RemoveProdutoFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.RemoveProdutoFromQuinta;
 GO
-CREATE PROCEDURE RemoveProdutoFromQuinta
+CREATE PROCEDURE AgroTrack.RemoveProdutoFromQuinta
     @ProdutoId INT,
     @QuintaId INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Delete the product from the AgroTrack_Contem table
         DELETE FROM AgroTrack_Contem
         WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId;
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Produto removido da Quinta com sucesso.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -2633,7 +1167,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -2655,7 +1188,6 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        -- Verifica a existência dos IDs nas tabelas correspondentes
         IF NOT EXISTS (SELECT 1 FROM AgroTrack_Retalhistas WHERE Empresa_Id_Empresa = @Retalhista_Empresa_Id_Empresa)
         BEGIN
             RAISERROR('O ID do retalhista não existe.', 16, 1);
@@ -2677,7 +1209,6 @@ BEGIN
         DECLARE @Codigo INT;
         SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
 
-        -- Insere a nova Encomenda
         INSERT INTO AgroTrack_Encomenda (
             Codigo,
             prazo_entrega,
@@ -2700,7 +1231,6 @@ BEGIN
         PRINT 'Encomenda adicionada com sucesso.';
     END TRY
     BEGIN CATCH
-        -- Trata erros
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -2767,10 +1297,10 @@ BEGIN
     END CATCH
 END;
 
-IF OBJECT_ID('RemovePlantFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemovePlantFromQuinta;
+IF OBJECT_ID('AgroTrack.RemovePlantFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.RemovePlantFromQuinta;
 GO
-CREATE PROCEDURE RemovePlantFromQuinta
+CREATE PROCEDURE AgroTrack.RemovePlantFromQuinta
     @PlantaId INT,
     @QuintaId INT,
     @Lote varchar(32)
@@ -2795,10 +1325,10 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('RemoveAnimalFromQuinta', 'P') IS NOT NULL
-    DROP PROCEDURE RemoveAnimalFromQuinta;
+IF OBJECT_ID('AgroTrack.RemoveAnimalFromQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.RemoveAnimalFromQuinta;
 GO
-CREATE PROCEDURE RemoveAnimalFromQuinta
+CREATE PROCEDURE AgroTrack.RemoveAnimalFromQuinta
     @AnimalId INT,
     @QuintaId INT,
     @Brinco varchar(32)
@@ -2824,10 +1354,10 @@ END
 GO
 
 --RemoveEncomenda TRANSPORTES
-IF OBJECT_ID('ApagarEncomendaTransportes', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarEncomendaTransportes;
+IF OBJECT_ID('AgroTrack.ApagarEncomendaTransportes', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarEncomendaTransportes;
 GO
-CREATE PROCEDURE ApagarEncomendaTransportes
+CREATE PROCEDURE AgroTrack.ApagarEncomendaTransportes
     @Codigo INT
 AS
 BEGIN
@@ -2864,10 +1394,10 @@ BEGIN
 END;
 go
 --RemoveEncomenda RETALHISTAS
-IF OBJECT_ID('ApagarEncomendaRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE ApagarEncomendaRetalhista;
+IF OBJECT_ID('AgroTrack.ApagarEncomendaRetalhista', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarEncomendaRetalhista;
 GO
-CREATE PROCEDURE ApagarEncomendaRetalhista
+CREATE PROCEDURE AgroTrack.ApagarEncomendaRetalhista
     @Codigo INT
 AS
 BEGIN
