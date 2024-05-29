@@ -2485,19 +2485,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\trmbr\\.nuget\\packages\\": {}
+    "C:\\Users\\Afonso\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\trmbr\\Desktop\\2Ano\\2Semestre\\BD\\Teóricas\\Projeto AGROTRACK\\Bd-Project\\AgroTrack\\AgroTrack.csproj",
+      "projectUniqueName": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\AgroTrack.csproj",
       "projectName": "AgroTrack",
-      "projectPath": "C:\\Users\\trmbr\\Desktop\\2Ano\\2Semestre\\BD\\Teóricas\\Projeto AGROTRACK\\Bd-Project\\AgroTrack\\AgroTrack.csproj",
-      "packagesPath": "C:\\Users\\trmbr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\trmbr\\Desktop\\2Ano\\2Semestre\\BD\\Teóricas\\Projeto AGROTRACK\\Bd-Project\\AgroTrack\\obj\\",
+      "projectPath": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\AgroTrack.csproj",
+      "packagesPath": "C:\\Users\\Afonso\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\trmbr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Afonso\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2560,7 +2560,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
