@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgroTrack));
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
@@ -121,6 +121,8 @@
             textBox18 = new TextBox();
             ListaAgricultores = new ListBox();
             Quintas = new TabPage();
+            QuintaNumeroProdutosLabel = new Label();
+            QuintaNumeroProdutos = new TextBox();
             Confirmar = new Button();
             AlterarNumero = new NumericUpDown();
             AlterarQuantidadeQuinta = new Button();
@@ -151,7 +153,7 @@
             AddProdutoToQuintaProdutoID = new ComboBox();
             AddProdutoToQuintaProdutoIDLabel = new Label();
             RemoverAnimalPlanta = new Button();
-            AdicionarAnimalPlanta = new Button();
+            AdicionarAnimal = new Button();
             RemoverProdutoQuinta = new Button();
             AdicionarProdutoQuinta = new Button();
             SubmeterNovaQuinta = new Button();
@@ -1225,6 +1227,8 @@
             // 
             // Quintas
             // 
+            Quintas.Controls.Add(QuintaNumeroProdutosLabel);
+            Quintas.Controls.Add(QuintaNumeroProdutos);
             Quintas.Controls.Add(Confirmar);
             Quintas.Controls.Add(AlterarNumero);
             Quintas.Controls.Add(AlterarQuantidadeQuinta);
@@ -1255,7 +1259,7 @@
             Quintas.Controls.Add(AddProdutoToQuintaProdutoID);
             Quintas.Controls.Add(AddProdutoToQuintaProdutoIDLabel);
             Quintas.Controls.Add(RemoverAnimalPlanta);
-            Quintas.Controls.Add(AdicionarAnimalPlanta);
+            Quintas.Controls.Add(AdicionarAnimal);
             Quintas.Controls.Add(RemoverProdutoQuinta);
             Quintas.Controls.Add(AdicionarProdutoQuinta);
             Quintas.Controls.Add(SubmeterNovaQuinta);
@@ -1293,9 +1297,25 @@
             Quintas.UseVisualStyleBackColor = true;
             Quintas.Click += Quintas_Click;
             // 
+            // QuintaNumeroProdutosLabel
+            // 
+            QuintaNumeroProdutosLabel.AutoSize = true;
+            QuintaNumeroProdutosLabel.Location = new Point(745, 97);
+            QuintaNumeroProdutosLabel.Name = "QuintaNumeroProdutosLabel";
+            QuintaNumeroProdutosLabel.Size = new Size(226, 25);
+            QuintaNumeroProdutosLabel.TabIndex = 80;
+            QuintaNumeroProdutosLabel.Text = "Número total de produtos:";
+            // 
+            // QuintaNumeroProdutos
+            // 
+            QuintaNumeroProdutos.Location = new Point(977, 97);
+            QuintaNumeroProdutos.Name = "QuintaNumeroProdutos";
+            QuintaNumeroProdutos.Size = new Size(135, 31);
+            QuintaNumeroProdutos.TabIndex = 79;
+            // 
             // Confirmar
             // 
-            Confirmar.Location = new Point(870, 238);
+            Confirmar.Location = new Point(870, 247);
             Confirmar.Name = "Confirmar";
             Confirmar.Size = new Size(242, 34);
             Confirmar.TabIndex = 78;
@@ -1305,7 +1325,7 @@
             // 
             // AlterarNumero
             // 
-            AlterarNumero.Location = new Point(870, 271);
+            AlterarNumero.Location = new Point(870, 280);
             AlterarNumero.Maximum = new decimal(new int[] { -1486618624, 232830643, 0, 0 });
             AlterarNumero.Name = "AlterarNumero";
             AlterarNumero.Size = new Size(242, 31);
@@ -1313,7 +1333,7 @@
             // 
             // AlterarQuantidadeQuinta
             // 
-            AlterarQuantidadeQuinta.Location = new Point(870, 301);
+            AlterarQuantidadeQuinta.Location = new Point(870, 310);
             AlterarQuantidadeQuinta.Name = "AlterarQuantidadeQuinta";
             AlterarQuantidadeQuinta.Size = new Size(242, 34);
             AlterarQuantidadeQuinta.TabIndex = 76;
@@ -1324,7 +1344,7 @@
             // AddPlantaIDPlanta
             // 
             AddPlantaIDPlanta.FormattingEnabled = true;
-            AddPlantaIDPlanta.Location = new Point(700, 274);
+            AddPlantaIDPlanta.Location = new Point(700, 283);
             AddPlantaIDPlanta.Name = "AddPlantaIDPlanta";
             AddPlantaIDPlanta.Size = new Size(310, 33);
             AddPlantaIDPlanta.TabIndex = 75;
@@ -1332,7 +1352,7 @@
             // 
             // AddPlantaSubmeter
             // 
-            AddPlantaSubmeter.Location = new Point(622, 400);
+            AddPlantaSubmeter.Location = new Point(622, 409);
             AddPlantaSubmeter.Name = "AddPlantaSubmeter";
             AddPlantaSubmeter.Size = new Size(388, 54);
             AddPlantaSubmeter.TabIndex = 74;
@@ -1342,7 +1362,7 @@
             // 
             // AddPlantaLote
             // 
-            AddPlantaLote.Location = new Point(699, 363);
+            AddPlantaLote.Location = new Point(699, 372);
             AddPlantaLote.Name = "AddPlantaLote";
             AddPlantaLote.Size = new Size(310, 31);
             AddPlantaLote.TabIndex = 73;
@@ -1350,7 +1370,7 @@
             // AddPlantaLoteLabel
             // 
             AddPlantaLoteLabel.AutoSize = true;
-            AddPlantaLoteLabel.Location = new Point(627, 369);
+            AddPlantaLoteLabel.Location = new Point(627, 378);
             AddPlantaLoteLabel.Name = "AddPlantaLoteLabel";
             AddPlantaLoteLabel.Size = new Size(50, 25);
             AddPlantaLoteLabel.TabIndex = 72;
@@ -1359,7 +1379,7 @@
             // AddPlantaEstacaoLabel
             // 
             AddPlantaEstacaoLabel.AutoSize = true;
-            AddPlantaEstacaoLabel.Location = new Point(617, 320);
+            AddPlantaEstacaoLabel.Location = new Point(617, 329);
             AddPlantaEstacaoLabel.Name = "AddPlantaEstacaoLabel";
             AddPlantaEstacaoLabel.Size = new Size(76, 25);
             AddPlantaEstacaoLabel.TabIndex = 71;
@@ -1369,7 +1389,7 @@
             // 
             AddPlantaEstacao.FormattingEnabled = true;
             AddPlantaEstacao.Items.AddRange(new object[] { "Primavera", "Verão", "Outono", "Inverno", "Todas" });
-            AddPlantaEstacao.Location = new Point(699, 318);
+            AddPlantaEstacao.Location = new Point(699, 327);
             AddPlantaEstacao.Name = "AddPlantaEstacao";
             AddPlantaEstacao.Size = new Size(310, 33);
             AddPlantaEstacao.TabIndex = 70;
@@ -1378,7 +1398,7 @@
             // AddPlantaIDLabel
             // 
             AddPlantaIDLabel.AutoSize = true;
-            AddPlantaIDLabel.Location = new Point(613, 277);
+            AddPlantaIDLabel.Location = new Point(613, 286);
             AddPlantaIDLabel.Name = "AddPlantaIDLabel";
             AddPlantaIDLabel.Size = new Size(64, 25);
             AddPlantaIDLabel.TabIndex = 69;
@@ -1386,7 +1406,7 @@
             // 
             // AddAnimalSubmeter
             // 
-            AddAnimalSubmeter.Location = new Point(621, 400);
+            AddAnimalSubmeter.Location = new Point(621, 409);
             AddAnimalSubmeter.Name = "AddAnimalSubmeter";
             AddAnimalSubmeter.Size = new Size(388, 54);
             AddAnimalSubmeter.TabIndex = 68;
@@ -1397,7 +1417,7 @@
             // AddAnimalBrincoLabel
             // 
             AddAnimalBrincoLabel.AutoSize = true;
-            AddAnimalBrincoLabel.Location = new Point(622, 369);
+            AddAnimalBrincoLabel.Location = new Point(622, 378);
             AddAnimalBrincoLabel.Name = "AddAnimalBrincoLabel";
             AddAnimalBrincoLabel.Size = new Size(65, 25);
             AddAnimalBrincoLabel.TabIndex = 67;
@@ -1406,7 +1426,7 @@
             // AddAnimalIdadeLabel
             // 
             AddAnimalIdadeLabel.AutoSize = true;
-            AddAnimalIdadeLabel.Location = new Point(621, 323);
+            AddAnimalIdadeLabel.Location = new Point(621, 332);
             AddAnimalIdadeLabel.Name = "AddAnimalIdadeLabel";
             AddAnimalIdadeLabel.Size = new Size(61, 25);
             AddAnimalIdadeLabel.TabIndex = 66;
@@ -1415,7 +1435,7 @@
             // AddAnimalAnimalLabel
             // 
             AddAnimalAnimalLabel.AutoSize = true;
-            AddAnimalAnimalLabel.Location = new Point(611, 277);
+            AddAnimalAnimalLabel.Location = new Point(611, 286);
             AddAnimalAnimalLabel.Name = "AddAnimalAnimalLabel";
             AddAnimalAnimalLabel.Size = new Size(71, 25);
             AddAnimalAnimalLabel.TabIndex = 65;
@@ -1424,7 +1444,7 @@
             // AddAnimalQuintaLabel
             // 
             AddAnimalQuintaLabel.AutoSize = true;
-            AddAnimalQuintaLabel.Location = new Point(613, 233);
+            AddAnimalQuintaLabel.Location = new Point(613, 242);
             AddAnimalQuintaLabel.Name = "AddAnimalQuintaLabel";
             AddAnimalQuintaLabel.Size = new Size(69, 25);
             AddAnimalQuintaLabel.TabIndex = 64;
@@ -1433,7 +1453,7 @@
             // AddAnimalQuinta
             // 
             AddAnimalQuinta.FormattingEnabled = true;
-            AddAnimalQuinta.Location = new Point(699, 230);
+            AddAnimalQuinta.Location = new Point(699, 239);
             AddAnimalQuinta.Name = "AddAnimalQuinta";
             AddAnimalQuinta.Size = new Size(310, 33);
             AddAnimalQuinta.TabIndex = 63;
@@ -1441,14 +1461,14 @@
             // 
             // AddAnimalBrinco
             // 
-            AddAnimalBrinco.Location = new Point(699, 363);
+            AddAnimalBrinco.Location = new Point(699, 372);
             AddAnimalBrinco.Name = "AddAnimalBrinco";
             AddAnimalBrinco.Size = new Size(310, 31);
             AddAnimalBrinco.TabIndex = 62;
             // 
             // AddAnimalIdade
             // 
-            AddAnimalIdade.Location = new Point(699, 320);
+            AddAnimalIdade.Location = new Point(699, 329);
             AddAnimalIdade.Name = "AddAnimalIdade";
             AddAnimalIdade.Size = new Size(310, 31);
             AddAnimalIdade.TabIndex = 61;
@@ -1456,7 +1476,7 @@
             // AddAnimalID
             // 
             AddAnimalID.FormattingEnabled = true;
-            AddAnimalID.Location = new Point(699, 274);
+            AddAnimalID.Location = new Point(699, 283);
             AddAnimalID.Name = "AddAnimalID";
             AddAnimalID.Size = new Size(310, 33);
             AddAnimalID.TabIndex = 60;
@@ -1516,7 +1536,7 @@
             // 
             // AdicionarPlanta
             // 
-            AdicionarPlanta.Location = new Point(637, 536);
+            AdicionarPlanta.Location = new Point(637, 545);
             AdicionarPlanta.Name = "AdicionarPlanta";
             AdicionarPlanta.Size = new Size(227, 34);
             AdicionarPlanta.TabIndex = 53;
@@ -1553,7 +1573,7 @@
             // 
             // RemoverAnimalPlanta
             // 
-            RemoverAnimalPlanta.Location = new Point(888, 536);
+            RemoverAnimalPlanta.Location = new Point(888, 545);
             RemoverAnimalPlanta.Name = "RemoverAnimalPlanta";
             RemoverAnimalPlanta.Size = new Size(214, 34);
             RemoverAnimalPlanta.TabIndex = 48;
@@ -1561,15 +1581,15 @@
             RemoverAnimalPlanta.UseVisualStyleBackColor = true;
             RemoverAnimalPlanta.Click += RemoverAnimalPlanta_Click;
             // 
-            // AdicionarAnimalPlanta
+            // AdicionarAnimal
             // 
-            AdicionarAnimalPlanta.Location = new Point(385, 536);
-            AdicionarAnimalPlanta.Name = "AdicionarAnimalPlanta";
-            AdicionarAnimalPlanta.Size = new Size(209, 34);
-            AdicionarAnimalPlanta.TabIndex = 47;
-            AdicionarAnimalPlanta.Text = "Adicionar Animal";
-            AdicionarAnimalPlanta.UseVisualStyleBackColor = true;
-            AdicionarAnimalPlanta.Click += AdicionarAnimalPlanta_Click;
+            AdicionarAnimal.Location = new Point(385, 545);
+            AdicionarAnimal.Name = "AdicionarAnimal";
+            AdicionarAnimal.Size = new Size(209, 34);
+            AdicionarAnimal.TabIndex = 47;
+            AdicionarAnimal.Text = "Adicionar Animal";
+            AdicionarAnimal.UseVisualStyleBackColor = true;
+            AdicionarAnimal.Click += AdicionarAnimalPlanta_Click;
             // 
             // RemoverProdutoQuinta
             // 
@@ -1593,7 +1613,7 @@
             // 
             // SubmeterNovaQuinta
             // 
-            SubmeterNovaQuinta.Location = new Point(405, 129);
+            SubmeterNovaQuinta.Location = new Point(405, 138);
             SubmeterNovaQuinta.Name = "SubmeterNovaQuinta";
             SubmeterNovaQuinta.Size = new Size(707, 54);
             SubmeterNovaQuinta.TabIndex = 44;
@@ -1603,9 +1623,9 @@
             // 
             // button20
             // 
-            button20.Location = new Point(385, 447);
+            button20.Location = new Point(385, 477);
             button20.Name = "button20";
-            button20.Size = new Size(209, 79);
+            button20.Size = new Size(209, 58);
             button20.TabIndex = 43;
             button20.Text = "Eliminar Produtos Fora da Validade";
             button20.UseVisualStyleBackColor = true;
@@ -1615,7 +1635,7 @@
             // 
             FilterByPlantQuinta.FormattingEnabled = true;
             FilterByPlantQuinta.Items.AddRange(new object[] { "" });
-            FilterByPlantQuinta.Location = new Point(385, 246);
+            FilterByPlantQuinta.Location = new Point(385, 291);
             FilterByPlantQuinta.Name = "FilterByPlantQuinta";
             FilterByPlantQuinta.Size = new Size(209, 33);
             FilterByPlantQuinta.TabIndex = 42;
@@ -1625,7 +1645,7 @@
             // label49
             // 
             label49.AutoSize = true;
-            label49.Location = new Point(385, 218);
+            label49.Location = new Point(385, 263);
             label49.Name = "label49";
             label49.Size = new Size(147, 25);
             label49.TabIndex = 41;
@@ -1633,7 +1653,7 @@
             // 
             // QuantidadeAgricultores
             // 
-            QuantidadeAgricultores.Location = new Point(385, 395);
+            QuantidadeAgricultores.Location = new Point(385, 440);
             QuantidadeAgricultores.Name = "QuantidadeAgricultores";
             QuantidadeAgricultores.Size = new Size(209, 31);
             QuantidadeAgricultores.TabIndex = 40;
@@ -1642,7 +1662,7 @@
             // label41
             // 
             label41.AutoSize = true;
-            label41.Location = new Point(373, 366);
+            label41.Location = new Point(381, 412);
             label41.Name = "label41";
             label41.Size = new Size(234, 25);
             label41.TabIndex = 39;
@@ -1651,7 +1671,7 @@
             // FilterByAnimalQuinta
             // 
             FilterByAnimalQuinta.FormattingEnabled = true;
-            FilterByAnimalQuinta.Location = new Point(385, 320);
+            FilterByAnimalQuinta.Location = new Point(385, 365);
             FilterByAnimalQuinta.Name = "FilterByAnimalQuinta";
             FilterByAnimalQuinta.Size = new Size(209, 33);
             FilterByAnimalQuinta.TabIndex = 38;
@@ -1661,7 +1681,7 @@
             // label47
             // 
             label47.AutoSize = true;
-            label47.Location = new Point(385, 292);
+            label47.Location = new Point(385, 337);
             label47.Name = "label47";
             label47.Size = new Size(150, 25);
             label47.TabIndex = 37;
@@ -1670,7 +1690,7 @@
             // FiltrarPorProdutoQuinta
             // 
             FiltrarPorProdutoQuinta.FormattingEnabled = true;
-            FiltrarPorProdutoQuinta.Location = new Point(385, 171);
+            FiltrarPorProdutoQuinta.Location = new Point(385, 216);
             FiltrarPorProdutoQuinta.Name = "FiltrarPorProdutoQuinta";
             FiltrarPorProdutoQuinta.Size = new Size(209, 33);
             FiltrarPorProdutoQuinta.TabIndex = 36;
@@ -1680,7 +1700,7 @@
             // label48
             // 
             label48.AutoSize = true;
-            label48.Location = new Point(385, 143);
+            label48.Location = new Point(385, 188);
             label48.Name = "label48";
             label48.Size = new Size(164, 25);
             label48.TabIndex = 35;
@@ -1711,7 +1731,7 @@
             // 
             ProdutosQuinta.FormattingEnabled = true;
             ProdutosQuinta.ItemHeight = 25;
-            ProdutosQuinta.Location = new Point(870, 131);
+            ProdutosQuinta.Location = new Point(870, 140);
             ProdutosQuinta.Name = "ProdutosQuinta";
             ProdutosQuinta.Size = new Size(242, 204);
             ProdutosQuinta.TabIndex = 16;
@@ -1721,7 +1741,7 @@
             // 
             Agricultores.FormattingEnabled = true;
             Agricultores.ItemHeight = 25;
-            Agricultores.Location = new Point(622, 131);
+            Agricultores.Location = new Point(622, 140);
             Agricultores.Name = "Agricultores";
             Agricultores.Size = new Size(242, 204);
             Agricultores.TabIndex = 15;
@@ -1741,7 +1761,7 @@
             // 
             QuintaContacto.Location = new Point(495, 91);
             QuintaContacto.Name = "QuintaContacto";
-            QuintaContacto.Size = new Size(617, 31);
+            QuintaContacto.Size = new Size(241, 31);
             QuintaContacto.TabIndex = 13;
             // 
             // buttonLimparPesquisaQuinta
@@ -1810,7 +1830,7 @@
             // 
             Plantas.FormattingEnabled = true;
             Plantas.ItemHeight = 25;
-            Plantas.Location = new Point(870, 341);
+            Plantas.Location = new Point(870, 350);
             Plantas.Name = "Plantas";
             Plantas.Size = new Size(242, 179);
             Plantas.TabIndex = 2;
@@ -1820,7 +1840,7 @@
             // 
             Animais.FormattingEnabled = true;
             Animais.ItemHeight = 25;
-            Animais.Location = new Point(622, 341);
+            Animais.Location = new Point(622, 350);
             Animais.Name = "Animais";
             Animais.Size = new Size(242, 179);
             Animais.TabIndex = 1;
@@ -2352,14 +2372,14 @@
             // 
             EncomendaListaProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             EncomendaListaProdutos.Columns.AddRange(new DataGridViewColumn[] { productColumn, quantityColumn });
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle2;
             EncomendaListaProdutos.Location = new Point(39, 337);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
@@ -3424,7 +3444,7 @@
         private Label PrazoEncomendaRetalhista;
         private Button ConfirmarRetalhistaEncoemnda;
         private Button RemoverAnimalPlanta;
-        private Button AdicionarAnimalPlanta;
+        private Button AdicionarAnimal;
         private Button RemoverProdutoQuinta;
         private Button AdicionarProdutoQuinta;
         private Button AdicionarQuinta;
@@ -3479,5 +3499,7 @@
         private DateTimePicker NovaDataDeEntregaBOX;
         private Label DataEntregaInicial;
         private TextBox DataEntregaInicio;
+        private Label QuintaNumeroProdutosLabel;
+        private TextBox QuintaNumeroProdutos;
     }
 }

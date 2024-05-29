@@ -137,12 +137,30 @@ IF OBJECT_ID('AgroTrack_PreventIncorrectEncomendaData', 'TR') IS NOT NULL
 GO
 CREATE TRIGGER AgroTrack_PreventIncorrectEncomendaData
 ON AgroTrack_Encomenda
-BEFORE INSERT
+AFTER UPDATE
 AS
 BEGIN
-    IF EXISTS (SELECT 1 FROM inserted WHERE Entrega < GETDATE())
+    IF UPDATE(Entrega)
     BEGIN
-        RAISERROR ('Delivery date cannot be in the past', 16, 1);
-        ROLLBACK TRANSACTION;
+        -- Check if the new delivery date is in the past
+        IF EXISTS (SELECT 1 FROM inserted WHERE Entrega < GETDATE())
+        BEGIN
+            RAISERROR ('Delivery date cannot be in the past', 16, 1);
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+
+        -- Check if the new delivery date is after the existing one (if it is not null)
+        IF EXISTS (
+            SELECT 1 
+            FROM inserted i
+            JOIN deleted d ON i.Codigo = d.Codigo
+            WHERE d.Entrega IS NOT NULL AND i.Entrega > d.Entrega
+        )
+        BEGIN
+            RAISERROR ('New delivery date cannot be after the existing delivery date', 16, 1);
+            ROLLBACK TRANSACTION;
+        END
     END
 END;
+GO

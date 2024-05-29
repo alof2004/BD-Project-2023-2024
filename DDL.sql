@@ -44,7 +44,7 @@ create table AgroTrack_Pessoa (
 	Nome				varchar(64)			not null,
 	N_CartaoCidadao		int					not null		check(len(N_CartaoCidadao)=8),
 	Contacto			int					not null		check(len(Contacto)=9),
-
+	unique (Contacto),
 	PRIMARY KEY(N_CartaoCidadao)
 );
 
@@ -56,7 +56,8 @@ create table AgroTrack_Empresa (
 	Tipo_De_Empresa		varchar(32)			not null,
 
 	PRIMARY KEY(Id_Empresa),
-	unique (Nome)
+	unique (Contacto),
+	unique (Morada)
 );
 
 create table AgroTrack_Quinta(
@@ -82,7 +83,8 @@ create table AgroTrack_Quinta_Animal(
 create table AgroTrack_Planta(
 	Id_planta			int					not null,
 	Tipo				varchar(32)			not null,
-    Estacao VARCHAR(32) NOT NULL CHECK (Estacao IN ('Primavera', 'Verão', 'Outono', 'Inverno', 'Todas')),
+    Estacao VARCHAR(32) NOT NULL
+	CHECK (Estacao IN ('Primavera', 'Verão', 'Outono', 'Inverno', 'Todas')),
 	PRIMARY KEY (Id_planta)
 
 );
@@ -127,7 +129,7 @@ create table AgroTrack_Contrato(
 	ID					int					not null        check(ID >= 0), 
 	Agricultor_Pessoa_N_CartaoCidadao	int,
 	
-	CHECK (Date_end > [Date_str]),
+	CHECK ([Date_end] > [Date_str]),
     PRIMARY KEY(ID),
     UNIQUE ([Descricao])
 );
@@ -206,8 +208,6 @@ create table AgroTrack_Compra(
 
 
 alter table AgroTrack_Quinta add constraint Empresa_Id_EmpresaPk_Q foreign key(Empresa_Id_Empresa) references AgroTrack_Empresa(Id_Empresa); 
-
-
 alter table AgroTrack_Cliente add constraint Pessoa_N_Cartao_CidadaoPK_C foreign key(Pessoa_N_CartaoCidadao) references AgroTrack_Pessoa(N_CartaoCidadao);
 					 
 alter table AgroTrack_Retalhistas add constraint Empresa_Id_EmpresaPK_R foreign key(Empresa_Id_Empresa) references AgroTrack_Empresa(Id_Empresa);
@@ -226,7 +226,6 @@ alter table AgroTrack_Retalhistas add constraint Empresa_Id_EmpresaFK foreign ke
 					 
 alter table AgroTrack_Contem add constraint Produto_CodigoFK_CO foreign key(Produto_codigo) references AgroTrack_Produto(Codigo); 
 alter table AgroTrack_Contem add constraint Quinta_Empresa_Id_EmpresaFK_CO foreign key(Quinta_Empresa_Id_Empresa) references AgroTrack_Quinta(Empresa_Id_Empresa); 
-					 
 					 
 alter table AgroTrack_Colhe add constraint Agricultor_Pessoa_N_CartaoCidadaoFK_C foreign key(Agricultor_Pessoa_N_CartaoCidadao) references AgroTrack_Agricultor(Pessoa_N_CartaoCidadao); 
 alter table AgroTrack_Colhe add constraint Produto_codigoFK_C foreign key(Produto_codigo) references AgroTrack_Produto(Codigo); 

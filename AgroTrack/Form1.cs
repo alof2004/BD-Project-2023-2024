@@ -206,6 +206,8 @@ namespace AgroTrack
                 }
                 reader.Close();
                 LoadFiltersQuinta();
+                LoadQuintaCompleted?.Invoke();
+
             }
             catch (Exception ex)
             {
@@ -252,11 +254,26 @@ namespace AgroTrack
                 QuintaNome.ReadOnly = true;
                 QuintaMorada.ReadOnly = true;
                 QuintaContacto.ReadOnly = true;
+                QuintaNumeroProdutos.ReadOnly = true;
 
                 QuintaNome.Text = selectedFarm.Nome;
                 QuintaMorada.Text = selectedFarm.Morada;
                 QuintaContacto.Text = selectedFarm.Contacto.ToString();
 
+                string query = "SELECT AgroTrack.GetTotalNumberOfProductsInFarm(@FarmId)";
+                SqlCommand cmd = new SqlCommand(query, cn);
+                try
+                {
+                using (cmd)
+                {
+                    cmd.Parameters.AddWithValue("@FarmId", selectedFarm.Empresa_Id_Empresa);
+                    QuintaNumeroProdutos.Text = cmd.ExecuteScalar().ToString();
+                }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to retrieve number of products from database: " + ex.Message);
+                }
                 LoadAnimals(selectedFarm.Empresa_Id_Empresa);
                 loadAgricultores(selectedFarm.Empresa_Id_Empresa);
                 loadProdutosQuinta(selectedFarm.Empresa_Id_Empresa);
@@ -1177,6 +1194,8 @@ namespace AgroTrack
             FilterByPlantQuinta.Hide();
             FilterByAnimalQuinta.Hide();
             buttonLimparPesquisaQuinta.Hide();
+            QuintaNumeroProdutos.Hide();
+            QuintaNumeroProdutosLabel.Hide();
             label48.Hide();
             label49.Hide();
             label41.Hide();
@@ -1264,6 +1283,8 @@ namespace AgroTrack
                     Plantas.Show();
                     RemoverQuinta.Show();
                     PesquisaPorNomeCliente.Show();
+                    QuintaNumeroProdutos.Show();
+                    QuintaNumeroProdutosLabel.Show();
                     Animais.Show();
                     ListaQuintas.Items.Clear();
                     LoadQuinta();
@@ -3773,11 +3794,13 @@ namespace AgroTrack
             RemoverQuinta.Hide();
             Animais.Hide();
             QuintaNome.Hide();
+            QuintaNumeroProdutos.Hide();
+            QuintaNumeroProdutosLabel.Hide();
             QuintaMorada.Hide();
             QuintaContacto.Hide();
             SubmeterNovaQuinta.Hide();
             AdicionarProdutoQuinta.Hide();
-            AdicionarAnimalPlanta.Hide();
+            AdicionarAnimal.Hide();
             RemoverProdutoQuinta.Hide();
             RemoverAnimalPlanta.Hide();
             ListaQuintas.Hide();
@@ -3851,7 +3874,9 @@ namespace AgroTrack
                     QuintaMorada.Show();
                     QuintaContacto.Show();
                     AdicionarProdutoQuinta.Show();
-                    AdicionarAnimalPlanta.Show();
+                    QuintaNumeroProdutos.Show();
+                    QuintaNumeroProdutosLabel.Show();
+                    AdicionarAnimal.Show();
                     RemoverProdutoQuinta.Show();
                     RemoverAnimalPlanta.Show();
                     ListaQuintas.Show();
@@ -3938,6 +3963,8 @@ namespace AgroTrack
             FilterByPlantQuinta.Hide();
             FilterByAnimalQuinta.Hide();
             buttonLimparPesquisaQuinta.Hide();
+            QuintaNumeroProdutos.Hide();
+            QuintaNumeroProdutosLabel.Hide();
             label48.Hide();
             label49.Hide();
             label41.Hide();
@@ -3956,7 +3983,7 @@ namespace AgroTrack
             QuintaContacto.Hide();
             SubmeterNovaQuinta.Hide();
             AdicionarProdutoQuinta.Hide();
-            AdicionarAnimalPlanta.Hide();
+            AdicionarAnimal.Hide();
             RemoverProdutoQuinta.Hide();
             RemoverAnimalPlanta.Hide();
             ListaQuintas.Hide();
@@ -4023,8 +4050,10 @@ namespace AgroTrack
                     QuintaMorada.Show();
                     QuintaContacto.Show();
                     AdicionarProdutoQuinta.Show();
-                    AdicionarAnimalPlanta.Show();
+                    AdicionarAnimal.Show();
                     RemoverProdutoQuinta.Show();
+                    QuintaNumeroProdutos.Show();
+                    QuintaNumeroProdutosLabel.Show();
                     RemoverAnimalPlanta.Show();
                     ListaQuintas.Show();
                     label1.Show();
@@ -4400,6 +4429,8 @@ namespace AgroTrack
 
             label48.Hide();
             label49.Hide();
+            QuintaNumeroProdutos.Hide();
+            QuintaNumeroProdutosLabel.Hide();
             label41.Hide();
             label47.Hide();
             label4.Hide();
@@ -4416,7 +4447,7 @@ namespace AgroTrack
             QuintaContacto.Hide();
             SubmeterNovaQuinta.Hide();
             AdicionarProdutoQuinta.Hide();
-            AdicionarAnimalPlanta.Hide();
+            AdicionarAnimal.Hide();
             RemoverProdutoQuinta.Hide();
             RemoverAnimalPlanta.Hide();
             ListaQuintas.Hide();
@@ -4487,7 +4518,7 @@ namespace AgroTrack
                     QuintaMorada.Show();
                     QuintaContacto.Show();
                     AdicionarProdutoQuinta.Show();
-                    AdicionarAnimalPlanta.Show();
+                    AdicionarAnimal.Show();
                     RemoverProdutoQuinta.Show();
                     RemoverAnimalPlanta.Show();
                     ListaQuintas.Show();
@@ -4495,6 +4526,8 @@ namespace AgroTrack
                     label3.Show();
                     label13.Show();
                     FilterByAnimalQuinta.Show();
+                    QuintaNumeroProdutos.Show();
+                    QuintaNumeroProdutosLabel.Show();
                     FilterByPlantQuinta.Show();
                     FiltrarPorProdutoQuinta.Show();
                     QuantidadeAgricultores.Show();
@@ -5067,6 +5100,8 @@ namespace AgroTrack
             LoadQuinta();
         }
 
+
+        public event Action LoadQuintaCompleted;
         private void AtualizarQuantidadeNoBancoDeDados(int idProduto, int novaQuantidade)
         {
             string query = "UPDATE AgroTrack.QuintaProduto SET Quantidade = @NovaQuantidade WHERE Codigo = @IdProduto";
@@ -5079,19 +5114,28 @@ namespace AgroTrack
                     command.Parameters.Add(new SqlParameter("@NovaQuantidade", novaQuantidade));
                     command.Parameters.Add(new SqlParameter("@IdProduto", idProduto));
 
-                    // Abre a conexão se estiver fechada
-                    if (cn.State == ConnectionState.Closed)
+
+                    command.ExecuteNonQuery();
+                    int idQuinta = (ListaQuintas.SelectedItem as Quinta).Id_Quinta;
+                    Quinta selectedQuinta = (Quinta)ListaQuintas.SelectedItem;
+
+                    LoadQuinta();
+                    loadProdutosQuinta(selectedQuinta.Empresa_Id_Empresa);
+
+                    void OnQuintasLoaded()
                     {
-                        cn.Open();
+                        foreach (var item in ListaQuintas.Items)
+                        {
+                            if (item is Quinta quinta && quinta.Empresa_Id_Empresa == selectedQuinta.Empresa_Id_Empresa)
+                            {
+                                ListaQuintas.SelectedItem = item;
+                                break;
+                            }
+                        }
                     }
 
-                    // Executa o comando
-                    command.ExecuteNonQuery();
-                    if (ListaQuintas_SelectedIndexChanged == null)
-                    {
-                        MessageBox.Show("Quantidade do produto atualizada com sucesso! Selecione a Quinta para ver a mudança");
-                    }
-                    ListaQuintas_SelectedIndexChanged(null, null);
+                    this.LoadQuintaCompleted += OnQuintasLoaded;
+
                 }
                 catch (Exception ex)
                 {
