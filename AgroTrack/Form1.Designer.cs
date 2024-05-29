@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgroTrack));
             OrdenarPor = new TabControl();
             Clientes = new TabPage();
@@ -122,7 +122,6 @@
             ListaAgricultores = new ListBox();
             Quintas = new TabPage();
             QuintaNumeroProdutosLabel = new Label();
-            QuintaNumeroProdutos = new TextBox();
             Confirmar = new Button();
             AlterarNumero = new NumericUpDown();
             AlterarQuantidadeQuinta = new Button();
@@ -312,6 +311,7 @@
             label14 = new Label();
             ListaProdutos = new ListBox();
             produtosOnlyNameBindingSource = new BindingSource(components);
+            QuintaNumeroProdutos = new TextBox();
             OrdenarPor.SuspendLayout();
             Clientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AddCompraQuantidade).BeginInit();
@@ -1187,7 +1187,7 @@
             // label31
             // 
             label31.AutoSize = true;
-            label31.Location = new Point(406, 35);
+            label31.Location = new Point(393, 35);
             label31.Name = "label31";
             label31.Size = new Size(65, 25);
             label31.TabIndex = 22;
@@ -1202,9 +1202,9 @@
             // 
             // AgricultorNome
             // 
-            AgricultorNome.Location = new Point(474, 35);
+            AgricultorNome.Location = new Point(457, 35);
             AgricultorNome.Name = "AgricultorNome";
-            AgricultorNome.Size = new Size(322, 31);
+            AgricultorNome.Size = new Size(339, 31);
             AgricultorNome.TabIndex = 20;
             // 
             // textBox18
@@ -1300,18 +1300,11 @@
             // QuintaNumeroProdutosLabel
             // 
             QuintaNumeroProdutosLabel.AutoSize = true;
-            QuintaNumeroProdutosLabel.Location = new Point(745, 97);
+            QuintaNumeroProdutosLabel.Location = new Point(742, 94);
             QuintaNumeroProdutosLabel.Name = "QuintaNumeroProdutosLabel";
             QuintaNumeroProdutosLabel.Size = new Size(226, 25);
             QuintaNumeroProdutosLabel.TabIndex = 80;
             QuintaNumeroProdutosLabel.Text = "Número total de produtos:";
-            // 
-            // QuintaNumeroProdutos
-            // 
-            QuintaNumeroProdutos.Location = new Point(977, 97);
-            QuintaNumeroProdutos.Name = "QuintaNumeroProdutos";
-            QuintaNumeroProdutos.Size = new Size(135, 31);
-            QuintaNumeroProdutos.TabIndex = 79;
             // 
             // Confirmar
             // 
@@ -2372,14 +2365,14 @@
             // 
             EncomendaListaProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             EncomendaListaProdutos.Columns.AddRange(new DataGridViewColumn[] { productColumn, quantityColumn });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
             EncomendaListaProdutos.Location = new Point(39, 337);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
@@ -3166,6 +3159,13 @@
             // produtosOnlyNameBindingSource
             // 
             produtosOnlyNameBindingSource.DataSource = typeof(ProdutosOnlyName);
+            // 
+            // QuintaNumeroProdutos
+            // 
+            QuintaNumeroProdutos.Location = new Point(977, 91);
+            QuintaNumeroProdutos.Name = "QuintaNumeroProdutos";
+            QuintaNumeroProdutos.Size = new Size(135, 31);
+            QuintaNumeroProdutos.TabIndex = 79;
             // 
             // AgroTrack
             // 
