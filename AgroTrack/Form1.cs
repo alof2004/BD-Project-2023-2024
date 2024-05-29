@@ -2245,10 +2245,12 @@ namespace AgroTrack
             label29.Hide();
             button15.Hide();
             label36.Hide();
+            AgricultorQuinta.Hide();
             ColheuProduto.Hide();
             TrabalhaQuinta.Hide();
             QuantidadeColheitas.Hide();
             label35.Hide();
+            SelectQuintaAddAgricultor.Show();
             label33.Hide();
             ApagarAgricultor.Hide();
             AddColheita.Hide();
@@ -2277,6 +2279,11 @@ namespace AgroTrack
             AgricultorNumeroCC.Text = "";
             AgricultorContacto.Text = "";
             AgricultorQuinta.Text = "";
+            DescricaoContrato.Text = "";
+            SalarioAdicionarAgricultor.Text = "";
+            InicioContrato.Value = DateTime.Now;
+            FimContrato.Value = DateTime.Now;
+
 
         }
 
@@ -2340,6 +2347,7 @@ namespace AgroTrack
                     label7.Hide();
                     label11.Hide();
                     InicioContrato.Hide();
+                    AgricultorQuinta.Show();
                     FimContrato.Hide();
                     AgricultorNome.ReadOnly = true;
                     AgricultorNumeroCC.ReadOnly = true;
@@ -2349,6 +2357,7 @@ namespace AgroTrack
                     AgricultorNumeroCC.Text = "";
                     AgricultorContacto.Text = "";
                     AgricultorQuinta.Text = "";
+                    SelectQuintaAddAgricultor.Hide();
                     button15.Show();
                     button14.Show();
                     label29.Show();
@@ -2720,6 +2729,7 @@ namespace AgroTrack
             {
                 SqlDataReader reader = cmd.ExecuteReader();
                 ComprouProduto.Items.Clear(); // Clear previous items
+                ComprouProduto.Items.Add("Todos os Produtos");
 
                 while (reader.Read())
                 {
@@ -2744,6 +2754,7 @@ namespace AgroTrack
                 SqlDataReader reader = cmd.ExecuteReader();
                 AddCompraQuinta.Items.Clear(); // Clear previous items
                 ComprouQuinta.Items.Clear(); // Clear previous items
+                ComprouQuinta.Items.Add("Todas as Quintas");
                 while (reader.Read())
                 {
                     QuintaOnlyName Farm = new QuintaOnlyName
@@ -2805,7 +2816,6 @@ namespace AgroTrack
             var productId = (ComprouProduto.SelectedItem as ProdutosOnlyName)?.Id_Produto;
             var quintaId = (ComprouQuinta.SelectedItem as QuintaOnlyName)?.Id_Quinta;
             var quantidade = (int)NumeroComprasCliente.Value;
-            MessageBox.Show(quantidade.ToString());
 
             string query = "SELECT N_CartaoCidadao, Nome, Contacto FROM AgroTrack.FiltrarClientes(@ProdutoCodigo, @QuintaId, @NumeroCompras);";
             SqlCommand cmd = new SqlCommand(query, cn);
