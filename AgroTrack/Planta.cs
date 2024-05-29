@@ -25,7 +25,13 @@ namespace AgroTrack
 
         public override string ToString()
         {
-            return Tipo + "  -  " + Lote;
+            if (Lote == null || Estacao == "")
+            {
+                return Tipo;
+            }
+            else{
+            return Tipo + "  -  " + Lote + "  -  " + Estacao;
+            }
         }
     }
 }
