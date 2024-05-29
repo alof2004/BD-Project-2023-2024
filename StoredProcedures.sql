@@ -1145,24 +1145,19 @@ CREATE PROCEDURE AgroTrack.RemoveProdutoFromQuinta
     @QuintaId INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Delete the product from the AgroTrack_Contem table
         DELETE FROM AgroTrack_Contem
         WHERE Produto_Codigo = @ProdutoId AND Quinta_Empresa_Id_Empresa = @QuintaId;
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Produto removido da Quinta com sucesso.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -1172,7 +1167,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -1194,7 +1188,6 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        -- Verifica a existência dos IDs nas tabelas correspondentes
         IF NOT EXISTS (SELECT 1 FROM AgroTrack_Retalhistas WHERE Empresa_Id_Empresa = @Retalhista_Empresa_Id_Empresa)
         BEGIN
             RAISERROR('O ID do retalhista não existe.', 16, 1);
@@ -1216,7 +1209,6 @@ BEGIN
         DECLARE @Codigo INT;
         SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
 
-        -- Insere a nova Encomenda
         INSERT INTO AgroTrack_Encomenda (
             Codigo,
             prazo_entrega,
@@ -1239,7 +1231,6 @@ BEGIN
         PRINT 'Encomenda adicionada com sucesso.';
     END TRY
     BEGIN CATCH
-        -- Trata erros
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;

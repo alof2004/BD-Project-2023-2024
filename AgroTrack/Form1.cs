@@ -2472,7 +2472,9 @@ namespace AgroTrack
 
             AddColheitaAgricultor.Show();
             AddColheitaListaAgricultores.Show();
+            AddColheitaListaAgricultores.SelectedIndex = -1;
             AddColheitaProdutosLista.Show();
+            AddColheitaProdutosLista.SelectedIndex = -1;
             AddColheitaProduto.Show();
             AddColheitaQuantidade.Show();
             AddColheitaQuantidadeLabel.Show();
@@ -2998,9 +3000,13 @@ namespace AgroTrack
             LabelContactoCliente.Hide();
             LabelClienteCC.Hide();
             AddCompraCliente.Show();
+            AddCompraCliente.Text = "";
             AddCompraProduto.Show();
+            AddCompraProduto.SelectedIndex = -1;
             AddCompraQuinta.Show();
+            AddCompraQuinta.SelectedIndex = -1;
             AddCompraQuantidade.Show();
+            AddCompraQuantidade.Text = "0";
             AddCompraMetodo.Show();
             AddCompraData.Show();
             AddCompraClienteLabel.Show();
@@ -3902,11 +3908,14 @@ namespace AgroTrack
             // Mostrar campos de input
             AddProdutoToQuintaData.Show();
             AddProdutoToQuintaQuantidade.Show();
+            AddProdutoToQuintaQuantidade.Value = 0;
             AddProdutoToQuintaProdutoID.Show();
+            AddProdutoToQuintaProdutoID.SelectedIndex = -1;
             AddProdutoToQuintaDataLabel.Show();
             AddProdutoToQuintaQuantidadeLabel.Show();
             AddProdutoToQuintaProdutoIDLabel.Show();
             AddProdutoToQuintaID.Show();
+            AddProdutoToQuintaID.SelectedIndex = -1;
             AddProdutoToQuintaIDLabel.Show();
             AddProdutoToQuintaSubmit.Show();
 
@@ -4051,8 +4060,10 @@ namespace AgroTrack
         {
             QuantidadeAgricultores.Hide();
             FiltrarPorProdutoQuinta.Hide();
+            AddPlantaEstacaoLabel.Hide();
             FilterByPlantQuinta.Hide();
             FilterByAnimalQuinta.Hide();
+            AdicionarPlanta.Hide();
             buttonLimparPesquisaQuinta.Hide();
             QuintaNumeroProdutos.Hide();
             QuintaNumeroProdutosLabel.Hide();
@@ -4083,12 +4094,16 @@ namespace AgroTrack
             label13.Hide();
 
             AddAnimalID.Show();
+            AddAnimalID.SelectedIndex = -1;
             AddAnimalAnimalLabel.Show();
             AddAnimalBrinco.Show();
+            AddAnimalBrinco.Text = "";
             AddAnimalBrincoLabel.Show();
             AddAnimalIdade.Show();
+            AddAnimalIdade.Value = 0;
             AddAnimalIdadeLabel.Show();
             AddAnimalQuinta.Show();
+            AddAnimalQuinta.SelectedIndex = -1;
             AddAnimalQuintaLabel.Show();
             AddAnimalSubmeter.Show();
         }
@@ -4130,6 +4145,7 @@ namespace AgroTrack
                     label47.Show();
                     label4.Show();
                     PesquisarQuinta.Show();
+                    AdicionarPlanta.Show();
                     PesquisaPorNomeCliente.Show();
                     Agricultores.Show();
                     ProdutosQuinta.Show();
@@ -4271,6 +4287,7 @@ namespace AgroTrack
             EncomendaListaProdutos.Show();
             PrazoEncomendaRetalhista.Show();
             PrazoBoxRetalhista.Show();
+            label63.Hide();
             MoradaRetalhista.Show();
             MoradaRetalhistaBox.Show();
             DataRetalhistaEncoemndabOX.Show();
@@ -4317,7 +4334,7 @@ namespace AgroTrack
 
         private void ConfirmarRetalhistaEncoemnda_Click(object sender, EventArgs e)
         {
-            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "" || EncomendaListaProdutos.Rows.Count == 0)
+            if (PrazoBoxRetalhista.Text == "" || MoradaRetalhistaBox.Text == "" || DataRetalhistaEncoemndabOX.Text == "" || EmpresaDeTransporteEncoemndaRetalhistaBox.Text == "" || QuintaEncoemndaRetalhistaBox.Text == "" || EncomendaListaProdutos.Rows.Count == 1)
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -4372,6 +4389,7 @@ namespace AgroTrack
                     CancelarEncoemendRetalhistas.Show();
                     EncomendasRealizadas.Show();
                     ItemsEncomenda.Show();
+                    label63.Show();
 
                     EncomendaListaProdutos.Hide();
                     PrazoEncomendaRetalhista.Hide();
@@ -4517,7 +4535,7 @@ namespace AgroTrack
             FilterByPlantQuinta.Hide();
             FilterByAnimalQuinta.Hide();
             buttonLimparPesquisaQuinta.Hide();
-
+            AdicionarQuinta.Hide();
             label48.Hide();
             label49.Hide();
             QuintaNumeroProdutos.Hide();
@@ -4548,15 +4566,21 @@ namespace AgroTrack
             AdicionarQuinta.Hide();
 
             AddPlantaLote.Show();
+            AddPlantaLote.Text = "";
             AddPlantaIDPlanta.Show();
+            AddPlantaIDPlanta.SelectedIndex = -1;
             AddPlantaLoteLabel.Show();
             AddPlantaEstacao.Show();
+            AddPlantaEstacao.SelectedIndex = -1;
             AddPlantaEstacaoLabel.Show();
             AddPlantaSubmeter.Show();
             AddAnimalQuinta.Show();
+            AddAnimalQuinta.SelectedIndex = -1;
             AddAnimalQuintaLabel.Show();
             AddPlantaIDLabel.Show();
             AddPlantaIDPlanta.Show();
+            AddPlantaIDPlanta.SelectedIndex = -1;
+
 
         }
 
@@ -4607,6 +4631,7 @@ namespace AgroTrack
                     Animais.Show();
                     QuintaNome.Show();
                     QuintaMorada.Show();
+                    AdicionarQuinta.Show();
                     QuintaContacto.Show();
                     AdicionarProdutoQuinta.Show();
                     AdicionarAnimal.Show();
@@ -4871,7 +4896,6 @@ namespace AgroTrack
                         cn.Open();
                     }
                     command.ExecuteNonQuery();
-                    MessageBox.Show("Produto adicionado à encomenda com sucesso!");
                 }
                 catch (Exception ex)
                 {
@@ -5554,6 +5578,11 @@ namespace AgroTrack
         private void ColheuProduto_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             ApplyCombinedFiltersAgricultores();
+        }
+
+        private void AddPlantaLote_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
