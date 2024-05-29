@@ -2777,6 +2777,7 @@ namespace AgroTrack
         private void AdicionarCliente_Click(object sender, EventArgs e)
         {
             // Hide controls
+            AdicionarCliente.Hide();
             label44.Hide();
             PesquisaPorNomeCliente.Hide();
             button23.Hide();
@@ -2843,6 +2844,7 @@ namespace AgroTrack
                     ComprouQuinta.Show();
                     NumeroComprasCliente.Show();
                     ListaCompras.Show();
+                    AdicionarCliente.Show();
                     ApagarCliente.Show();
                     AdicionarCompra.Show();
                     ListaClientes.Items.Clear();
@@ -2943,6 +2945,7 @@ namespace AgroTrack
             AddCompraQuantidade.Text = "0";
             AddCompraMetodo.Show();
             AddCompraData.Show();
+            AddCompraData.Value = DateTime.Now;
             AddCompraClienteLabel.Show();
             AddCompraProdutoLabel.Show();
             AddCompraQuintaLabel.Show();

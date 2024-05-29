@@ -395,7 +395,7 @@
             // 
             SubmeterCompra.Location = new Point(6, 345);
             SubmeterCompra.Name = "SubmeterCompra";
-            SubmeterCompra.Size = new Size(500, 47);
+            SubmeterCompra.Size = new Size(694, 47);
             SubmeterCompra.TabIndex = 90;
             SubmeterCompra.Text = "Submeter Compra";
             SubmeterCompra.UseVisualStyleBackColor = true;
@@ -405,7 +405,7 @@
             // 
             AddCompraData.Location = new Point(172, 303);
             AddCompraData.Name = "AddCompraData";
-            AddCompraData.Size = new Size(334, 31);
+            AddCompraData.Size = new Size(528, 31);
             AddCompraData.TabIndex = 89;
             // 
             // AddCompraDataLabel
@@ -433,7 +433,7 @@
             AddCompraMetodo.Items.AddRange(new object[] { "MBWay", "Dinheiro", "Cartão de crédito" });
             AddCompraMetodo.Location = new Point(225, 263);
             AddCompraMetodo.Name = "AddCompraMetodo";
-            AddCompraMetodo.Size = new Size(281, 33);
+            AddCompraMetodo.Size = new Size(475, 33);
             AddCompraMetodo.TabIndex = 86;
             // 
             // AddCompraQuantidade
@@ -441,7 +441,7 @@
             AddCompraQuantidade.Location = new Point(134, 226);
             AddCompraQuantidade.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
             AddCompraQuantidade.Name = "AddCompraQuantidade";
-            AddCompraQuantidade.Size = new Size(372, 31);
+            AddCompraQuantidade.Size = new Size(566, 31);
             AddCompraQuantidade.TabIndex = 85;
             // 
             // AddCompraQuantidadeLabel
@@ -459,7 +459,7 @@
             AddCompraCliente.FormattingEnabled = true;
             AddCompraCliente.Location = new Point(94, 96);
             AddCompraCliente.Name = "AddCompraCliente";
-            AddCompraCliente.Size = new Size(412, 33);
+            AddCompraCliente.Size = new Size(606, 33);
             AddCompraCliente.TabIndex = 83;
             // 
             // AddCompraClienteLabel
@@ -486,7 +486,7 @@
             AddCompraQuinta.FormattingEnabled = true;
             AddCompraQuinta.Location = new Point(94, 148);
             AddCompraQuinta.Name = "AddCompraQuinta";
-            AddCompraQuinta.Size = new Size(412, 33);
+            AddCompraQuinta.Size = new Size(606, 33);
             AddCompraQuinta.TabIndex = 80;
             AddCompraQuinta.SelectedIndexChanged += AddCompraQuinta_SelectedIndexChanged;
             // 
@@ -505,7 +505,7 @@
             AddCompraProduto.FormattingEnabled = true;
             AddCompraProduto.Location = new Point(106, 187);
             AddCompraProduto.Name = "AddCompraProduto";
-            AddCompraProduto.Size = new Size(400, 33);
+            AddCompraProduto.Size = new Size(594, 33);
             AddCompraProduto.TabIndex = 78;
             AddCompraProduto.SelectedIndexChanged += AddCompraProduto_SelectedIndexChanged;
             // 
