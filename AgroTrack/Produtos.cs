@@ -7,7 +7,7 @@ namespace AgroTrack
         public string Nome { get; set; }
         public double Preco{ get; set; }
 
-        public double Taxa_de_iva { get; set; }
+        public string Taxa_de_iva { get; set; }
 
         public string Unidade_medida { get; set; }
 
@@ -18,7 +18,7 @@ namespace AgroTrack
         {
 
         }
-        public Produto(int idOrigem, string nome,int codigo, double preco, double iva, string medida , string tipo)
+        public Produto(int idOrigem, string nome,int codigo, double preco, string iva, string medida , string tipo)
         {
             Id_origem = idOrigem;
             Codigo=codigo;

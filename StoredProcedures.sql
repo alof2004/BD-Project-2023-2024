@@ -12,7 +12,13 @@ GO
 IF OBJECT_ID('AgroTrack.AddRetalhista', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddRetalhista;
 GO
+IF OBJECT_ID('AgroTrack.ApagarTransporte', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarTransporte;
+GO
 
+IF OBJECT_ID('AgroTrack.ApagarRetalhista', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.ApagarRetalhista;
+GO
 
 IF OBJECT_ID('AgroTrack.ApagarProduto', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.ApagarProduto;
@@ -167,7 +173,7 @@ CREATE PROCEDURE AgroTrack.AddProduto
     @NomeProduto VARCHAR(64),
     @Tipo_de_Produto VARCHAR(64),
     @Preco FLOAT,
-    @Taxa_de_iva FLOAT,
+    @Taxa_de_iva VARCHAR(16),
     @Unidade_medida VARCHAR(16)
 AS
 BEGIN
