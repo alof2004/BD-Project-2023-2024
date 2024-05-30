@@ -480,6 +480,9 @@ BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
+        DELETE FROM AgroTrack_Contem
+        WHERE Quinta_Empresa_Id_Empresa = @Empresa_Id_Empresa; 
+
         DELETE FROM AgroTrack_Quinta
         WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
 
@@ -494,9 +497,6 @@ BEGIN
 
         DELETE FROM AgroTrack_Quinta_Planta
         WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
-
-        DELETE FROM AgroTrack_Contem
-        WHERE Quinta_Empresa_Id_Empresa = @Empresa_Id_Empresa;
 
         COMMIT TRANSACTION;
 
