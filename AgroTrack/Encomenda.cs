@@ -11,6 +11,10 @@ namespace AgroTrack
         public DateTime Entrega { get; set; }
         public int EmpresaDeTransportesId { get; set; }
         public int QuintaEmpresaId { get; set; }
+        public string QuintaNome { get; set; }
+        public string RetalhistaNome { get; set; }
+
+        public string TransportesNome { get; set; }
 
         public double Preco { get; set; }
 
@@ -35,7 +39,7 @@ namespace AgroTrack
 
         public override string ToString()
         {
-            return $"ID: {Codigo},Retalhista: {RetalhistaEmpresaId}, Quinta:{QuintaEmpresaId}, Prazo de Entrega: {PrazoEntrega} dias, Morada de Entrega: {MoradaEntrega}, Preço: {Preco}";
+            return $"ID: {Codigo}, Retalhista: {RetalhistaNome}, {QuintaNome}, Prazo de Entrega: {PrazoEntrega} dias, Morada de Entrega: {MoradaEntrega}, Preço: {Preco}";
         }
     }
 }

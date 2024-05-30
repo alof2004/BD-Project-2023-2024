@@ -115,7 +115,7 @@ create table AgroTrack_Produto(
 	Tipo_de_Produto		varchar(64)			not null,
 	Codigo				int					not null, 
 	Preco				float               not null        check(Preco > 0),	
-	Taxa_de_iva			varchar(16)			not null		check (Taxa_de_iva IN ('0.06', '0.13', '0.23')),
+	Taxa_de_iva			float 			    not null		check (Taxa_de_iva IN (0.06, 0.13, 0.23)),
 	Unidade_medida      varchar(16)			not null        check (Unidade_medida IN ('unidade', 'kg', 'g', 'litro', 'ml')),
 
 	PRIMARY KEY (Codigo)

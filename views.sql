@@ -20,11 +20,11 @@ go
 --Agricultores e quintas - info dos agricultores e a que quintas pertecem 
 drop view IF EXISTS AgroTrack.AgriculQuinta
 go
-create view AgroTrack.drop view IF EXISTS AgroTrack.AgriculQuinta
+create view AgroTrack.AgriculQuinta
  as
 	select A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao, A.Quinta_Empresa_Id_Empresa, E.Nome as NomeQuinta, E.Morada, Q.Empresa_Id_Empresa, P.Nome, P.Contacto
 	from  (AgroTrack_Agricultor as A join AgroTrack_Pessoa as P On A.Pessoa_N_CartaoCidadao=P.N_CartaoCidadao join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
-
+go
 --Animais e Quinta e tipo de animal
 drop view IF EXISTS AgroTrack.AnimaisQuinta
 go
@@ -159,8 +159,8 @@ go
 drop view IF EXISTS AgroTrack.EmpresaEncomenda
 go
 create view AgroTrack.EmpresaEncomenda as
-	select E.Nome, E.Morada, E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id, Enc.PrecoTotal
-	from  (AgroTrack_Empresa as E join AgroTrack_Encomenda as Enc on E.Id_Empresa=Enc.Retalhista_Empresa_Id_Empresa)
+	select E.Nome, E.Morada, E.Contacto, Enc.Codigo, Enc.prazo_entrega, Enc.Morada_entrega, Enc.Entrega, Enc.Retalhista_Empresa_Id_Empresa,Enc.Empresa_De_Transportes_Id_Empresa, Enc.Quinta_Empresa_Id, Enc.PrecoTotal, E2.Nome as NomeQuinta, E3.Nome as NomeTransportes
+	from  (AgroTrack_Empresa as E join AgroTrack_Encomenda as Enc on E.Id_Empresa=Enc.Retalhista_Empresa_Id_Empresa join AgroTrack_Empresa as E2 on Enc.Quinta_Empresa_Id=E2.Id_Empresa join AgroTrack_Empresa as E3 on Enc.Empresa_De_Transportes_Id_Empresa=E3.Id_Empresa)
 go	
 --Encomenda
 drop view IF EXISTS AgroTrack.Encomenda

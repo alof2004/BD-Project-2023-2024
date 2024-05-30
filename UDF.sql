@@ -191,3 +191,20 @@ BEGIN
         SET @TotalProductCountEncomenda = 0;
     RETURN @TotalProductCountCompra + @TotalProductCountEncomenda;
 END;
+GO
+IF OBJECT_ID('AgroTrack.CalcularPrecoEncomenda') IS NOT NULL
+    DROP FUNCTION AgroTrack.CalcularPrecoEncomenda;
+GO
+CREATE FUNCTION AgroTrack.CalcularPrecoEncomenda(@EncomendaCodigo INT)
+RETURNS FLOAT
+AS
+BEGIN
+    DECLARE @Preco FLOAT;
+
+    SELECT @Preco = SUM(Quantidade * Preco * (1 + p.Taxa_de_iva))
+    FROM AgroTrack_Item i
+    JOIN AgroTrack_Produto p ON i.ProdutoCodigo = p.Codigo
+    WHERE Encomenda_Codigo = @EncomendaCodigo;
+
+    RETURN @Preco;
+END;
