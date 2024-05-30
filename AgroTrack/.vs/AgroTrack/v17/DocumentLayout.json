@@ -112,7 +112,7 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAJYBAAAAAAAAAAAwwJkBAADFAAAA",
+              "ViewState": "AQIAACEMAAAAAAAAAAAcwC4MAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-20T12:46:09.386Z",
               "IsPinned": true,
@@ -127,7 +127,8 @@
               "ToolTip": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Form1.cs [Design]",
               "RelativeToolTip": "Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T17:34:41.179Z"
+              "WhenOpened": "2024-05-28T17:34:41.179Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -235,7 +236,8 @@
               "RelativeToolTip": "Form1.Designer.cs",
               "ViewState": "AQIAAAUAAAAAAAAAABB0wBYAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T13:26:11.689Z"
+              "WhenOpened": "2024-05-26T13:26:11.689Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
