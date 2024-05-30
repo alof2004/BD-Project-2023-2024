@@ -3,7 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|c:\\users\\afonso\\onedrive - universidade de aveiro\\desktop\\bd-project\\agrotrack\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|c:\\users\\afonso\\onedrive - universidade de aveiro\\desktop\\bd-project\\agrotrack\\produtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:produtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -11,12 +15,8 @@
       "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|c:\\users\\afonso\\onedrive - universidade de aveiro\\desktop\\bd-project\\agrotrack\\encomendarretalhista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\encomendarretalhista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:encomendarretalhista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\produtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:produtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\produtosonlynamemedida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -89,7 +89,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
@@ -102,26 +102,24 @@
               "ViewState": "AQIAAAEAAAAAAAAAAAAqwAQAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-20T19:04:32.007Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAGAQAAAAAAAAAAAswG8QAAAzAAAA",
+              "ViewState": "AQIAAJMBAAAAAAAAAAAkwKMBAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-20T12:46:09.386Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "EncomendaRRetalhista.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\EncomendaRRetalhista.cs",
               "RelativeDocumentMoniker": "EncomendaRRetalhista.cs",
@@ -129,20 +127,18 @@
               "RelativeToolTip": "EncomendaRRetalhista.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAowCAAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T00:33:03.936Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-30T00:33:03.936Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Form1.cs [Design]",
               "RelativeToolTip": "Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T17:34:41.179Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-05-28T17:34:41.179Z"
             },
             {
               "$type": "Document",
@@ -154,18 +150,17 @@
               "RelativeToolTip": "ProdutosOnlyName.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAA3wBkAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-27T15:32:24.2Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-27T15:32:24.2Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Produtos.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Produtos.cs",
               "RelativeDocumentMoniker": "Produtos.cs",
               "ToolTip": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Produtos.cs",
               "RelativeToolTip": "Produtos.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAA5wBwAAAAjAAAA",
+              "ViewState": "AQIAAA4AAAAAAAAAAAA3wBwAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-21T18:10:38.696Z",
               "EditorCaption": ""
@@ -180,8 +175,7 @@
               "RelativeToolTip": "ProdutosOnlyNameMedida.cs",
               "ViewState": "AQIAAAIAAAAAAAAAAAAxwBEAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T17:01:22.584Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-28T17:01:22.584Z"
             },
             {
               "$type": "Document",
@@ -193,8 +187,7 @@
               "RelativeToolTip": "ProdutosQuinta.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T11:03:30.751Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-23T11:03:30.751Z"
             },
             {
               "$type": "Document",
@@ -230,8 +223,7 @@
               "RelativeToolTip": "Form1.Designer.cs",
               "ViewState": "AQIAAAUAAAAAAAAAABB0wBYAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T13:26:11.689Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-26T13:26:11.689Z"
             },
             {
               "$type": "Document",
