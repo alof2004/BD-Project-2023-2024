@@ -2381,7 +2381,7 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
-            EncomendaListaProdutos.Location = new Point(19, 377);
+            EncomendaListaProdutos.Location = new Point(19, 340);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
             EncomendaListaProdutos.Size = new Size(1116, 209);
