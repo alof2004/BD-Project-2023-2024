@@ -1976,7 +1976,7 @@
             // 
             AlterarDataEncomenda.Location = new Point(21, 551);
             AlterarDataEncomenda.Name = "AlterarDataEncomenda";
-            AlterarDataEncomenda.Size = new Size(392, 34);
+            AlterarDataEncomenda.Size = new Size(375, 34);
             AlterarDataEncomenda.TabIndex = 99;
             AlterarDataEncomenda.Text = "Alterar data";
             AlterarDataEncomenda.UseVisualStyleBackColor = true;
@@ -1987,9 +1987,9 @@
             ItemsEncomendaTransportes.Font = new Font("Segoe MDL2 Assets", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ItemsEncomendaTransportes.FormattingEnabled = true;
             ItemsEncomendaTransportes.ItemHeight = 18;
-            ItemsEncomendaTransportes.Location = new Point(452, 388);
+            ItemsEncomendaTransportes.Location = new Point(428, 388);
             ItemsEncomendaTransportes.Name = "ItemsEncomendaTransportes";
-            ItemsEncomendaTransportes.Size = new Size(629, 76);
+            ItemsEncomendaTransportes.Size = new Size(653, 76);
             ItemsEncomendaTransportes.TabIndex = 98;
             ItemsEncomendaTransportes.SelectedIndexChanged += ItemsEncomendaTransportes_SelectedIndexChanged;
             // 
@@ -2120,7 +2120,7 @@
             // 
             // EliminarEmpresaTransportes
             // 
-            EliminarEmpresaTransportes.Location = new Point(228, 512);
+            EliminarEmpresaTransportes.Location = new Point(211, 512);
             EliminarEmpresaTransportes.Name = "EliminarEmpresaTransportes";
             EliminarEmpresaTransportes.Size = new Size(185, 34);
             EliminarEmpresaTransportes.TabIndex = 64;
@@ -2132,7 +2132,7 @@
             // 
             AdicionarEmpresa.Location = new Point(21, 512);
             AdicionarEmpresa.Name = "AdicionarEmpresa";
-            AdicionarEmpresa.Size = new Size(201, 34);
+            AdicionarEmpresa.Size = new Size(184, 34);
             AdicionarEmpresa.TabIndex = 61;
             AdicionarEmpresa.Text = "Adicionar Empresa";
             AdicionarEmpresa.UseVisualStyleBackColor = true;
@@ -2205,9 +2205,9 @@
             EncomendasEntrega.HorizontalExtent = 2000;
             EncomendasEntrega.HorizontalScrollbar = true;
             EncomendasEntrega.ItemHeight = 18;
-            EncomendasEntrega.Location = new Point(452, 312);
+            EncomendasEntrega.Location = new Point(428, 276);
             EncomendasEntrega.Name = "EncomendasEntrega";
-            EncomendasEntrega.Size = new Size(629, 76);
+            EncomendasEntrega.Size = new Size(653, 112);
             EncomendasEntrega.TabIndex = 51;
             EncomendasEntrega.SelectedIndexChanged += EncomendasEntrega_SelectedIndexChanged;
             // 
@@ -2284,7 +2284,7 @@
             // 
             button28.Location = new Point(21, 86);
             button28.Name = "button28";
-            button28.Size = new Size(392, 34);
+            button28.Size = new Size(375, 34);
             button28.TabIndex = 41;
             button28.Text = "Limpar";
             button28.UseVisualStyleBackColor = true;
@@ -2303,7 +2303,7 @@
             // 
             PesquisarNomeTransporte.Location = new Point(21, 49);
             PesquisarNomeTransporte.Name = "PesquisarNomeTransporte";
-            PesquisarNomeTransporte.Size = new Size(392, 31);
+            PesquisarNomeTransporte.Size = new Size(375, 31);
             PesquisarNomeTransporte.TabIndex = 39;
             PesquisarNomeTransporte.TextChanged += PesquisarNomeTransporte_TextChanged;
             // 
@@ -2313,7 +2313,7 @@
             ListaTransportes.ItemHeight = 25;
             ListaTransportes.Location = new Point(21, 127);
             ListaTransportes.Name = "ListaTransportes";
-            ListaTransportes.Size = new Size(392, 379);
+            ListaTransportes.Size = new Size(375, 379);
             ListaTransportes.TabIndex = 38;
             ListaTransportes.SelectedIndexChanged += ListaTransportes_SelectedIndexChanged_1;
             // 
