@@ -862,7 +862,8 @@ namespace AgroTrack
                         Entrega = DateTime.Parse(reader["DataEntrega"].ToString()),
                         RetalhistaEmpresaId = (int)reader["RetalhistaEmpresaId"],
                         EmpresaDeTransportesId = (int)reader["EmpresaDeTransportesId"],
-                        QuintaEmpresaId = (int)reader["QuintaEmpresaId"]
+                        QuintaEmpresaId = (int)reader["QuintaEmpresaId"],
+
                     };
 
                     Encomenda.Items.Add(Enc);
@@ -3201,7 +3202,7 @@ namespace AgroTrack
                 quintaId = selectedQuinta.Id_Quinta;
             }
 
-            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, PrecoTotal
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, PrecoTotal, NomeQuinta, NomeTransportes
                      FROM AgroTrack.EmpresaEncomenda 
                      WHERE Retalhista_Empresa_Id_Empresa = @Empresa_Id_Empresa 
                      AND Entrega <= @DataLimite";
@@ -3246,7 +3247,10 @@ namespace AgroTrack
                         RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
                         EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
                         QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"],
-                        Preco = reader["PrecoTotal"] != DBNull.Value ? (double)reader["PrecoTotal"] : 0.0
+                        Preco = reader["PrecoTotal"] != DBNull.Value ? (double)reader["PrecoTotal"] : 0.0,
+                        QuintaNome = reader["NomeQuinta"].ToString(),
+                        TransportesNome = reader["NomeTransportes"].ToString(),
+                        RetalhistaNome = reader["Nome"].ToString(),
                     };
 
                     EncomendasRealizadas.Items.Add(Order);
@@ -3282,7 +3286,7 @@ namespace AgroTrack
                 quintaId = selectedQuinta.Id_Quinta;
             }
 
-            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id 
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, NomeQuinta, NomeTransportes
                      FROM AgroTrack.EmpresaEncomenda 
                      WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa 
                      AND Entrega <= @DataLimite";
@@ -3325,7 +3329,10 @@ namespace AgroTrack
                         Entrega = DateTime.Parse(reader["Entrega"].ToString()),
                         RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
                         EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
-                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
+                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"],
+                        QuintaNome = reader["NomeQuinta"].ToString(),
+                        TransportesNome = reader["NomeTransportes"].ToString(),
+                        RetalhistaNome = reader["Nome"].ToString(),
                     };
 
                     EncomendasEntrega.Items.Add(Order);
@@ -3397,7 +3404,7 @@ namespace AgroTrack
         //filtrar por transpotes retalhistas
         private void FiltrarTransporteRetalhistas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+            DateTime dataSelecionada = DataRetalhistasEncomenda.Value.Date;
             DateTime dataAtual = DateTime.Now.Date;
 
             // Verifica se a data selecionada é diferente e maior que a data atual
@@ -5167,49 +5174,37 @@ namespace AgroTrack
         public event Action LoadQuintaCompleted;
         private void AtualizarQuantidadeNoBancoDeDados(int idProduto, int novaQuantidade)
         {
-            string query = "UPDATE AgroTrack.QuintaProduto SET Quantidade = @NovaQuantidade WHERE Codigo = @IdProduto";
-            // Abre uma nova conexão usando o bloco using para garantir que será fechada automaticamente
-            using (SqlCommand command = new SqlCommand(query, cn))
+            int IdQuinta = (ListaQuintas.SelectedItem as Quinta).Id_Quinta;
+
+            // Ensure the connection is open
+            if (cn.State != ConnectionState.Open)
             {
-                // Adiciona os parâmetros ao comando
+                cn.Open(); // Open the connection before executing the command
+            }
+
+            using (SqlCommand cmd = new SqlCommand("AgroTrack.AlterarQuantidadeProdutoQuinta", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 try
                 {
-                    command.Parameters.Add(new SqlParameter("@NovaQuantidade", novaQuantidade));
-                    command.Parameters.Add(new SqlParameter("@IdProduto", idProduto));
+                    cmd.Parameters.Add(new SqlParameter("@NovaQuantidade", novaQuantidade));
+                    cmd.Parameters.Add(new SqlParameter("@IdProduto", idProduto));
+                    cmd.Parameters.Add(new SqlParameter("@QuintaId", IdQuinta));
 
-
-                    command.ExecuteNonQuery();
-                    int idQuinta = (ListaQuintas.SelectedItem as Quinta).Id_Quinta;
+                    cmd.ExecuteNonQuery(); // Execute the stored procedure
                     Quinta selectedQuinta = (Quinta)ListaQuintas.SelectedItem;
 
                     LoadQuinta();
-                    loadProdutosQuinta(selectedQuinta.Empresa_Id_Empresa);
-
-                    void OnQuintasLoaded()
-                    {
-                        foreach (var item in ListaQuintas.Items)
-                        {
-                            if (item is Quinta quinta && quinta.Empresa_Id_Empresa == selectedQuinta.Empresa_Id_Empresa)
-                            {
-                                ListaQuintas.SelectedItem = item;
-                                break;
-                            }
-                        }
-                    }
-
-                    this.LoadQuintaCompleted += OnQuintasLoaded;
-
+                    loadProdutosQuinta(selectedQuinta.Empresa_Id_Empresa); // Refresh data after update
                 }
                 catch (Exception ex)
                 {
-                    // Fecha a conexão se estiver aberta
-                    if (cn.State == ConnectionState.Open)
-                    {
-                        cn.Close();
-                    }
+                    MessageBox.Show("Failed to update quantity in the database: " + ex.Message);
                 }
             }
         }
+
 
         private void AlterarDataEncomenda_Click(object sender, EventArgs e)
         {
@@ -5361,7 +5356,7 @@ namespace AgroTrack
                 quintaId = selectedQuinta.Id_Quinta;
             }
 
-            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, PrecoTotal
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, PrecoTotal, NomeTransportes, NomeQuinta
                      FROM AgroTrack.EmpresaEncomenda 
                      WHERE Retalhista_Empresa_Id_Empresa = @Empresa_Id_Empresa";
 
@@ -5404,7 +5399,10 @@ namespace AgroTrack
                         RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
                         EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
                         QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"],
-                        Preco = reader["PrecoTotal"] != DBNull.Value ? (double)reader["PrecoTotal"] : 0.0
+                        Preco = reader["PrecoTotal"] != DBNull.Value ? (double)reader["PrecoTotal"] : 0.0,
+                        QuintaNome = reader["NomeQuinta"].ToString(),
+                        TransportesNome = reader["NomeTransportes"].ToString(),
+                        RetalhistaNome = reader["Nome"].ToString(),
                     };
 
                     EncomendasRealizadas.Items.Add(order);
@@ -5432,7 +5430,7 @@ namespace AgroTrack
                 quintaId = selectedQuinta.Id_Quinta;
             }
 
-            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id 
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, NomeTransportes, NomeQuinta
                      FROM AgroTrack.EmpresaEncomenda 
                      WHERE Empresa_De_Transportes_Id_Empresa = @Empresa_Id_Empresa";
 
@@ -5473,7 +5471,10 @@ namespace AgroTrack
                         Entrega = DateTime.Parse(reader["Entrega"].ToString()),
                         RetalhistaEmpresaId = (int)reader["Retalhista_Empresa_Id_Empresa"],
                         EmpresaDeTransportesId = (int)reader["Empresa_De_Transportes_Id_Empresa"],
-                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"]
+                        QuintaEmpresaId = (int)reader["Quinta_Empresa_Id"],
+                        QuintaNome = reader["NomeQuinta"].ToString(),
+                        TransportesNome = reader["NomeTransportes"].ToString(),
+                        RetalhistaNome = reader["Nome"].ToString(),
                     };
 
                     EncomendasEntrega.Items.Add(order);
@@ -5491,23 +5492,17 @@ namespace AgroTrack
 
         private void DataRetalhistasEncomenda_ValueChanged(object sender, EventArgs e)
         {
-            DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
-            DateTime dataAtual = DateTime.Now.Date;
-
-            // Verifica se a data selecionada é diferente e maior que a data atual
             if (ListaRetalhistas.SelectedItem is Retalhista selectedRetalhista)
             {
-                if (dataSelecionada > dataAtual)
+                if (DataRetalhistasEncomenda.Value.Date > DateTime.Now.Date)
                 {
-                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa, dataSelecionada);
-
+                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa, DataRetalhistasEncomenda.Value.Date);
                 }
                 else
                 {
-                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa);
+                    LoadEncomendasRealizadas(selectedRetalhista.Empresa_Id_Empresa); // Carrega sem filtro de data
                 }
             }
-
         }
 
         private void PrazoEncomendaRetalhista_Click(object sender, EventArgs e)

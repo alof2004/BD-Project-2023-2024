@@ -1983,11 +1983,12 @@
             // 
             // ItemsEncomendaTransportes
             // 
+            ItemsEncomendaTransportes.Font = new Font("Segoe MDL2 Assets", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ItemsEncomendaTransportes.FormattingEnabled = true;
-            ItemsEncomendaTransportes.ItemHeight = 25;
+            ItemsEncomendaTransportes.ItemHeight = 18;
             ItemsEncomendaTransportes.Location = new Point(452, 388);
             ItemsEncomendaTransportes.Name = "ItemsEncomendaTransportes";
-            ItemsEncomendaTransportes.Size = new Size(629, 79);
+            ItemsEncomendaTransportes.Size = new Size(629, 76);
             ItemsEncomendaTransportes.TabIndex = 98;
             ItemsEncomendaTransportes.SelectedIndexChanged += ItemsEncomendaTransportes_SelectedIndexChanged;
             // 
@@ -2198,11 +2199,14 @@
             // 
             // EncomendasEntrega
             // 
+            EncomendasEntrega.Font = new Font("Segoe MDL2 Assets", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             EncomendasEntrega.FormattingEnabled = true;
-            EncomendasEntrega.ItemHeight = 25;
+            EncomendasEntrega.HorizontalExtent = 2000;
+            EncomendasEntrega.HorizontalScrollbar = true;
+            EncomendasEntrega.ItemHeight = 18;
             EncomendasEntrega.Location = new Point(452, 312);
             EncomendasEntrega.Name = "EncomendasEntrega";
-            EncomendasEntrega.Size = new Size(629, 79);
+            EncomendasEntrega.Size = new Size(629, 76);
             EncomendasEntrega.TabIndex = 51;
             EncomendasEntrega.SelectedIndexChanged += EncomendasEntrega_SelectedIndexChanged;
             // 
@@ -2425,7 +2429,7 @@
             DataRetalhistaEncoemndabOX.FormattingEnabled = true;
             DataRetalhistaEncoemndabOX.Location = new Point(532, 170);
             DataRetalhistaEncoemndabOX.Name = "DataRetalhistaEncoemndabOX";
-            DataRetalhistaEncoemndabOX.Size = new Size(617, 33);
+            DataRetalhistaEncoemndabOX.Size = new Size(596, 33);
             DataRetalhistaEncoemndabOX.TabIndex = 93;
             // 
             // ConfirmarRetalhistaEncoemnda
@@ -2617,6 +2621,8 @@
             // 
             EncomendasRealizadas.Font = new Font("Segoe Fluent Icons", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             EncomendasRealizadas.FormattingEnabled = true;
+            EncomendasRealizadas.HorizontalExtent = 2000;
+            EncomendasRealizadas.HorizontalScrollbar = true;
             EncomendasRealizadas.ItemHeight = 20;
             EncomendasRealizadas.Location = new Point(376, 236);
             EncomendasRealizadas.Name = "EncomendasRealizadas";
