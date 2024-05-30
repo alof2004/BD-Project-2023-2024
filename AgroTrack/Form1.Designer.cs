@@ -1195,7 +1195,7 @@
             // 
             // AgricultorContacto
             // 
-            AgricultorContacto.Location = new Point(474, 92);
+            AgricultorContacto.Location = new Point(487, 92);
             AgricultorContacto.Name = "AgricultorContacto";
             AgricultorContacto.Size = new Size(322, 31);
             AgricultorContacto.TabIndex = 21;
@@ -2366,7 +2366,7 @@
             ItemsEncomenda.ItemHeight = 20;
             ItemsEncomenda.Location = new Point(376, 382);
             ItemsEncomenda.Name = "ItemsEncomenda";
-            ItemsEncomenda.Size = new Size(752, 164);
+            ItemsEncomenda.Size = new Size(765, 164);
             ItemsEncomenda.TabIndex = 97;
             // 
             // EncomendaListaProdutos
@@ -2423,7 +2423,7 @@
             // DataRetalhistaEncoemndabOX
             // 
             DataRetalhistaEncoemndabOX.FormattingEnabled = true;
-            DataRetalhistaEncoemndabOX.Location = new Point(518, 172);
+            DataRetalhistaEncoemndabOX.Location = new Point(532, 170);
             DataRetalhistaEncoemndabOX.Name = "DataRetalhistaEncoemndabOX";
             DataRetalhistaEncoemndabOX.Size = new Size(617, 33);
             DataRetalhistaEncoemndabOX.TabIndex = 93;
@@ -2505,7 +2505,7 @@
             // 
             // ConfirmarRetalhista
             // 
-            ConfirmarRetalhista.Location = new Point(420, 187);
+            ConfirmarRetalhista.Location = new Point(420, 194);
             ConfirmarRetalhista.Name = "ConfirmarRetalhista";
             ConfirmarRetalhista.Size = new Size(715, 34);
             ConfirmarRetalhista.TabIndex = 65;
@@ -2620,13 +2620,13 @@
             EncomendasRealizadas.ItemHeight = 20;
             EncomendasRealizadas.Location = new Point(376, 236);
             EncomendasRealizadas.Name = "EncomendasRealizadas";
-            EncomendasRealizadas.Size = new Size(755, 124);
+            EncomendasRealizadas.Size = new Size(765, 124);
             EncomendasRealizadas.TabIndex = 51;
             EncomendasRealizadas.SelectedIndexChanged += EncomendasRealizadas_SelectedIndexChanged;
             // 
             // RetalhistasTipo
             // 
-            RetalhistasTipo.Location = new Point(598, 192);
+            RetalhistasTipo.Location = new Point(600, 183);
             RetalhistasTipo.Name = "RetalhistasTipo";
             RetalhistasTipo.Size = new Size(521, 31);
             RetalhistasTipo.TabIndex = 50;
