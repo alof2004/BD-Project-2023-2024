@@ -680,7 +680,7 @@ namespace AgroTrack
                             Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                             Codigo = (int)reader["Codigo"],
                             Preco = (double)reader["Preco"],
-                            Taxa_de_iva = (double)reader["Taxa_de_iva"],
+                            Taxa_de_iva = reader["Taxa_de_iva"].ToString(),
                             Unidade_medida = reader["Unidade_medida"].ToString(),
                         };
 
@@ -1472,7 +1472,7 @@ namespace AgroTrack
                             Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                             Codigo = codigo,
                             Preco = (double)reader["Preco"],
-                            Taxa_de_iva = (double)reader["Taxa_de_iva"],
+                            Taxa_de_iva = reader["Taxa_de_iva"].ToString(),
                             Unidade_medida = reader["Unidade_medida"].ToString(),
                         };
 
@@ -1750,7 +1750,7 @@ namespace AgroTrack
                         Tipo_de_Produto = reader["Tipo_de_Produto"].ToString(),
                         Codigo = (int)reader["Codigo"],
                         Preco = (double)reader["Preco"],
-                        Taxa_de_iva = (double)reader["Taxa_de_iva"],
+                        Taxa_de_iva = reader["Taxa_de_iva"].ToString(),
                         Unidade_medida = reader["Unidade_medida"].ToString(),
                     };
                     ListaProdutos.Items.Add(product);
@@ -1782,8 +1782,7 @@ namespace AgroTrack
                 try
                 {
                     double preco = double.Parse(ProdutoPrecoBox.Text);
-                    double iva = double.Parse(ProdutoIvaBox.SelectedItem.ToString());
-                    AddProduto(ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, iva, TipoAdicionarBox.Text, preco);
+                    AddProduto(ProdutoAdicionarBox.Text, UnidadeAdicionarBox.Text, ProdutoIvaBox.Text, TipoAdicionarBox.Text, preco);
                 }
                 catch (Exception ex)
                 {
@@ -1826,13 +1825,15 @@ namespace AgroTrack
                     ProdutoIva.Show();
                     ProdutoUnidade.Show();
                     ProdutoDisponivel.Show();
+                    ProdutoQuantidade.Show();
+
                     ListaProdutos.Items.Clear();
                     LoadProdutos();
                 }
             }
         }
 
-        private void AddProduto(string ProdutoNome, string unidademedidaValue, double IvaValue, string tipo, double preco)
+        private void AddProduto(string ProdutoNome, string unidademedidaValue, string IvaValue, string tipo, double preco)
         {
             try
             {
@@ -2070,6 +2071,7 @@ namespace AgroTrack
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
+               
             }
         }
 
@@ -2088,19 +2090,18 @@ namespace AgroTrack
                 RetalhistasMorada.Text = selectedretalho.Morada;
                 RetalhistasContacto.Text = selectedretalho.Contacto.ToString();
 
-                DateTime dataSelecionada = DataEncomendaTransportes.Value.Date;
+                DateTime dataSelecionada = DataRetalhistasEncomenda.Value.Date;
                 DateTime dataAtual = DateTime.Now.Date;
 
                 // Verifica se a data selecionada é diferente e maior que a data atual
                 if (dataSelecionada > dataAtual)
                 {
-                    LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, DataRetalhistasEncomenda.Value);
+                    LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa, dataSelecionada);
                 }
                 else
                 {
                     LoadEncomendasRealizadas(selectedretalho.Empresa_Id_Empresa);
                 }
-
             }
         }
 
