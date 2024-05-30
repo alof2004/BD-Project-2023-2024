@@ -30,7 +30,7 @@ namespace AgroTrack
 
         public override string ToString()
         {
-            return $"ID: {Codigo}, Morada: {MoradaEntrega}, Prazo de Entrega: {PrazoEntrega} dias ";
+            return $"ID:{Codigo}, Morada:{MoradaEntrega}, PrazoEntrega:{PrazoEntrega} dias ";
         }
     }
 }

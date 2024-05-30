@@ -140,15 +140,13 @@ BEGIN
     BEGIN TRY;
     SELECT @PessoaId = N_CartaoCidadao FROM AgroTrack_Pessoa WHERE N_CartaoCidadao = @N_CartaoCidadao;
 
-    -- Insere o contrato na tabela AgroTrack_Contrato
-    SELECT @ContratoID = ISNULL(MAX(ID), 0) + 1 FROM AgroTrack_Contrato;
-    INSERT INTO AgroTrack_Contrato ([Date_str], [Date_end], Descricao, Salario, ID, Agricultor_Pessoa_N_CartaoCidadao)
-    VALUES (@ContractStartDate, @ContractEndDate, @DescricaoContrato, @Salario, @ContratoID, @PessoaId);
-
-    -- Insere o agricultor na quinta
     SELECT @IDAgricultor = ISNULL(MAX(Id_Trabalhador), 0) + 1 FROM AgroTrack_Agricultor WHERE Quinta_Empresa_Id_Empresa = @QuintaId;
     INSERT INTO AgroTrack_Agricultor (Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa)
     VALUES (@IDAgricultor, @PessoaId, @QuintaId);
+
+    SELECT @ContratoID = ISNULL(MAX(ID), 0) + 1 FROM AgroTrack_Contrato;
+    INSERT INTO AgroTrack_Contrato ([Date_str], [Date_end], Descricao, Salario, ID, Agricultor_Pessoa_N_CartaoCidadao)
+    VALUES (@ContractStartDate, @ContractEndDate, @DescricaoContrato, @Salario, @ContratoID, @PessoaId);
 
     PRINT 'Novo agricultor adicionado à Quinta com sucesso.';
     COMMIT TRANSACTION;
@@ -941,9 +939,6 @@ BEGIN
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
-
-
-
 
 IF OBJECT_ID('AgroTrack.ApagarTransporte', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.ApagarTransporte;

@@ -2969,7 +2969,8 @@ namespace AgroTrack
             {
                 try
                 {
-                    AddCompra((AddCompraCliente.SelectedItem as Cliente).Pessoa_N_CartaoCidadao, (AddCompraProduto.SelectedItem as ProdutosOnlyNameMedida).Id_Produto, (AddCompraQuinta.SelectedItem as QuintaOnlyName).Id_Quinta, int.Parse(AddCompraQuantidade.Text), AddCompraMetodo.Text, AddCompraData.Value);
+                    DateTime dataCompra = AddCompraData.Value;
+                    AddCompra((AddCompraCliente.SelectedItem as Cliente).Pessoa_N_CartaoCidadao, (AddCompraProduto.SelectedItem as ProdutosOnlyNameMedida).Id_Produto, (AddCompraQuinta.SelectedItem as QuintaOnlyName).Id_Quinta, int.Parse(AddCompraQuantidade.Text), AddCompraMetodo.Text, dataCompra);
                 }
                 catch (Exception ex)
                 {
@@ -4206,7 +4207,7 @@ namespace AgroTrack
                     ConfirmarRetalhista.Hide();
                     TipoDeEmpresaRetalhista.Show();
                     AdicionarRetalhistas.Show();
-
+                    RetalhistasTipo.Show();
 
                     RetalhistasNome.ReadOnly = true;
                     RetalhistasMorada.ReadOnly = true;

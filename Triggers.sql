@@ -29,9 +29,9 @@ BEGIN
                    AND ac.Cliente_Pessoa_N_CartaoCidadao = i.Cliente_Pessoa_N_CartaoCidadao
     JOIN AgroTrack_Produto p ON p.Codigo = i.Produto_codigo;
 END;
-
-IF OBJECT_ID('CalculatePriceOfEncomendaWithItems', 'TR') IS NOT NULL
-    DROP TRIGGER CalculatePriceOfEncomendaWithItems;
+GO
+IF OBJECT_ID('AgroTrack_CalculatePriceOfEncomendaWithItems', 'TR') IS NOT NULL
+    DROP TRIGGER AgroTrack_CalculatePriceOfEncomendaWithItems;
 GO
 CREATE TRIGGER AgroTrack_CalculatePriceOfEncomendaWithItems
 ON AgroTrack_Item
@@ -135,10 +135,16 @@ BEGIN
     SET Quantidade = Quantidade - @Quantidade
     WHERE Produto_codigo = @ProductCodigo;
 
-    INSERT INTO AgroTrack_Compra (Produto_codigo, Cliente_Pessoa_N_CartaoCidadao, Quantidade)
-    SELECT Produto_codigo, Cliente_Pessoa_N_CartaoCidadao, Quantidade
+    INSERT INTO AgroTrack_Compra (Produto_codigo,
+            Cliente_Pessoa_N_CartaoCidadao,
+            ID_Quinta,
+            Quantidade,
+            DataCompra,
+            Metodo_de_pagamento)
+    SELECT Produto_codigo, Cliente_Pessoa_N_CartaoCidadao, ID_Quinta, Quantidade, DataCompra, Metodo_de_pagamento
     FROM inserted;
 END;
+GO
 IF OBJECT_ID('AgroTrack_AddDataEntrega', 'TR') IS NOT NULL
     DROP TRIGGER AgroTrack_AddDataEntrega;
 GO

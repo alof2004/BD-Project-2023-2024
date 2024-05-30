@@ -11,16 +11,20 @@
       "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|c:\\users\\afonso\\onedrive - universidade de aveiro\\desktop\\bd-project\\agrotrack\\encomendarretalhista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:encomendarretalhista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\produtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:produtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\produtosonlynamemedida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:produtosonlynamemedida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\produtosquinta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:produtosquinta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\produtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|solutionrelative:produtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9C69C68F-4BFD-4444-A75F-4ABCF7704EAB}|AgroTrack.csproj|C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\produtosonlyname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -85,11 +89,11 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Animal.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Animal.cs",
               "RelativeDocumentMoniker": "Animal.cs",
@@ -109,10 +113,23 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAIYLAAAAAAAAAADgv4ILAAAiAAAA",
+              "ViewState": "AQIAAGAQAAAAAAAAAAAswG8QAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-20T12:46:09.386Z",
               "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EncomendaRRetalhista.cs",
+              "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\EncomendaRRetalhista.cs",
+              "RelativeDocumentMoniker": "EncomendaRRetalhista.cs",
+              "ToolTip": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\EncomendaRRetalhista.cs",
+              "RelativeToolTip": "EncomendaRRetalhista.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAowCAAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T00:33:03.936Z",
               "EditorCaption": ""
             },
             {
@@ -129,7 +146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ProdutosOnlyName.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\ProdutosOnlyName.cs",
               "RelativeDocumentMoniker": "ProdutosOnlyName.cs",
@@ -142,7 +159,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Produtos.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Produtos.cs",
               "RelativeDocumentMoniker": "Produtos.cs",
@@ -155,7 +172,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ProdutosOnlyNameMedida.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\ProdutosOnlyNameMedida.cs",
               "RelativeDocumentMoniker": "ProdutosOnlyNameMedida.cs",
@@ -168,7 +185,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "ProdutosQuinta.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\ProdutosQuinta.cs",
               "RelativeDocumentMoniker": "ProdutosQuinta.cs",
@@ -181,7 +198,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Quinta.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Quinta.cs",
               "RelativeDocumentMoniker": "Quinta.cs",
@@ -193,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Agricultores.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Agricultores.cs",
               "RelativeDocumentMoniker": "Agricultores.cs",
@@ -205,7 +222,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "Form1.Designer.cs",
@@ -218,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Encomenda.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Encomenda.cs",
               "RelativeDocumentMoniker": "Encomenda.cs",
@@ -230,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Colheita.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Colheita.cs",
               "RelativeDocumentMoniker": "Colheita.cs",
@@ -242,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Compra.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Compra.cs",
               "RelativeDocumentMoniker": "Compra.cs",
@@ -254,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Cliente.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Cliente.cs",
               "RelativeDocumentMoniker": "Cliente.cs",
@@ -266,7 +283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Contrato.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Contrato.cs",
               "RelativeDocumentMoniker": "Contrato.cs",
@@ -278,7 +295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "AnimalOnlyName.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\AnimalOnlyName.cs",
               "RelativeDocumentMoniker": "AnimalOnlyName.cs",
@@ -290,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Planta.cs",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\Planta.cs",
               "RelativeDocumentMoniker": "Planta.cs",
@@ -302,7 +319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "Form1.resx",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\source\\Projeto\\Form1.resx",
               "RelativeDocumentMoniker": "..\\..\\source\\Projeto\\Form1.resx",
@@ -313,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "AgroTrack.csproj",
               "DocumentMoniker": "C:\\Users\\Afonso\\OneDrive - Universidade de Aveiro\\Desktop\\Bd-Project\\AgroTrack\\AgroTrack.csproj",
               "RelativeDocumentMoniker": "AgroTrack.csproj",
