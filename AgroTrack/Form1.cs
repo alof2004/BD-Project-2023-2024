@@ -3202,7 +3202,7 @@ namespace AgroTrack
                 quintaId = selectedQuinta.Id_Quinta;
             }
 
-            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, PrecoTotal, NomeQuinta, NomeTransporte
+            string query = @"SELECT DISTINCT Nome, Morada, Contacto, Codigo, prazo_entrega, Morada_entrega, Entrega, Retalhista_Empresa_Id_Empresa, Empresa_De_Transportes_Id_Empresa, Quinta_Empresa_Id, PrecoTotal, NomeQuinta, NomeTransportes
                      FROM AgroTrack.EmpresaEncomenda 
                      WHERE Retalhista_Empresa_Id_Empresa = @Empresa_Id_Empresa 
                      AND Entrega <= @DataLimite";
