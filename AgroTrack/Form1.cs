@@ -5174,49 +5174,37 @@ namespace AgroTrack
         public event Action LoadQuintaCompleted;
         private void AtualizarQuantidadeNoBancoDeDados(int idProduto, int novaQuantidade)
         {
-            string query = "UPDATE AgroTrack.QuintaProduto SET Quantidade = @NovaQuantidade WHERE Codigo = @IdProduto";
-            // Abre uma nova conexão usando o bloco using para garantir que será fechada automaticamente
-            using (SqlCommand command = new SqlCommand(query, cn))
+            int IdQuinta = (ListaQuintas.SelectedItem as Quinta).Id_Quinta;
+
+            // Ensure the connection is open
+            if (cn.State != ConnectionState.Open)
             {
-                // Adiciona os parâmetros ao comando
+                cn.Open(); // Open the connection before executing the command
+            }
+
+            using (SqlCommand cmd = new SqlCommand("AgroTrack.AlterarQuantidadeProdutoQuinta", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 try
                 {
-                    command.Parameters.Add(new SqlParameter("@NovaQuantidade", novaQuantidade));
-                    command.Parameters.Add(new SqlParameter("@IdProduto", idProduto));
+                    cmd.Parameters.Add(new SqlParameter("@NovaQuantidade", novaQuantidade));
+                    cmd.Parameters.Add(new SqlParameter("@IdProduto", idProduto));
+                    cmd.Parameters.Add(new SqlParameter("@QuintaId", IdQuinta));
 
-
-                    command.ExecuteNonQuery();
-                    int idQuinta = (ListaQuintas.SelectedItem as Quinta).Id_Quinta;
+                    cmd.ExecuteNonQuery(); // Execute the stored procedure
                     Quinta selectedQuinta = (Quinta)ListaQuintas.SelectedItem;
 
                     LoadQuinta();
-                    loadProdutosQuinta(selectedQuinta.Empresa_Id_Empresa);
-
-                    void OnQuintasLoaded()
-                    {
-                        foreach (var item in ListaQuintas.Items)
-                        {
-                            if (item is Quinta quinta && quinta.Empresa_Id_Empresa == selectedQuinta.Empresa_Id_Empresa)
-                            {
-                                ListaQuintas.SelectedItem = item;
-                                break;
-                            }
-                        }
-                    }
-
-                    this.LoadQuintaCompleted += OnQuintasLoaded;
-
+                    loadProdutosQuinta(selectedQuinta.Empresa_Id_Empresa); // Refresh data after update
                 }
                 catch (Exception ex)
                 {
-                    // Fecha a conexão se estiver aberta
-                    if (cn.State == ConnectionState.Open)
-                    {
-                        cn.Close();
-                    }
+                    MessageBox.Show("Failed to update quantity in the database: " + ex.Message);
                 }
             }
         }
+
 
         private void AlterarDataEncomenda_Click(object sender, EventArgs e)
         {

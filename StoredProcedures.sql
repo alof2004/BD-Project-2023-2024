@@ -1491,3 +1491,38 @@ BEGIN
     END CATCH;
 END;
 GO
+IF OBJECT_ID('AgroTrack.AlterarQuantidadeProdutoQuinta', 'P') IS NOT NULL
+    DROP PROCEDURE AgroTrack.AlterarQuantidadeProdutoQuinta;
+GO
+CREATE PROCEDURE AgroTrack.AlterarQuantidadeProdutoQuinta
+    @IdProduto INT,
+    @QuintaId INT,
+    @NovaQuantidade INT
+AS
+BEGIN
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        UPDATE AgroTrack_Contem
+        SET Quantidade = @NovaQuantidade
+        WHERE Produto_Codigo = @IdProduto AND Quinta_Empresa_Id_Empresa = @QuintaId;
+
+        COMMIT TRANSACTION;
+
+        PRINT 'Quantidade do produto alterada com sucesso.';
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
