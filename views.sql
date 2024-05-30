@@ -20,9 +20,10 @@ go
 --Agricultores e quintas - info dos agricultores e a que quintas pertecem 
 drop view IF EXISTS AgroTrack.AgriculQuinta
 go
-create view AgroTrack.AgricultoresQuintas as
-	select A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao, A.Quinta_Empresa_Id_Empresa, Q.Nome as NomeQuinta, Q.Morada, Q.Contacto
-	from  (AgroTrack_Agricultor as A join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa)
+create view AgroTrack.drop view IF EXISTS AgroTrack.AgriculQuinta
+ as
+	select A.Id_Trabalhador, A.Pessoa_N_CartaoCidadao, A.Quinta_Empresa_Id_Empresa, E.Nome as NomeQuinta, E.Morada, Q.Empresa_Id_Empresa, P.Nome, P.Contacto
+	from  (AgroTrack_Agricultor as A join AgroTrack_Pessoa as P On A.Pessoa_N_CartaoCidadao=P.N_CartaoCidadao join AgroTrack_Quinta as Q on A.Quinta_Empresa_Id_Empresa=Q.Empresa_Id_Empresa join AgroTrack_Empresa as E on Q.Empresa_Id_Empresa=E.Id_Empresa)
 
 --Animais e Quinta e tipo de animal
 drop view IF EXISTS AgroTrack.AnimaisQuinta
