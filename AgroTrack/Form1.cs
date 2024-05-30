@@ -4517,6 +4517,7 @@ namespace AgroTrack
             label3.Hide();
             label13.Hide();
             AdicionarQuinta.Hide();
+            AlterarQuantidadeQuinta.Hide();
 
             AddPlantaLote.Show();
             AddPlantaLote.Text = "";
