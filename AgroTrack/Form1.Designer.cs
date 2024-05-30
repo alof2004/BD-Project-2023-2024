@@ -1505,6 +1505,7 @@
             // AddProdutoToQuintaQuantidade
             // 
             AddProdutoToQuintaQuantidade.Location = new Point(147, 176);
+            AddProdutoToQuintaQuantidade.Maximum = new decimal(new int[] { 276447232, 23283, 0, 0 });
             AddProdutoToQuintaQuantidade.Name = "AddProdutoToQuintaQuantidade";
             AddProdutoToQuintaQuantidade.Size = new Size(232, 31);
             AddProdutoToQuintaQuantidade.TabIndex = 57;
