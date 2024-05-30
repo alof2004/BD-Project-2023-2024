@@ -13,14 +13,6 @@ IF OBJECT_ID('AgroTrack.AddRetalhista', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.AddRetalhista;
 GO
 
-IF OBJECT_ID('AgroTrack.ApagarTransporte', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.ApagarTransporte;
-GO
-
-IF OBJECT_ID('AgroTrack.ApagarRetalhista', 'P') IS NOT NULL
-    DROP PROCEDURE AgroTrack.ApagarRetalhista;
-GO
-
 
 IF OBJECT_ID('AgroTrack.ApagarProduto', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.ApagarProduto;
@@ -720,13 +712,13 @@ BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Delete the Cliente from the AgroTrack_Cliente table
-        DELETE FROM AgroTrack_Cliente
-        WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
-
         -- Delete the Cliente from the AgroTrack_Compra table
         DELETE FROM AgroTrack_Compra
         WHERE Cliente_Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
+        
+        -- Delete the Cliente from the AgroTrack_Cliente table
+        DELETE FROM AgroTrack_Cliente
+        WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
 
         -- Delete the Cliente from the AgroTrack_Pessoa table
         DELETE FROM AgroTrack_Pessoa
@@ -912,8 +904,8 @@ BEGIN
             @Contacto,
             'Empresa de Transportes'
         );
-        Insert into AgroTrack_Empresa_De_Transportes (Empresa_Id_Empresa,Nome)
-        VALUES (@Id_Empresa,@Nome);
+        Insert into AgroTrack_Empresa_De_Transportes (Empresa_Id_Empresa)
+        VALUES (@Id_Empresa);
 
 
         -- Commit the transaction

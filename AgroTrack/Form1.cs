@@ -3600,6 +3600,7 @@ namespace AgroTrack
 
 
             ConfirmarEncomenda.Show();
+            ItemsEncomendaTransportes.Items.Clear();
         }
 
         private void ConfirmarEncomenda_Click(object sender, EventArgs e)
@@ -4418,7 +4419,7 @@ namespace AgroTrack
 
         private void RemoverTransporte(int TransporteID)
         {
-            using (SqlCommand command = new SqlCommand("AgroTrack.ApagarTransporte", cn) { CommandType = CommandType.StoredProcedure })
+            using (SqlCommand command = new SqlCommand("ApagarTransporte", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@Empresa_Id_Empresa", TransporteID));
                 try
@@ -5083,6 +5084,7 @@ namespace AgroTrack
             }
         }
 
+        int encomendaprivateid;
 
         private void EncomendasEntrega_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -5095,6 +5097,7 @@ namespace AgroTrack
                 DataEntregaInicio.Text = (EncomendasEntrega.SelectedItem as Encomenda).Entrega.ToString();
 
             }
+            encomendaprivateid = encomenda.Codigo;
             LoadEncomendaItemsTransportes(encomenda.Codigo);
         }
 
@@ -5257,6 +5260,8 @@ namespace AgroTrack
                 AtualizarDataEntregaNoBancoDeDados(encomendaSelecionada.Codigo, novaDataEntrega);
 
                 LoadEncomendasEntrega(EMPRESAENTREGAID, DateTime.Now);
+                LoadEncomendaItemsTransportes(encomendaprivateid);
+                
             }
         }
 

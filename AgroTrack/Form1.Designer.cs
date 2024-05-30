@@ -1315,9 +1315,9 @@
             // 
             // Confirmar
             // 
-            Confirmar.Location = new Point(870, 247);
+            Confirmar.Location = new Point(835, 247);
             Confirmar.Name = "Confirmar";
-            Confirmar.Size = new Size(242, 34);
+            Confirmar.Size = new Size(277, 34);
             Confirmar.TabIndex = 78;
             Confirmar.Text = "Confirmar";
             Confirmar.UseVisualStyleBackColor = true;
@@ -1325,17 +1325,17 @@
             // 
             // AlterarNumero
             // 
-            AlterarNumero.Location = new Point(870, 280);
+            AlterarNumero.Location = new Point(835, 280);
             AlterarNumero.Maximum = new decimal(new int[] { -1486618624, 232830643, 0, 0 });
             AlterarNumero.Name = "AlterarNumero";
-            AlterarNumero.Size = new Size(242, 31);
+            AlterarNumero.Size = new Size(277, 31);
             AlterarNumero.TabIndex = 77;
             // 
             // AlterarQuantidadeQuinta
             // 
-            AlterarQuantidadeQuinta.Location = new Point(870, 310);
+            AlterarQuantidadeQuinta.Location = new Point(835, 310);
             AlterarQuantidadeQuinta.Name = "AlterarQuantidadeQuinta";
-            AlterarQuantidadeQuinta.Size = new Size(242, 34);
+            AlterarQuantidadeQuinta.Size = new Size(277, 34);
             AlterarQuantidadeQuinta.TabIndex = 76;
             AlterarQuantidadeQuinta.Text = "Alterar Quantidade";
             AlterarQuantidadeQuinta.UseVisualStyleBackColor = true;
@@ -2381,7 +2381,7 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             EncomendaListaProdutos.DefaultCellStyle = dataGridViewCellStyle1;
-            EncomendaListaProdutos.Location = new Point(19, 377);
+            EncomendaListaProdutos.Location = new Point(19, 340);
             EncomendaListaProdutos.Name = "EncomendaListaProdutos";
             EncomendaListaProdutos.RowHeadersWidth = 20;
             EncomendaListaProdutos.Size = new Size(1116, 209);
