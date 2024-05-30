@@ -2418,6 +2418,7 @@ namespace AgroTrack
             AddColheitaDuracao.Show();
             AddColheitaDuracaoTexto.Show();
             AddColheitaData.Show();
+            AddColheitaData.Value = DateTime.Now;
             AddColheitaDataLabel.Show();
             AddColheitaValidade.Show();
             AddColheitaValidadeLabel.Show();
