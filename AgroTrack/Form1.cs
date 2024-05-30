@@ -407,7 +407,7 @@ namespace AgroTrack
 
         private void loadAgricultores(int empresaId)
         {
-            string query = "SELECT Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa, Empresa_Id_Empresa, Nome, Contacto FROM AgroTrack.AgriculQuinta WHERE Empresa_Id_Empresa = @CodigoQuinta";
+            string query = "SELECT Id_Trabalhador, Pessoa_N_CartaoCidadao, Quinta_Empresa_Id_Empresa, Empresa_Id_Empresa, Nome, Contacto FROM AgroTrack.AgriculQuinta WHERE Quinta_Empresa_Id_Empresa = @CodigoQuinta";
             SqlCommand cmd = new SqlCommand(query, cn);
             cmd.Parameters.AddWithValue("@CodigoQuinta", empresaId);
 
@@ -2410,12 +2410,15 @@ namespace AgroTrack
             AddColheitaListaAgricultores.SelectedIndex = -1;
             AddColheitaProdutosLista.Show();
             AddColheitaProdutosLista.SelectedIndex = -1;
+            AddColheitaQuantidade.Text = "";
+            AddColheitaDuracao.Text = "";
             AddColheitaProduto.Show();
             AddColheitaQuantidade.Show();
             AddColheitaQuantidadeLabel.Show();
             AddColheitaDuracao.Show();
             AddColheitaDuracaoTexto.Show();
             AddColheitaData.Show();
+            AddColheitaData.Value = DateTime.Now;
             AddColheitaDataLabel.Show();
             AddColheitaValidade.Show();
             AddColheitaValidadeLabel.Show();

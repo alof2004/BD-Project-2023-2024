@@ -33,6 +33,7 @@ GO
 IF OBJECT_ID('AgroTrack_CalculatePriceOfEncomendaWithItems', 'TR') IS NOT NULL
     DROP TRIGGER AgroTrack_CalculatePriceOfEncomendaWithItems;
 GO
+
 CREATE TRIGGER AgroTrack_CalculatePriceOfEncomendaWithItems
 ON AgroTrack_Item
 AFTER INSERT
@@ -43,19 +44,32 @@ BEGIN
     DECLARE @EncomendaCodigo INT;
     DECLARE @TotalPrice DECIMAL(10, 2);
 
-    SELECT @EncomendaCodigo = Encomenda_Codigo
+    DECLARE itemCursor CURSOR FOR
+    SELECT DISTINCT Encomenda_Codigo
     FROM inserted;
 
-    SELECT @TotalPrice = SUM(Quantidade * Preco * (1 + Taxa_de_iva))
-    FROM inserted i
-    JOIN AgroTrack_Produto p ON i.ProdutoCodigo = p.Codigo
-    WHERE Encomenda_Codigo = @EncomendaCodigo;
+    OPEN itemCursor;
+    FETCH NEXT FROM itemCursor INTO @EncomendaCodigo;
 
-    UPDATE AgroTrack_Encomenda
-    SET PrecoTotal = ISNULL(PrecoTotal, 0) + @TotalPrice
-    WHERE Codigo = @EncomendaCodigo;
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        SELECT @TotalPrice = SUM(Quantidade * Preco * (1 + Taxa_de_iva))
+        FROM inserted i
+        JOIN AgroTrack_Produto p ON i.ProdutoCodigo = p.Codigo
+        WHERE Encomenda_Codigo = @EncomendaCodigo;
+
+        UPDATE AgroTrack_Encomenda
+        SET PrecoTotal = ISNULL(PrecoTotal, 0) + @TotalPrice
+        WHERE Codigo = @EncomendaCodigo;
+
+        FETCH NEXT FROM itemCursor INTO @EncomendaCodigo;
+    END
+
+    CLOSE itemCursor;
+    DEALLOCATE itemCursor;
 END;
 GO
+
 IF OBJECT_ID('AgroTrack_CheckProductQuantityEncomenda', 'TR') IS NOT NULL
     DROP TRIGGER AgroTrack_CheckProductQuantityEncomenda;
 GO

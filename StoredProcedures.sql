@@ -814,8 +814,8 @@ BEGIN
         CASE 
             WHEN @Order = 'NomeCrescente' THEN 'Nome ASC'
             WHEN @Order = 'NomeDecrescente' THEN 'Nome DESC'
-            WHEN @Order = 'IDCrescente' THEN 'Pessoa_N_CartaoCidadao ASC'
-            WHEN @Order = 'IDDecrescente' THEN 'Pessoa_N_CartaoCidadao DESC'
+            WHEN @Order = 'IDCrescente' THEN 'Id_Trabalhador ASC'
+            WHEN @Order = 'IDDecrescente' THEN 'Id_Trabalhador DESC'
             WHEN @Order = 'SalarioCrescente' THEN 'Salario ASC'
             WHEN @Order = 'SalarioDecrescente' THEN 'Salario DESC'
             ELSE 'Nome ASC' -- por default iremos ordenar por nome
