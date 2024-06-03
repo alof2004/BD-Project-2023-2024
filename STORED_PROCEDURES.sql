@@ -39,14 +39,12 @@ AS
 BEGIN
 	DECLARE @NEXTCodigoEmpresa  INT;
 
-    -- Find the maximum ID currently in the AgroTrack_Empresa table
     SELECT @NextCodigoEmpresa = COALESCE(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
 
     INSERT INTO AgroTrack_Empresa (Id_Empresa, Nome, Morada, Contacto, Tipo_De_Empresa)
     VALUES (@NextCodigoEmpresa, @Nome, @Morada, @Contacto, 'Quinta');
-    -- Insert the new Quinta using the next available ID
     INSERT INTO AgroTrack_Quinta (Empresa_Id_Empresa)
-    VALUES (@NextCodigoEmpresa); -- Assuming Empresa_Id_Empresa is the same as 
+    VALUES (@NextCodigoEmpresa); 
 
     PRINT 'New Quinta added successfully.';
 END
@@ -67,7 +65,6 @@ BEGIN
         RETURN;
     END
 
-    -- Insert the new animal into AgroTrack_Quinta_Animal
     INSERT INTO AgroTrack_Quinta_Animal (Empresa_Id_Empresa, Idade, Brinco, Id_Animal)
     VALUES (@Quinta_Id, @Idade, @Brinco, @Id_Animal);
     PRINT 'New animal added to the Quinta successfully.';
@@ -83,14 +80,12 @@ CREATE PROCEDURE AgroTrack.AddPlantaToQuinta
     @QuintaId INT
 AS
 BEGIN
-    -- Verifica se a Quinta existe
     IF @QuintaId IS NULL
     BEGIN
         RAISERROR ('A Quinta com o nome fornecido não existe', 16, 1);
         RETURN;
     END
 
-    -- Insere a nova planta na tabela AgroTrack_Quinta_Planta
     INSERT INTO AgroTrack_Quinta_Planta (Empresa_Id_Empresa, Lote, Id_Planta)
     VALUES (@QuintaId, @Lote, (SELECT Id_planta FROM AgroTrack_Planta WHERE Id_planta = @IdPlanta));
 
@@ -121,7 +116,6 @@ BEGIN
         RETURN;
     END
 
-    -- Verifica se a Quinta existe
     IF @QuintaId IS NULL
     BEGIN
         RAISERROR ('A Quinta com o nome fornecido não existe', 16, 1);
@@ -179,10 +173,8 @@ AS
 BEGIN
     DECLARE @Codigo INT;
     
-    -- Calculate the new Codigo value
     SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Produto;
     
-    -- Insert the new product into the AgroTrack_Produto table
     INSERT INTO AgroTrack_Produto (Codigo, Nome, Tipo_de_Produto, Preco, Taxa_de_iva, Unidade_medida)
     VALUES (@Codigo, @NomeProduto, @Tipo_de_Produto, @Preco, @Taxa_de_iva, @Unidade_medida);
     PRINT 'Novo produto adicionado com sucesso.';
@@ -242,7 +234,6 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        -- Insert the new Encomenda
         INSERT INTO AgroTrack_Encomenda (
             Codigo,
             prazo_entrega,
@@ -265,7 +256,6 @@ BEGIN
         PRINT 'Encomenda added successfully.';
     END TRY
     BEGIN CATCH
-        -- Handle errors
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -292,7 +282,6 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        -- Insert the new Item
         INSERT INTO AgroTrack_Item (
             ProdutoCodigo,
             Quantidade,
@@ -307,7 +296,6 @@ BEGIN
         PRINT 'Item added to Encomenda successfully.';
     END TRY
     BEGIN CATCH
-        -- Handle errors
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -335,11 +323,9 @@ CREATE PROCEDURE AgroTrack.AddColheita
     @Data_de_validade DATE
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Insert into AgroTrack_Colhe
         INSERT INTO AgroTrack_Colhe (
             Agricultor_Pessoa_N_CartaoCidadao,
             Duracao_colheita,
@@ -646,10 +632,8 @@ BEGIN
         PRINT 'Cliente added successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -659,7 +643,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -671,29 +654,23 @@ CREATE PROCEDURE AgroTrack.ApagarCliente
     @Pessoa_N_CartaoCidadao INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Delete the Cliente from the AgroTrack_Compra table
         DELETE FROM AgroTrack_Compra
         WHERE Cliente_Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
         
-        -- Delete the Cliente from the AgroTrack_Cliente table
         DELETE FROM AgroTrack_Cliente
         WHERE Pessoa_N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
 
-        -- Delete the Cliente from the AgroTrack_Pessoa table
         DELETE FROM AgroTrack_Pessoa
         WHERE N_CartaoCidadao = @Pessoa_N_CartaoCidadao;
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Cliente deleted successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
         DECLARE @ErrorMessage NVARCHAR(4000);
@@ -844,15 +821,12 @@ CREATE PROCEDURE AgroTrack.AddEmpresaTransportes
     @Contacto INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
     
-    -- Calculate the new Id_Empresa value
     DECLARE @Id_Empresa INT;
     SELECT @Id_Empresa = ISNULL(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
-        -- Insert into AgroTrack_Empresa
         INSERT INTO AgroTrack_Empresa (
             Id_Empresa,
             Nome,
@@ -871,16 +845,13 @@ BEGIN
         VALUES (@Id_Empresa);
 
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Empresa de Transportes added successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -890,7 +861,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -902,7 +872,6 @@ CREATE PROCEDURE AgroTrack.ApagarTransporte
     @Empresa_Id_Empresa INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
@@ -920,22 +889,18 @@ BEGIN
         DELETE FROM AgroTrack_Empresa_De_Transportes
         WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
 
-        -- Delete the Empresa from the AgroTrack_Empresa table
         DELETE FROM AgroTrack_Empresa
         WHERE Id_Empresa = @Empresa_Id_Empresa;
 
         
         
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Empresa deleted successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -945,7 +910,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -957,7 +921,6 @@ CREATE PROCEDURE AgroTrack.ApagarRetalhista
     @Empresa_Id_Empresa INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
@@ -965,22 +928,18 @@ BEGIN
         DELETE FROM AgroTrack_Retalhistas
         WHERE Empresa_Id_Empresa = @Empresa_Id_Empresa;
 
-        -- Delete the Empresa from the AgroTrack_Empresa table
         DELETE FROM AgroTrack_Empresa
         WHERE Id_Empresa = @Empresa_Id_Empresa;
 
         
         
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Empresa deleted successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -990,7 +949,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -1007,15 +965,12 @@ CREATE PROCEDURE AgroTrack.AddRetalhista
     @Contacto INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
     
-    -- Calculate the new Id_Empresa value
     DECLARE @Id_Empresa INT;
     SELECT @Id_Empresa = ISNULL(MAX(Id_Empresa), 0) + 1 FROM AgroTrack_Empresa;
-        -- Insert into AgroTrack_Empresa
         INSERT INTO AgroTrack_Empresa (
             Id_Empresa,
             Nome,
@@ -1034,16 +989,13 @@ BEGIN
         VALUES (@Id_Empresa);
         
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Retalhista added successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -1053,7 +1005,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
@@ -1182,7 +1133,6 @@ BEGIN
     BEGIN TRY
         DECLARE @Codigo INT;
         SELECT @Codigo = ISNULL(MAX(Codigo), 0) + 1 FROM AgroTrack_Encomenda;
-        -- Insert the new Encomenda
         INSERT INTO AgroTrack_Encomenda (
             Codigo,
             prazo_entrega,
@@ -1203,7 +1153,6 @@ BEGIN
         PRINT 'Encomenda added successfully.';
     END TRY
     BEGIN CATCH
-        -- Handle errors
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -1281,24 +1230,19 @@ CREATE PROCEDURE AgroTrack.ApagarEncomendaTransportes
     @Codigo INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- Delete the Encomenda from the AgroTrack_Encomenda table
         DELETE FROM AgroTrack_Encomenda
         WHERE Codigo = @Codigo;
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Encomenda deleted successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -1308,11 +1252,11 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;
 go
+
 --RemoveEncomenda RETALHISTAS
 IF OBJECT_ID('AgroTrack.ApagarEncomendaRetalhista', 'P') IS NOT NULL
     DROP PROCEDURE AgroTrack.ApagarEncomendaRetalhista;
@@ -1321,7 +1265,6 @@ CREATE PROCEDURE AgroTrack.ApagarEncomendaRetalhista
     @Codigo INT
 AS
 BEGIN
-    -- Start a transaction
     BEGIN TRANSACTION;
 
     BEGIN TRY
@@ -1333,16 +1276,13 @@ BEGIN
         WHERE Codigo = @Codigo;
 
 
-        -- Commit the transaction
         COMMIT TRANSACTION;
 
         PRINT 'Encomenda deleted successfully.';
     END TRY
     BEGIN CATCH
-        -- Rollback the transaction in case of error
         ROLLBACK TRANSACTION;
 
-        -- Get the error details
         DECLARE @ErrorMessage NVARCHAR(4000);
         DECLARE @ErrorSeverity INT;
         DECLARE @ErrorState INT;
@@ -1352,7 +1292,6 @@ BEGIN
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
 
-        -- Raise the error again to propagate it
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;

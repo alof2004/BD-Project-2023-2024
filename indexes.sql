@@ -43,6 +43,9 @@ create index searchContractSalary on AgroTrack_Contrato (Salario);
 create index searchEncomendaCodigo on AgroTrack_Encomenda (Codigo);
 create index searchEncomendaData on AgroTrack_Encomenda (Entrega);
 
+--Criacao de indexes na tabela AgroTrack_Encomenda
+create index searchPessoaNome on AgroTrack_Pessoa (Nome);
+
 
 
 
