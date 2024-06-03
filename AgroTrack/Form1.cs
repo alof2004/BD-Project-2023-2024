@@ -2070,7 +2070,7 @@ namespace AgroTrack
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to retrieve data from database: " + ex.Message);
-               
+
             }
         }
 
@@ -4012,6 +4012,7 @@ namespace AgroTrack
 
         private void AdicionarAnimalPlanta_Click(object sender, EventArgs e)
         {
+            AdicionarQuinta.Hide();
             QuantidadeAgricultores.Hide();
             FiltrarPorProdutoQuinta.Hide();
             FilterByPlantQuinta.Hide();
@@ -4094,6 +4095,7 @@ namespace AgroTrack
                     AddAnimalSubmeter.Hide();
                     label48.Show();
                     label49.Show();
+                    AdicionarQuinta.Show();
                     label41.Show();
                     label47.Show();
                     label4.Show();
@@ -5251,7 +5253,7 @@ namespace AgroTrack
 
                 LoadEncomendasEntrega(EMPRESAENTREGAID, DateTime.Now);
                 LoadEncomendaItemsTransportes(encomendaprivateid);
-                
+
             }
         }
 
@@ -5525,6 +5527,11 @@ namespace AgroTrack
         }
 
         private void ListaCompras_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddPlantaIDLabel_Click(object sender, EventArgs e)
         {
 
         }

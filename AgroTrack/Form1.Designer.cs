@@ -1348,7 +1348,7 @@
             // 
             // AddPlantaSubmeter
             // 
-            AddPlantaSubmeter.Location = new Point(622, 409);
+            AddPlantaSubmeter.Location = new Point(622, 372);
             AddPlantaSubmeter.Name = "AddPlantaSubmeter";
             AddPlantaSubmeter.Size = new Size(388, 54);
             AddPlantaSubmeter.TabIndex = 74;
@@ -1358,7 +1358,7 @@
             // 
             // AddPlantaLote
             // 
-            AddPlantaLote.Location = new Point(699, 372);
+            AddPlantaLote.Location = new Point(700, 328);
             AddPlantaLote.Name = "AddPlantaLote";
             AddPlantaLote.Size = new Size(310, 31);
             AddPlantaLote.TabIndex = 73;
@@ -1367,7 +1367,7 @@
             // AddPlantaLoteLabel
             // 
             AddPlantaLoteLabel.AutoSize = true;
-            AddPlantaLoteLabel.Location = new Point(627, 378);
+            AddPlantaLoteLabel.Location = new Point(627, 329);
             AddPlantaLoteLabel.Name = "AddPlantaLoteLabel";
             AddPlantaLoteLabel.Size = new Size(50, 25);
             AddPlantaLoteLabel.TabIndex = 72;
