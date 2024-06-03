@@ -130,8 +130,6 @@
             AddPlantaSubmeter = new Button();
             AddPlantaLote = new TextBox();
             AddPlantaLoteLabel = new Label();
-            AddPlantaEstacaoLabel = new Label();
-            AddPlantaEstacao = new ComboBox();
             AddPlantaIDLabel = new Label();
             AddAnimalSubmeter = new Button();
             AddAnimalBrincoLabel = new Label();
@@ -1236,8 +1234,6 @@
             Quintas.Controls.Add(AddPlantaSubmeter);
             Quintas.Controls.Add(AddPlantaLote);
             Quintas.Controls.Add(AddPlantaLoteLabel);
-            Quintas.Controls.Add(AddPlantaEstacaoLabel);
-            Quintas.Controls.Add(AddPlantaEstacao);
             Quintas.Controls.Add(AddPlantaIDLabel);
             Quintas.Controls.Add(AddAnimalSubmeter);
             Quintas.Controls.Add(AddAnimalBrincoLabel);
@@ -1376,25 +1372,6 @@
             AddPlantaLoteLabel.Size = new Size(50, 25);
             AddPlantaLoteLabel.TabIndex = 72;
             AddPlantaLoteLabel.Text = "Lote:";
-            // 
-            // AddPlantaEstacaoLabel
-            // 
-            AddPlantaEstacaoLabel.AutoSize = true;
-            AddPlantaEstacaoLabel.Location = new Point(617, 329);
-            AddPlantaEstacaoLabel.Name = "AddPlantaEstacaoLabel";
-            AddPlantaEstacaoLabel.Size = new Size(76, 25);
-            AddPlantaEstacaoLabel.TabIndex = 71;
-            AddPlantaEstacaoLabel.Text = "Estação:";
-            // 
-            // AddPlantaEstacao
-            // 
-            AddPlantaEstacao.FormattingEnabled = true;
-            AddPlantaEstacao.Items.AddRange(new object[] { "Primavera", "Verão", "Outono", "Inverno", "Todas" });
-            AddPlantaEstacao.Location = new Point(699, 327);
-            AddPlantaEstacao.Name = "AddPlantaEstacao";
-            AddPlantaEstacao.Size = new Size(310, 33);
-            AddPlantaEstacao.TabIndex = 70;
-            AddPlantaEstacao.Text = "Seleciona uma estação";
             // 
             // AddPlantaIDLabel
             // 

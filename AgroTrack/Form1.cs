@@ -134,8 +134,6 @@ namespace AgroTrack
             AddAnimalQuinta.Hide();
             AddAnimalQuintaLabel.Hide();
             AddAnimalSubmeter.Hide();
-            AddPlantaEstacao.Hide();
-            AddPlantaEstacaoLabel.Hide();
             AddPlantaLote.Hide();
             AddPlantaLoteLabel.Hide();
             AddAnimalID.Hide();
@@ -4016,7 +4014,6 @@ namespace AgroTrack
         {
             QuantidadeAgricultores.Hide();
             FiltrarPorProdutoQuinta.Hide();
-            AddPlantaEstacaoLabel.Hide();
             FilterByPlantQuinta.Hide();
             FilterByAnimalQuinta.Hide();
             AdicionarPlanta.Hide();
@@ -4527,9 +4524,6 @@ namespace AgroTrack
             AddPlantaIDPlanta.Show();
             AddPlantaIDPlanta.SelectedIndex = -1;
             AddPlantaLoteLabel.Show();
-            AddPlantaEstacao.Show();
-            AddPlantaEstacao.SelectedIndex = -1;
-            AddPlantaEstacaoLabel.Show();
             AddPlantaSubmeter.Show();
             AddAnimalQuinta.Show();
             AddAnimalQuinta.SelectedIndex = -1;
@@ -4543,7 +4537,7 @@ namespace AgroTrack
 
         private void AddPlantaSubmeter_Click(object sender, EventArgs e)
         {
-            if (AddPlantaIDPlanta.SelectedIndex == -1 || AddPlantaLote.Text == "" || AddPlantaEstacao.Text == "" || AddAnimalQuinta.SelectedIndex == -1)
+            if (AddPlantaIDPlanta.SelectedIndex == -1 || AddPlantaLote.Text == "" || AddAnimalQuinta.SelectedIndex == -1)
             {
                 MessageBox.Show("Por favor preencha todos os campos!");
             }
@@ -4553,9 +4547,8 @@ namespace AgroTrack
                 {
                     int plantaId = (AddPlantaIDPlanta.SelectedItem as Planta).Id;
                     string lote = AddPlantaLote.Text;
-                    string estacao = AddPlantaEstacao.Text;
                     int quintaId = (AddAnimalQuinta.SelectedItem as Quinta).Id_Quinta;
-                    AddPlantaToQuinta(quintaId, plantaId, lote, estacao);
+                    AddPlantaToQuinta(quintaId, plantaId, lote);
                 }
                 catch (Exception ex)
                 {
@@ -4566,8 +4559,6 @@ namespace AgroTrack
                     AddAnimalID.Hide();
                     AddPlantaLote.Hide();
                     AddPlantaLoteLabel.Hide();
-                    AddPlantaEstacao.Hide();
-                    AddPlantaEstacaoLabel.Hide();
                     AddPlantaSubmeter.Hide();
                     AddAnimalQuinta.Hide();
                     AddAnimalQuintaLabel.Hide();
@@ -4612,14 +4603,13 @@ namespace AgroTrack
             }
         }
 
-        private void AddPlantaToQuinta(int quintaId, int plantaId, string lote, string estacao)
+        private void AddPlantaToQuinta(int quintaId, int plantaId, string lote)
         {
             using (SqlCommand command = new SqlCommand("AgroTrack.AddPlantaToQuinta", cn) { CommandType = CommandType.StoredProcedure })
             {
                 command.Parameters.Add(new SqlParameter("@QuintaId", quintaId));
                 command.Parameters.Add(new SqlParameter("@IdPlanta", plantaId));
                 command.Parameters.Add(new SqlParameter("@Lote", lote));
-                command.Parameters.Add(new SqlParameter("@Estacao", estacao));
                 try
                 {
                     command.ExecuteNonQuery();

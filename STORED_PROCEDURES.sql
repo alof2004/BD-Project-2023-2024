@@ -75,7 +75,6 @@ IF OBJECT_ID('AgroTrack.AddPlantaToQuinta', 'P') IS NOT NULL
 GO
 CREATE PROCEDURE AgroTrack.AddPlantaToQuinta
     @IdPlanta int,
-    @Estacao VARCHAR(32),
     @Lote VARCHAR(32),
     @QuintaId INT
 AS
